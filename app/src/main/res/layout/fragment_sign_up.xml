@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.goddoro.udc.views.auth.AuthViewModel" />
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <ImageButton
+            android:id="@+id/btn_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ripple_effect"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_sign_up_title"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginStart="20dp"
+            android:text="@string/common_sign_up"
+            android:textColor="@color/text_color_1"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:textSize="16dp"
+            app:layout_constraintBottom_toBottomOf="@id/btn_back_arrow"
+            app:layout_constraintStart_toEndOf="@+id/btn_back_arrow"
+            app:layout_constraintTop_toTopOf="@+id/btn_back_arrow" />
+
+        <TextView
+            android:id="@+id/txt_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/common_email"
+            android:textColor="@{vm.signUpEmailPatternOk == true || vm.signUpEmail.length() == 0 ? @color/text_color_1 : @color/colorRed}"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/btn_back_arrow"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back_arrow"
+            tools:textColor="@color/text_color_1" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundColor="@color/white"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/txt_email">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="6dp"
+                android:text="@={vm.signUpEmail}"
+                android:textColor="@color/text_color_1"
+                android:theme="@style/EditTextTheme" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txt_email_pattern_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/txt_email_pattern_error"
+            android:textColor="@color/colorRed"
+            android:textSize="10dp"
+            android:visibility_invisible="@{vm.signUpEmailPatternOk == false &amp;&amp; vm.signUpEmail.length() > 0}"
+            app:layout_constraintTop_toBottomOf="@+id/layout_edit_email" />
+
+        <TextView
+            android:id="@+id/txt_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/common_password"
+            android:textColor="@{vm.signUpEmailPatternOk == true || vm.signUpPassword.length() == 0 ? @color/text_color_1 : @color/colorRed}"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/txt_email"
+            app:layout_constraintTop_toBottomOf="@+id/txt_email_pattern_error"
+            tools:textColor="@color/text_color_1" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundColor="@color/white"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/txt_password">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:padding="6dp"
+                android:text="@={vm.signUpPassword}"
+                android:textColor="@color/text_color_1"
+                android:theme="@style/EditTextTheme" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txt_password_pattern_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:text="@string/txt_password_pattern_error"
+            android:textColor="@color/colorRed"
+            android:textSize="10dp"
+            android:visibility_invisible="@{vm.signUpPasswordPatternOk == false &amp;&amp; vm.signUpPassword.length() > 0}"
+            app:layout_constraintTop_toBottomOf="@+id/layout_edit_password" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_sign_up"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/black"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:letterSpacing="0.0"
+            android:paddingLeft="7dp"
+            android:text="@string/common_sign_up"
+            android:textColor="@color/font3"
+            android:textSize="14dp"
+            android:onDebounceClick="@{() -> vm.onClickSignUp()}"
+            app:cornerRadius="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:rippleColor="@color/white" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</layout>

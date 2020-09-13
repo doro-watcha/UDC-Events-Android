@@ -1,0 +1,69 @@
+package com.goddoro.udc.views.auth
+
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.lifecycle.ViewModelProvider
+import com.goddoro.udc.R
+import com.goddoro.udc.databinding.FragmentLoginBinding
+import com.goddoro.udc.databinding.FragmentSignUpBinding
+import com.goddoro.udc.views.event.EventViewModel
+import dagger.android.support.DaggerFragment
+
+
+/**
+ * created By DORO 2020/09/12
+ */
+
+class SignUpFragment : DaggerFragment() {
+
+    /**
+     * Binding Instance
+     */
+    private lateinit var  mBinding: FragmentSignUpBinding
+
+    /**
+     * ViewModel Instance
+     */
+    private val mViewModel: AuthViewModel by lazy {
+        ViewModelProvider(requireActivity())[AuthViewModel::class.java]
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? = FragmentSignUpBinding.inflate(inflater,container,false).also{mBinding=it}.root
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        mBinding.vm = mViewModel
+        mBinding.lifecycleOwner = viewLifecycleOwner
+
+        initView()
+        observeViewModel()
+    }
+
+    private fun initView() {
+
+        mBinding.apply {
+
+            txtEmail.text = resources.getString(R.string.common_email) + " *"
+            txtPassword.text = resources.getString(R.string.common_password) + " *"
+        }
+    }
+
+    private fun observeViewModel() {
+
+
+
+    }
+
+
+    companion object {
+        fun newInstance() = SignUpFragment()
+    }
+
+}

@@ -1,15 +1,10 @@
 package com.goddoro.udc.di
 
-import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.goddoro.udc.MainActivity
-import com.goddoro.udc.MainViewModel
 import dagger.*
-import dagger.multibindings.IntoMap
 import javax.inject.Inject
 import javax.inject.Provider
-import javax.inject.Singleton
 import kotlin.reflect.KClass
 
 

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="common_email">이메일 주소</string>
+    <string name="common_password">비밀번호</string>
+    <string name="txt_login">로그인</string>
+    <string name="txt_login_naver">네이버로 로그인</string>
+    <string name="txt_find_email">이메일 찾기</string>
+    <string name="txt_find_password">비밀번호 찾기</string>
+    <string name="txt_sign_up_message">아직 가입하지 않으셨나요? 이메일로 가입</string>
+    <string name="txt_email_pattern_error">올바른 이메일 주소를 입력하세요</string>
+    <string name="txt_password_pattern_error">영문,숫자,특수문자를 조합해서 8자리 이상 입력해주세요</string>
+    <string name="common_sign_up">회원가입</string>
+    <string name="common_user_grade">회원 등급</string>
+    <string name="common_point">포인트</string>
+    <string name="txt_profile_tab_1">내 행사</string>
+    <string name="txt_profile_tab_2">참여한 행사</string>
+    <string name="txt_upload_event">행사 등록하기</string>
+    <string name="txt_pick_image">행사 포스터를 골라주세요!</string>
+    <string name="txt_event_title">행사명</string>
+    <string name="txt_event_description">행사 소개</string>
+</resources>

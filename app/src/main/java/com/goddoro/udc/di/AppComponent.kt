@@ -6,12 +6,8 @@ import com.goddoro.udc.di.module.ActivityContributor
 import com.goddoro.udc.di.module.AppModule
 import dagger.BindsInstance
 import dagger.Component
-import dagger.Module
-import dagger.Provides
 import dagger.android.AndroidInjector
 import dagger.android.support.AndroidSupportInjectionModule
-import javax.inject.Inject
-import javax.inject.Scope
 
 
 /**
@@ -33,6 +29,6 @@ interface AppComponent : AndroidInjector<MainApplication> {
         @BindsInstance
         fun app(app: Context) : Builder
 
-        fun build() :AppComponent
+        fun build() : AppComponent
     }
 }

@@ -2,7 +2,8 @@ package com.goddoro.udc.di.module
 
 import com.goddoro.udc.MainActivity
 import com.goddoro.udc.di.ActivityScope
-import com.goddoro.udc.views.login.LoginActivity
+import com.goddoro.udc.views.auth.AuthActivity
+import com.goddoro.udc.views.upload.UploadEventActivity
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
 
@@ -18,7 +19,13 @@ abstract class ActivityContributor {
     @ActivityScope
     abstract fun contributesMainActivity(): MainActivity
 
-    @ContributesAndroidInjector(modules = [LoginActivityModule::class])
+    @ContributesAndroidInjector(modules = [AuthActivityModule::class])
     @ActivityScope
-    abstract fun contributesLoginActivity(): LoginActivity
+    abstract fun contributesLoginActivity(): AuthActivity
+
+    @ContributesAndroidInjector(modules = [UploadEventActivityModule::class])
+    @ActivityScope
+    abstract fun contributesUploadEventActivity(): UploadEventActivity
+
+
 }

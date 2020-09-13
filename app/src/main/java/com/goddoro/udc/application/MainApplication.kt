@@ -1,7 +1,8 @@
 package com.goddoro.udc.application
 
-import android.app.Application
-import com.goddoro.udc.di.*
+import com.goddoro.common.common.NAVER_CLIENT_ID
+import com.goddoro.udc.di.DaggerAppComponent
+import com.naver.maps.map.NaverMapSdk
 import dagger.android.AndroidInjector
 import dagger.android.DaggerApplication
 
@@ -12,6 +13,7 @@ import dagger.android.DaggerApplication
 
 class MainApplication : DaggerApplication() {
 
+
     override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
         return DaggerAppComponent.builder().app(this).build().also {  it.inject(this) }
     }
@@ -19,6 +21,13 @@ class MainApplication : DaggerApplication() {
         super.onCreate()
 
         GlobalApp = this
+
+        NaverMapSdk.getInstance(this).client =
+            NaverMapSdk.NaverCloudPlatformClient(NAVER_CLIENT_ID)
+
+
+
+
 
     }
 

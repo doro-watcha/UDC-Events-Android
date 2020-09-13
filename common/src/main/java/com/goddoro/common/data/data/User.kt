@@ -16,14 +16,8 @@ data class User(
     @PrimaryKey(autoGenerate = false)
     val id: Int,
 
-    @SerializedName("avatarUrl")
-    val avatarUrl: String?,
-
-    @SerializedName("coverUrl")
-    val coverUrl: String?,
-
-    @SerializedName("name")
-    val name: String,
+    @SerializedName("email")
+    val email: String?,
 
     @SerializedName("username")
     val username: String,
@@ -31,15 +25,10 @@ data class User(
     @SerializedName("loginType")
     val loginType: LoginType,
 
-    @SerializedName("email")
-    val email: String?,
+    @SerializedName("isUDC")
+    val isUDC : Boolean,
 
-    @SerializedName("bio")
-    val bio: String?,
+    @SerializedName("avatarUrl")
+    val avatarUrl : String? = null
 
-    @SerializedName("credentials")
-    val credentials: String?,
-
-    @SerializedName("role")
-    val role: String?
 ) : Parcelable

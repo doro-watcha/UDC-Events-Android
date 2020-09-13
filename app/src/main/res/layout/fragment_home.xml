@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.goddoro.udc.views.home.HomeViewModel" />
+    </data>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:descendantFocusability="blocksDescendants"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            tools:context=".udc.UdcActivity">
+
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/mViewPager_blurred"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:overScrollMode="never"
+                app:layout_constraintTop_toTopOf="parent"
+                app:recyclerview_poster_blurred="@{vm.posters}" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:padding="10dp"
+                android:text="UDC"
+                android:textColor="@color/black"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/mViewPager2"
+                android:layout_width="match_parent"
+                android:layout_height="500dp"
+                android:layout_marginTop="56dp"
+                android:fadingEdge="none"
+                android:overScrollMode="never"
+                app:layout_constraintBottom_toBottomOf="@id/mViewPager_blurred"
+                app:layout_constraintTop_toTopOf="parent"
+                app:recyclerview_main_posters="@{vm.posters}" />
+
+            <com.rd.PageIndicatorView
+                android:id="@+id/indicator"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintBottom_toBottomOf="@+id/mViewPager2"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:piv_animationType="drop"
+                app:piv_dynamicCount="true"
+                app:piv_interactiveAnimation="true"
+                app:piv_radius="3dp"
+                app:piv_selectedColor="@color/naverGreen" />
+
+            <Button
+                android:id="@+id/btn_login"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="로그인하러 가자!"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mViewPager2" />
+
+            <Button
+                android:id="@+id/btn_upload_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="행사 업로드하러 가자"
+                app:layout_constraintTop_toTopOf="@id/btn_login"
+                app:layout_constraintStart_toEndOf="@+id/btn_login"/>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_category"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="#fff"
+                app:layout_constraintTop_toBottomOf="@+id/btn_login">
+
+
+                <ImageView
+                    android:id="@+id/img_category_battle"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/sample_image_01"
+                    app:layout_constraintBottom_toTopOf="@+id/txt_category_battle"
+                    app:layout_constraintEnd_toEndOf="@+id/txt_category_battle"
+                    app:layout_constraintStart_toStartOf="@+id/txt_category_battle"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/txt_category_battle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="배틀"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toStartOf="@+id/img_category_performance"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/img_category_battle" />
+
+                <ImageView
+                    android:id="@+id/img_category_performance"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/sample_image_02"
+                    app:layout_constraintEnd_toStartOf="@+id/img_category_workshop"
+                    app:layout_constraintStart_toEndOf="@+id/img_category_battle"
+                    app:layout_constraintTop_toTopOf="@+id/img_category_battle" />
+
+                <TextView
+                    android:id="@+id/txt_category_performance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="공연"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="@+id/img_category_performance"
+                    app:layout_constraintStart_toStartOf="@+id/img_category_performance"
+                    app:layout_constraintTop_toBottomOf="@+id/img_category_performance" />
+
+                <ImageView
+                    android:id="@+id/img_category_workshop"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/sample_image_03"
+                    app:layout_constraintEnd_toStartOf="@+id/img_category_party"
+                    app:layout_constraintStart_toEndOf="@+id/img_category_performance"
+                    app:layout_constraintTop_toTopOf="@+id/img_category_performance" />
+
+                <TextView
+                    android:id="@+id/txt_category_workshop"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="워크샵"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="@+id/img_category_workshop"
+                    app:layout_constraintStart_toStartOf="@+id/img_category_workshop"
+                    app:layout_constraintTop_toBottomOf="@+id/img_category_workshop" />
+
+                <ImageView
+                    android:id="@+id/img_category_party"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@drawable/sample_image_04"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/img_category_workshop"
+                    app:layout_constraintTop_toTopOf="@+id/img_category_workshop" />
+
+                <TextView
+                    android:id="@+id/txt_category_party"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="파티"
+                    android:textColor="#000"
+                    app:layout_constraintEnd_toEndOf="@+id/img_category_party"
+                    app:layout_constraintStart_toStartOf="@+id/img_category_party"
+                    app:layout_constraintTop_toBottomOf="@+id/img_category_party" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txt_title_new_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="New! 스트릿 행사"
+                android:textColor="#000"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_category" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_new_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title_new_event"
+                app:recyclerview_posters="@{vm.newEvents}"
+                tools:itemCount="7"
+                tools:listitem="@layout/item_poster" />
+
+            <TextView
+                android:id="@+id/txt_title_hot_event"
+                android:layout_width="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_height="wrap_content"
+                android:text="Hot! 스트릿 행사"
+                android:textColor="#000"
+                app:layout_constraintEnd_toEndOf="@+id/txt_title_new_event"
+                app:layout_constraintStart_toStartOf="@+id/txt_title_new_event"
+                app:layout_constraintTop_toBottomOf="@+id/list_new_event" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_hot_event"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title_hot_event"
+                tools:itemCount="7"
+                app:recyclerview_posters="@{vm.hotEvents}"
+                tools:listitem="@layout/item_poster"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <TextView
+                android:id="@+id/txt_title_udc_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="UDC 행사"
+                android:textColor="#000"
+                app:layout_constraintStart_toStartOf="@+id/txt_title_hot_event"
+                app:layout_constraintEnd_toEndOf="@+id/txt_title_hot_event"
+                app:layout_constraintTop_toBottomOf="@+id/list_hot_event"/>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_udc_event"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title_udc_event"
+                tools:itemCount="7"
+                app:recyclerview_posters="@{vm.hotEvents}"
+                tools:listitem="@layout/item_poster"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+            <TextView
+                android:id="@+id/txt_staff_pick_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="SunYeop 픽! 스트릿행사"
+                app:layout_constraintTop_toBottomOf="@+id/list_udc_event"
+                app:layout_constraintStart_toStartOf="@+id/txt_title_udc_event"
+                app:layout_constraintEnd_toEndOf="@+id/txt_title_udc_event"/>
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/list_staff_pick_event"
+                android:layout_width="match_parent"
+                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                app:recyclerview_grid_posters="@{vm.staffPickEvents}"
+                android:overScrollMode="never"
+                app:layout_constraintTop_toBottomOf="@+id/txt_staff_pick_event"
+                tools:itemCount="7"
+                tools:listitem="@layout/item_grid_poster"
+                app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </ScrollView>
+
+
+</layout>

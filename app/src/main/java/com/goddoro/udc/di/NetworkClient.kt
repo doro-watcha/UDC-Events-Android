@@ -1,6 +1,7 @@
 package com.goddoro.udc.di
 
 import android.os.Parcelable
+import com.goddoro.common.data.service.AuthService
 import com.goddoro.common.data.service.UserService
 import com.goddoro.udc.util.SPUtil
 import com.google.gson.GsonBuilder
@@ -25,7 +26,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object NetworkClient {
 
-    private const val BASE_URL = "https://api.beatflo.co"
+    private const val BASE_URL = "http://ec2-3-35-4-201.ap-northeast-2.compute.amazonaws.com:3000/"
 
     private val loggingInterceptor = HttpLoggingInterceptor(HttpLoggingInterceptor.Logger.DEFAULT).apply {
         this.level = HttpLoggingInterceptor.Level.BODY
@@ -119,7 +120,8 @@ object NetworkClient {
      * Services
      */
 
-    val userService: UserService = retrofit.create(UserService::class.java)
+    val userService : UserService = retrofit.create(UserService::class.java)
+    val authService : AuthService = retrofit.create(AuthService::class.java)
 
 }
 

@@ -9,21 +9,31 @@ android {
 
     defaultConfig {
         applicationId "com.goddoro.udc"
-        minSdkVersion 26
+        minSdkVersion 24
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
+        renderscriptTargetApi 28 //must match target sdk and build tools
+        renderscriptSupportModeEnabled true
+
+        dataBinding.enabled = true
+
         sourceCompatibility = 1.8
         targetCompatibility = 1.8
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true
+
+        resConfigs "en", "ko"
+        multiDexEnabled true
 
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
             }
         }
+
+
     }
 
     buildTypes {
@@ -36,7 +46,6 @@ android {
     /**
      * 데이터 바인딩 사용합니다.
      */
-    dataBinding.enabled = true
 
     kapt {
         generateStubs = true
@@ -45,8 +54,9 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-
-
+    packagingOptions {
+        pickFirst '**/*.so'
+    }
 
 }
 
@@ -61,7 +71,8 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 
     implementation project(':common')
-
+    implementation project(':map')
+    implementation project(':upload')
 
     //dagger
     implementation "com.google.dagger:dagger:2.24"
@@ -154,6 +165,41 @@ dependencies {
 
     // reveal layout
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
+
+    // calendar
+    implementation 'com.haibin:calendarview:3.6.9'
+
+
+    // blur
+    implementation 'com.github.jrvansuita:GaussianBlur:1.0.3'
+
+    implementation 'com.eightbitlab:supportrenderscriptblur:1.0.2'
+    implementation 'com.eightbitlab:blurview:1.6.3'
+
+    implementation 'com.github.mmin18:realtimeblurview:1.2.1'
+
+    implementation 'com.naver.maps:map-sdk:3.9.0' // naver map
+
+
+    implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
+
+    implementation 'com.google.android.gms:play-services-maps:17.0.0'
+    implementation 'com.google.android.gms:play-services-location:17.0.0'
+    implementation 'com.google.maps.android:android-maps-utils:2.0.3'
+
+
+    // viewpager indicator
+    implementation 'com.romandanylyk:pageindicatorview:1.0.3'
+
+    // viewpager scrollable tablayout
+    implementation 'ru.noties:scrollable:1.3.0'
+
+    implementation 'gun0912.ted:tedclustering-naver:1.0.2'
+    implementation 'com.naver.maps:map-sdk:3.9.1' // naver map
+
+    //image picker
+    implementation 'gun0912.ted:tedimagepicker:1.1.3'
+
 
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])

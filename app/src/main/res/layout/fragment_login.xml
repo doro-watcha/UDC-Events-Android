@@ -1,0 +1,244 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.goddoro.udc.views.auth.AuthViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".views.auth.AuthActivity">
+
+        <ImageButton
+            android:id="@+id/btn_back_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:background="@drawable/ripple_effect"
+            android:src="@drawable/ic_back_arrow"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_logo"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginBottom="10dp"
+            android:gravity="center"
+            android:text="UDC EVENTS"
+            android:textColor="@color/black"
+            android:textSize="50dp"
+            app:layout_constraintBottom_toTopOf="@+id/txt_email"
+            app:layout_constraintTop_toBottomOf="@+id/btn_back_arrow" />
+
+        <TextView
+            android:id="@+id/txt_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/common_email"
+            android:textColor="@{vm.emailPatternOk == true || vm.email.length() == 0 ? @color/text_color_1 : @color/colorRed}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/layout_edit_email"
+            app:layout_constraintStart_toStartOf="@+id/btn_back_arrow"
+            tools:textColor="@color/text_color_1" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/txt_email_pattern_error">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="6dp"
+                android:text="@={vm.email}"
+                android:textColor="@color/text_color_1"
+                android:theme="@style/EditTextTheme" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txt_email_pattern_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginBottom="10dp"
+            android:text="@string/txt_email_pattern_error"
+            android:textColor="@color/colorRed"
+            android:textSize="10dp"
+            android:visibility_invisible="@{vm.emailPatternOk == false &amp;&amp; vm.email.length() > 0}"
+            app:layout_constraintBottom_toTopOf="@+id/txt_password" />
+
+        <TextView
+            android:id="@+id/txt_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/common_password"
+            android:textColor="@{vm.emailPatternOk == true || vm.password.length() == 0 ? @color/text_color_1 : @color/colorRed}"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toTopOf="@+id/layout_edit_password"
+            app:layout_constraintStart_toStartOf="@+id/txt_email"
+            tools:textColor="@color/text_color_1" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_password"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundColor="@color/white"
+            app:endIconMode="password_toggle"
+            app:endIconTint="@color/black"
+            app:layout_constraintBottom_toTopOf="@+id/txt_password_pattern_error">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_password"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:inputType="textPassword"
+                android:padding="6dp"
+                android:text="@={vm.password}"
+                android:textColor="@color/text_color_1"
+                android:theme="@style/EditTextTheme" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/txt_password_pattern_error"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:text="@string/txt_password_pattern_error"
+            android:textColor="@color/colorRed"
+            android:textSize="10dp"
+            android:visibility_invisible="@{vm.passwordPatternOk == false &amp;&amp; vm.password.length() > 0}"
+            app:layout_constraintBottom_toTopOf="@+id/vertical_half_line" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/vertical_half_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.5" />
+
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_email"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="@color/black"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:letterSpacing="0.0"
+            android:paddingLeft="7dp"
+            android:onDebounceClick="@{ () -> vm.onClickLogin()}"
+            android:text="@string/txt_login"
+            android:textColor="@color/font3"
+            android:textSize="14dp"
+            app:cornerRadius="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/vertical_half_line"
+            app:rippleColor="@color/white" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_naver"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="12dp"
+            android:layout_marginEnd="12dp"
+            android:backgroundTint="@color/naverGreen"
+            android:elevation="24dp"
+            android:gravity="center"
+            android:letterSpacing="0.0"
+            android:paddingLeft="7dp"
+            android:text="@string/txt_login_naver"
+            android:textColor="@color/font3"
+            android:textSize="14dp"
+            android:onDebounceClick="@{() -> vm.onClickNaverLogin()}"
+            app:cornerRadius="6dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login_email"
+            app:rippleColor="@color/white"
+            tools:rippleColor="@color/blue" />
+
+        <TextView
+            android:id="@+id/txt_find_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:onClick="@{() -> vm.onClickFindEmailPage()}"
+            android:text="@string/txt_find_email"
+            android:textColor="@color/text_color_1"
+            app:layout_constraintEnd_toStartOf="@+id/divider"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login_naver" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="2dp"
+            android:layout_height="0dp"
+            android:background="@color/gray_divider"
+            app:layout_constraintBottom_toBottomOf="@+id/txt_find_email"
+            app:layout_constraintEnd_toStartOf="@+id/txt_find_password"
+            app:layout_constraintStart_toEndOf="@+id/txt_find_email"
+            app:layout_constraintTop_toTopOf="@+id/txt_find_email" />
+
+        <TextView
+            android:id="@+id/txt_find_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/txt_find_password"
+            android:onClick="@{() -> vm.onClickFindPasswordPage()}"
+            android:textColor="@color/text_color_1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/divider"
+            app:layout_constraintTop_toTopOf="@id/txt_find_email" />
+
+        <TextView
+            android:id="@+id/txt_not_sign_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:onClick="@{() -> vm.onClickSignUpPage()}"
+            android:text="@string/txt_sign_up_message"
+            android:textColor="@color/text_color_1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/txt_find_email" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

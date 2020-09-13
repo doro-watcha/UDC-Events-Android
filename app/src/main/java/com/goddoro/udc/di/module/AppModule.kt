@@ -1,10 +1,6 @@
 package com.goddoro.udc.di.module
 
-import android.content.Context
-import androidx.room.Room
-import com.goddoro.udc.di.AppScope
 import dagger.Module
-import dagger.Provides
 
 
 /**
@@ -21,9 +17,4 @@ class AppModule {
 //            .build()
 //    }
 //
-//    @Provides
-//    @AppScope
-//    fun provideSearchDao(database : AppDatabase) : SearchDao {
-//        return database.searchDao()
-//    }
 }

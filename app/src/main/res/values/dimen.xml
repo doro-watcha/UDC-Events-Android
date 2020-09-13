@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="toolbarHeight">44dp</dimen>
+    <dimen name="bottomNavigationViewHeight">56dp</dimen>
+    <dimen name="keyboardNumberButtonHeight">50dp</dimen>
+
+    <dimen name="cardCornerRadius">8dp</dimen>
+    <dimen name="cardElevation">2dp</dimen>
+
+    <dimen name="pageMargin">20dp</dimen>
+    <dimen name="offset">30dp</dimen>
+
+    <dimen name="paddingItemDecoration4">4dp</dimen>
+</resources>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="colorPrimary">#000000</color>
+    <color name="colorPrimaryDark">#80000000</color>
+    <color name="colorAccent">#26000000</color>
+    <color name="colorControlNormal">@color/black</color>
+
+    <color name="black">#000000</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black50">#80000000</color>
+    <color name="black30">#4D000000</color>
+    <color name="black15">#26000000</color>
+    <color name="black5">#0D000000</color>
+    <color name="white50">#80ffffff</color>
+    <color name="gray">#CCCCCCCC</color>
+
+    <color name="naverGreen">#2DB400</color>
+    <color name="background1">#fafafa</color>
+    <color name="background2">#F9F9F9</color>
+    <color name="background3">#242424</color>
+    <color name="background4">#101010</color>
+    <color name="background5">#959595</color>
+    <color name="background6">#696969</color>
+
+    <color name="font1">#101010</color>
+    <color name="font2">#242424</color>
+    <color name="font3">#F9F9F9</color>
+    <color name="font4">#696969</color>
+    <color name="font5">#959595</color>
+    <color name="font6">#f9f9f9</color>
+
+    <color name="line1">#EBEBEB</color>
+    <color name="line2">#707070</color>
+
+    <color name="pink">#FF5C94</color>
+
+    <color name="purpleLight">#AB82F9</color>
+    <color name="purpleLight50">#80AB82F9</color>
+    <color name="purpleDark">#8758F9</color>
+
+
+    <color name="blue">#0076FB</color>
+
+
+    <color name="progress">#aeaeae</color>
+    <color name="skyBlue">#4595E5</color>
+
+    <color name="show">#0000004D</color>
+
+    <color name="likeEnable">#e54576</color>
+    <color name="likeDisable">#000</color>
+
+    <color name="uploadStatusComplete">#AB82F9</color>
+    <color name="uploadStatusPending">#fff</color>
+
+    <color name="ripple_white_background">#aeaeae</color>
+    <color name="ripple_black_background">#8fff</color>
+
+
+    <color name="label_shadow">#2000</color>
+    <integer name="label_shadow_radius">10</integer>
+
+    <color name="yellow">#fae100</color>
+
+    <!--    Ripple-->
+    <color name="rippleBlack">#4D4D4D</color>
+
+
+    <color name="surface_black">#101010</color>
+    <color name="background_black">#242424</color>
+    <color name="secondary_gray">#696969</color>
+    <color name="disabled_gray">#959595</color>
+    <color name="dark_purple">#8758f9</color>
+    <color name="light_purple">#ab82f9</color>
+    <color name="text_white">#f9f9f9</color>
+    <color name="icon_white">#ffffff</color>
+    <color name="like">#ff2467</color>
+    <color name="error_red">#ff5c94</color>
+    <color name="success_green">#3fba81</color>
+    <color name="button_blue">#4595e5</color>
+
+    <color name="main_blue">#6281f6</color>
+    <color name="main_orange">#f78a32</color>
+    <color name="colorOrange">#ff8f00</color>
+
+
+
+    <color name="lightYellow">#FFF176</color>
+    <color name="primaryYellow">#FFD600</color>
+    <color name="darkYellow">#FFAB00</color>
+    <color name="primaryMint">#00c6dc</color>
+
+    <color name="text_color_1">#212121</color>
+    <color name="text_color_2">#B3212121</color>
+    <color name="text_color_3">#4D212121</color>
+    <color name="gray_text_color">#b1b1b1</color>
+
+    <color name="ripple_gray">#f5f5f5</color>
+    <color name="gray_text_color_1">#e0e0e0</color>
+    <color name="gray_text_color_2">#bdbdbd</color>
+    <color name="gray_text_color_3">#80212121</color>
+    <color name="gray_text_color_4">#707070</color>
+    <color name="blue_text_color">#304ffe</color>
+
+    <color name="gray_divider">#eeeeee</color>
+
+    <color name="facebook_blue">#3a5daa</color>
+
+    <color name="colorRed">#f44336</color>
+    <color name="colorDarkRed">#dd2c00</color>
+    <color name="text_disabled">#ffab00</color>
+
+</resources>
