@@ -27,6 +27,7 @@
             android:id="@+id/btn_setting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:onDebounceClick="@{() ->vm.onClickSetting()}"
             android:layout_marginTop="12dp"
             android:layout_marginEnd="12dp"
             android:background="?attr/selectableItemBackground"
@@ -34,11 +35,23 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+        <ImageButton
+            android:id="@+id/btn_notification"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="?attr/selectableItemBackground"
+            android:src="@drawable/ic_notification_black"
+            android:onDebounceClick="@{() -> vm.onClickNotification()}"
+            app:layout_constraintTop_toTopOf="@id/btn_setting"
+            app:layout_constraintEnd_toStartOf="@+id/btn_setting"
+            android:layout_marginEnd="12dp"/>
+
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_profile"
             android:layout_width="80dp"
             android:layout_height="80dp"
+            imageSrc="@{vm.author.avatarUrl}"
             android:src="@drawable/sample_image_03"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -67,7 +80,8 @@
             app:layout_constraintEnd_toEndOf="@+id/img_profile"
             app:layout_constraintStart_toStartOf="@+id/img_profile"
             app:layout_constraintTop_toBottomOf="@id/txt_username"
-            android:text="goddoro@naver.com" />
+            tools:text="goddoro@naver.com"
+            android:text="@{vm.author.username}"/>
 
         <TextView
             android:id="@+id/txt_user_grade_common"

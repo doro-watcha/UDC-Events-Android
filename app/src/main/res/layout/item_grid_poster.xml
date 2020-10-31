@@ -5,7 +5,7 @@
 
         <variable
             name="item"
-            type="com.goddoro.common.data.data.Event" />
+            type="com.goddoro.common.data.model.Event" />
 
     </data>
 
@@ -21,7 +21,7 @@
             app:layout_constraintDimensionRatio="3:4"
             android:layout_margin="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/sample_image_03"
+            android:src="@drawable/sample_image_01"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

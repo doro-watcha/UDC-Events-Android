@@ -1,38 +1,67 @@
 package com.goddoro.udc.application
 
+import android.app.Application
+import android.content.Context
 import com.goddoro.common.common.NAVER_CLIENT_ID
-import com.goddoro.udc.di.DaggerAppComponent
+import com.goddoro.common.di.apiModule
+import com.goddoro.common.di.networkModule
+import com.goddoro.common.di.repositoryModule
+import com.goddoro.common.di.utilModule
+import com.goddoro.common.util.AppPreference
+import com.goddoro.udc.di.navigationModule
+import com.goddoro.udc.di.viewModelModule
 import com.naver.maps.map.NaverMapSdk
-import dagger.android.AndroidInjector
-import dagger.android.DaggerApplication
+import org.koin.android.ext.android.get
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
+import org.koin.core.logger.Level
 
 
 /**
  * created By DORO 2020/07/12
  */
 
-class MainApplication : DaggerApplication() {
+class MainApplication : Application() {
 
+    companion object {
+        private lateinit var mainApp: MainApplication
+        val context: Context by lazy {
+            mainApp.applicationContext
+        }
 
-    override fun applicationInjector(): AndroidInjector<out DaggerApplication> {
-        return DaggerAppComponent.builder().app(this).build().also {  it.inject(this) }
+        lateinit var appPreference: AppPreference
     }
+
     override fun onCreate() {
         super.onCreate()
-
-        GlobalApp = this
 
         NaverMapSdk.getInstance(this).client =
             NaverMapSdk.NaverCloudPlatformClient(NAVER_CLIENT_ID)
 
+        inject()
 
-
+        appPreference = get()
 
 
     }
 
-    companion object {
-        lateinit var GlobalApp : MainApplication
+    private fun inject() {
+        startKoin {
+            androidContext(this@MainApplication)
+            androidLogger(Level.INFO)
+            modules(
+                listOf(
+                    viewModelModule,
+                    networkModule,
+                    repositoryModule,
+                    apiModule,
+                    utilModule,
 
+                    navigationModule
+                )
+            )
+        }
     }
+
 }

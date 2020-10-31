@@ -19,5 +19,33 @@
     <string name="txt_pick_image">Pick your photo</string>
     <string name="txt_event_title">Event Title</string>
     <string name="txt_event_description">Event Description</string>
+    <string name="txt_event_location">Event Location</string>
+    <string name="txt_event_type">Event Type</string>
+    <string name="txt_event_date">Event Date</string>
+    <string name="common_ok">OK</string>
+    <string name="dialog_error_unknown">Erro Occured</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="dialog_upload_completed">Your Event is Uploaded Successfully</string>
+    <string name="common_workshop">Workshop</string>
+    <string name="common_battle">Battle</string>
+    <string name="common_party">Party</string>
+    <string name="common_performance">Performance</string>
+    <string name="common_login_info_txt">Login Info</string>
+    <string name="common_profile_info_txt">Profile Info</string>
+    <string name="common_dancer_info_txt">Dancer Info</string>
+    <string name="txt_nick_name">Dancer Name</string>
+    <string name="common_save">Save</string>
+    <string name="txt_dancer_location">Place of Actiivty</string>
+    <string name="txt_interested_tag">Interested Tag</string>
+    <string name="txt_interested_genre">Interested Genre</string>
+    <string name="txt_interested_dancer">Interested Dancer</string>
+    <string name="common_genre">Genre</string>
+    <string name="common_dancer">Dancer</string>
+    <string name="common_follow">Follow</string>
+    <string name="common_following">Following</string>
+    <string name="common_dance_class">Class</string>
+    <string name="common_notification">Notification</string>
+    <string name="txt_detail_information">Detail Information</string>
+    <string name="txt_event_time">Event Start Time</string>
 
 </resources>

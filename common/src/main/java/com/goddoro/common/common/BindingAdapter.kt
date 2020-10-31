@@ -20,6 +20,9 @@ import androidx.databinding.BindingAdapter
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
+import com.bumptech.glide.request.RequestOptions
+import com.goddoro.common.R
+import jp.wasabeef.glide.transformations.BlurTransformation
 import kotlin.math.roundToInt
 
 @BindingAdapter("android:visibility")
@@ -122,4 +125,12 @@ fun View.setWidthExceptPaddingBinding(dp: Int) {
 fun ImageView.setImageSrcGlide(src: String?) {
 
     Glide.with(this).load(src).transition(DrawableTransitionOptions.withCrossFade()).into(this)
+}
+
+@BindingAdapter("blurred")
+fun ImageView.setBlurImage( src : String?) {
+
+    Glide.with(this).load(src)
+        .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
+        .into(this)
 }

@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.goddoro.common.data.data.Event" />
+            type="com.goddoro.common.data.model.Event" />
 
     </data>
 
@@ -18,8 +18,9 @@
             android:id="@+id/img_poster"
             android:layout_width="150dp"
             android:layout_height="250dp"
+            imageSrc="@{item.posterUrl}"
             android:scaleType="centerCrop"
-            android:src="@drawable/sample_image_04"
+            android:src="@drawable/sample_image_01"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"/>
 
@@ -31,7 +32,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:maxLength="30"
-            android:text="Mini Radio 우리는 같은 고민을 갖고 살지만 이 텍스트는 ...을 하기 위해서 태어난것이다"
+            android:text="@{item.name}"
             android:textColor="#000"
             android:ellipsize="end"
             app:layout_constraintTop_toBottomOf="@+id/img_poster"/>

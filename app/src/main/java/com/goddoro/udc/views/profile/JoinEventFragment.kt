@@ -12,13 +12,14 @@ import com.goddoro.udc.databinding.FragmentProfileBinding
 import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
-
+import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * created By DORO 2020/09/12
  */
 
-class JoinEventFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
+class JoinEventFragment : Fragment() {
 
     private val TAG = JoinEventFragment::class.java.simpleName
 
@@ -33,9 +34,7 @@ class JoinEventFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
 
 
-    private val mViewModel: JoinEventViewModel by lazy {
-        ViewModelProvider(this)[JoinEventViewModel::class.java]
-    }
+    private val mViewModel: JoinEventViewModel by viewModel()
 
 
     override fun onCreateView(

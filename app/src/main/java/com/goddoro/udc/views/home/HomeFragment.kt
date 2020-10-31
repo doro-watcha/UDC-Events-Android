@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
@@ -20,36 +21,40 @@ import com.goddoro.udc.views.upload.UploadEventActivity
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
-
+import androidx.fragment.app.Fragment
+import com.goddoro.common.common.disposedBy
+import com.goddoro.common.common.observeOnce
+import com.goddoro.common.util.Navigator
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * created By DORO 2020/08/16
  */
 
-class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
+class HomeFragment : Fragment() {
 
     private val TAG = HomeFragment::class.java.simpleName
+
     /**
      * Binding Instance
      */
-    private lateinit var  mBinding: FragmentHomeBinding
+    private lateinit var mBinding: FragmentHomeBinding
 
     /**
      * ViewModel Instance
      */
+    private val mViewModel: HomeViewModel by viewModel()
 
-    @Inject
-    lateinit var viewModelFactory : ViewModelProvider.Factory
-
-    override fun getDefaultViewModelProviderFactory() = viewModelFactory
-
-    private val mViewModel: HomeViewModel by lazy {
-        ViewModelProvider(this)[HomeViewModel::class.java]
-    }
+    private val navigator : Navigator by inject()
 
     private val compositeDisposable = CompositeDisposable()
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = FragmentHomeBinding.inflate(inflater, container, false).also { mBinding = it }.root
+    override fun onCreateView(
+        inflater: LayoutInflater,
+        container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ) = FragmentHomeBinding.inflate(inflater, container, false).also { mBinding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -58,7 +63,7 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
 
         initView()
-        setupViewPager()
+       // setupViewPager()
         observeViewModel()
         setupList()
 
@@ -71,12 +76,12 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
         mBinding.btnLogin.setOnClickListener {
 
-            val intent = Intent (requireActivity() , AuthActivity::class.java)
+            val intent = Intent(requireActivity(), AuthActivity::class.java)
             startActivity(intent)
         }
 
         mBinding.btnUploadEvent.setOnClickListener {
-            val intent = Intent ( requireActivity(), UploadEventActivity::class.java)
+            val intent = Intent(requireActivity(), UploadEventActivity::class.java)
             startActivity(intent)
         }
     }
@@ -86,10 +91,10 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
         mBinding.mViewPagerBlurred.apply {
 
-
             adapter = BlurredAdapter()
             isUserInputEnabled = false
             offscreenPageLimit = 10
+
         }
     }
 
@@ -98,11 +103,26 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
         mBinding.mViewPager2.apply {
 
-            debugE(TAG, "GOOD")
-            adapter = MainPosterAdapter()
 
-            this.clipToPadding = false
-            this.clipChildren = false
+            adapter = MainPosterAdapter().apply {
+
+                clickEvent.subscribe{
+                    navigator.startEventDetailActivity(requireActivity(),it.id)
+
+                }.disposedBy(compositeDisposable)
+
+            }
+
+            var centerValue =  Integer.MAX_VALUE / 2
+
+            val findFirstPosition = centerValue % ( mViewModel.mainEvents.value?.size ?: 0)
+
+            centerValue -= findFirstPosition
+
+
+            setCurrentItem( centerValue , false )
+
+
 
 
             val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
@@ -134,9 +154,9 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
-                    mViewModel.curPoster.value = mViewModel.posters.value!![position]
-                    mBinding.mViewPagerBlurred.setCurrentItem(position,false)
-                    mBinding.indicator.selection = position
+                    mViewModel.curPoster.value = mViewModel.mainEvents.value!![position % ( mViewModel.mainEvents.value?.size ?: 0)]
+                    mBinding.mViewPagerBlurred.setCurrentItem(mBinding.mViewPager2.currentItem % ( mViewModel.mainEvents.value?.size ?: 0), false)
+                    mBinding.indicator.selection = position % ( mViewModel.mainEvents.value?.size ?: 0)
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {
@@ -145,7 +165,6 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
             })
 
             offscreenPageLimit = 10
-            overScrollMode = View.OVER_SCROLL_NEVER
         }
 
 
@@ -155,9 +174,18 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
         mBinding.apply {
 
+
+
             listNewEvent.apply {
 
-                adapter = PosterAdapter()
+                adapter = PosterAdapter().apply{
+
+                    clickEvent.subscribe{
+                        debugE(TAG, it )
+                        navigator.startEventDetailActivity(requireActivity(),it)
+                    }.disposedBy(compositeDisposable)
+
+                }
             }
 
             listHotEvent.apply {
@@ -188,21 +216,38 @@ class HomeFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
         }
     }
 
-    private fun observeViewModel () {
+    private fun observeViewModel() {
 
         mViewModel.apply {
 
+
+            mainEvents.observe(viewLifecycleOwner){
+                debugE(TAG, it.map{it.id})
+
+                mBinding.indicator.count = it.size
+
+                setupViewPager()
+            }
+
+            errorInvoked.observeOnce(viewLifecycleOwner){
+                debugE(TAG, it.message)
+            }
         }
     }
 
     override fun onPause() {
         super.onPause()
 
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
         compositeDisposable.clear()
     }
 
     companion object {
-        fun newInstance () = HomeFragment()
+        fun newInstance() = HomeFragment()
     }
 
 }

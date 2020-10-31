@@ -13,13 +13,14 @@ import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.home.HomeViewModel
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
-
+import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * created By DORO 2020/09/12
  */
 
-class EventCollectionFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
+class EventCollectionFragment : Fragment() {
 
 
     private val TAG = EventCollectionFragment::class.java.simpleName
@@ -32,10 +33,7 @@ class EventCollectionFragment : DaggerFragment(), HasDefaultViewModelProviderFac
      * ViewModel Instance
      */
 
-    private val mViewModel: EventCollectionViewModel by lazy {
-        ViewModelProvider(this)[EventCollectionViewModel::class.java]
-    }
-
+    private val mViewModel: EventCollectionViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="item"
+            type="com.goddoro.common.data.model.DanceClass" />
+
+    </data>
+
+
+    <com.goddoro.common.common.widget.SquareImageView
+        android:id="@+id/video_thumbnail"
+        imageSrc="@{item.posterImgUrl}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:scaleType="centerCrop"
+        tools:src="@tools:sample/avatars[1]" />
+</layout>

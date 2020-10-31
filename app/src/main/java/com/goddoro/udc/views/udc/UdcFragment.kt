@@ -10,13 +10,14 @@ import com.goddoro.udc.databinding.FragmentUdcBinding
 import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.home.HomeViewModel
 import dagger.android.support.DaggerFragment
-
+import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * created By DORO 2020/08/16
  */
 
-class UdcFragment : DaggerFragment() {
+class UdcFragment : Fragment() {
 
     /**
      * Binding Instance
@@ -26,9 +27,7 @@ class UdcFragment : DaggerFragment() {
     /**
      * ViewModel Instance
      */
-    private val mViewModel: UdcViewModel by lazy {
-        ViewModelProvider(requireActivity())[UdcViewModel::class.java]
-    }
+    private val mViewModel: UdcViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = FragmentUdcBinding.inflate(inflater, container, false).also { mBinding = it }.root
 

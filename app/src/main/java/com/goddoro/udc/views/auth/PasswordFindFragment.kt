@@ -8,13 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.goddoro.udc.databinding.FragmentFindEmailBinding
 import com.goddoro.udc.databinding.FragmentFindPasswordBinding
 import dagger.android.support.DaggerFragment
-
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import androidx.fragment.app.Fragment
 
 /**
  * created By DORO 2020/09/12
  */
 
-class PasswordFindFragment : DaggerFragment() {
+class PasswordFindFragment : Fragment() {
 
     /**
      * Binding Instance
@@ -24,9 +25,7 @@ class PasswordFindFragment : DaggerFragment() {
     /**
      * ViewModel Instance
      */
-    private val mViewModel: AuthViewModel by lazy {
-        ViewModelProvider(requireActivity())[AuthViewModel::class.java]
-    }
+    private val mViewModel: AuthViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

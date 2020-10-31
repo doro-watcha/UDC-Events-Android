@@ -8,7 +8,9 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
-import com.goddoro.common.data.data.Event
+import com.bumptech.glide.Glide
+import com.goddoro.common.common.debugE
+import com.goddoro.common.data.model.Event
 import com.goddoro.udc.databinding.ItemBlurredImageBinding
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -21,6 +23,8 @@ import org.koin.core.KoinComponent
 
 class BlurredAdapter:
     RecyclerView.Adapter<BlurredAdapter.BlurredHolder>() {
+
+    private val TAG = BlurredAdapter::class.java.simpleName
 
 
     private val onClick: PublishSubject<String> = PublishSubject.create()
@@ -63,6 +67,8 @@ class BlurredAdapter:
         fun bind(item: Event) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
+
+            debugE(TAG, "asdlfjsdaflkajs")
 
 
         }

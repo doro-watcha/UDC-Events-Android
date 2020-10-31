@@ -10,7 +10,7 @@ import javax.inject.Inject
  * created By DORO 2020/08/10
  */
 
-class MainViewModel @Inject constructor(
+class MainViewModel (
 ) : ViewModel() {
 
 

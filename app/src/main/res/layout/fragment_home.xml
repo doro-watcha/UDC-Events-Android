@@ -30,7 +30,7 @@
                 android:layout_height="500dp"
                 android:overScrollMode="never"
                 app:layout_constraintTop_toTopOf="parent"
-                app:recyclerview_poster_blurred="@{vm.posters}" />
+                app:recyclerview_poster_blurred="@{vm.mainEvents}" />
 
 
             <TextView
@@ -53,7 +53,7 @@
                 android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="@id/mViewPager_blurred"
                 app:layout_constraintTop_toTopOf="parent"
-                app:recyclerview_main_posters="@{vm.posters}" />
+                app:recyclerview_main_posters="@{vm.mainEvents}" />
 
             <com.rd.PageIndicatorView
                 android:id="@+id/indicator"

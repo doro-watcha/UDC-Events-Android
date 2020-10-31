@@ -11,18 +11,24 @@ import com.goddoro.common.common.NAVER_CLIENT_ID
 import com.goddoro.common.common.NAVER_CLIENT_SECRET
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.util.AppPreference
 import com.goddoro.udc.databinding.FragmentLoginBinding
 import com.nhn.android.naverlogin.OAuthLogin
 import com.nhn.android.naverlogin.OAuthLoginHandler
 import com.nhn.android.naverlogin.ui.view.OAuthLoginButton
 import dagger.android.support.DaggerFragment
-
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import javax.inject.Inject
+import androidx.fragment.app.Fragment
+import com.goddoro.common.util.Navigator
+import dagger.android.AndroidInjection.inject
+import org.koin.android.ext.android.inject
 
 /**
  * created By DORO 2020/09/12
  */
 
-class LoginFragment : DaggerFragment() {
+class LoginFragment : Fragment() {
 
     private val TAG = LoginFragment::class.java.simpleName
 
@@ -34,10 +40,9 @@ class LoginFragment : DaggerFragment() {
     /**
      * ViewModel Instance
      */
-    private val mViewModel: AuthViewModel by lazy {
-        ViewModelProvider(requireActivity())[AuthViewModel::class.java]
-    }
+    private val mViewModel : AuthViewModel by sharedViewModel()
 
+    private val navigator : Navigator by inject()
     private lateinit var mOAuthLoginButton: OAuthLoginButton
     private lateinit var mOAuthLoginModule : OAuthLogin
 
@@ -103,6 +108,7 @@ class LoginFragment : DaggerFragment() {
                 debugE(TAG, "NAVER LOGIN")
                 mOAuthLoginModule.startOauthLoginActivity(requireActivity(),mOAuthLoginHandler)
             }
+
         }
 
     }

@@ -8,7 +8,7 @@ import javax.inject.Inject
  * created By DORO 2020/08/16
  */
 
-class EventViewModel @Inject constructor() : ViewModel() {
+class EventViewModel : ViewModel() {
 
 
 

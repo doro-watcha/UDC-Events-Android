@@ -8,13 +8,14 @@ import androidx.lifecycle.ViewModelProvider
 import com.goddoro.udc.databinding.FragmentEventBinding
 import com.goddoro.udc.views.home.HomeViewModel
 import dagger.android.support.DaggerFragment
-
+import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
  * created By DORO 2020/08/16
  */
 
-class EventFragment : DaggerFragment() {
+class EventFragment : Fragment() {
 
 
     /**
@@ -25,9 +26,7 @@ class EventFragment : DaggerFragment() {
     /**
      * ViewModel Instance
      */
-    private val mViewModel: EventViewModel by lazy {
-        ViewModelProvider(requireActivity())[EventViewModel::class.java]
-    }
+    private val mViewModel: EventViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?) = FragmentEventBinding.inflate(inflater, container, false).also { mBinding = it }.root
 

@@ -10,13 +10,15 @@ import com.goddoro.udc.databinding.FragmentLoginBinding
 import com.goddoro.udc.databinding.FragmentSignUpBinding
 import com.goddoro.udc.views.event.EventViewModel
 import dagger.android.support.DaggerFragment
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import androidx.fragment.app.Fragment
 
 
 /**
  * created By DORO 2020/09/12
  */
 
-class SignUpFragment : DaggerFragment() {
+class SignUpFragment : Fragment() {
 
     /**
      * Binding Instance
@@ -26,9 +28,7 @@ class SignUpFragment : DaggerFragment() {
     /**
      * ViewModel Instance
      */
-    private val mViewModel: AuthViewModel by lazy {
-        ViewModelProvider(requireActivity())[AuthViewModel::class.java]
-    }
+    private val mViewModel: AuthViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,

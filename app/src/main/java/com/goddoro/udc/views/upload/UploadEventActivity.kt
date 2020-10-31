@@ -6,27 +6,25 @@ import android.view.LayoutInflater
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.observe
+import com.goddoro.common.Broadcast
+import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.dialog.showCommonDialog
 import com.goddoro.udc.databinding.ActivityUploadEventBinding
-import com.goddoro.udc.di.ViewModelFactory
 import com.goddoro.upload.R
 import dagger.android.support.DaggerAppCompatActivity
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import javax.inject.Inject
 
-class UploadEventActivity : DaggerAppCompatActivity(), HasDefaultViewModelProviderFactory {
+class UploadEventActivity :AppCompatActivity() {
 
     private val TAG = UploadEventActivity::class.java.simpleName
 
     private lateinit var mBinding : ActivityUploadEventBinding
 
-    @Inject
-    lateinit var viewModelFactory : ViewModelFactory
-
-    override fun getDefaultViewModelProviderFactory() = viewModelFactory
-
-    private val mViewModel by lazy { ViewModelProvider(this)[UploadEventViewModel::class.java] }
+    private val mViewModel : UploadEventViewModel by viewModel()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,6 +60,32 @@ class UploadEventActivity : DaggerAppCompatActivity(), HasDefaultViewModelProvid
                         curPoster.value = it
                     }
             }
+
+            clickTypeDialog.observeOnce(this@UploadEventActivity){
+                val dialog = EventTypeDialog(object : EventTypeDialog.onClickTypeListener {
+                    override fun onClickType(type: String) {
+                        mViewModel.type.value = type
+                    }
+                })
+                dialog.show(supportFragmentManager,dialog.tag)
+            }
+            clickUploadButton.observeOnce(this@UploadEventActivity){
+                Broadcast.eventUploadBroadcast.onNext(Unit)
+                finish()
+            }
+
+            clickBackArrow.observeOnce(this@UploadEventActivity){
+                finish()
+            }
+
+            uploadCompleted.observeOnce(this@UploadEventActivity){
+                finish()
+            }
+            errorInvoked.observeOnce(this@UploadEventActivity){
+                debugE(TAG, it.message)
+                showCommonDialog(R.string.dialog_error_unknown)
+            }
+
 
         }
 

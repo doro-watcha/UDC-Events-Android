@@ -1,24 +1,27 @@
 package com.goddoro.map
 
-import android.R
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.debugE
-import com.goddoro.common.data.data.NaverItem
+import com.goddoro.common.common.observeOnce
+import com.goddoro.common.data.model.NaverItem
 import com.goddoro.map.databinding.FragmentEventMapBinding
+import com.goddoro.map.dialog.MapDetailDialog
 import com.naver.maps.map.*
 import dagger.android.support.DaggerFragment
 import ted.gun0912.clustering.naver.TedNaverClustering
+import androidx.fragment.app.Fragment
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
 /**
  * created By DORO 2020/09/12
  */
 
-class EventMapFragment : DaggerFragment(), OnMapReadyCallback {
+class EventMapFragment : Fragment(), OnMapReadyCallback {
 
     private val TAG = EventMapFragment::class.java.simpleName
     /**
@@ -30,11 +33,10 @@ class EventMapFragment : DaggerFragment(), OnMapReadyCallback {
      * ViewModel Instance
      */
 
-    private val mViewModel: EventMapViewModel by lazy {
-        ViewModelProvider(this)[EventMapViewModel::class.java]
-    }
+    private val mViewModel: EventMapViewModel by viewModel()
 
     lateinit var naverMap: NaverMap
+
 
 
     override fun onCreateView(
@@ -57,11 +59,17 @@ class EventMapFragment : DaggerFragment(), OnMapReadyCallback {
     private fun initSetting() {
 
         mBinding.mapView.getMapAsync(this)
+
     }
 
     private fun observeViewModel() {
 
+        mViewModel.apply {
 
+            clickTest.observeOnce(viewLifecycleOwner){
+
+            }
+        }
     }
 
 
@@ -78,6 +86,9 @@ class EventMapFragment : DaggerFragment(), OnMapReadyCallback {
 
         TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
             .items(getItems())
+            .markerClickListener {
+                MapDetailDialog.show(requireActivity().supportFragmentManager, it)
+            }
             .make()
 
         debugE(TAG, "FUCK")

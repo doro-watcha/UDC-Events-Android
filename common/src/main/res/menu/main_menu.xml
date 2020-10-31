@@ -9,8 +9,8 @@
         android:title="지역"
         />
     <item
-        android:id="@+id/nav_item_udc"
-        android:title="일정"
+        android:id="@+id/nav_item_class"
+        android:title="클래스/워크샵"
         />
     <item
         android:id="@+id/nav_item_video"

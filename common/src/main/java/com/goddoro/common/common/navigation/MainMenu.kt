@@ -12,8 +12,8 @@ enum class MainMenu(@IdRes override val menuId: Int, override val idx: Int) : IM
 
     HOME(R.id.nav_item_home, 0),
     EVENT(R.id.nav_item_event, 1),
-    UDC(R.id.nav_item_udc, 2),
-    VIDEO(R.id.nav_item_video, 3)
+    CLASS(R.id.nav_item_class, 2),
+    PROFILE(R.id.nav_item_video, 3)
 
     ;
 

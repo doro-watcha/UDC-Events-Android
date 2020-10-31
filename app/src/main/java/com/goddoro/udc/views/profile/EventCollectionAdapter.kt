@@ -7,10 +7,8 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.goddoro.common.data.data.Event
-import com.goddoro.udc.databinding.ItemBlurredImageBinding
+import com.goddoro.common.data.model.Event
 import com.goddoro.udc.databinding.ItemEventCollectionBinding
-import com.goddoro.udc.views.home.BlurredAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent

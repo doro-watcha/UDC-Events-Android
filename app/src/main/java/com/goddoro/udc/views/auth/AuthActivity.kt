@@ -1,30 +1,30 @@
 package com.goddoro.udc.views.auth
 
+import android.app.Activity
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.*
+import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.ActivityAuthBinding
-import com.goddoro.udc.di.ViewModelFactory
+import dagger.android.AndroidInjection.inject
 import dagger.android.support.DaggerAppCompatActivity
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import javax.inject.Inject
 
-class AuthActivity : DaggerAppCompatActivity(), HasDefaultViewModelProviderFactory {
+class AuthActivity : AppCompatActivity() {
 
     private val TAG = AuthActivity::class.java.simpleName
 
     private lateinit var mBinding : ActivityAuthBinding
+    private val mViewModel : AuthViewModel by viewModel()
 
-    @Inject
-    lateinit var viewModelFactory : ViewModelFactory
-
-    override fun getDefaultViewModelProviderFactory() = viewModelFactory
-
-    private val mViewModel by lazy { ViewModelProvider(this)[AuthViewModel::class.java] }
-
+    private val navigator : Navigator by inject()
 
     private val mFragment1 = LoginFragment.newInstance()
     private val mFragment2 = SignUpFragment.newInstance()
@@ -98,6 +98,14 @@ class AuthActivity : DaggerAppCompatActivity(), HasDefaultViewModelProviderFacto
 
             clickFindPasswordPage.observeOnce(this@AuthActivity){
                 changeFragment(4)
+            }
+
+
+            loginCompleted.observeOnce(this@AuthActivity){
+                debugE(TAG, "Login Completed")
+                navigator.startMainActivity(this@AuthActivity,true)
+                finish()
+
             }
 
             errorInvoked.observeOnce(this@AuthActivity){

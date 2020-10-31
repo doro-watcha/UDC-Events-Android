@@ -3,31 +3,40 @@ package com.goddoro.udc
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.view.LayoutInflater
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.*
+import com.goddoro.common.Broadcast
+import com.goddoro.common.common.debugE
+import com.goddoro.common.common.disposedBy
 import com.goddoro.common.common.navigation.MainMenu
+import com.goddoro.common.data.repository.AuthRepository
+import com.goddoro.common.dialog.CommonSingleDialog
+import com.goddoro.common.util.Navigator
 import com.goddoro.map.EventMapFragment
 import com.goddoro.udc.databinding.ActivityMainBinding
-import com.goddoro.udc.di.ViewModelFactory
+import com.goddoro.udc.views.classShop.ClassShopFragment
 import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.profile.ProfileFragment
-import com.goddoro.udc.views.udc.UdcFragment
-import dagger.android.support.DaggerAppCompatActivity
-import javax.inject.Inject
+import io.reactivex.disposables.CompositeDisposable
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class MainActivity :  DaggerAppCompatActivity(), HasDefaultViewModelProviderFactory {
+class MainActivity : AppCompatActivity() {
+
+    private val TAG = MainActivity::class.java.simpleName
+
+    private val eventUploadDisposable = CompositeDisposable()
 
     private lateinit var mBinding : ActivityMainBinding
 
-    @Inject
-    lateinit var viewModelFactory : ViewModelFactory
+    private val navigator : Navigator by inject()
 
-    override fun getDefaultViewModelProviderFactory() = viewModelFactory
-
-    private val mViewModel by lazy { ViewModelProvider(this)[MainViewModel::class.java] }
+    private val authRepository : AuthRepository by inject()
+    private val mViewModel : MainViewModel by viewModel()
 
     private lateinit var fragment1 : HomeFragment
     private lateinit var fragment2 : EventMapFragment
-    private lateinit var fragment3 : UdcFragment
+    private lateinit var fragment3 : ClassShopFragment
     private lateinit var fragment4 : ProfileFragment
     private lateinit var curFragment: Fragment
 
@@ -43,10 +52,14 @@ class MainActivity :  DaggerAppCompatActivity(), HasDefaultViewModelProviderFact
 
         setContentView(mBinding.root)
 
+
+        debugE(TAG, authRepository.curUser.value )
+
         initView()
 
         initFragments(savedInstanceState == null)
         observeViewModel()
+        setupBottomNavigationView()
     }
 
     private fun initView() {
@@ -59,17 +72,84 @@ class MainActivity :  DaggerAppCompatActivity(), HasDefaultViewModelProviderFact
 
     }
 
+    private fun setupBottomNavigationView() {
+
+        mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
+
+            val selectedMenu = MainMenu.parseIdToMainMenu(it.itemId)
+
+//            if (selectedMenu != MainMenu.UPLOAD)
+//                changeBottomIcon(it.itemId)
+
+            when (selectedMenu) {
+                MainMenu.HOME -> {
+                    debugE(TAG, "Home Tab Selected")
+                    changeFragment(selectedMenu)
+                }
+                MainMenu.EVENT -> {
+                    debugE(TAG, "Map Tab Selected")
+                    changeFragment(selectedMenu)
+                }
+                MainMenu.CLASS -> {
+                    changeFragment(selectedMenu)
+                }
+                MainMenu.PROFILE -> {
+                    if (authRepository.isSignedIn()) {
+                        changeFragment(selectedMenu)
+                    }
+                    else {
+                        navigator.startNeedLoginActivity(this)
+                        return@setOnNavigationItemSelectedListener false
+                    }
+                }
+
+            }
+//
+//            navigator.curMainMenu.value = selectedMenu
+
+            true
+        }
+
+        mBinding.bottomNavigation.setOnNavigationItemReselectedListener {
+
+//            // 이미 선택되어있는 탭을 다시 선택하면 목록 제일 위로 이동시킨다.
+//            // Broadcast 날림
+//            when (MainMenu.parseIdToMainMenu(it.itemId)) {
+//
+//                MainMenu.FEED -> {
+//                    debugE(TAG, "Video Tab ReSelected")
+//                    Broadcast.videoListGoTop.onNext(Unit)
+//                }
+//                MainMenu.EXPLORE -> {
+//                    debugE(TAG, "Explore Tab Reselected")
+//                    Broadcast.exploreListGoTop.onNext(Unit)
+//                }
+//                MainMenu.UPLOAD -> {
+//
+//                }
+//                MainMenu.NOTIFICATION -> {
+//                    clearBadge()
+//                    Broadcast.notificationGoTopBroadcast.onNext(Unit)
+//                }
+//                MainMenu.PROFILE -> {
+//                    Broadcast.profileGoTopBroadcast.onNext(Unit)
+//                }
+//            }
+        }
+
+    }
+
     private fun initFragments(isFirstCreation : Boolean) {
 
         fragment1 = supportFragmentManager.findFragmentByTag("0") as? HomeFragment ?: HomeFragment.newInstance()
         fragment2 = supportFragmentManager.findFragmentByTag("1") as? EventMapFragment ?: EventMapFragment.newInstance()
-        fragment3 = supportFragmentManager.findFragmentByTag("2") as? UdcFragment ?: UdcFragment.newInstance()
-        fragment4 = supportFragmentManager.findFragmentByTag("3") as? ProfileFragment ?: ProfileFragment.newInstance()
+        fragment3 = supportFragmentManager.findFragmentByTag("2") as? ClassShopFragment ?: ClassShopFragment.newInstance()
+        fragment4 = supportFragmentManager.findFragmentByTag("3") as? ProfileFragment ?: ProfileFragment.newInstance(authRepository.curUser.value?.id ?: -1)
         curFragment = when(menu.value) {
             MainMenu.HOME->fragment1
             MainMenu.EVENT->fragment2
-            MainMenu.UDC->fragment3
-            MainMenu.VIDEO->fragment4
+            MainMenu.CLASS->fragment3
+            MainMenu.PROFILE->fragment4
             else -> throw IllegalStateException()
         }
 
@@ -88,8 +168,8 @@ class MainActivity :  DaggerAppCompatActivity(), HasDefaultViewModelProviderFact
         val willShow = when (menu) {
             MainMenu.HOME -> fragment1
             MainMenu.EVENT -> fragment2
-            MainMenu.UDC -> fragment3
-            MainMenu.VIDEO -> fragment4
+            MainMenu.CLASS -> fragment3
+            MainMenu.PROFILE -> fragment4
         }
         supportFragmentManager.beginTransaction().hide(curFragment).show(willShow).commit()
         curFragment = willShow
@@ -107,7 +187,18 @@ class MainActivity :  DaggerAppCompatActivity(), HasDefaultViewModelProviderFact
 
 
         mViewModel.apply {
+
         }
+
+        Broadcast.eventUploadBroadcast.subscribe{
+            CommonSingleDialog(R.drawable.ic_camera, R.string.dialog_upload_completed)
+        }.disposedBy(eventUploadDisposable)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        eventUploadDisposable.clear()
     }
 
     companion object {

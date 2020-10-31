@@ -8,7 +8,8 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.goddoro.common.common.debugE
-import com.goddoro.common.data.data.Event
+import com.goddoro.common.common.widget.setOnDebounceClickListener
+import com.goddoro.common.data.model.Event
 import com.goddoro.udc.databinding.ItemMainPosterBinding
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -25,8 +26,8 @@ class MainPosterAdapter:
     private val TAG = MainPosterAdapter::class.java.simpleName
 
 
-    private val onClick: PublishSubject<String> = PublishSubject.create()
-    val clickEvent: Observable<String> = onClick
+    private val onClick: PublishSubject<Event> = PublishSubject.create()
+    val clickEvent: Observable<Event> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
@@ -51,13 +52,20 @@ class MainPosterAdapter:
         return MainPosterHolder(binding)
     }
 
-    override fun getItemCount(): Int = differ.currentList.size
+    override fun getItemCount(): Int = Integer.MAX_VALUE
 
-    override fun onBindViewHolder(holder: MainPosterHolder, position: Int) = holder.bind(differ.currentList[position])
+    fun getCenterPage(position: Int = 0) = Integer.MAX_VALUE / 2 + position
+
+
+    override fun onBindViewHolder(holder: MainPosterHolder, position: Int) = holder.bind(differ.currentList[position % differ.currentList.size ])
 
     inner class MainPosterHolder(private val binding: ItemMainPosterBinding) : RecyclerView.ViewHolder(binding.root),
         KoinComponent {
         init {
+
+            binding.posterCard.setOnDebounceClickListener {
+                onClick.onNext(differ.currentList[layoutPosition % differ.currentList.size])
+            }
 
 
         }

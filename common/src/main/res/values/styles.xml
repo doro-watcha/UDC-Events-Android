@@ -9,4 +9,13 @@
         <item name="colorAccent">@color/black</item>
 
     </style>
+
+
+
+
+    <style name="Theme.Beatflo.ServerSelectDialog" parent="Theme.MaterialComponents.Dialog">
+        <item name="android:backgroundDimEnabled">true</item>
+        <item name="android:windowCloseOnTouchOutside">false</item>
+    </style>
+
 </resources>

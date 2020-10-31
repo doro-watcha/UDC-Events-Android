@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:background="@color/black"
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/txt_type_battle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/common_battle"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/txt_type_performance"
+            android:layout_width="match_parent"
+            android:textColor="@color/white"
+            android:text="@string/common_performance"
+            app:layout_constraintTop_toBottomOf="@+id/txt_type_battle"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txt_type_party"
+            android:textColor="@color/white"
+            android:text="@string/common_party"
+            app:layout_constraintTop_toBottomOf="@+id/txt_type_performance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txt_type_workshop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/common_workshop"
+            app:layout_constraintTop_toBottomOf="@+id/txt_type_party"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

@@ -2,7 +2,7 @@ package com.goddoro.common.data.service
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
-import com.goddoro.common.data.data.User
+import com.goddoro.common.data.model.User
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
@@ -36,7 +36,7 @@ interface AuthService {
     suspend fun signIn(
         @Field("email") email : String,
         @Field("password") password : String
-    ):TokenResponse
+    ):AuthSignInResponse
 
     /**
      * Token validate
@@ -44,8 +44,6 @@ interface AuthService {
     @GET("auth/user")
     suspend fun getUser(
     ):UserResponse
-
-
 
 
 }
@@ -73,8 +71,8 @@ data class UserResponse(
 @Parcelize
 data class AuthSignInResponse(
     @SerializedName("user")
-    val user: User?,
+    val user: User,
 
     @SerializedName("token")
-    val token: String?
+    val token: String
 ) : Parcelable

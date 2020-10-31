@@ -1,29 +1,51 @@
 package com.goddoro.udc.di
 
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import dagger.*
-import javax.inject.Inject
-import javax.inject.Provider
-import kotlin.reflect.KClass
+import com.goddoro.map.EventMapViewModel
+import com.goddoro.udc.MainViewModel
+import com.goddoro.udc.views.classShop.ClassShopViewModel
+import com.goddoro.udc.views.auth.AuthViewModel
+import com.goddoro.udc.views.classShop.detail.ClassDetailViewModel
+import com.goddoro.udc.views.event.EventViewModel
+import com.goddoro.udc.views.event.detail.EventDetailViewModel
+import com.goddoro.udc.views.home.HomeViewModel
+import com.goddoro.udc.views.notification.NotificationViewModel
+import com.goddoro.udc.views.profile.EventCollectionViewModel
+import com.goddoro.udc.views.profile.JoinEventViewModel
+import com.goddoro.udc.views.profile.ProfileViewModel
+import com.goddoro.udc.views.setting.SettingViewModel
+import com.goddoro.udc.views.tag.TagDetailViewModel
+import com.goddoro.udc.views.udc.UdcViewModel
+import com.goddoro.udc.views.upload.UploadEventViewModel
+import com.goddoro.udc.views.video.VideoListViewModel
+import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.dsl.module
 
 
 /**
- * created By DORO 2020/08/14
+ * created By DORO 2020/10/10
  */
 
-@Module
-abstract class ViewModelModule {
-    @Binds
-    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
-}
+val viewModelModule  = module {
 
-@MapKey
-annotation class ViewModelKey(val value : KClass<out ViewModel>)
+    viewModel { AuthViewModel(get()) }
+    viewModel { MainViewModel() }
+    viewModel { (eventId : Int ) -> EventDetailViewModel(eventId,get()) }
+    viewModel { EventViewModel() }
 
-@Suppress("UNCHECKED_CAST")
-class ViewModelFactory @Inject constructor(private val creators : MutableMap<Class<out ViewModel>, Provider<ViewModel>>) : ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return creators[modelClass]?.get() as T
-    }
+    viewModel { HomeViewModel(get()) }
+    viewModel { EventCollectionViewModel() }
+    viewModel { UploadEventViewModel(get())}
+    viewModel { JoinEventViewModel() }
+    viewModel{ (authorId : Int) -> ProfileViewModel(authorId, get(),get()) }
+    viewModel { UdcViewModel() }
+    viewModel { VideoListViewModel() }
+    viewModel { SettingViewModel(get()) }
+
+    viewModel { EventMapViewModel()}
+    viewModel { TagDetailViewModel(get()) }
+
+    viewModel { ClassShopViewModel() }
+    viewModel { NotificationViewModel() }
+
+    viewModel { (classId : Int ) -> ClassDetailViewModel(classId) }
 }

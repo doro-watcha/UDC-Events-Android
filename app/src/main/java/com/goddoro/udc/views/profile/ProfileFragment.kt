@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
@@ -17,13 +16,24 @@ import com.google.android.material.tabs.TabLayout
 import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
-
+import androidx.fragment.app.Fragment
+import com.goddoro.common.common.AutoClearedValue
+import com.goddoro.common.common.debugE
+import com.goddoro.common.common.observeOnce
+import com.goddoro.common.util.Navigator
+import dagger.android.support.AndroidSupportInjection.inject
+import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.getViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 /**
  * created By DORO 2020/08/16
  */
 
-class ProfileFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
+class ProfileFragment : Fragment() {
+
+    private val TAG = ProfileFragment::class.java.simpleName
 
     /**
      * Binding Instance
@@ -33,15 +43,9 @@ class ProfileFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
     /**
      * ViewModel Instance
      */
+    private lateinit var  mViewModel : ProfileViewModel
 
-    @Inject
-    lateinit var viewModelFactory : ViewModelProvider.Factory
-
-    override fun getDefaultViewModelProviderFactory() = viewModelFactory
-
-    private val mViewModel: ProfileViewModel by lazy {
-        ViewModelProvider(requireActivity())[ProfileViewModel::class.java]
-    }
+    private val navigator : Navigator by inject()
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -54,6 +58,8 @@ class ProfileFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        mViewModel = getViewModel{parametersOf(arguments?.getInt(ARG_AUTHOR_ID))}
 
         mBinding.lifecycleOwner = viewLifecycleOwner
         mBinding.vm = mViewModel
@@ -101,6 +107,20 @@ class ProfileFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
     private fun observeViewModel(){
 
+        mViewModel.apply {
+
+            clickSetting.observeOnce(viewLifecycleOwner){
+                navigator.startSettingActivity(requireActivity())
+            }
+
+            clickNotification.observeOnce(viewLifecycleOwner){
+                navigator.startNotificationListActivity(requireActivity())
+            }
+
+            errorInvoked.observeOnce(viewLifecycleOwner){
+                debugE(TAG, it.message)
+            }
+        }
 
     }
 
@@ -136,6 +156,14 @@ class ProfileFragment : DaggerFragment(), HasDefaultViewModelProviderFactory {
 
     companion object {
 
-        fun newInstance () = ProfileFragment()
+        private const val ARG_AUTHOR_ID = "ARG_AUTHOR_ID"
+        fun newInstance(userId: Int): ProfileFragment {
+            val fragment = ProfileFragment()
+            val args = Bundle()
+            args.putInt(ARG_AUTHOR_ID, userId)
+            fragment.arguments = args
+
+            return fragment
+        }
     }
 }

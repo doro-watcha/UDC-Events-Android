@@ -10,7 +10,7 @@
 
         <variable
             name="item"
-            type="com.goddoro.common.data.data.Event" />
+            type="com.goddoro.common.data.model.Event" />
 
 
     </data>
@@ -27,12 +27,12 @@
         android:background="@android:color/transparent"
         tools:background="#000">
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/poster_card"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="3:4"
+            android:background="@drawable/ripple_effect"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,6 +43,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
+                srcUrl="@{item.posterUrl}"
                 android:src="@drawable/sample_image_01"
                 tools:src="@drawable/sample_image_01" />
 

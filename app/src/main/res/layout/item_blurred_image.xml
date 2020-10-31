@@ -4,7 +4,7 @@
     <data>
         <variable
             name="item"
-            type="com.goddoro.common.data.data.Event" />
+            type="com.goddoro.common.data.model.Event" />
     </data>
 
 
@@ -12,12 +12,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-<!--        <ImageView-->
-<!--            android:id="@+id/img_blurred_poster"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:scaleType="centerCrop"-->
-<!--            srcUrl="@{item.blurredImage}"-->
-<!--            android:layout_height="match_parent"/>-->
+        <ImageView
+            android:id="@+id/img_blurred_poster"
+            android:layout_width="match_parent"
+            android:scaleType="centerCrop"
+            blurred="@{item.posterUrl}"
+            android:layout_height="match_parent"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -147,6 +147,7 @@ dependencies {
 
     implementation 'com.naver.maps:map-sdk:3.9.1' // naver map
 
+    implementation 'jp.wasabeef:glide-transformations:4.3.0'
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

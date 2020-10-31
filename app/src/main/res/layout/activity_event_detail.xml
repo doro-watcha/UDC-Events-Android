@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.goddoro.udc.views.event.detail.EventDetailViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".views.event.detail.EventDetailActivity">
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/mHeaderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/mAppBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/background3"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/mToolbarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    app:contentScrim="@color/background4"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:titleEnabled="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp">
+
+                        <ImageButton
+                            android:id="@+id/btn_back_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:onClick="@{() -> vm.onClickBackArrow()}"
+                            android:src="@drawable/ic_back_arrow_white"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txt_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/btn_back_arrow"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/btn_back_arrow"
+                            app:layout_constraintBottom_toBottomOf="@+id/btn_back_arrow"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"
+                            android:text="@{vm.curEvent.posterUrl}" />
+
+                        <ImageView
+                            android:id="@+id/img_poster"
+                            imageSrc="@{vm.curEvent.posterUrl}"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/sample_image_01"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="2:3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/btn_back_arrow" />
+
+                        <TextView
+                            android:id="@+id/txt_description"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="15dp"
+                            android:text="여기는 행사에 대한 설명을 입력해주는 텍스트입니. 대충 이정도는 설명을 넣을것같은데 일단 테스트 용으로 길게 한 번 적어보는걸로"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toEndOf="@+id/img_poster"
+                            app:layout_constraintTop_toTopOf="@id/img_poster" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/mContainerLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="10dp"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+                <TextView
+                    android:id="@+id/txt_event_date"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:text="@string/txt_event_date"
+                    android:textColor="@color/text_color_2"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:id="@+id/event_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/text_color_1"
+                    app:layout_constraintStart_toEndOf="@+id/txt_event_date"
+                    app:layout_constraintTop_toTopOf="@+id/txt_event_date"
+                    tools:text="2020.10.23" />
+
+                <TextView
+                    android:id="@+id/txt_event_location"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_event_location"
+                    android:textColor="@color/text_color_2"
+                    app:layout_constraintStart_toStartOf="@+id/txt_event_date"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_event_date" />
+
+                <TextView
+                    android:id="@+id/event_location"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:textColor="@color/text_color_1"
+                    app:layout_constraintStart_toEndOf="@+id/txt_event_location"
+                    app:layout_constraintTop_toTopOf="@+id/txt_event_location"
+                    tools:text="폼텍 웍스홀" />
+
+                <TextView
+                    android:id="@+id/txt_event_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_event_title"
+                    android:textColor="@color/text_color_2"
+                    app:layout_constraintStart_toStartOf="@+id/txt_event_location"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_event_location" />
+
+                <TextView
+                    android:id="@+id/event_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="행사제목을 적는곳입니다"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@+id/event_location"
+                    app:layout_constraintTop_toTopOf="@+id/txt_event_title" />
+
+                <TextView
+                    android:id="@+id/txt_detail_information"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_detail_information"
+                    android:textColor="@color/black"
+                    android:textSize="20dp"
+                    android:textStyle="bold"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/event_title" />
+
+                <TextView
+                    android:id="@+id/txt_event_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/txt_event_time"
+                    android:textColor="@color/black"
+                    android:textSize="16dp"
+                    app:layout_constraintStart_toStartOf="@id/txt_detail_information"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_detail_information" />
+
+                <TextView
+                    android:id="@+id/event_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="2020년 12월 5일(토) 오후 2시"
+                    android:textColor="@color/black"
+                    app:layout_constraintStart_toStartOf="@+id/txt_event_time"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_event_time" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

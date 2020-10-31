@@ -9,13 +9,14 @@ import com.goddoro.udc.databinding.FragmentEventBinding
 import com.goddoro.udc.databinding.FragmentFindEmailBinding
 import com.goddoro.udc.views.event.EventViewModel
 import dagger.android.support.DaggerFragment
-
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import androidx.fragment.app.Fragment
 
 /**
  * created By DORO 2020/09/12
  */
 
-class EmailFindFragment : DaggerFragment() {
+class EmailFindFragment : Fragment() {
 
     /**
      * Binding Instance
@@ -25,9 +26,8 @@ class EmailFindFragment : DaggerFragment() {
     /**
      * ViewModel Instance
      */
-    private val mViewModel: AuthViewModel by lazy {
-        ViewModelProvider(requireActivity())[AuthViewModel::class.java]
-    }
+
+    private val mViewModel : AuthViewModel by sharedViewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater,
