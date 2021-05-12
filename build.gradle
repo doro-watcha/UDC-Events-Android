@@ -18,7 +18,7 @@ buildscript {
 
 ext {
     packageName = 'com.goddoro.udc'
-    minSdkVersion = 24
+    minSdkVersion = 23
     targetSdkVersion = 29
     buildToolsVersion = '29.0.1'
 
@@ -37,6 +37,7 @@ allprojects {
         jcenter()
         maven {
             url "https://jitpack.io" }
+        mavenCentral()
         maven {
             url 'https://navercorp.bintray.com/maps'
         }

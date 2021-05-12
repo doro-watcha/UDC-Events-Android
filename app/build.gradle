@@ -2,30 +2,38 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'com.google.gms.google-services'
 
 
 android {
-    compileSdkVersion 29
+
+    def constants = rootProject.ext
+
+    compileSdkVersion constants.targetSdkVersion
+    buildToolsVersion constants.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.goddoro.udc"
-        minSdkVersion 24
-        targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
 
-        renderscriptTargetApi 28 //must match target sdk and build tools
-        renderscriptSupportModeEnabled true
+        applicationId constants.packageName
+        minSdkVersion constants.minSdkVersion
+        targetSdkVersion constants.targetSdkVersion
+        versionCode constants.versionCode
+        versionName constants.versionName
+        testInstrumentationRunner constants.testInstrumentationRunner
 
+        //multiDexEnabled true
+
+        /**
+         * 데이터 바인딩 사용합니다.
+         */
         dataBinding.enabled = true
 
-        sourceCompatibility = 1.8
-        targetCompatibility = 1.8
-
+        /**
+         * VectorDrawable이 낮은 SDK에서 충돌이 일어나지 않게 해줍니다.
+         */
         vectorDrawables.useSupportLibrary = true
 
         resConfigs "en", "ko"
-        multiDexEnabled true
 
         javaCompileOptions {
             annotationProcessorOptions {
@@ -33,31 +41,53 @@ android {
             }
         }
 
-
     }
+    signingConfigs {
+        release {
+            storeFile file('./OSTS_KEYSTORE')
+            keyAlias 'key0'
+            storePassword 'Dancejoa1!'
+            keyPassword 'Dancejoa1!'
+        }
+    }
+
 
     buildTypes {
         release {
-            minifyEnabled false
+            signingConfig = signingConfigs.release
+            shrinkResources true
+            debuggable false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
 
     /**
-     * 데이터 바인딩 사용합니다.
+     * 자바 1.8과 호환이 가능하도록 설정해줍니다.
      */
-
-    kapt {
-        generateStubs = true
+    compileOptions {
+        sourceCompatibility = constants.sourceCompatibility
+        targetCompatibility = constants.targetCompatibility
     }
 
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    sourceSets {
+        androidTest.assets.srcDirs += files("$projectDir/schemas".toString())
+    }
+
     packagingOptions {
         pickFirst '**/*.so'
     }
 
+    lintOptions {
+        checkReleaseBuilds false
+        // Or, if you prefer, you can continue to check for errors in release builds,
+        // but continue the build even when errors are found:
+        abortOnError false
+    }
 }
 
 dependencies {
@@ -178,7 +208,7 @@ dependencies {
 
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 
-    implementation 'com.naver.maps:map-sdk:3.9.0' // naver map
+    implementation 'com.naver.maps:map-sdk:3.9.1' // naver map
 
 
     implementation 'com.naver.nid:naveridlogin-android-sdk:4.2.6'
@@ -195,7 +225,6 @@ dependencies {
     implementation 'ru.noties:scrollable:1.3.0'
 
     implementation 'gun0912.ted:tedclustering-naver:1.0.2'
-    implementation 'com.naver.maps:map-sdk:3.9.1' // naver map
 
     //image picker
     implementation 'gun0912.ted:tedimagepicker:1.1.3'
@@ -203,7 +232,20 @@ dependencies {
     // ted youtube player
     implementation 'kr.co.prnd:youtube-player-view:1.3.0'
 
+    // Calendar View
+    implementation 'com.archit.calendar:awesome-calendar:1.1.6'
+
     implementation 'jp.wasabeef:glide-transformations:4.3.0'
+
+
+
+    // fire base
+    implementation "com.google.firebase:firebase-auth:19.3.1"
+    implementation "com.google.firebase:firebase-core:17.4.2"
+    implementation "com.google.firebase:firebase-dynamic-links:19.1.0"
+    implementation "com.google.firebase:firebase-messaging:20.2.0"
+
+    implementation "com.google.android.gms:play-services-auth:18.0.0"
 
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"

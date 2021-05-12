@@ -1,11 +1,7 @@
 package com.goddoro.common.di
 
-import com.goddoro.common.data.repository.AuthRepository
-import com.goddoro.common.data.repository.EventRepository
-import com.goddoro.common.data.repository.UserRepository
-import com.goddoro.common.data.repositoryImpl.AuthRepositoryImpl
-import com.goddoro.common.data.repositoryImpl.EventRepositoryImpl
-import com.goddoro.common.data.repositoryImpl.UserRepositoryImpl
+import com.goddoro.common.data.repository.*
+import com.goddoro.common.data.repositoryImpl.*
 import org.koin.dsl.bind
 import org.koin.dsl.module
 
@@ -20,5 +16,10 @@ val repositoryModule = module {
     single { AuthRepositoryImpl(get(), get(), get(),get()) } bind AuthRepository::class
     single { UserRepositoryImpl(get()) } bind UserRepository::class
     single { EventRepositoryImpl(get()) } bind EventRepository::class
+    single { SearchRepositoryImpl(get()) } bind SearchRepository::class
+    single { ClassRepositoryImpl(get()) } bind ClassRepository::class
+    single { DeviceRepositoryImpl(get())} bind DeviceRepository::class
+    single { NotificationRepositoryImpl(get())} bind NotificationRepository::class
+    single { NaverRepositoryImpl(get())} bind NaverRepository::class
 
 }

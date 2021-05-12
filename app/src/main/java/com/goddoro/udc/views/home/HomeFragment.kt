@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
@@ -22,11 +23,14 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 import androidx.fragment.app.Fragment
-import com.goddoro.common.common.disposedBy
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.extension.rxRepeatTimer
 import com.goddoro.common.util.Navigator
+import com.goddoro.udc.views.event.detail.EventDetailActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Thread.sleep
 
 /**
  * created By DORO 2020/08/16
@@ -49,6 +53,7 @@ class HomeFragment : Fragment() {
     private val navigator : Navigator by inject()
 
     private val compositeDisposable = CompositeDisposable()
+    private val autoScrollDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -63,7 +68,6 @@ class HomeFragment : Fragment() {
 
 
         initView()
-       // setupViewPager()
         observeViewModel()
         setupList()
 
@@ -74,16 +78,6 @@ class HomeFragment : Fragment() {
     private fun initView() {
 
 
-        mBinding.btnLogin.setOnClickListener {
-
-            val intent = Intent(requireActivity(), AuthActivity::class.java)
-            startActivity(intent)
-        }
-
-        mBinding.btnUploadEvent.setOnClickListener {
-            val intent = Intent(requireActivity(), UploadEventActivity::class.java)
-            startActivity(intent)
-        }
     }
 
 
@@ -107,8 +101,7 @@ class HomeFragment : Fragment() {
             adapter = MainPosterAdapter().apply {
 
                 clickEvent.subscribe{
-                    navigator.startEventDetailActivity(requireActivity(),it.id)
-
+                    navigator.startEventDetailActivity(requireActivity(),it.first.id,it.second)
                 }.disposedBy(compositeDisposable)
 
             }
@@ -120,10 +113,7 @@ class HomeFragment : Fragment() {
             centerValue -= findFirstPosition
 
 
-            setCurrentItem( centerValue , false )
-
-
-
+            setCurrentItem( centerValue -1 , false )
 
             val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
             val offsetPx = resources.getDimensionPixelOffset(R.dimen.offset)
@@ -154,6 +144,8 @@ class HomeFragment : Fragment() {
 
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
+
+                    mViewModel.currentPage.value = position
                     mViewModel.curPoster.value = mViewModel.mainEvents.value!![position % ( mViewModel.mainEvents.value?.size ?: 0)]
                     mBinding.mViewPagerBlurred.setCurrentItem(mBinding.mViewPager2.currentItem % ( mViewModel.mainEvents.value?.size ?: 0), false)
                     mBinding.indicator.selection = position % ( mViewModel.mainEvents.value?.size ?: 0)
@@ -182,19 +174,25 @@ class HomeFragment : Fragment() {
 
                     clickEvent.subscribe{
                         debugE(TAG, it )
-                        navigator.startEventDetailActivity(requireActivity(),it)
+                        navigator.startEventDetailActivity(requireActivity(),it.first ,it.second)
                     }.disposedBy(compositeDisposable)
 
                 }
             }
 
             listHotEvent.apply {
-                adapter = PosterAdapter()
+                adapter = PosterAdapter().apply{
+
+                    clickEvent.subscribe({
+                        debugE(TAG, it.first)
+                        debugE(TAG, it.second)
+                        navigator.startEventDetailActivity(requireActivity(), it.first, it.second)
+                    },{
+                        debugE(TAG,it)
+                    }).disposedBy(compositeDisposable)
+                }
             }
 
-            listUdcEvent.apply {
-                adapter = PosterAdapter()
-            }
 
             listStaffPickEvent.apply {
 
@@ -211,7 +209,12 @@ class HomeFragment : Fragment() {
                 addItemDecoration(mVideoGridSpacing)
 
                 //isNestedScrollingEnabled = false
-                adapter = GridPosterAdapter()
+                adapter = GridPosterAdapter().apply {
+
+                    clickEvent.subscribe {
+                        navigator.startEventDetailActivity(requireActivity(), it.first,it.second)
+                    }.disposedBy(compositeDisposable)
+                }
             }
         }
     }
@@ -222,11 +225,23 @@ class HomeFragment : Fragment() {
 
 
             mainEvents.observe(viewLifecycleOwner){
-                debugE(TAG, it.map{it.id})
 
-                mBinding.indicator.count = it.size
+                if ( it.isNotEmpty()) {
+                    debugE(TAG, it.map { it.id })
 
-                setupViewPager()
+                    mBinding.indicator.count = it.size
+
+                    setupViewPager()
+                    //   startAutoScroll()
+                }
+            }
+
+            clickSearch.observeOnce(viewLifecycleOwner){
+                navigator.startSearchActivity(requireActivity())
+            }
+
+            clickUpload.observeOnce(viewLifecycleOwner){
+                navigator.startUploadEventActivity(requireActivity())
             }
 
             errorInvoked.observeOnce(viewLifecycleOwner){
@@ -235,9 +250,33 @@ class HomeFragment : Fragment() {
         }
     }
 
+    private fun startAutoScroll () {
+
+
+        autoScrollDisposable.clear()
+        rxRepeatTimer(5000){
+            mBinding.mViewPager2.apply {
+
+                //sleep(5000)
+
+                setCurrentItem(currentItem + 1 , true)
+            }
+
+        }.disposedBy(autoScrollDisposable)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        startAutoScroll()
+    }
+
     override fun onPause() {
         super.onPause()
 
+        autoScrollDisposable.clear()
     }
 
     override fun onDestroy() {

@@ -2,129 +2,84 @@ package com.goddoro.udc.views.classShop
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.goddoro.common.common.Once
+import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.DanceClass
+import com.goddoro.common.data.repository.ClassRepository
+import kotlinx.coroutines.launch
 
 
 /**
  * created By DORO 2020/10/24
  */
 
-class ClassShopViewModel() : ViewModel() {
+class ClassShopViewModel(
+    val classRepository : ClassRepository
+) : ViewModel() {
+
+    private val TAG = ClassShopViewModel::class.java.simpleName
 
 
-    val mainClasses: MutableLiveData<List<DanceClass>> = MutableLiveData()
+    val mainClasses: MutableLiveData<List<DanceClass>?> = MutableLiveData()
 
-    val normalClasses : MutableLiveData<List<DanceClass>> = MutableLiveData()
+    val normalClasses : MutableLiveData<List<DanceClass>?> = MutableLiveData()
 
-    val workshopClasses : MutableLiveData<List<DanceClass>> = MutableLiveData()
+    val workshopClasses : MutableLiveData<List<DanceClass>?> = MutableLiveData()
+
+    val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
 
     init {
 
-        mainClasses.value = listOf(
-            DanceClass(
-                0,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                1,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                2,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            )
-        )
-
-        normalClasses.value = listOf(
-            DanceClass(
-                0,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                1,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                2,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                0,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                1,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                2,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                0,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                1,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                2,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                0,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                1,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                2,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                0,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                1,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                2,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),            DanceClass(
-                0,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                1,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                2,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            )
-        )
-
-        workshopClasses.value = listOf(
-            DanceClass(
-                0,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                1,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            ),
-            DanceClass(
-                2,
-                "https://s3.ap-northeast-2.amazonaws.com/cdn.onesongtwoshows.com/video/6ukirdylqb4_1602523168390.jpg"
-            )
-        )
+        listMainClasses()
+        listNormalClasses()
+        listWorkshopClasses()
 
     }
 
+    private fun listMainClasses() {
+        viewModelScope.launch {
+
+            kotlin.runCatching {
+                classRepository.listClasses(isMainClass = true)
+            }.onSuccess {
+                debugE(TAG,it)
+                mainClasses.value = it
+            }.onFailure {
+                debugE(TAG, "1")
+                errorInvoked.value = Once(it)
+            }
+        }
+    }
+
+    private fun listNormalClasses() {
+
+        viewModelScope.launch {
+
+            kotlin.runCatching {
+                classRepository.listClasses(type = "regular")
+            }.onSuccess{
+                normalClasses.value = it
+            }.onFailure {
+                debugE(TAG,"2")
+                errorInvoked.value = Once(it)
+            }
+        }
+    }
+
+    private fun listWorkshopClasses () {
+
+        viewModelScope.launch {
+
+            kotlin.runCatching {
+                classRepository.listClasses(type = "popup")
+            }.onSuccess {
+                workshopClasses.value = it
+            }.onFailure {
+                debugE(TAG,"3")
+                errorInvoked.value = Once(it)
+            }
+        }
+    }
 
 }

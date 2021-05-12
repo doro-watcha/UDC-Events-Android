@@ -11,33 +11,27 @@ import com.goddoro.common.data.repository.EventRepository
  */
 
 class EventRepositoryImpl ( val api : EventAPI) : EventRepository {
-    override suspend fun getUpcomingEventList(): List<Event> {
-        TODO("Not yet implemented")
-    }
 
-    override suspend fun getNewEventList(): List<Event> {
+    override suspend fun listEventsBySort(sort: String): List<Event> {
 
         val params = hashMapOf(
-            "zxcv" to null
-        ).filterValueNotNull()
-        return api.getEventList(params).unWrapData().events
-
-    }
-
-    override suspend fun getHotEventList(): List<Event> {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getMainEventList(): List<Event> {
-        val params = hashMapOf(
-            "isMainEvent" to true
+            "sort" to sort
         ).filterValueNotNull()
 
-        return api.getEventList(params).unWrapData().events
+        return api.listEventsBySOrt(params).unWrapData().events
     }
-
     override suspend fun getEvent( eventId : Int ): Event {
 
         return api.getEvent(eventId).unWrapData().event
     }
+
+    override suspend fun listEventsByStatus(status: String): List<Event> {
+
+        val params = hashMapOf(
+            "status" to status
+        ).filterValueNotNull()
+
+        return api.listEventsBySOrt(params).unWrapData().events
+    }
+
 }

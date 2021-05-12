@@ -1,22 +1,33 @@
 package com.goddoro.udc.views.classShop
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.observe
 import androidx.viewpager2.widget.ViewPager2
-import com.goddoro.common.common.disposedBy
+import com.goddoro.common.common.debugE
+import com.goddoro.common.common.observeOnce
+import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.util.AppPreference_Factory.create
 import com.goddoro.common.util.CommonUtils
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentClassShopBinding
+import com.goddoro.udc.views.classShop.detail.ClassDetailActivity
+import com.goddoro.udc.views.udc.UdcViewModel_Factory.create
 import com.google.android.material.tabs.TabLayout
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.net.URI.create
+
 
 /**
  * created By DORO 2020/10/24
@@ -38,7 +49,7 @@ class ClassShopFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentClassShopBinding.inflate(inflater,container,false).also { mBinding = it}.root
+    ): View? = FragmentClassShopBinding.inflate(inflater, container, false).also { mBinding = it}.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -60,7 +71,15 @@ class ClassShopFragment : Fragment() {
 
                 clickEvent.subscribe{
 
-                    navigator.startClassDetailActivity(requireActivity(), it.id)
+                    val intent = Intent(context, ClassDetailActivity::class.java)
+
+                    val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(),
+                        it.second, ViewCompat.getTransitionName(it.second)!!
+                    )
+
+                    startActivity(intent,optionsCompat.toBundle())
+
+                   // navigator.startClassDetailActivity(requireActivity(), it.id)
 
                 }.disposedBy(compositeDisposable)
 
@@ -70,12 +89,12 @@ class ClassShopFragment : Fragment() {
 
             var centerValue =  Integer.MAX_VALUE / 2
 
-            val findFirstPosition = centerValue % ( mViewModel.mainClasses.value?.size ?: 0)
+            val findFirstPosition = centerValue % ( mViewModel.mainClasses.value?.size ?: 1)
 
             centerValue -= findFirstPosition
 
 
-            setCurrentItem( centerValue , false )
+            setCurrentItem(centerValue, false)
 
             this.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
@@ -89,7 +108,8 @@ class ClassShopFragment : Fragment() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
 
-                    mBinding.indicator.selection = position % ( mViewModel.mainClasses.value?.size ?: 0)
+                    if ( ( mViewModel.mainClasses.value?.size ?: 0 )> 0 )
+                    mBinding.indicator.selection = position % (mViewModel.mainClasses.value?.size ?: 0)
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {
@@ -105,7 +125,10 @@ class ClassShopFragment : Fragment() {
 
         mBinding.apply {
 
-            mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.common_dance_class)), 0)
+            mTabLayout.addTab(
+                mTabLayout.newTab().setText(getString(R.string.common_dance_class)),
+                0
+            )
             mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.common_workshop)), 1)
 
             /**
@@ -139,7 +162,17 @@ class ClassShopFragment : Fragment() {
 
     private fun observeViewModel() {
 
+        mViewModel.apply {
 
+            mainClasses.observe(viewLifecycleOwner){
+
+                mBinding.indicator.count = it?.size ?: 0
+            }
+
+            errorInvoked.observeOnce(viewLifecycleOwner){
+                debugE(TAG, it.message)
+            }
+        }
 
     }
 

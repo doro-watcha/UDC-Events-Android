@@ -6,6 +6,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.goddoro.common.common.debugE
 import com.goddoro.common.data.api.AuthAPI
+import com.goddoro.common.data.api.AuthSignInResponse
 import com.goddoro.common.data.model.User
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.util.AppPreference
@@ -55,8 +56,8 @@ class AuthRepositoryImpl @Inject constructor(
         return curUser.value != null
     }
 
-    override suspend fun signIn(email: String, password: String): User {
-        return api.signIn(email,password).unWrapData().user
+    override suspend fun signIn(email: String, password: String): AuthSignInResponse {
+        return api.signIn(email,password).unWrapData()
     }
 
     override suspend fun signUp(email: String, password: String): Completable {

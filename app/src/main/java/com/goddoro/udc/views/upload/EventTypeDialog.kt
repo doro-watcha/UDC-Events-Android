@@ -1,7 +1,5 @@
 package com.goddoro.udc.views.upload
 
-import android.app.Dialog
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
@@ -10,25 +8,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.view.Window
 import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.FragmentManager
 import com.goddoro.common.CommonConst
 import com.goddoro.common.common.AutoClearedValue
 import com.goddoro.common.common.widget.setOnDebounceClickListener
-import com.goddoro.common.databinding.DialogCommonBinding
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.DialogEventTypeBinding
-import com.goddoro.udc.util.ScreenUtil
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import io.reactivex.disposables.CompositeDisposable
-import org.koin.android.ext.android.inject
 
 
 /**
  * created By DORO 2020/09/26
  */
 
-class EventTypeDialog (  private val listener: onClickTypeListener): DialogFragment(){
+class EventTypeDialog (  private val listener: onClickTypeListener): BottomSheetDialogFragment(){
 
 
     interface onClickTypeListener {
@@ -76,23 +69,19 @@ class EventTypeDialog (  private val listener: onClickTypeListener): DialogFragm
     private fun initView() {
 
         mBinding.txtTypeBattle.setOnDebounceClickListener {
-            listener.onClickType(CommonConst.eventType.Battle.name)
+            listener.onClickType(CommonConst.eventType.배틀.name)
             dismiss()
         }
         mBinding.txtTypeParty.setOnDebounceClickListener {
-            listener.onClickType(CommonConst.eventType.Party.name)
+            listener.onClickType(CommonConst.eventType.파티.name)
             dismiss()
         }
 
         mBinding.txtTypePerformance.setOnDebounceClickListener {
-            listener.onClickType(CommonConst.eventType.Performance.name)
+            listener.onClickType(CommonConst.eventType.퍼포먼스.name)
             dismiss()
         }
 
-        mBinding.txtTypeWorkshop.setOnDebounceClickListener {
-            listener.onClickType(CommonConst.eventType.Workshop.name)
-            dismiss()
-        }
     }
 
 }

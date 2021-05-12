@@ -16,22 +16,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_thumbnail"
+            android:layout_width="46dp"
+            android:src="@drawable/sample_image_03"
+            android:layout_height="46dp"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"/>
+
         <TextView
+            android:id="@+id/txt_tag_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="비보이 킹소"
             android:layout_margin="10dp"
+            android:text="@{item.content}"
+            android:textStyle="bold"
             android:textColor="@color/black"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="@id/img_thumbnail"
+            app:layout_constraintStart_toEndOf="@id/img_thumbnail"
+            app:layout_constraintBottom_toBottomOf="@id/img_thumbnail"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_follow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
-            tools:text="팔로우"
+            android:text="팔로우"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"

@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "98782631880",
+    "project_id": "project-udc",
+    "storage_bucket": "project-udc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:98782631880:android:3fbd4dc40799c571ad12fd",
+        "android_client_info": {
+          "package_name": "com.goddoro.udc"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "98782631880-h4l0uhhgbjqh3rljel01r8riinvrqb6t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAn4JaGtH29n3L-HqKxq-cWaANhs2JUOeA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "98782631880-h4l0uhhgbjqh3rljel01r8riinvrqb6t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

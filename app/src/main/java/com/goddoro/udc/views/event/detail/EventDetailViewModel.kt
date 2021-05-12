@@ -26,6 +26,7 @@ class EventDetailViewModel (
     val curEvent : MutableLiveData<Event> = MutableLiveData()
 
     val clickBackArrow : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickPoster : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     init {
 
@@ -50,6 +51,10 @@ class EventDetailViewModel (
 
     fun onClickBackArrow() {
         clickBackArrow.value = Once(Unit)
+    }
+
+    fun onClickPoster () {
+        clickPoster.value = Once(Unit)
     }
 }
 

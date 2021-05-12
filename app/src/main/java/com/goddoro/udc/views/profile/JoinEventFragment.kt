@@ -13,6 +13,11 @@ import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
 import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.goddoro.common.common.widget.GridSpacingItemDecoration
+import com.goddoro.udc.R
+import com.goddoro.udc.views.classShop.NormalClassAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -54,11 +59,22 @@ class JoinEventFragment : Fragment() {
         debugE(TAG," JoinEventFragment")
     }
 
-    private fun setupRecyclerView () {
+    private fun setupRecyclerView() {
 
         mBinding.mRecyclerView.apply {
+            val mVideoGridLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
+            val spacingTop = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
+            val spacingLeft = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
+
+            val mVideoGridSpacing =
+                GridSpacingItemDecoration(3, spacingLeft, spacingTop, 0)
+
+            layoutManager = mVideoGridLayoutManager
+            addItemDecoration(mVideoGridSpacing)
+            setHasFixedSize(true)
 
             adapter = JoinEventAdapter()
+
         }
     }
 

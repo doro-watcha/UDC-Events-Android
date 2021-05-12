@@ -1,0 +1,301 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.goddoro.udc.views.upload.UploadEventViewModel" />
+
+    </data>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            tools:context="com.goddoro.udc.views.upload.UploadEventActivity">
+
+            <ImageView
+                android:id="@+id/btn_back_arrow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="12dp"
+                android:background="@drawable/ripple_effect"
+                android:onClick="@{() -> vm.onClickBackArrow()}"
+                android:src="@drawable/ic_back_arrow"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/txt_upload_event"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:text="@string/txt_upload_event"
+                android:textColor="@color/text_color_1"
+                android:textSize="16dp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/btn_back_arrow"
+                app:layout_constraintStart_toEndOf="@+id/btn_back_arrow"
+                app:layout_constraintTop_toTopOf="@+id/btn_back_arrow" />
+
+            <TextView
+                android:id="@+id/txt_event_poster"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/common_event_poster"
+                android:textColor="@color/text_color_1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/btn_back_arrow"
+                app:layout_constraintTop_toBottomOf="@+id/btn_back_arrow" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_poster_upload"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:elevation="0dp"
+                android:foreground="@color/gray"
+                android:onDebounceClick="@{() -> vm.onClickPickPoster()}"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="@+id/txt_event_poster"
+                app:layout_constraintTop_toBottomOf="@+id/txt_event_poster"
+                app:layout_constraintWidth_percent="0.2">
+
+                <ImageView
+                    android:id="@+id/img_camera"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_camera" />
+
+            </androidx.cardview.widget.CardView>
+
+            <ImageView
+                android:id="@+id/img_poster"
+                imageSrc="@{vm.curPoster}"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:scaleType="centerCrop"
+                android:visibility="@{vm.curPoster != null}"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toEndOf="@+id/btn_poster_upload"
+                app:layout_constraintTop_toTopOf="@+id/btn_poster_upload"
+                app:layout_constraintWidth_percent="0.2"
+                tools:src="@drawable/sample_image_01" />
+
+            <TextView
+                android:id="@+id/txt_event_detail_images"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/common_event_detail_image"
+                android:textColor="@color/text_color_1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@id/btn_poster_upload"
+                app:layout_constraintTop_toBottomOf="@+id/btn_poster_upload" />
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/btn_img_upload"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginTop="10dp"
+                android:elevation="0dp"
+                android:foreground="@color/gray"
+                android:onDebounceClick="@{() -> vm.onClickPickImage()}"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintDimensionRatio="1:1"
+                app:layout_constraintStart_toStartOf="@+id/txt_event_detail_images"
+                app:layout_constraintTop_toBottomOf="@+id/txt_event_detail_images"
+                app:layout_constraintWidth_percent="0.2">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:drawableTop="@drawable/ic_camera"
+                    android:drawablePadding="5dp"
+                    android:text="@{vm.eventDetailImages.size() + ` / 10`}"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    tools:text="3/10" />
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/mRecyclerView"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="12dp"
+                android:orientation="horizontal"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintBottom_toBottomOf="@id/btn_img_upload"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/btn_img_upload"
+                app:layout_constraintTop_toTopOf="@+id/btn_img_upload"
+                app:recyclerview_event_detail_images="@{vm.eventDetailImages}"
+                tools:listitem="@layout/item_event_detail_image" />
+
+            <TextView
+                android:id="@+id/txt_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_event_title"
+                android:textColor="@color/text_color_1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/btn_img_upload"
+                app:layout_constraintTop_toBottomOf="@+id/btn_img_upload" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edit_title"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_white_background"
+                app:endIconMode="clear_text"
+                app:hintEnabled="false"
+                app:endIconTint="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/txt_title">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="6dp"
+                    android:text="@={vm.title}"
+                    android:textColorHint="@color/gray_text_color_2"
+                    android:hint="@string/txt_write_title_message"
+                    android:textColor="@color/text_color_1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <TextView
+                android:id="@+id/txt_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_event_location"
+                android:textColor="@color/text_color_1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/layout_edit_title"
+                app:layout_constraintTop_toBottomOf="@+id/layout_edit_title" />
+
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/border_white_background"
+                android:ellipsize="end"
+                android:padding="10dp"
+                android:singleLine="true"
+                android:textColor="@{vm.location == null ? @color/gray_text_color_2 : @color/black}"
+                android:onDebounceClick="@{ () -> vm.onClickSearchAddress()}"
+                android:text="@{vm.location == null ? @string/txt_pick_date_message : vm.location}"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txt_location"
+                app:layout_constraintTop_toBottomOf="@+id/txt_location" />
+
+
+            <TextView
+                android:id="@+id/txt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_event_date"
+                android:textColor="@color/text_color_1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/location"
+                app:layout_constraintTop_toBottomOf="@+id/location" />
+
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textColor="@{vm.date == null ? @color/gray_text_color_2 : @color/black}"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_white_background"
+                android:padding="10dp"
+                android:text="@{vm.date == null ? @string/txt_pick_date_message : vm.date}"
+                android:textStyle="bold"
+                android:onDebounceClick="@{() -> vm.onClickCalendarDialog()}"
+                app:layout_constraintEnd_toEndOf="@+id/location"
+                app:layout_constraintStart_toStartOf="@+id/location"
+                app:layout_constraintTop_toBottomOf="@+id/txt_date" />
+
+            <TextView
+                android:id="@+id/txt_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_event_type"
+                android:textColor="@color/text_color_1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/date"
+                app:layout_constraintTop_toBottomOf="@+id/date" />
+
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:textColor="@{vm.type == null ? @color/gray_text_color_2 : @color/black}"
+                android:background="@drawable/border_white_background"
+                android:onDebounceClick="@{() -> vm.onClickTypeDialog()}"
+                android:padding="10dp"
+                android:text="@{vm.type == null ? @string/txt_pick_type_message : vm.type }"
+                android:textSize="15dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/txt_type"
+                tools:text="배틀">
+
+            </TextView>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_upload_event"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="5dp"
+                android:backgroundTint="@color/black"
+                android:onDebounceClick="@{() -> vm.onClickPreview()}"
+                android:text="@string/txt_preview_event"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/type" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.core.widget.NestedScrollView>
+
+
+
+</layout>

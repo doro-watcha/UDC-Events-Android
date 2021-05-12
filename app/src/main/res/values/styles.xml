@@ -16,4 +16,23 @@
 
     </style>
 
+    <style name="Widget.BottomNavigationView"
+        parent="Widget.Design.BottomNavigationView">
+    </style>
+
+
+    <style name="BottomNavigationView" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="BottomNavigationView.Active" parent="@style/TextAppearance.AppCompat.Caption">
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <style name="SearchBottomMenu">
+<!--        <item name="itemIconTint">@drawable/nav_item_color_state_dark</item>-->
+<!--        <item name="itemTextColor">@drawable/nav_item_color_state_dark</item>-->
+<!--        <item name="android:paddingTop">@dimen/padding_nano</item>-->
+    </style>
+
 </resources>

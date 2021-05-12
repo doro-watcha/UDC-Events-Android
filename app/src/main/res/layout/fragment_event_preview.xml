@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+
+    <data>
+
+        <variable
+            name="vm"
+            type="com.goddoro.udc.views.upload.UploadEventViewModel" />
+
+    </data>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        tools:context=".views.event.detail.EventDetailActivity">
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/layout_header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:id="@+id/mAppBarLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/black"
+                android:theme="@style/AppTheme.AppBarOverlay">
+
+
+                <com.google.android.material.appbar.CollapsingToolbarLayout
+                    android:id="@+id/mToolbarLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="230dp"
+                    app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                    app:titleEnabled="false">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:padding="15dp">
+
+                        <ImageButton
+                            android:id="@+id/btn_back_arrow"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="?attr/selectableItemBackground"
+                            android:onClick="@{() -> vm.onClickBackStep()}"
+                            android:src="@drawable/ic_back_arrow_white"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+                        <TextView
+                            android:id="@+id/txt_title"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            app:layout_constraintStart_toEndOf="@+id/btn_back_arrow"
+                            android:layout_marginStart="15dp"
+                            android:layout_marginEnd="15dp"
+                            app:layout_constraintEnd_toStartOf="@id/txt_upload_event"
+                            app:layout_constraintTop_toTopOf="@+id/btn_back_arrow"
+                            app:layout_constraintBottom_toBottomOf="@+id/btn_back_arrow"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:ellipsize="marquee"
+                            android:singleLine="true"
+                            android:text="@{vm.title}" />
+
+                        <TextView
+                            android:id="@+id/txt_upload_event"
+                            android:layout_width="wrap_content"
+                            android:layout_height="0dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/btn_back_arrow"
+                            android:text="@string/txt_upload_event"
+                            android:textStyle="bold"
+                            android:onDebounceClick="@{() -> vm.onClickUploadButton()}"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            android:layout_marginEnd="12dp"
+                            android:textColor="@color/white"
+                            app:layout_constraintTop_toTopOf="@+id/btn_back_arrow"/>
+
+                        <ImageView
+                            android:id="@+id/img_poster"
+                            srcUrl="@{vm.curPoster.toString()}"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_marginTop="10dp"
+                            android:transitionName="shared_element_transition"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/sample_image_01"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintDimensionRatio="2:3"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/btn_back_arrow" />
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:id="@+id/mContainerLayout"
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:paddingStart="10dp"
+                            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                            app:layout_constraintBottom_toBottomOf="@+id/img_poster"
+                            app:layout_constraintStart_toEndOf="@+id/img_poster"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/img_poster">
+
+
+                            <TextView
+                                android:id="@+id/txt_event_date"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:text="@string/txt_event_date"
+                                android:textColor="@color/white50"
+                                android:textSize="16dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/event_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/white"
+                                app:layout_constraintBottom_toBottomOf="@+id/txt_event_date"
+                                android:textStyle="bold"
+                                app:layout_constraintStart_toEndOf="@+id/txt_event_date"
+                                app:layout_constraintTop_toTopOf="@+id/txt_event_date"
+                                android:text="@{vm.date}"
+                                tools:text="2020.10.23" />
+
+                            <TextView
+                                android:id="@+id/txt_event_location"
+                                android:layout_width="120dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="20dp"
+                                android:text="@string/txt_event_location"
+                                android:textColor="@color/white50"
+                                android:textSize="16dp"
+                                app:layout_constraintStart_toStartOf="@+id/txt_event_date"
+                                app:layout_constraintTop_toBottomOf="@+id/event_date" />
+
+                            <TextView
+                                android:id="@+id/event_location"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:textColor="@color/white"
+                                app:layout_constraintBottom_toBottomOf="@+id/txt_event_location"
+                                android:textStyle="bold"
+                                android:text="@{vm.location}"
+                                app:layout_constraintEnd_toEndOf="parent"
+                                app:layout_constraintStart_toEndOf="@+id/txt_event_location"
+                                app:layout_constraintTop_toTopOf="@+id/txt_event_location"
+                                tools:text="폼텍 웍스홀" />
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+            </com.google.android.material.appbar.AppBarLayout>
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+        <TextView
+            android:id="@+id/txt_detail_information"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="12dp"
+            android:text="@string/txt_detail_information"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layout_header" />
+
+        <EditText
+            android:id="@+id/edit_description"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:textColor="@color/black"
+            android:textSize="14dp"
+            android:hint="행사에 대한 설명을 적어주세요"
+            android:textColorHint="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/txt_detail_information"
+            app:layout_constraintTop_toBottomOf="@+id/txt_detail_information"/>
+        <TextView
+            android:id="@+id/txt_event_introduction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/txt_event_description"
+            android:textColor="@color/black"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/edit_description"
+            app:layout_constraintTop_toBottomOf="@+id/edit_description" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/imgRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="12dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/txt_event_introduction"
+            tools:listitem="@layout/item_general_image" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

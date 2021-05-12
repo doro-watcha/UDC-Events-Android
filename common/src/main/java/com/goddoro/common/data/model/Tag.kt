@@ -15,6 +15,9 @@ data class Tag (
     val id : Int,
 
     @SerializedName("content")
-    val content : String
+    val content : String,
+
+    @SerializedName("type")
+    val type : String
 
 ) : Parcelable

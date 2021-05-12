@@ -2,6 +2,7 @@ package com.goddoro.udc.views.classShop
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -10,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.data.model.DanceClass
-import com.goddoro.udc.databinding.ItemEventCollectionBinding
 import com.goddoro.udc.databinding.ItemMainClassBinding
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
@@ -24,8 +24,8 @@ import org.koin.core.KoinComponent
 class MainClassAdapter: RecyclerView.Adapter<MainClassAdapter.MainClassViewHolder>() {
 
 
-    private val onClick: PublishSubject<DanceClass> = PublishSubject.create()
-    val clickEvent: Observable<DanceClass> = onClick
+    private val onClick: PublishSubject<Pair<DanceClass, ImageView>> = PublishSubject.create()
+    val clickEvent: Observable<Pair<DanceClass, ImageView>> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<DanceClass>() {
         override fun areItemsTheSame(oldItem: DanceClass, newItem: DanceClass): Boolean {
@@ -54,14 +54,24 @@ class MainClassAdapter: RecyclerView.Adapter<MainClassAdapter.MainClassViewHolde
 
     fun getCenterPage(position: Int = 0) = Integer.MAX_VALUE / 2 + position
 
-    override fun onBindViewHolder(holder: MainClassViewHolder, position: Int) = holder.bind(differ.currentList[position % differ.currentList.size ])
+    override fun onBindViewHolder(holder: MainClassViewHolder, position: Int) {
+        if (differ.currentList.size > 0)
+            return holder.bind(differ.currentList[position % differ.currentList.size])
+    }
 
-    inner class MainClassViewHolder(private val binding: ItemMainClassBinding) : RecyclerView.ViewHolder(binding.root),
+    inner class MainClassViewHolder(private val binding: ItemMainClassBinding) :
+        RecyclerView.ViewHolder(binding.root),
         KoinComponent {
         init {
 
             binding.imgPoster.setOnDebounceClickListener {
-                onClick.onNext(differ.currentList[layoutPosition % differ.currentList.size])
+                if (differ.currentList.size != 0)
+                    onClick.onNext(
+                        Pair(
+                            differ.currentList[layoutPosition % differ.currentList.size],
+                            binding.imgPoster
+                        )
+                    )
             }
 
         }
@@ -78,6 +88,8 @@ class MainClassAdapter: RecyclerView.Adapter<MainClassAdapter.MainClassViewHolde
 
 @BindingAdapter("app:recyclerview_main_class")
 fun ViewPager2.setMainClassEvents(items: List<DanceClass>?) {
+
+
     (adapter as? MainClassAdapter)?.run {
         this.submitItems(items)
     }

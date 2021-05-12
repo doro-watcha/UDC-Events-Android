@@ -2,9 +2,11 @@
 <layout>
 
     <data>
+
         <variable
-            name="vm"
-            type="com.goddoro.udc.views.video.VideoListViewModel" />
+            name="item"
+            type="com.goddoro.common.data.model.DanceClass" />
+
 
     </data>
 
@@ -12,10 +14,7 @@
         xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Video Fragment"/>
-
     </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 </layout>

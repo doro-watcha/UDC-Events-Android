@@ -21,6 +21,7 @@ class UploadEventViewModel (
 
 
     val curPoster: MutableLiveData<Uri> = MutableLiveData()
+    val eventDetailImages : MutableLiveData<List<Uri>> = MutableLiveData()
 
     val title: MutableLiveData<String> = MutableLiveData()
 
@@ -33,16 +34,30 @@ class UploadEventViewModel (
     val type: MutableLiveData<String> = MutableLiveData()
 
 
+    val clickPickPoster : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPickImage: MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickUploadButton: MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickBackArrow : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickTypeDialog : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickCalendarDialog : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickSearchAddress : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickPreview : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickBackStep : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     val uploadCompleted : MutableLiveData<Once<Unit>> = MutableLiveData()
     val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
 
+    init {
+
+
+    }
+
     fun onClickPickImage() {
         clickPickImage.value = Once(Unit)
+    }
+
+    fun onClickPickPoster () {
+        clickPickPoster.value = Once(Unit)
     }
 
     fun onClickBackArrow() {
@@ -51,31 +66,49 @@ class UploadEventViewModel (
 
     fun onClickUploadButton() {
 
-        viewModelScope.launch {
-            kotlin.runCatching {
+//        viewModelScope.launch {
+//            kotlin.runCatching {
+//
+//                val params: HashMap<String, RequestBody> = hashMapOf()
+//
+//                params["name"] = multiPartUtil.stringToPart(title.value ?: "")
+//                params["location"] = multiPartUtil.stringToPart(location.value ?: "")
+//                params["date"] = multiPartUtil.stringToPart(date.value ?: "")
+//                params["eventType"] = multiPartUtil.stringToPart("party")
+//
+////                NetworkClient.eventService.createEvent(
+////                    "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJnb2Rkb3JvQG5hdmVyLmNvbSIsImlhdCI6MTYwMTExMTkyMiwiZXhwIjoxNjA2Mjk1OTIyfQ.8yactGVIZquamv8CYpKEXOD3C3mD1nnAVypxk9_yQ7A"
+////                            ,MultiPartUtil.uriToPart(
+////                        "posterImg", curPoster.value!!),
+////                    params
+////                )
+//            }.onSuccess {
+//                uploadCompleted.value = Once(Unit)
+//            }.onFailure {
+//                errorInvoked.value = Once(it)
+//            }
+//        }
+//    }
 
-                val params: HashMap<String, RequestBody> = hashMapOf()
-
-                params["name"] = multiPartUtil.stringToPart(title.value ?: "")
-                params["location"] = multiPartUtil.stringToPart(location.value ?: "")
-                params["date"] = multiPartUtil.stringToPart(date.value ?: "")
-                params["eventType"] = multiPartUtil.stringToPart("party")
-
-//                NetworkClient.eventService.createEvent(
-//                    "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJnb2Rkb3JvQG5hdmVyLmNvbSIsImlhdCI6MTYwMTExMTkyMiwiZXhwIjoxNjA2Mjk1OTIyfQ.8yactGVIZquamv8CYpKEXOD3C3mD1nnAVypxk9_yQ7A"
-//                            ,MultiPartUtil.uriToPart(
-//                        "posterImg", curPoster.value!!),
-//                    params
-//                )
-            }.onSuccess {
-                uploadCompleted.value = Once(Unit)
-            }.onFailure {
-                errorInvoked.value = Once(it)
-            }
-        }
+        uploadCompleted.value = Once(Unit)
     }
 
     fun onClickTypeDialog() {
         clickTypeDialog.value = Once(Unit)
+    }
+    fun onClickCalendarDialog() {
+        clickCalendarDialog.value = Once(Unit)
+    }
+
+    fun onClickSearchAddress() {
+        clickSearchAddress.value = Once(Unit)
+    }
+
+    fun onClickPreview() {
+        clickPreview.value = Once(Unit)
+    }
+
+    fun onClickBackStep() {
+        clickBackStep.value = Once(Unit)
     }
 }

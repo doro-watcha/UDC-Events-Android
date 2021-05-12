@@ -2,6 +2,8 @@ package com.goddoro.common.di
 
 import android.annotation.SuppressLint
 import android.util.Log
+import com.goddoro.common.common.NAVER_CLIENT_ID
+import com.goddoro.common.common.NAVER_CLIENT_SECRET
 import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.TokenUtil
 import com.google.gson.GsonBuilder
@@ -27,16 +29,17 @@ private const val READ_TIMEOUT = 15L
 
 enum class ServerType(val apiUrl: String, val homepageUrl: String, val value: Int) {
 
-    PRODUCTION("http://ec2-3-35-4-201.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 0),
-    DEVELOPMENT("https://api.staging.onesongtwoshows.com", "https://www.beatflo.co/", 1)
+    DEVELOPMENT("http://ec2-3-35-4-201.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 0),
+    PRODUCTION("http://ec2-13-209-64-88.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 1),
+    NAVER("https://naveropenapi.apigw.ntruss.com/","https://naver.com",2)
     ;
 
     companion object {
 
-        fun parse(value: Int) = values().firstOrNull { it.value == value } ?: PRODUCTION
+        fun parse(value: Int) = values().firstOrNull { it.value == value } ?: DEVELOPMENT
 
         val defaultServerType: ServerType
-            get() = PRODUCTION
+            get() = DEVELOPMENT
 
         fun getCurrentServer(appPreference: AppPreference): ServerType {
             return parse(appPreference.curServer)
@@ -69,13 +72,6 @@ val networkModule = module {
             .client(get())
             .build()
     }
-    single(named("UPLOAD")) {
-        Retrofit.Builder()
-            .baseUrl(ServerType.getCurrentServer(get()).apiUrl)
-            .addConverterFactory(GsonConverterFactory.create(get()))
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-    }
 
     single {
         Interceptor { chain ->
@@ -91,4 +87,49 @@ val networkModule = module {
             }.build())
         }
     }
+
+    single( named("NAVER_INTERCEPTOR") ){
+        Interceptor { chain ->
+
+            Log.d(
+                "NAVER Network Module",
+                "========== [ Network Module : Header Intercepter ] ==========="
+            )
+            chain.proceed(chain.request().newBuilder().apply {
+                header("X-NCP-APIGW-API-KEY", NAVER_CLIENT_SECRET)
+                addHeader("X-NCP-APIGW-API-KEY-ID", NAVER_CLIENT_ID)
+            }.build())
+        }
+
+    }
+
+
+    single ( named("NAVER_OKHTTP") ){
+        OkHttpClient.Builder().apply {
+            connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+            retryOnConnectionFailure(true)
+            addInterceptor(get<Interceptor>(named("NAVER_INTERCEPTOR")))
+            addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+        }.build()
+
+    }
+
+
+
+    single(named("NAVER")) {
+        Retrofit.Builder()
+            .baseUrl(ServerType.NAVER.apiUrl)
+            .addConverterFactory(GsonConverterFactory.create(get()))
+            .client(get(named("NAVER_OKHTTP")))
+            .build()
+    }
+
+
+
+
+
 }

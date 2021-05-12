@@ -24,7 +24,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.classShop.detail.ClassDetailActivity"></activity>
+        <activity android:name=".views.onboarding.OnBoardingActivity"></activity>
+        <activity android:name=".views.classShop.create.MakeClassActivity" />
+        <activity android:name=".views.admin.AdminActivity" />
+        <activity android:name="com.goddoro.udc.views.upload.map.SearchAddressActivity" />
+        <activity android:name=".views.search.detail.SearchDetailActivity" />
+        <activity android:name=".views.search.SearchActivity" />
+        <activity
+            android:name=".views.classShop.detail.ClassDetailActivity"
+            android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
         <activity android:name=".views.notification.NotificationListActivity" />
         <activity android:name=".views.tag.TagDetailActivity" />
         <activity android:name=".views.setting.SettingActivity" />
@@ -41,6 +50,21 @@
         <meta-data
             android:name="com.naver.maps.map.86uizs8uuf"
             android:value="86uizs8uuf" />
+
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/ic_camera" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_channel_id"
+            android:value="@string/fcm_channel_id" />
+
+        <service
+            android:name=".fcm.FirebaseMsgService"
+            android:exported="false">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
     </application>
 
 </manifest>

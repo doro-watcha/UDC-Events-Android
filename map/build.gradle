@@ -157,7 +157,7 @@ dependencies {
 
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'
 
-    implementation 'com.naver.maps:map-sdk:3.9.0' // naver map
+    implementation 'com.naver.maps:map-sdk:3.9.1' // naver map
 
     implementation 'com.google.android.gms:play-services-maps:17.0.0'
     implementation 'com.google.android.gms:play-services-location:17.0.0'
@@ -172,7 +172,6 @@ dependencies {
 
     implementation 'gun0912.ted:tedclustering-naver:1.0.2'
 
-    implementation 'com.naver.maps:map-sdk:3.9.1' // naver map
 
 
 

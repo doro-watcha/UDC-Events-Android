@@ -16,7 +16,7 @@ interface EventAPI {
 
 
     @GET("event")
-    suspend fun getEventList(
+    suspend fun listEventsBySOrt(
         @QueryMap parameters: HashMap<String, Any>
     ) : ApiResponse<EventListResponse>
 
@@ -24,11 +24,12 @@ interface EventAPI {
     suspend fun getEvent(
         @Path("id") eventId : Int
     ) : ApiResponse<EventResponse>
+
 }
 
 @Parcelize
 data class EventListResponse(
-    @SerializedName("event")
+    @SerializedName("events")
     val events : List<Event>
 ) : Parcelable
 

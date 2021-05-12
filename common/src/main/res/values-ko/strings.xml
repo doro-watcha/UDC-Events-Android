@@ -12,10 +12,13 @@
     <string name="common_sign_up">회원가입</string>
     <string name="common_user_grade">회원 등급</string>
     <string name="common_point">포인트</string>
-    <string name="txt_profile_tab_1">내 행사</string>
+    <string name="common_title">제목</string>
+    <string name="common_body">문의 내용을 입력해주세요</string>
+    <string name="txt_profile_tab_1">내 게시물</string>
     <string name="txt_profile_tab_2">참여한 행사</string>
-    <string name="txt_upload_event">행사 등록하기</string>
-    <string name="txt_pick_image">행사 포스터를 골라주세요!</string>
+    <string name="txt_upload_event">행사 등록하기</string>터
+
+    <string name="txt_pick_poster">행사 포스터를 골라주세요!</string>
     <string name="txt_event_title">행사명</string>
     <string name="txt_event_description">행사 소개</string>
     <string name="txt_event_location">행사 장소</string>
@@ -46,4 +49,21 @@
     <string name="common_notification">알림</string>
     <string name="txt_detail_information">상세 정보</string>
     <string name="txt_event_time">행사 시간</string>
+    <string name="txt_event_search_hint">행사 검색</string>
+    <string name="common_event_poster">행사 포스터</string>
+    <string name="common_event_detail_image">행사 상세 사진</string>
+    <string name="txt_pick_image">행사 관련한 사진을 골라주세요!</string>
+    <string name="txt_preview_event">행사 미리보기</string>
+    <string name="txt_pick_address_message">행사 장소를 골라주세요!</string>
+    <string name="txt_pick_date_message">날짜를 골라주세요!</string>
+    <string name="txt_pick_time_message">행사 시작 시간을 골라주세요!</string>
+    <string name="txt_write_title_message">행사명을 알려주세요!</string>
+    <string name="txt_pick_type_message">행사 종류를 선택해주세요!</string>
+
+    <string name="txt_pick_server">서버를 선택해주세요</string>
+    <string name="txt_pick_artist">아티스트를 선택해주세요</string>
+    <string name="txt_enter_email">이메일을 입력해주세요</string>
+    <string name="txt_unconfirmed_event">승인되지 않은 행사들</string>
+
+    <string name="txt_grant">허가</string>
 </resources>

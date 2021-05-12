@@ -13,10 +13,12 @@
     <string name="common_sign_up">SignUp</string>
     <string name="common_user_grade">User Grade</string>
     <string name="common_point">Point</string>
-    <string name="txt_profile_tab_1">My Events</string>
+    <string name="common_title">Title</string>
+    <string name="common_body">Please input your description</string>
+    <string name="txt_profile_tab_1">My Posts</string>
     <string name="txt_profile_tab_2">Past Events</string>
     <string name="txt_upload_event">Upload Event</string>
-    <string name="txt_pick_image">Pick your photo</string>
+    <string name="txt_pick_poster">Pick your photo</string>
     <string name="txt_event_title">Event Title</string>
     <string name="txt_event_description">Event Description</string>
     <string name="txt_event_location">Event Location</string>
@@ -35,7 +37,7 @@
     <string name="common_dancer_info_txt">Dancer Info</string>
     <string name="txt_nick_name">Dancer Name</string>
     <string name="common_save">Save</string>
-    <string name="txt_dancer_location">Place of Actiivty</string>
+    <string name="txt_dancer_location">Place of Activity</string>
     <string name="txt_interested_tag">Interested Tag</string>
     <string name="txt_interested_genre">Interested Genre</string>
     <string name="txt_interested_dancer">Interested Dancer</string>
@@ -47,5 +49,20 @@
     <string name="common_notification">Notification</string>
     <string name="txt_detail_information">Detail Information</string>
     <string name="txt_event_time">Event Start Time</string>
+    <string name="txt_event_search_hint">Event Search</string>
+    <string name="common_event_poster">Event Poster</string>
+    <string name="common_event_detail_image">Event Detail Images</string>
+    <string name="txt_pick_image">Pick your event detail images</string>
+    <string name="txt_preview_event">Preview Event</string>
+    <string name="txt_pick_address_message">Please pick the address</string>
+    <string name="txt_pick_date_message">Please pick the date</string>
+    <string name="txt_pick_time_message">Please pick the time</string>
+    <string name="txt_write_title_message">Please write title of event</string>
+    <string name="txt_pick_type_message">Please Pick type of event</string>
 
+    <string name="txt_pick_server">Please pick server</string>
+    <string name="txt_pick_artist">Please pick artist</string>
+    <string name="txt_enter_email">Please enter email</string>
+    <string name="txt_unconfirmed_event">Need to confirm</string>
+    <string name="txt_grant">Grant</string>
 </resources>

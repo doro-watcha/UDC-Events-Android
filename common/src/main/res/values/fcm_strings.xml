@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="fcm_channel_id" translatable="false">UDC_channel_id_01</string>
+    <string name="fcm_channel_name" translatable="false">UDC 알림</string>
+    <string name="fcm_channel_desc" translatable="false">UDC 알림</string>
+</resources>

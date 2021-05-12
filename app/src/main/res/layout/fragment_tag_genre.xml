@@ -1,17 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        
+
         <variable
             name="vm"
             type="com.goddoro.udc.views.tag.TagDetailViewModel" />
-        
+
     </data>
-    <androidx.constraintlayout.widget.ConstraintLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-        android:layout_height="match_parent">
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <TextView
+            android:id="@+id/txt_interested_genre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/txt_interested_genre"
+            android:textColor="@color/black"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mRecyclerView"
+            android:layout_marginTop="10dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_setting_tag"
+            tools:itemCount="3"
+            app:recyclerview_my_tag="@{vm.myGenreTag}"
+            app:layout_constraintTop_toBottomOf="@+id/txt_interested_genre"/>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_artist"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            app:endIconMode="clear_text"
+            app:endIconTint="@color/black"
+            app:layout_constraintTop_toBottomOf="@id/mRecyclerView">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_artist"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="6dp"
+                android:text="@={vm.artistQuery}"
+                android:textColor="@color/text_color_1"
+                android:theme="@style/EditTextTheme" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/mQueryRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_height="wrap_content"
+            tools:listitem="@layout/item_setting_tag"
+            tools:itemCount="3"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintTop_toBottomOf="@+id/layout_edit_artist"/>
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </layout>

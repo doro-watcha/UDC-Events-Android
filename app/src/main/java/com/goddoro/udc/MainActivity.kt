@@ -2,24 +2,31 @@ package com.goddoro.udc
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.*
 import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
-import com.goddoro.common.common.disposedBy
 import com.goddoro.common.common.navigation.MainMenu
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.dialog.CommonSingleDialog
+import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.Navigator
 import com.goddoro.map.EventMapFragment
+import com.goddoro.udc.application.MainApplication.Companion.appPreference
 import com.goddoro.udc.databinding.ActivityMainBinding
 import com.goddoro.udc.views.classShop.ClassShopFragment
 import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.profile.ProfileFragment
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -28,6 +35,8 @@ class MainActivity : AppCompatActivity() {
     private val eventUploadDisposable = CompositeDisposable()
 
     private lateinit var mBinding : ActivityMainBinding
+
+    private val appPreference : AppPreference by inject()
 
     private val navigator : Navigator by inject()
 
@@ -53,6 +62,42 @@ class MainActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
 
+
+        if (authRepository.isSignedIn()) {
+            // FCM token check
+            FirebaseInstanceId.getInstance().instanceId
+                .addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        Log.w(TAG, "getInstanceId failed", task.exception)
+                        return@OnCompleteListener
+                    }
+
+                    // Get new Instance ID token
+                    val newFCMToken = task.result?.token
+                    val savedFCMToken = appPreference.curFCMToken
+                    if (newFCMToken != null) {
+                        var uuid = appPreference.curDeviceUUID
+                        if (uuid.isEmpty()) {
+                            uuid = UUID.randomUUID().toString() // randon UUID 생성
+                        }
+
+                        if (savedFCMToken.isNotEmpty() && newFCMToken != savedFCMToken) {
+                            // fcm token이 변경되었으면 preference update하고 서버도 update한다.
+                            appPreference.curFCMToken = newFCMToken
+                            debugE(TAG, "Main IN devide")
+                            mViewModel.registerDevice( newFCMToken)
+                        } else {
+                            appPreference.curFCMToken = newFCMToken
+                            debugE(TAG, "Main IN device2")
+
+                            debugE(TAG, newFCMToken)
+                            mViewModel.registerDevice(newFCMToken)
+                        }
+                    }
+                })
+        }
+
+
         debugE(TAG, authRepository.curUser.value )
 
         initView()
@@ -68,8 +113,11 @@ class MainActivity : AppCompatActivity() {
             _menu.value = MainMenu.parseIdToMainMenu(it.itemId)
             true
         }
+        mBinding.bottomNavigation.apply {
 
+            setBackgroundColor(ContextCompat.getColor(applicationContext,android.R.color.transparent))
 
+        }
     }
 
     private fun setupBottomNavigationView() {
@@ -184,11 +232,7 @@ class MainActivity : AppCompatActivity() {
             if(mBinding.bottomNavigation.selectedItemId != menu.menuId)
                 mBinding.bottomNavigation.selectedItemId = menu.menuId
         }
-
-
-        mViewModel.apply {
-
-        }
+        
 
         Broadcast.eventUploadBroadcast.subscribe{
             CommonSingleDialog(R.drawable.ic_camera, R.string.dialog_upload_completed)

@@ -2,13 +2,21 @@ package com.goddoro.udc.util
 
 import android.app.Activity
 import android.content.Intent
+import android.widget.ImageView
+import androidx.core.app.ActivityOptionsCompat
+import androidx.core.view.ViewCompat
 import com.goddoro.common.util.Navigator
-import com.goddoro.common.views.NeedLoginActivity
 import com.goddoro.udc.MainActivity
+import com.goddoro.udc.R
+import com.goddoro.udc.views.admin.AdminActivity
 import com.goddoro.udc.views.auth.AuthActivity
+import com.goddoro.udc.views.classShop.create.MakeClassActivity
 import com.goddoro.udc.views.classShop.detail.ClassDetailActivity
 import com.goddoro.udc.views.event.detail.EventDetailActivity
+import com.goddoro.udc.views.upload.map.SearchAddressActivity
 import com.goddoro.udc.views.notification.NotificationListActivity
+import com.goddoro.udc.views.search.SearchActivity
+import com.goddoro.udc.views.search.detail.SearchDetailActivity
 import com.goddoro.udc.views.setting.SettingActivity
 import com.goddoro.udc.views.tag.TagDetailActivity
 import com.goddoro.udc.views.upload.UploadEventActivity
@@ -19,6 +27,16 @@ import com.goddoro.udc.views.upload.UploadEventActivity
  */
 
 class NavigatorImpl : Navigator{
+
+    private fun fadeIn(activity: Activity, intent: Intent) {
+        activity.startActivity(intent)
+        activity.overridePendingTransition(R.anim.fade_in, R.anim.fade_out)
+    }
+
+    private fun slide( activity : Activity , intent : Intent ) {
+        activity.startActivity(intent)
+        activity.overridePendingTransition(R.anim.slide_in_from_right, R.anim.slide_out_to_left)
+    }
     override fun startUploadEventActivity(activity: Activity) {
         val intent = Intent ( activity , UploadEventActivity::class.java)
         activity.startActivity(intent)
@@ -49,9 +67,13 @@ class NavigatorImpl : Navigator{
         activity.startActivity(intent)
     }
 
-    override fun startEventDetailActivity(activity: Activity, eventId: Int) {
+    override fun startEventDetailActivity(activity: Activity, eventId: Int, imageView : ImageView) {
         val intent = EventDetailActivity.newIntent(activity,eventId)
-        activity.startActivity(intent)
+
+        val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
+            imageView, ViewCompat.getTransitionName(imageView)!!
+        )
+        activity.startActivity(intent,optionsCompat.toBundle())
     }
 
     override fun startTagDetailActivity(activity: Activity, position: Int) {
@@ -69,6 +91,33 @@ class NavigatorImpl : Navigator{
     override fun startClassDetailActivity(activity: Activity, classId : Int) {
 
         val intent = ClassDetailActivity.newIntent(activity,classId)
+        activity.startActivity(intent)
+    }
+
+    override fun startSearchActivity(activity: Activity) {
+
+        val intent = SearchActivity.newIntent(activity)
+        fadeIn(activity,intent)
+    }
+
+    override fun startSearchDetailActivity(activity: Activity ,query : String ) {
+        val intent = SearchDetailActivity.newIntent(activity,query)
+        slide(activity,intent)
+    }
+
+    override fun startSearchAddressActivity(activity: Activity) {
+
+        val intent = SearchAddressActivity.newIntent(activity)
+        slide(activity,intent)
+    }
+
+    override fun startAdminActivity(activity: Activity) {
+        val intent = AdminActivity.newIntent(activity)
+        slide(activity,intent)
+    }
+
+    override fun startMakeClassActivity(activity: Activity) {
+        val intent = MakeClassActivity.newIntent(activity)
         activity.startActivity(intent)
     }
 }

@@ -15,6 +15,8 @@
 
 
 
+
+
     <style name="LoadDialog">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">match_parent</item>
@@ -110,5 +112,9 @@
     <style name="TagChipTextAppearance" parent="TextAppearance.AppCompat">
         <item name="android:textSize">10sp</item>
         <item name="android:textStyle">bold</item>
+    </style>
+
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light">
+        <item name="colorAccent">@color/black</item>
     </style>
 </resources>

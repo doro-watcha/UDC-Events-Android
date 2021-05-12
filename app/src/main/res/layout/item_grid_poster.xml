@@ -12,16 +12,19 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@drawable/ripple_effect">
 
         <com.goddoro.common.common.widget.SquareImageView
             android:id="@+id/img_grid_poster"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="3:4"
+            srcUrl="@{item.posterUrl}"
+            android:transitionName="shared_element_transition"
             android:layout_margin="10dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/sample_image_01"
+            android:src="@drawable/sample_image_03"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView

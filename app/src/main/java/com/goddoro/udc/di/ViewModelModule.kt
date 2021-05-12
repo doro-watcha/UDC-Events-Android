@@ -5,18 +5,19 @@ import com.goddoro.udc.MainViewModel
 import com.goddoro.udc.views.classShop.ClassShopViewModel
 import com.goddoro.udc.views.auth.AuthViewModel
 import com.goddoro.udc.views.classShop.detail.ClassDetailViewModel
-import com.goddoro.udc.views.event.EventViewModel
 import com.goddoro.udc.views.event.detail.EventDetailViewModel
+import com.goddoro.udc.views.upload.map.SearchAddressViewModel
 import com.goddoro.udc.views.home.HomeViewModel
 import com.goddoro.udc.views.notification.NotificationViewModel
 import com.goddoro.udc.views.profile.EventCollectionViewModel
 import com.goddoro.udc.views.profile.JoinEventViewModel
 import com.goddoro.udc.views.profile.ProfileViewModel
+import com.goddoro.udc.views.search.SearchViewModel
+import com.goddoro.udc.views.search.detail.SearchDetailViewModel
 import com.goddoro.udc.views.setting.SettingViewModel
 import com.goddoro.udc.views.tag.TagDetailViewModel
 import com.goddoro.udc.views.udc.UdcViewModel
 import com.goddoro.udc.views.upload.UploadEventViewModel
-import com.goddoro.udc.views.video.VideoListViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -27,25 +28,27 @@ import org.koin.dsl.module
 
 val viewModelModule  = module {
 
-    viewModel { AuthViewModel(get()) }
-    viewModel { MainViewModel() }
+    viewModel { AuthViewModel(get(),get()) }
+    viewModel { MainViewModel(get()) }
     viewModel { (eventId : Int ) -> EventDetailViewModel(eventId,get()) }
-    viewModel { EventViewModel() }
 
     viewModel { HomeViewModel(get()) }
-    viewModel { EventCollectionViewModel() }
+    viewModel { EventCollectionViewModel(get()) }
     viewModel { UploadEventViewModel(get())}
     viewModel { JoinEventViewModel() }
     viewModel{ (authorId : Int) -> ProfileViewModel(authorId, get(),get()) }
     viewModel { UdcViewModel() }
-    viewModel { VideoListViewModel() }
     viewModel { SettingViewModel(get()) }
 
-    viewModel { EventMapViewModel()}
+    viewModel { EventMapViewModel(get(),get())}
     viewModel { TagDetailViewModel(get()) }
 
-    viewModel { ClassShopViewModel() }
-    viewModel { NotificationViewModel() }
+    viewModel { ClassShopViewModel(get()) }
+    viewModel { NotificationViewModel(get()) }
 
-    viewModel { (classId : Int ) -> ClassDetailViewModel(classId) }
+    viewModel { SearchViewModel() }
+    viewModel { ( query : String) -> SearchDetailViewModel(query,get()) }
+
+    viewModel { (classId : Int ) -> ClassDetailViewModel(classId,get()) }
+    viewModel { SearchAddressViewModel(get()) }
 }

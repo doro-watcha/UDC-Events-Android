@@ -1,6 +1,7 @@
 package com.goddoro.common.data.repository
 
 import androidx.lifecycle.LiveData
+import com.goddoro.common.data.api.AuthSignInResponse
 import com.goddoro.common.data.model.User
 import io.reactivex.Completable
 
@@ -23,7 +24,7 @@ interface AuthRepository {
     suspend fun signIn (
         email : String,
         password : String
-    ) : User
+    ) : AuthSignInResponse
 
     suspend fun signUp (
         email : String,

@@ -1,6 +1,7 @@
 package com.goddoro.udc.views.home
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -26,8 +27,8 @@ class MainPosterAdapter:
     private val TAG = MainPosterAdapter::class.java.simpleName
 
 
-    private val onClick: PublishSubject<Event> = PublishSubject.create()
-    val clickEvent: Observable<Event> = onClick
+    private val onClick: PublishSubject<Pair<Event, ImageView>> = PublishSubject.create()
+    val clickEvent: Observable<Pair<Event,ImageView>> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
@@ -54,9 +55,6 @@ class MainPosterAdapter:
 
     override fun getItemCount(): Int = Integer.MAX_VALUE
 
-    fun getCenterPage(position: Int = 0) = Integer.MAX_VALUE / 2 + position
-
-
     override fun onBindViewHolder(holder: MainPosterHolder, position: Int) = holder.bind(differ.currentList[position % differ.currentList.size ])
 
     inner class MainPosterHolder(private val binding: ItemMainPosterBinding) : RecyclerView.ViewHolder(binding.root),
@@ -64,7 +62,7 @@ class MainPosterAdapter:
         init {
 
             binding.posterCard.setOnDebounceClickListener {
-                onClick.onNext(differ.currentList[layoutPosition % differ.currentList.size])
+                onClick.onNext(Pair(differ.currentList[layoutPosition % differ.currentList.size],binding.poster))
             }
 
 

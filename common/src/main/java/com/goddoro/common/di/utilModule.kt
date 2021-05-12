@@ -1,10 +1,7 @@
 package com.goddoro.common.di
 
 import androidx.room.util.FileUtil
-import com.goddoro.common.util.AppPreference
-import com.goddoro.common.util.MultiPartUtil
-import com.goddoro.common.util.TokenUtil
-import com.goddoro.common.util.UriUtil
+import com.goddoro.common.util.*
 import org.koin.dsl.module
 
 
@@ -19,5 +16,6 @@ val utilModule = module {
     single { UriUtil(get()) }
     single { TokenUtil(get()) }
     single { MultiPartUtil(get())}
+    single { ScreenUtil(get()) }
 
 }

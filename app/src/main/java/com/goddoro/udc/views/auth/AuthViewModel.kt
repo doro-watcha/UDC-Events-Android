@@ -6,6 +6,8 @@ import com.goddoro.common.common.StrPatternChecker
 import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.User
 import com.goddoro.common.data.repository.AuthRepository
+import com.goddoro.common.util.AppPreference
+import com.goddoro.common.util.TokenUtil
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -15,7 +17,8 @@ import javax.inject.Inject
  */
 
 class AuthViewModel (
-    private val authRepository : AuthRepository
+    private val authRepository : AuthRepository,
+    private val tokenUtil: TokenUtil
 ) : ViewModel() {
 
     private val TAG = AuthViewModel::class.java.simpleName
@@ -119,8 +122,10 @@ class AuthViewModel (
             }.onSuccess {
                 debugE(TAG, "성공하긴했어")
                 debugE(TAG, it)
-                authRepository.setCurrentUser(it)
-                loginCompleted.value = Once(it)
+
+                tokenUtil.saveToken(it.token)
+                authRepository.setCurrentUser(it.user)
+                loginCompleted.value = Once(it.user)
             }.onFailure {
                 debugE(TAG, it.message)
             }

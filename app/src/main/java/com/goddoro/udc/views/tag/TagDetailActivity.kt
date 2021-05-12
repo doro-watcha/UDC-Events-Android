@@ -32,8 +32,21 @@ class TagDetailActivity : AppCompatActivity() {
 
         setContentView(mBinding.root)
 
+        initView()
         observeViewModel()
         setupViewPagerWithTab()
+    }
+
+    private fun initView() {
+
+        mBinding.apply {
+
+            toolbar.setLeftIconClickListener {
+                onBackPressed()
+            }
+
+            toolbar.setTitle(mViewModel.curUser.value?.username)
+        }
     }
 
     private fun observeViewModel() {
@@ -85,13 +98,22 @@ class TagDetailActivity : AppCompatActivity() {
         FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getCount(): Int {
-            return 3
+            return 2
         }
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> TagGenreFragment.newInstance()
                 1 -> TagArtistFragment.newInstance()
+                else -> throw Exception("error")
+            }
+        }
+
+        override fun getPageTitle(position: Int): CharSequence? {
+            return when ( position ) {
+
+                0 -> getString(R.string.common_genre)
+                1 -> getString(R.string.common_dancer)
                 else -> throw Exception("error")
             }
         }

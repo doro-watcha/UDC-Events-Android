@@ -17,9 +17,25 @@ data class DanceClass (
     @SerializedName("posterImgUrl")
     val posterImgUrl : String,
 
-    @SerializedName("author")
-    val author : User? = null,
+    @SerializedName("artist")
+    val artist : Artist,
 
     @SerializedName("description")
-    val description :String? = null
+    val description :String? = null,
+
+    @SerializedName("career")
+    val career : String? = null,
+
+    @SerializedName("youtubeUrl")
+    val youtubeUrl : String?= null,
+
+    @SerializedName("classType")
+    val classType : String,
+
+    @SerializedName("isMainClass")
+    val isMainClass : Boolean,
+
+    @SerializedName("name")
+    val title : String
+
 ) : Parcelable

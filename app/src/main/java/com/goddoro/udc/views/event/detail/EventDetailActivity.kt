@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.observeOnce
 import com.goddoro.udc.databinding.ActivityEventDetailBinding
+import com.goddoro.udc.views.common.ImageDialog
 import com.goddoro.udc.views.upload.UploadEventViewModel
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -33,12 +34,21 @@ class EventDetailActivity : AppCompatActivity() {
         setContentView(mBinding.root)
 
         initView()
+        setupRecyclerView()
         observeViewModel()
     }
 
     private fun initView() {
 
-        mBinding.txtEventTitle.isSelected = true
+        mBinding.txtTitle.isSelected = true
+    }
+
+    private fun setupRecyclerView() {
+
+        mBinding.imgRecyclerView.apply {
+
+            adapter = SketchImageAdapter()
+        }
     }
 
     private fun observeViewModel() {
@@ -47,7 +57,12 @@ class EventDetailActivity : AppCompatActivity() {
         mViewModel.apply {
 
             clickBackArrow.observeOnce(this@EventDetailActivity){
-                finish()
+                onBackPressed()
+            }
+
+            clickPoster.observeOnce(this@EventDetailActivity){
+                val dialog = ImageDialog(curEvent.value?.posterUrl ?: "")
+                dialog.show(supportFragmentManager,dialog.tag)
             }
 
         }

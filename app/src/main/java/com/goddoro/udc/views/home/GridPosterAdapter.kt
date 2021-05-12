@@ -2,11 +2,13 @@ package com.goddoro.udc.views.home
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.data.model.Event
 import com.goddoro.udc.databinding.ItemGridPosterBinding
 import io.reactivex.Observable
@@ -22,8 +24,8 @@ class GridPosterAdapter:
     RecyclerView.Adapter<GridPosterAdapter.GridPosterHolder>() {
 
 
-    private val onClick: PublishSubject<String> = PublishSubject.create()
-    val clickEvent: Observable<String> = onClick
+    private val onClick: PublishSubject<Pair<Int, ImageView>> = PublishSubject.create()
+    val clickEvent: Observable<Pair<Int,ImageView>> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
@@ -56,6 +58,9 @@ class GridPosterAdapter:
         KoinComponent {
         init {
 
+            binding.root.setOnDebounceClickListener {
+                onClick.onNext(Pair(differ.currentList[layoutPosition].id, binding.imgGridPoster))
+            }
 
         }
 

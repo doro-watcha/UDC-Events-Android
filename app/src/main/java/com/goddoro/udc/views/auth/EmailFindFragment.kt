@@ -4,11 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import com.goddoro.udc.databinding.FragmentEventBinding
 import com.goddoro.udc.databinding.FragmentFindEmailBinding
-import com.goddoro.udc.views.event.EventViewModel
-import dagger.android.support.DaggerFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import androidx.fragment.app.Fragment
 

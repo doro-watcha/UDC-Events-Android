@@ -10,13 +10,13 @@ import com.goddoro.common.data.model.Event
 interface EventRepository{
 
 
-    suspend fun getUpcomingEventList () : List<Event>
+    suspend fun listEventsBySort(
+        sort : String
+    ) : List<Event>
 
-    suspend fun getNewEventList () : List<Event>
-
-    suspend fun getHotEventList () : List<Event>
-
-    suspend fun getMainEventList() : List<Event>
+    suspend fun listEventsByStatus(
+        status : String
+    ) : List<Event>
 
     suspend fun getEvent (
         eventId : Int

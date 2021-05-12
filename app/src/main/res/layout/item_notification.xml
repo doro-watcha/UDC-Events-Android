@@ -16,7 +16,6 @@
         android:layout_height="wrap_content"
         android:background="@drawable/ripple_effect">
 
-
         <androidx.cardview.widget.CardView
             android:id="@+id/img_user_profile"
             android:layout_width="35dp"
@@ -57,7 +56,7 @@
             android:layout_marginEnd="10dp"
             android:textColor="@color/text_color_1"
             android:textSize="12dp"
-            android:text="여기는 알람이 뜨는 공간입니당"
+            android:text="@{item.body}"
             app:layout_constraintEnd_toStartOf="@+id/img_thumbnail"
             app:layout_constraintStart_toEndOf="@+id/img_user_profile"
             app:layout_constraintTop_toTopOf="@+id/img_user_profile"

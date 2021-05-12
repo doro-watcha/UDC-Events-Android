@@ -16,6 +16,7 @@
     <dimen name="profile_toolbar_height">277dp</dimen>
 
     <dimen name="bottom_navigation_view_height">56dp</dimen>
+    <dimen name="search_item_height">45dp</dimen>
 
     <declare-styleable name="MainPageToolbar">
         <attr name="toolbar_title" format="string" />

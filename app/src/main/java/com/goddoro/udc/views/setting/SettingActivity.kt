@@ -50,7 +50,7 @@ class SettingActivity : AppCompatActivity() {
             }
 
             clickTagDetailDialog.observeOnce(this@SettingActivity){
-
+                navigator.startTagDetailActivity(this@SettingActivity,it)
             }
         }
 

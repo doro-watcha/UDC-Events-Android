@@ -28,7 +28,7 @@ interface AuthAPI {
     @POST("auth/signup")
     @FormUrlEncoded
     suspend fun signUp(
-        @Field("username") email: String,
+        @Field("email") email: String,
         @Field("password") password: String
     ): ApiResponse<Any>
 
@@ -38,7 +38,7 @@ interface AuthAPI {
     @POST("auth/signin")
     @FormUrlEncoded
     suspend fun signIn(
-        @Field("username") email : String,
+        @Field("email") email : String,
         @Field("password") password : String
     ) : ApiResponse<AuthSignInResponse>
 

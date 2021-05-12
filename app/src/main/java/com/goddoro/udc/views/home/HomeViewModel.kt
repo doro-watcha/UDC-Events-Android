@@ -41,7 +41,15 @@ class HomeViewModel (
 
     val isMapReady : MutableLiveData<Boolean?> = MutableLiveData()
 
+    val clickSearch : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickUpload : MutableLiveData<Once<Unit>> = MutableLiveData()
+
     val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
+
+
+    // region DATA
+
+    val currentPage : MutableLiveData<Int> = MutableLiveData()
 
 
     init {
@@ -54,6 +62,9 @@ class HomeViewModel (
         getMainEvents()
         getNewEvents()
         getUpcomingEvents()
+        getHotEvents()
+        getRecommendEvents()
+
     }
 
     private fun getMainEvents() {
@@ -61,9 +72,13 @@ class HomeViewModel (
         viewModelScope.launch {
             kotlin.runCatching {
 
-                eventRepository.getMainEventList()
+                eventRepository.listEventsBySort("main")
 
             }.onSuccess{
+
+                debugE(TAG, "MAIN EVENT LOAD COMPLETED")
+
+                debugE(TAG, it)
 
                 mainEvents.value = it
 
@@ -79,7 +94,7 @@ class HomeViewModel (
         viewModelScope.launch {
 
             kotlin.runCatching {
-                eventRepository.getNewEventList()
+                eventRepository.listEventsBySort("new")
             }.onSuccess {
                 debugE(TAG,it)
                 newEvents.value= it
@@ -95,7 +110,7 @@ class HomeViewModel (
         viewModelScope.launch {
 
             kotlin.runCatching {
-                eventRepository.getUpcomingEventList()
+                eventRepository.listEventsBySort("upcoming")
             }.onSuccess {
                 debugE(TAG, "Upcoming Events = " + it)
                 upComingEvents.value = it
@@ -104,5 +119,42 @@ class HomeViewModel (
             }
         }
 
+    }
+
+    private fun getHotEvents () {
+
+        viewModelScope.launch {
+
+            kotlin.runCatching {
+                eventRepository.listEventsBySort("hot")
+            }.onSuccess {
+                debugE(TAG, "HOT EVENTS")
+                hotEvents.value = it
+            }.onFailure {
+                errorInvoked.value = Once(it)
+            }
+        }
+    }
+
+    private fun getRecommendEvents () {
+
+        viewModelScope.launch{
+
+            kotlin.runCatching {
+                eventRepository.listEventsBySort("recommendation")
+            }.onSuccess {
+                debugE(TAG, "STAFF PICK EVENTS")
+                staffPickEvents.value = it
+            }.onFailure {
+                errorInvoked.value = Once(it)
+            }
+        }
+    }
+
+    fun onClickSearch() {
+        clickSearch.value = Once(Unit)
+    }
+    fun onClickUpload() {
+        clickUpload.value = Once(Unit)
     }
 }

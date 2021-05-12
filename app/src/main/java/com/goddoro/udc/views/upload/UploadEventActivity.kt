@@ -1,22 +1,25 @@
 package com.goddoro.udc.views.upload
 
+import android.app.DatePickerDialog
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.lifecycle.HasDefaultViewModelProviderFactory
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.lifecycle.observe
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.dialog.showCommonDialog
+import com.goddoro.common.util.Navigator
 import com.goddoro.udc.databinding.ActivityUploadEventBinding
+import com.goddoro.udc.views.upload.calendar.CalendarDialog
 import com.goddoro.upload.R
-import dagger.android.support.DaggerAppCompatActivity
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import javax.inject.Inject
 
 class UploadEventActivity :AppCompatActivity() {
 
@@ -25,6 +28,8 @@ class UploadEventActivity :AppCompatActivity() {
     private lateinit var mBinding : ActivityUploadEventBinding
 
     private val mViewModel : UploadEventViewModel by viewModel()
+
+    private val navigator : Navigator by inject()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,56 +44,56 @@ class UploadEventActivity :AppCompatActivity() {
 
         setContentView(mBinding.root)
 
+        setupViewPager()
         observeViewModel()
+
+    }
+
+    private fun setupViewPager() {
+
+        mBinding.mViewPager.apply {
+
+            adapter = UploadEventViewPager(supportFragmentManager,2)
+
+            isUserInputEnabled = false
+        }
     }
 
     private fun observeViewModel() {
+
         mViewModel.apply {
 
-            curPoster.observe(this@UploadEventActivity){
-
+            clickPreview.observeOnce(this@UploadEventActivity){
+                mBinding.mViewPager.currentItem = 1
             }
 
-            clickPickImage.observeOnce(this@UploadEventActivity){
-                TedImagePicker.with(this@UploadEventActivity)
-                    .title(resources.getString(R.string.txt_pick_image))
-                    .showCameraTile(false)
-                    .mediaType(
-                        MediaType.IMAGE
-                    )
-                    .start {
-                        curPoster.value = it
-                    }
-            }
-
-            clickTypeDialog.observeOnce(this@UploadEventActivity){
-                val dialog = EventTypeDialog(object : EventTypeDialog.onClickTypeListener {
-                    override fun onClickType(type: String) {
-                        mViewModel.type.value = type
-                    }
-                })
-                dialog.show(supportFragmentManager,dialog.tag)
-            }
-            clickUploadButton.observeOnce(this@UploadEventActivity){
-                Broadcast.eventUploadBroadcast.onNext(Unit)
-                finish()
-            }
-
-            clickBackArrow.observeOnce(this@UploadEventActivity){
-                finish()
+            clickBackStep.observeOnce(this@UploadEventActivity){
+                mBinding.mViewPager.currentItem = 0
             }
 
             uploadCompleted.observeOnce(this@UploadEventActivity){
                 finish()
             }
-            errorInvoked.observeOnce(this@UploadEventActivity){
-                debugE(TAG, it.message)
-                showCommonDialog(R.string.dialog_error_unknown)
-            }
+        }
+    }
+
+    inner class UploadEventViewPager(fragmentManager: FragmentManager, pageCount: Int) :
+        FragmentStateAdapter(fragmentManager, lifecycle) {
+        private val _count: Int = pageCount
 
 
+        override fun getItemCount(): Int {
+            return _count
         }
 
+        override fun createFragment(position: Int): Fragment {
+            return when ( position ) {
+
+                0 -> UploadEventFragment.newInstance()
+                else -> EventPreviewFragment.newInstance()
+            }
+        }
 
     }
+
 }

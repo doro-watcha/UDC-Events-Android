@@ -85,6 +85,31 @@ class AppPreference @Inject constructor(context: Application) {
             }
         }
 
+
+    var curFCMToken: String
+        get() = get(KEY.KEY_FCM_TOKEN) ?: ""
+        set(value) = set(KEY.KEY_FCM_TOKEN, value)
+
+    var curDeviceUUID: String
+        get() = get(KEY.KEY_DEVICE_UUID) ?: ""
+        set(value) = set(KEY.KEY_DEVICE_UUID, value)
+
+    var isNeedPushAlarmConfirm: Boolean
+        get() = get(KEY.KEY_NEED_SHOW_PUSH_ALARM_CONFIRM) ?: false
+        set(value) = set(KEY.KEY_NEED_SHOW_PUSH_ALARM_CONFIRM, value)
+
+    var latestSWVersion: String
+        get() = get(KEY.KEY_LATEST_SW_VERSION) ?: ""
+        set(value) = set(KEY.KEY_LATEST_SW_VERSION, value)
+
+    var isNeedShowAccessRight: Boolean
+        get() = get(KEY.KEY_SHOW_APP_ACCESS_RIGHT, true) ?: true
+        set(value) = set(KEY.KEY_SHOW_APP_ACCESS_RIGHT, value)
+
+    var latestRetrievedLegalNoticeVersion: String
+        get() = get(KEY.KEY_ACCEPTED_TERMS_VERSION) ?: ""
+        set(value) = set(KEY.KEY_ACCEPTED_TERMS_VERSION, value)
+
     var curServer: Int
         get() = get(KEY.KEY_SERVER) ?: ServerType.defaultServerType.value
         set(value) = set(KEY.KEY_SERVER, value)

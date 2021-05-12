@@ -17,12 +17,12 @@
 
 
         <TextView
-            android:id="@+id/txt_genre"
+            android:id="@+id/txt_interested_dancer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="12dp"
             android:layout_marginTop="10dp"
-            android:text="@string/txt_interested_genre"
+            android:text="@string/txt_interested_dancer"
             android:textColor="@color/black"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
@@ -33,10 +33,11 @@
             android:layout_marginTop="10dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:layout_width="match_parent"
+            app:recyclerview_my_tag="@{vm.myArtistTag}"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_setting_tag"
             tools:itemCount="3"
-            app:layout_constraintTop_toBottomOf="@+id/txt_genre"/>
+            app:layout_constraintTop_toBottomOf="@+id/txt_interested_dancer"/>
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/layout_edit_artist"

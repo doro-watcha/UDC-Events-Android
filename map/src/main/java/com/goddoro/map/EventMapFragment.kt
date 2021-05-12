@@ -14,6 +14,7 @@ import com.naver.maps.map.*
 import dagger.android.support.DaggerFragment
 import ted.gun0912.clustering.naver.TedNaverClustering
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.observe
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -66,8 +67,27 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
         mViewModel.apply {
 
+            events.observe(viewLifecycleOwner){
+
+                if (it.isNotEmpty()) {
+
+//                    TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
+//                        .items(getMapItems(naverMap))
+//                        .markerClickListener {
+//                            MapDetailDialog.show(requireActivity().supportFragmentManager, it)
+//                        }
+//                        .customMarker()
+//                        .make()
+
+                }
+            }
+
             clickTest.observeOnce(viewLifecycleOwner){
 
+            }
+
+            errorInvoked.observe(viewLifecycleOwner){
+                debugE(TAG,it.message)
             }
         }
     }
@@ -84,31 +104,14 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
             )
         )
 
-        TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
-            .items(getItems())
-            .markerClickListener {
-                MapDetailDialog.show(requireActivity().supportFragmentManager, it)
-            }
-            .make()
+        mViewModel.getMapItems(naverMap)
 
         debugE(TAG, "FUCK")
 
 
     }
 
-    private fun getItems(): List<NaverItem> {
-        val bounds = naverMap.contentBounds
-        return ArrayList<NaverItem>().apply {
-            repeat(50) {
-                val temp = NaverItem(
-                    (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
-                    (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
-                )
-                add(temp)
-            }
-        }
 
-    }
 
     companion object {
 

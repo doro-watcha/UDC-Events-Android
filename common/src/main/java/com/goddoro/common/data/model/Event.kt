@@ -20,10 +20,19 @@ data class Event (
     val blurredImage : String? = "https://cdn.beatflo.co/video/mrbmraxzm4h_1584026271523.jpg",
     val imageId : Int? = 0,
 
-    @SerializedName("posterUrl")
+    @SerializedName("posterImgUrl")
     val posterUrl : String,
 
 
     @SerializedName("location")
-    val location : String? = null
+    val location : String? = null,
+
+    @SerializedName("sketchImages")
+    val sketchImages : List<String>? = null,
+
+    @SerializedName("createdAt")
+    val createdAt : String,
+
+    @SerializedName("status")
+    val status : String
 ) : Parcelable

@@ -15,24 +15,33 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:background="@color/white"
         tools:context=".MainActivity">
 
 
         <androidx.fragment.app.FragmentContainerView
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
             android:id="@+id/fragmentContainer"
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toTopOf="@id/bottomNavigation"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
-            android:elevation="24dp"
-            app:labelVisibilityMode="labeled"
-            app:menu="@menu/main_menu"
             android:id="@+id/bottomNavigation"
+            android:layout_width="0dp"
+            android:layout_height="@dimen/bottomNavigationViewHeight"
+            app:itemBackground="@color/black"
+            app:backgroundTint="@color/black"
+            android:elevation="0dp"
+            android:background="@color/black"
+            app:itemHorizontalTranslationEnabled="false"
+            app:layout_constraintStart_toStartOf="parent"
+            app:itemTextAppearanceActive="@color/black"
+            app:itemTextAppearanceInactive="@color/gray"
+            app:itemTextColor="@color/bottom_navigation_item_tint"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/bottomNavigationViewHeight"/>
+            app:menu="@menu/main_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

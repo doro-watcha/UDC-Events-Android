@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.goddoro.udc.databinding.FragmentTagArtistBinding
+import com.goddoro.udc.views.tag.adapter.MyTagAdapter
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
@@ -32,7 +33,16 @@ class TagArtistFragment : Fragment() {
         mBinding.vm = mViewModel
         mBinding.lifecycleOwner = viewLifecycleOwner
 
+        setupRecyclerView()
         observeViewModel()
+    }
+
+    private fun setupRecyclerView() {
+
+        mBinding.mRecyclerView.apply {
+
+            adapter = MyTagAdapter()
+        }
     }
 
     private fun observeViewModel(){
