@@ -25,6 +25,12 @@ interface EventAPI {
         @Path("id") eventId : Int
     ) : ApiResponse<EventResponse>
 
+    @POST("event")
+    @FormUrlEncoded
+    suspend fun uploadEvent(
+        @FieldMap parameters : HashMap<String,Any>
+    ) : ApiResponse<Any>
+
 }
 
 @Parcelize

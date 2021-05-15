@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
@@ -23,6 +24,7 @@ import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
 import javax.inject.Inject
 import androidx.fragment.app.Fragment
+import com.goddoro.common.Broadcast
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxRepeatTimer
@@ -71,6 +73,7 @@ class HomeFragment : Fragment() {
         observeViewModel()
         setupList()
 
+        setupBroadcast()
         setupBlurredImage()
 
     }
@@ -265,6 +268,13 @@ class HomeFragment : Fragment() {
         }.disposedBy(autoScrollDisposable)
 
 
+    }
+
+    private fun setupBroadcast() {
+
+        Broadcast.eventUploadBroadcast.subscribe{
+            Toast.makeText(context,"이벤트 업로드에 성공하셨습니다",Toast.LENGTH_SHORT).show()
+        }.disposedBy(compositeDisposable)
     }
 
     override fun onResume() {

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goddoro.common.common.Once
+import com.goddoro.common.data.repository.EventRepository
 import com.goddoro.common.util.MultiPartUtil
 import kotlinx.coroutines.launch
 import okhttp3.RequestBody
@@ -16,7 +17,7 @@ import java.util.HashMap
  */
 
 class UploadEventViewModel (
-    private val multiPartUtil: MultiPartUtil
+    private val eventRepository: EventRepository
 ): ViewModel() {
 
 
@@ -66,31 +67,24 @@ class UploadEventViewModel (
 
     fun onClickUploadButton() {
 
-//        viewModelScope.launch {
-//            kotlin.runCatching {
-//
-//                val params: HashMap<String, RequestBody> = hashMapOf()
-//
-//                params["name"] = multiPartUtil.stringToPart(title.value ?: "")
-//                params["location"] = multiPartUtil.stringToPart(location.value ?: "")
-//                params["date"] = multiPartUtil.stringToPart(date.value ?: "")
-//                params["eventType"] = multiPartUtil.stringToPart("party")
-//
-////                NetworkClient.eventService.createEvent(
-////                    "JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwidXNlcm5hbWUiOiJnb2Rkb3JvQG5hdmVyLmNvbSIsImlhdCI6MTYwMTExMTkyMiwiZXhwIjoxNjA2Mjk1OTIyfQ.8yactGVIZquamv8CYpKEXOD3C3mD1nnAVypxk9_yQ7A"
-////                            ,MultiPartUtil.uriToPart(
-////                        "posterImg", curPoster.value!!),
-////                    params
-////                )
-//            }.onSuccess {
-//                uploadCompleted.value = Once(Unit)
-//            }.onFailure {
-//                errorInvoked.value = Once(it)
-//            }
-//        }
-//    }
+        viewModelScope.launch {
+            kotlin.runCatching {
+                eventRepository.uploadEvent(
+                    name = title.value ?: "",
+                    subTitle = "zxcv",
+                    description = description.value,
+                    date = date.value ?: "",
+                    posterImg = curPoster.value!!,
+                    eventType = "battle",
+                    location = location.value!!
+                )
+            }.onSuccess {
+                uploadCompleted.value = Once(Unit)
+            }.onFailure {
+                errorInvoked.value = Once(it)
+            }
+        }
 
-        uploadCompleted.value = Once(Unit)
     }
 
     fun onClickTypeDialog() {

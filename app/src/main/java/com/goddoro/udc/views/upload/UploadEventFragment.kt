@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import com.goddoro.common.Broadcast
+import com.goddoro.common.Broadcast.eventUploadBroadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.dialog.showCommonDialog
@@ -117,6 +118,7 @@ class UploadEventFragment : Fragment() {
                 navigator.startSearchAddressActivity(requireActivity())
             }
             uploadCompleted.observeOnce(viewLifecycleOwner){
+                eventUploadBroadcast.onNext(Unit)
                 requireActivity().finish()
             }
             errorInvoked.observeOnce(viewLifecycleOwner){
