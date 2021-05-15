@@ -1,6 +1,6 @@
 # UDC Events - Android
 
-**University Dance Community **
+**University Dance Community**
 
 
 ## [ About ] 
