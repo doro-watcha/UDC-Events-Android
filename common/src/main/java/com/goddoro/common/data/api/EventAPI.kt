@@ -14,7 +14,6 @@ import retrofit2.http.*
 
 interface EventAPI {
 
-
     @GET("event")
     suspend fun listEventsBySOrt(
         @QueryMap parameters: HashMap<String, Any>
