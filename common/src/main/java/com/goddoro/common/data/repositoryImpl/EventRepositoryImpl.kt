@@ -6,6 +6,7 @@ import com.goddoro.common.data.api.EventAPI
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.repository.EventRepository
 import com.goddoro.common.util.MultiPartUtil
+import io.reactivex.Completable
 import okhttp3.MultipartBody
 
 
@@ -65,6 +66,15 @@ class EventRepositoryImpl ( val api : EventAPI, private val multiPartUtil: Multi
 
 
         return api.uploadEvent(params).unWrapCompletable()
+    }
+
+    override suspend fun updateStatus(eventId: Int, status: String): Completable {
+
+        val params = hashMapOf(
+            "status" to status
+        ).filterValueNotNull()
+
+        return api.updateEvent(eventId,params).unWrapCompletable()
     }
 
 }

@@ -30,6 +30,13 @@ interface EventAPI {
         @FieldMap parameters : HashMap<String,Any>
     ) : ApiResponse<Any>
 
+    @PATCH("event/{id")
+    @FormUrlEncoded
+    suspend fun updateEvent(
+        @Path("id") eventId : Int,
+        @FieldMap parameters : HashMap<String,Any>
+    ) : ApiResponse<Any>
+
 }
 
 @Parcelize
