@@ -2,6 +2,7 @@ package com.goddoro.udc.views.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -29,6 +30,8 @@ import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxRepeatTimer
 import com.goddoro.common.util.Navigator
+import com.goddoro.udc.util.startActivity
+import com.goddoro.udc.views.admin.AdminActivity
 import com.goddoro.udc.views.event.detail.EventDetailActivity
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -51,6 +54,8 @@ class HomeFragment : Fragment() {
      * ViewModel Instance
      */
     private val mViewModel: HomeViewModel by viewModel()
+
+    private var adminClickCount = 5
 
     private val navigator : Navigator by inject()
 
@@ -79,6 +84,19 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView() {
+
+        mBinding.txtTitleNewEvent.apply {
+            this.setOnClickListener {
+                Handler().postDelayed({ adminClickCount = 5 }, 3000)
+
+                adminClickCount--
+                if (adminClickCount == 0) {
+                    startActivity(AdminActivity::class)
+                }
+            }
+
+
+        }
 
 
     }

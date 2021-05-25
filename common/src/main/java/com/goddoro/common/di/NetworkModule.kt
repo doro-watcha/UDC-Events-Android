@@ -32,6 +32,8 @@ enum class ServerType(val apiUrl: String, val homepageUrl: String, val value: In
     DEVELOPMENT("http://ec2-3-35-4-201.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 0),
     PRODUCTION("http://ec2-13-209-64-88.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 1),
     NAVER("https://naveropenapi.apigw.ntruss.com/","https://naver.com",2)
+
+
     ;
 
     companion object {

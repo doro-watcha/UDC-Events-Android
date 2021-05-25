@@ -2,6 +2,7 @@ package com.goddoro.common.data.repository
 
 import android.net.Uri
 import com.goddoro.common.data.model.Event
+import io.reactivex.Completable
 
 
 /**
@@ -32,5 +33,10 @@ interface EventRepository{
         eventType : String,
         posterImg : Uri
     ) : Any
+
+    suspend fun updateStatus(
+        eventId : Int,
+        status : String
+    ) : Completable
 
 }
