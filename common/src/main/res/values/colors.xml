@@ -111,4 +111,7 @@
     <color name="colorDarkRed">#dd2c00</color>
     <color name="text_disabled">#ffab00</color>
 
+    <color name="thin_gray">#e6e7e8</color>
+
+
 </resources>

@@ -34,7 +34,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:cardCornerRadius="5dp">
+            app:cardCornerRadius="10dp">
 
             <ImageView
                 android:id="@+id/poster"
@@ -44,7 +44,6 @@
                 srcUrl="@{item.posterUrl}"
                 android:transitionName="shared_element_transition"
                 android:background="@drawable/ripple_effect"
-                android:src="@drawable/sample_image_01"
                 tools:src="@drawable/sample_image_01" />
 
 
@@ -67,7 +66,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="모네에서 세잔까지"
-            android:textColor="#fff"
+            android:textStyle="bold"
+            android:textColor="@color/white"
             android:layout_marginTop="10dp"
             app:layout_constraintEnd_toEndOf="@id/description"
             app:layout_constraintStart_toStartOf="@id/description"

@@ -1,5 +1,6 @@
 package com.goddoro.udc
 
+import android.graphics.Color
 import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
@@ -23,6 +24,8 @@ import com.goddoro.udc.views.classShop.ClassShopFragment
 import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.profile.ProfileFragment
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.material.shape.CornerFamily
+import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
@@ -113,11 +116,6 @@ class MainActivity : AppCompatActivity() {
         mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
             _menu.value = MainMenu.parseIdToMainMenu(it.itemId)
             true
-        }
-        mBinding.bottomNavigation.apply {
-
-            setBackgroundColor(ContextCompat.getColor(applicationContext,android.R.color.transparent))
-
         }
     }
 
@@ -244,6 +242,12 @@ class MainActivity : AppCompatActivity() {
         super.onDestroy()
 
         eventUploadDisposable.clear()
+    }
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        window.navigationBarColor = Color.parseColor("#000000")
     }
 
     companion object {

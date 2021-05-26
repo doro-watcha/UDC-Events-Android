@@ -13,19 +13,33 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ripple_effect">
+        android:background="@drawable/ripple_effect_black_background">
 
-        <com.goddoro.common.common.widget.SquareImageView
+
+        <androidx.cardview.widget.CardView
             android:id="@+id/img_grid_poster"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="3:4"
-            srcUrl="@{item.posterUrl}"
-            android:transitionName="shared_element_transition"
-            android:layout_margin="10dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/sample_image_03"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:background="@drawable/ripple_effect_black_background"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:cardCornerRadius="5dp">
+
+
+            <ImageView
+                android:id="@+id/grid_poster"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                srcUrl="@{item.posterUrl}"
+                android:transitionName="shared_element_transition"
+                android:scaleType="centerCrop"
+                android:src="@drawable/sample_image_03" />
+
+
+        </androidx.cardview.widget.CardView>
+
 
         <TextView
             android:id="@+id/title"
@@ -33,7 +47,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="에바 알머슨 Vida BBoy panic의 화려한 데뷔는 언제부터 시작될것인가"
-            android:textColor="#000"
+            android:textColor="@color/white"
+            android:textStyle="bold"
             android:textSize="14dp"
             app:layout_constraintEnd_toEndOf="@id/img_grid_poster"
             app:layout_constraintStart_toStartOf="@+id/img_grid_poster"
@@ -45,7 +60,7 @@
             android:layout_height="wrap_content"
             android:text="2020.06.27 - 2020.09.20"
             android:textSize="12dp"
-            android:textColor="#808080"
+            android:textColor="@color/white"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@+id/img_grid_poster"
             app:layout_constraintTop_toBottomOf="@id/title"/>

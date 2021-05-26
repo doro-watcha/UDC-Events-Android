@@ -3,6 +3,7 @@
     <item
         android:id="@+id/nav_item_home"
         android:title="홈"
+        android:icon="@drawable/ic_home"
         />
     <item
         android:id="@+id/nav_item_event"
@@ -15,5 +16,6 @@
     <item
         android:id="@+id/nav_item_video"
         android:title="프로필"
+        android:icon="@drawable/ic_profile"
         />
 </menu>

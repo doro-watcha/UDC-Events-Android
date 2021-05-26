@@ -79,7 +79,7 @@
                             android:layout_marginTop="10dp"
                             android:transitionName="shared_element_transition"
                             android:scaleType="centerCrop"
-                            android:src="@drawable/sample_image_01"
+                            tools:src="@drawable/sample_image_01"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintDimensionRatio="2:3"
                             app:layout_constraintStart_toStartOf="parent"

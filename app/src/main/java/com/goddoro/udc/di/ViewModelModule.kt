@@ -34,7 +34,7 @@ val viewModelModule  = module {
     viewModel { MainViewModel(get()) }
     viewModel { (eventId : Int ) -> EventDetailViewModel(eventId,get()) }
 
-    viewModel { HomeViewModel(get()) }
+    viewModel { HomeViewModel(get(),get()) }
     viewModel { EventCollectionViewModel(get()) }
     viewModel { UploadEventViewModel(get())}
     viewModel { JoinEventViewModel() }

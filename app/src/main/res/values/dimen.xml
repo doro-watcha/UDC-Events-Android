@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="toolbarHeight">44dp</dimen>
-    <dimen name="bottomNavigationViewHeight">48dp</dimen>
+    <dimen name="bottomNavigationViewHeight">55dp</dimen>
     <dimen name="keyboardNumberButtonHeight">50dp</dimen>
 
     <dimen name="cardCornerRadius">8dp</dimen>

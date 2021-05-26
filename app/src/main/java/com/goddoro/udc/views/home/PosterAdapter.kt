@@ -58,8 +58,8 @@ class PosterAdapter:
         KoinComponent {
         init {
 
-            binding.root.setOnDebounceClickListener {
-                onClick.onNext(Pair(differ.currentList[layoutPosition].id,binding.imgPoster))
+            binding.imgPoster.setOnDebounceClickListener {
+                onClick.onNext(Pair(differ.currentList[layoutPosition].id,binding.poster))
             }
 
         }

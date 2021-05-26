@@ -28,19 +28,13 @@
 
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottomNavigation"
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="@dimen/bottomNavigationViewHeight"
-            app:itemBackground="@color/black"
-            app:backgroundTint="@color/black"
-            android:elevation="0dp"
-            android:background="@color/black"
             app:itemHorizontalTranslationEnabled="false"
-            app:layout_constraintStart_toStartOf="parent"
-            app:itemTextAppearanceActive="@color/black"
-            app:itemTextAppearanceInactive="@color/gray"
-            app:itemTextColor="@color/bottom_navigation_item_tint"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@android:color/black"
+            app:itemIconTint="@color/bottom_navigation_item_tint"
             app:layout_constraintBottom_toBottomOf="parent"
+            app:labelVisibilityMode="unlabeled"
             app:menu="@menu/main_menu" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

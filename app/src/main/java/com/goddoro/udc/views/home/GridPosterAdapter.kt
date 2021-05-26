@@ -59,7 +59,7 @@ class GridPosterAdapter:
         init {
 
             binding.root.setOnDebounceClickListener {
-                onClick.onNext(Pair(differ.currentList[layoutPosition].id, binding.imgGridPoster))
+                onClick.onNext(Pair(differ.currentList[layoutPosition].id, binding.gridPoster))
             }
 
         }

@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.goddoro.common.common.Once
 import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.Event
+import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.data.repository.EventRepository
 import com.goddoro.udc.R
 import kotlinx.coroutines.launch
@@ -17,7 +18,8 @@ import javax.inject.Inject
  */
 
 class HomeViewModel (
-    private val eventRepository: EventRepository
+    private val eventRepository: EventRepository,
+    val authRepository: AuthRepository
 ): ViewModel() {
 
     private val TAG = HomeViewModel::class.java.simpleName

@@ -25,5 +25,7 @@
         <attr name="toolbar_right_text" format="string" />
     </declare-styleable>
 
+    <dimen name="radius_small">20dp</dimen>
+
 
 </resources>
