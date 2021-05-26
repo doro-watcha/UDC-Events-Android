@@ -8,7 +8,9 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.*
+import com.goddoro.common.data.api.UnWrappingDataException
 import com.goddoro.common.util.Navigator
+import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.ActivityAuthBinding
 import dagger.android.AndroidInjection.inject
@@ -31,6 +33,9 @@ class AuthActivity : AppCompatActivity() {
     private val mFragment3 = EmailFindFragment.newInstance()
     private val mFragment4 = PasswordFindFragment.newInstance()
     private var mActiveFragment: Fragment = mFragment1
+
+
+    private val toastUtil : ToastUtil by inject()
 
 
 
@@ -109,7 +114,15 @@ class AuthActivity : AppCompatActivity() {
             }
 
             errorInvoked.observeOnce(this@AuthActivity){
-                debugE(TAG, it)
+                debugE(TAG, "GOOODDD")
+                if ( it is UnWrappingDataException) {
+                    val errorMessage = when (it.errorCode) {
+                        400 -> "존재하지 않는 유저입니다"
+                        else -> it.message ?: ""
+                    }
+
+                    toastUtil.createToast(errorMessage)?.show()
+                }
             }
 
         }

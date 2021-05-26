@@ -102,11 +102,9 @@ class AuthViewModel (
             kotlin.runCatching {
                 authRepository.signUp(signUpEmail.value!!, signUpPassword.value!!)
             }.onSuccess {
-
                 onClickLogin()
                 signUpCompleted.value = Once(Unit)
             }.onFailure {
-
                 errorInvoked.value = Once(it)
             }
         }
@@ -114,20 +112,15 @@ class AuthViewModel (
 
     fun onClickLogin () {
 
-        debugE(TAG, "OnClick했잖아")
         viewModelScope.launch {
             kotlin.runCatching {
-                debugE(TAG, "너가 병신")
                 authRepository.signIn(email.value!!, password.value!!)
             }.onSuccess {
-                debugE(TAG, "성공하긴했어")
-                debugE(TAG, it)
-
                 tokenUtil.saveToken(it.token)
                 authRepository.setCurrentUser(it.user)
                 loginCompleted.value = Once(it.user)
             }.onFailure {
-                debugE(TAG, it.message)
+                errorInvoked.value = Once(it)
             }
         }
     }

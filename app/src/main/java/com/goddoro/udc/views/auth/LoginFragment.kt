@@ -20,7 +20,9 @@ import dagger.android.support.DaggerFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import javax.inject.Inject
 import androidx.fragment.app.Fragment
+import com.goddoro.common.data.api.UnWrappingDataException
 import com.goddoro.common.util.Navigator
+import com.goddoro.common.util.ToastUtil
 import dagger.android.AndroidInjection.inject
 import org.koin.android.ext.android.inject
 
@@ -43,6 +45,7 @@ class LoginFragment : Fragment() {
     private val mViewModel : AuthViewModel by sharedViewModel()
 
     private val navigator : Navigator by inject()
+
     private lateinit var mOAuthLoginButton: OAuthLoginButton
     private lateinit var mOAuthLoginModule : OAuthLogin
 
@@ -54,11 +57,6 @@ class LoginFragment : Fragment() {
                 val refreshToken = mOAuthLoginModule.getRefreshToken(context)
                 val expiresAt = mOAuthLoginModule.getExpiresAt(context)
                 val tokenType = mOAuthLoginModule.getTokenType(context)
-//                mOauthAT.setText(accessToken)
-//                mOauthRT.setText(refreshToken)
-//                mOauthExpires.setText(expiresAt.toString())
-//                mOauthTokenType.setText(tokenType)
-//                mOAuthState.setText(mOAuthLoginModule.getState(mContext).toString())
             } else {
                 val errorCode = mOAuthLoginModule.getLastErrorCode(context).code
                 val errorDesc = mOAuthLoginModule.getLastErrorDesc(context)
@@ -76,7 +74,7 @@ class LoginFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentLoginBinding.inflate(inflater, container, false).also { mBinding = it }.root
+    ): View = FragmentLoginBinding.inflate(inflater, container, false).also { mBinding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -104,10 +102,10 @@ class LoginFragment : Fragment() {
         mViewModel.apply {
 
             clickNaverLogin.observeOnce(viewLifecycleOwner){
-
-                debugE(TAG, "NAVER LOGIN")
                 mOAuthLoginModule.startOauthLoginActivity(requireActivity(),mOAuthLoginHandler)
             }
+
+
 
         }
 

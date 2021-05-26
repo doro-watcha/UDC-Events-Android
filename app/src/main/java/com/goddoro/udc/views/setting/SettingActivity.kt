@@ -1,5 +1,6 @@
 package com.goddoro.udc.views.setting
 
+import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,6 +38,9 @@ class SettingActivity : AppCompatActivity() {
 
     private fun initView() {
 
+
+        val info = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+        mBinding.txtVersion.text = info.versionName
 
     }
 
