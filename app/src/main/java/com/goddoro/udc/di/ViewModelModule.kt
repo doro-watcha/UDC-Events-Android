@@ -1,5 +1,6 @@
 package com.goddoro.udc.di
 
+import com.goddoro.common.data.model.Event
 import com.goddoro.map.EventMapViewModel
 import com.goddoro.udc.MainViewModel
 import com.goddoro.udc.views.admin.AdminViewModel
@@ -32,7 +33,7 @@ val viewModelModule  = module {
 
     viewModel { AuthViewModel(get(),get()) }
     viewModel { MainViewModel(get()) }
-    viewModel { (eventId : Int ) -> EventDetailViewModel(eventId,get()) }
+    viewModel { (event : Event) -> EventDetailViewModel(event,get()) }
 
     viewModel { HomeViewModel(get(),get()) }
     viewModel { EventCollectionViewModel(get()) }

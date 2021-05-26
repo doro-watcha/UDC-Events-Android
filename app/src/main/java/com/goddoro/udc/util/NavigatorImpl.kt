@@ -2,9 +2,11 @@ package com.goddoro.udc.util
 
 import android.app.Activity
 import android.content.Intent
+import android.util.EventLog
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
+import com.goddoro.common.data.model.Event
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.MainActivity
 import com.goddoro.udc.R
@@ -67,13 +69,9 @@ class NavigatorImpl : Navigator{
         activity.startActivity(intent)
     }
 
-    override fun startEventDetailActivity(activity: Activity, eventId: Int, imageView : ImageView) {
-        val intent = EventDetailActivity.newIntent(activity,eventId)
-
-        val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(activity,
-            imageView, ViewCompat.getTransitionName(imageView)!!
-        )
-        activity.startActivity(intent,optionsCompat.toBundle())
+    override fun startEventDetailActivity(activity: Activity, event: Event, imageView : ImageView) {
+        val intent = EventDetailActivity.newIntent(activity,event)
+        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity,imageView,activity.getString(R.string.shared_element_transition)).toBundle())
     }
 
     override fun startTagDetailActivity(activity: Activity, position: Int) {

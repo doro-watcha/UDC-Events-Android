@@ -1,8 +1,11 @@
 package com.goddoro.common.data.model
 
 import android.os.Parcelable
+import com.goddoro.common.util.DateUtil
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
+import org.koin.core.KoinComponent
+import org.koin.core.get
 
 
 /**
@@ -18,6 +21,7 @@ data class Event (
     val name : String?,
 
     val blurredImage : String? = "https://cdn.beatflo.co/video/mrbmraxzm4h_1584026271523.jpg",
+
     val imageId : Int? = 0,
 
     @SerializedName("posterImgUrl")
@@ -34,5 +38,19 @@ data class Event (
     val createdAt : String,
 
     @SerializedName("status")
-    val status : String
-) : Parcelable
+    val status : String,
+
+    @SerializedName("subtitle")
+    val subtitle : String?= "많은 관심 부탁드립니다",
+
+    @SerializedName("description")
+    val description : String? = "많은 관심 부탁드립니다"
+) : Parcelable, KoinComponent{
+
+    fun getFormedDate() : String {
+
+        val dateUtil = get<DateUtil>()
+        return dateUtil.changeDateFormat(createdAt)
+
+    }
+}

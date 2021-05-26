@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
@@ -13,7 +14,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/ripple_effect_black_background">
+        android:background="@drawable/ripple_effect_black_background"
+        android:padding="10dp">
 
 
         <androidx.cardview.widget.CardView
@@ -21,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             app:layout_constraintDimensionRatio="3:4"
-            android:background="@drawable/ripple_effect_black_background"
+            android:background="@drawable/ripple_effect"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -33,23 +35,26 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 srcUrl="@{item.posterUrl}"
-                android:transitionName="shared_element_transition"
+                android:background="@drawable/ripple_effect"
+                android:transitionName="@string/shared_element_transition"
                 android:scaleType="centerCrop"
-                android:src="@drawable/sample_image_03" />
+                tools:src="@drawable/sample_image_03" />
 
 
         </androidx.cardview.widget.CardView>
 
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/txt_title"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="에바 알머슨 Vida BBoy panic의 화려한 데뷔는 언제부터 시작될것인가"
+            android:text="@{item.name}"
+            tools:text="에바 알머슨 Vida BBoy panic의 화려한 데뷔는 언제부터 시작될것인가"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textSize="14dp"
+            android:gravity="center"
             app:layout_constraintEnd_toEndOf="@id/img_grid_poster"
             app:layout_constraintStart_toStartOf="@+id/img_grid_poster"
             app:layout_constraintTop_toBottomOf="@+id/img_grid_poster" />
@@ -58,12 +63,14 @@
             android:id="@+id/date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2020.06.27 - 2020.09.20"
+            tools:text="2020.06.27 - 2020.09.20"
+            android:text="@{item.formedDate}"
             android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
             app:layout_constraintStart_toStartOf="@+id/img_grid_poster"
-            app:layout_constraintTop_toBottomOf="@id/title"/>
+            app:layout_constraintTop_toBottomOf="@id/txt_title"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

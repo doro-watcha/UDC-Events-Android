@@ -7,6 +7,7 @@ import com.goddoro.common.common.Once
 import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.repository.EventRepository
+import com.goddoro.udc.R
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,38 +17,26 @@ import javax.inject.Inject
  */
 
 class EventDetailViewModel (
-    val eventId : Int ,
+    val event : Event ,
     val eventRepository: EventRepository
 ) : ViewModel() {
 
 
     private val TAG = EventDetailViewModel::class.java.simpleName
 
-    val curEvent : MutableLiveData<Event> = MutableLiveData()
+    val curEvent : MutableLiveData<Event> = MutableLiveData(event)
+
+    val curSketchImages = listOf(R.drawable.s1, R.drawable.s2, R.drawable.s3, R.drawable.s4, R.drawable.s5)
 
     val clickBackArrow : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPoster : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     init {
 
-        getEvent()
 
 
     }
 
-    fun getEvent () {
-
-        viewModelScope.launch {
-            kotlin.runCatching {
-                eventRepository.getEvent(eventId)
-            }.onSuccess {
-                debugE(TAG, it )
-                curEvent.value = it
-            }.onFailure {
-                debugE(TAG, it.message)
-            }
-        }
-    }
 
     fun onClickBackArrow() {
         clickBackArrow.value = Once(Unit)

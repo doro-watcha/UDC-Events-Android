@@ -21,6 +21,7 @@ import com.goddoro.common.common.AutoClearedValue
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.util.Navigator
+import com.goddoro.udc.util.underConstruction.UnderConstructionFragment
 import dagger.android.support.AndroidSupportInjection.inject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -135,7 +136,7 @@ class ProfileFragment : Fragment() {
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> EventCollectionFragment.newInstance()
-                1 -> JoinEventFragment.newInstance()
+                1 -> UnderConstructionFragment.newInstance("내가 참여한 행사에 대한 기능이 업데이트 될 예정입니다.")
                 else -> throw Exception("error")
             }
         }

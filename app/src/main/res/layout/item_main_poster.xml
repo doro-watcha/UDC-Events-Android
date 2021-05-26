@@ -42,7 +42,7 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 srcUrl="@{item.posterUrl}"
-                android:transitionName="shared_element_transition"
+                android:transitionName="@string/shared_element_transition"
                 android:background="@drawable/ripple_effect"
                 tools:src="@drawable/sample_image_01" />
 
@@ -50,28 +50,31 @@
         </androidx.cardview.widget.CardView>
 
         <TextView
-            android:id="@+id/description"
+            android:id="@+id/txt_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="요즘 관객들은 이렇게 관람함!"
+            android:text="@{item.name}"
+            tools:text="요즘 관객들은 이렇게 관람함!"
             android:textColor="#f00"
-            android:textSize="12dp"
+            android:textStyle="bold"
+            android:textSize="18dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/poster_card" />
 
         <TextView
-            android:id="@+id/title"
+            android:id="@+id/txt_sub_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="모네에서 세잔까지"
+            tools:text="모네에서 세잔까지"
+            android:text="@{item.subtitle}"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:layout_marginTop="10dp"
-            app:layout_constraintEnd_toEndOf="@id/description"
-            app:layout_constraintStart_toStartOf="@id/description"
-            app:layout_constraintTop_toBottomOf="@+id/description" />
+            app:layout_constraintEnd_toEndOf="@id/txt_title"
+            app:layout_constraintStart_toStartOf="@id/txt_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

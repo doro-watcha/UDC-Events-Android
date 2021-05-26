@@ -72,9 +72,6 @@ class MainPosterAdapter:
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
 
-            debugE(TAG, "Fuck")
-            debugE(TAG,differ.currentList)
-
 
         }
     }

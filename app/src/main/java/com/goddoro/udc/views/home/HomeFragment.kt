@@ -122,7 +122,7 @@ class HomeFragment : Fragment() {
             adapter = MainPosterAdapter().apply {
 
                 clickEvent.subscribe{
-                    navigator.startEventDetailActivity(requireActivity(),it.first.id,it.second)
+                    navigator.startEventDetailActivity(requireActivity(),it.first,it.second)
                 }.disposedBy(compositeDisposable)
 
             }
@@ -205,8 +205,6 @@ class HomeFragment : Fragment() {
                 adapter = PosterAdapter().apply{
 
                     clickEvent.subscribe({
-                        debugE(TAG, it.first)
-                        debugE(TAG, it.second)
                         navigator.startEventDetailActivity(requireActivity(), it.first, it.second)
                     },{
                         debugE(TAG,it)

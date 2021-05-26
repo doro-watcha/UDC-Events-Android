@@ -17,5 +17,6 @@ val utilModule = module {
     single { TokenUtil(get()) }
     single { MultiPartUtil(get())}
     single { ScreenUtil(get()) }
+    single { DateUtil()}
 
 }

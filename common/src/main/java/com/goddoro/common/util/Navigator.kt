@@ -1,7 +1,9 @@
 package com.goddoro.common.util
 
 import android.app.Activity
+import android.util.EventLog
 import android.widget.ImageView
+import com.goddoro.common.data.model.Event
 
 
 /**
@@ -19,7 +21,7 @@ interface Navigator {
 
     fun startSettingActivity ( activity : Activity )
 
-    fun startEventDetailActivity (activity : Activity, eventId : Int , imageView : ImageView )
+    fun startEventDetailActivity (activity : Activity, event : Event, imageView : ImageView )
 
     fun startTagDetailActivity (activity : Activity, position :Int)
 

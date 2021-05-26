@@ -65,4 +65,12 @@
     <string name="txt_enter_email">Please enter email</string>
     <string name="txt_unconfirmed_event">Need to confirm</string>
     <string name="txt_grant">Grant</string>
+
+    <string name="shared_element_transition">sharedElementTransition</string>
+
+    <string name="txt_no_sketch_images">There are no sketch images.</string>
+
+
+    <string name="txt_event_description_sample">진행방식 : 1차 예선 진행 후 Top 16 선발 , 2차 예선 진행 후 본선진행\n심사위원 : Mett / Daesong / Hyeon Joo\nMC / DJ : MC : Dancer Feel Dj : Bigmom\n참여방법 : 010-9518-6583으로 문자접수\n유의사항 : 2003년생까지 참가 가능</string>
+
 </resources>

@@ -24,8 +24,8 @@ class GridPosterAdapter:
     RecyclerView.Adapter<GridPosterAdapter.GridPosterHolder>() {
 
 
-    private val onClick: PublishSubject<Pair<Int, ImageView>> = PublishSubject.create()
-    val clickEvent: Observable<Pair<Int,ImageView>> = onClick
+    private val onClick: PublishSubject<Pair<Event, ImageView>> = PublishSubject.create()
+    val clickEvent: Observable<Pair<Event,ImageView>> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
@@ -59,7 +59,7 @@ class GridPosterAdapter:
         init {
 
             binding.root.setOnDebounceClickListener {
-                onClick.onNext(Pair(differ.currentList[layoutPosition].id, binding.gridPoster))
+                onClick.onNext(Pair(differ.currentList[layoutPosition], binding.gridPoster))
             }
 
         }

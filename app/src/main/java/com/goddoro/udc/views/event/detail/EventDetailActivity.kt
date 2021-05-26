@@ -4,9 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.*
+import android.util.EventLog
 import android.view.LayoutInflater
+import android.view.animation.OvershootInterpolator
 import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.data.model.Event
 import com.goddoro.udc.databinding.ActivityEventDetailBinding
 import com.goddoro.udc.views.common.ImageDialog
 import com.goddoro.udc.views.upload.UploadEventViewModel
@@ -26,7 +30,7 @@ class EventDetailActivity : AppCompatActivity() {
 
         mBinding = ActivityEventDetailBinding.inflate(LayoutInflater.from(this))
 
-        mViewModel = getViewModel{ parametersOf( intent?.getIntExtra(ARG_EVENT_ID,0)) }
+        mViewModel = getViewModel{ parametersOf( intent?.getParcelableExtra(ARG_EVENT)) }
 
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
@@ -41,6 +45,17 @@ class EventDetailActivity : AppCompatActivity() {
     private fun initView() {
 
         mBinding.txtTitle.isSelected = true
+
+        window.sharedElementEnterTransition = TransitionSet().apply {
+            interpolator = OvershootInterpolator(0.7f)
+            ordering = TransitionSet.ORDERING_TOGETHER
+            addTransition(ChangeBounds().apply{
+                pathMotion = ArcMotion()
+            })
+            addTransition(ChangeTransform())
+            addTransition(ChangeClipBounds())
+            addTransition(ChangeImageTransform())
+        }
     }
 
     private fun setupRecyclerView() {
@@ -70,12 +85,12 @@ class EventDetailActivity : AppCompatActivity() {
 
 
     companion object {
-        private const val ARG_EVENT_ID = "ARG_EVENT_ID"
+        private const val ARG_EVENT = "ARG_EVENT"
 
-        fun newIntent (activity : Activity, eventId : Int ) : Intent {
+        fun newIntent (activity : Activity, event : Event) : Intent {
 
             val intent = Intent ( activity, EventDetailActivity::class.java )
-            intent.putExtra(ARG_EVENT_ID,eventId)
+            intent.putExtra(ARG_EVENT,event)
 
             return intent
         }
