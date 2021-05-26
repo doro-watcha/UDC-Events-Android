@@ -49,7 +49,7 @@ data class ApiResponse<out T>(
         when (isSuccess) {
             true -> Completable.complete()
 
-            else -> Completable.error(
+            else -> throw error(
                 UnWrappingDataException(
 
                     errorCode ?: ResponseCode.UNKNOWN.code, "${errorCode} : ${message}"

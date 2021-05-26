@@ -37,6 +37,6 @@ interface EventRepository{
     suspend fun updateStatus(
         eventId : Int,
         status : String
-    ) : Completable
+    ) : Any
 
 }

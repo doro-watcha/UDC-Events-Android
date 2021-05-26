@@ -4,8 +4,10 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.widget.Toast
+import androidx.lifecycle.observe
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.udc.databinding.ActivityAdminBinding
@@ -49,6 +51,9 @@ class AdminActivity : AppCompatActivity() {
             onGrantSuccess.observeOnce(this@AdminActivity){
                 refresh()
                 Toast.makeText(this@AdminActivity,"행사를 승인하였습니다", Toast.LENGTH_SHORT).show()
+            }
+            errorInvoked.observe(this@AdminActivity){
+                Log.d(TAG, it.message.toString())
             }
         }
 

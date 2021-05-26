@@ -18,6 +18,7 @@ import com.goddoro.common.util.Navigator
 import com.goddoro.map.EventMapFragment
 import com.goddoro.udc.application.MainApplication.Companion.appPreference
 import com.goddoro.udc.databinding.ActivityMainBinding
+import com.goddoro.udc.util.underConstruction.UnderConstructionFragment
 import com.goddoro.udc.views.classShop.ClassShopFragment
 import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.profile.ProfileFragment
@@ -44,8 +45,8 @@ class MainActivity : AppCompatActivity() {
     private val mViewModel : MainViewModel by viewModel()
 
     private lateinit var fragment1 : HomeFragment
-    private lateinit var fragment2 : EventMapFragment
-    private lateinit var fragment3 : ClassShopFragment
+    private lateinit var fragment2 : UnderConstructionFragment
+    private lateinit var fragment3 : UnderConstructionFragment
     private lateinit var fragment4 : ProfileFragment
     private lateinit var curFragment: Fragment
 
@@ -190,8 +191,8 @@ class MainActivity : AppCompatActivity() {
     private fun initFragments(isFirstCreation : Boolean) {
 
         fragment1 = supportFragmentManager.findFragmentByTag("0") as? HomeFragment ?: HomeFragment.newInstance()
-        fragment2 = supportFragmentManager.findFragmentByTag("1") as? EventMapFragment ?: EventMapFragment.newInstance()
-        fragment3 = supportFragmentManager.findFragmentByTag("2") as? ClassShopFragment ?: ClassShopFragment.newInstance()
+        fragment2 = supportFragmentManager.findFragmentByTag("1") as? UnderConstructionFragment ?: UnderConstructionFragment.newInstance("지도 기능이 추가될 예정입니다")
+        fragment3 = supportFragmentManager.findFragmentByTag("2") as? UnderConstructionFragment ?: UnderConstructionFragment.newInstance("수업 홍보 기능이 추가될 예정입니다")
         fragment4 = supportFragmentManager.findFragmentByTag("3") as? ProfileFragment ?: ProfileFragment.newInstance(authRepository.curUser.value?.id ?: -1)
         curFragment = when(menu.value) {
             MainMenu.HOME->fragment1

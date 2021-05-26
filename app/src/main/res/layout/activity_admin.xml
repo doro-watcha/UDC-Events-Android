@@ -210,6 +210,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 tools:itemCount="3"
                 app:recyclerview_unconfirmed_event="@{vm.unConfirmedEvent}"
                 app:layout_constraintTop_toBottomOf="@+id/txt_unconfirmed_event"

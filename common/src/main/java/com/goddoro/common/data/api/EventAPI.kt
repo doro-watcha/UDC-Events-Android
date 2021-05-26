@@ -30,7 +30,7 @@ interface EventAPI {
         @FieldMap parameters : HashMap<String,Any>
     ) : ApiResponse<Any>
 
-    @PATCH("event/{id")
+    @PATCH("event/{id}")
     @FormUrlEncoded
     suspend fun updateEvent(
         @Path("id") eventId : Int,

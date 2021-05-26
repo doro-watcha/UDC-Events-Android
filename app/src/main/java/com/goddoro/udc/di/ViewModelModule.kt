@@ -2,6 +2,7 @@ package com.goddoro.udc.di
 
 import com.goddoro.map.EventMapViewModel
 import com.goddoro.udc.MainViewModel
+import com.goddoro.udc.views.admin.AdminViewModel
 import com.goddoro.udc.views.classShop.ClassShopViewModel
 import com.goddoro.udc.views.auth.AuthViewModel
 import com.goddoro.udc.views.classShop.detail.ClassDetailViewModel
@@ -51,4 +52,6 @@ val viewModelModule  = module {
 
     viewModel { (classId : Int ) -> ClassDetailViewModel(classId,get()) }
     viewModel { SearchAddressViewModel(get()) }
+
+    viewModel { AdminViewModel(get()) }
 }

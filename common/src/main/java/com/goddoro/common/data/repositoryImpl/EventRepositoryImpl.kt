@@ -68,7 +68,7 @@ class EventRepositoryImpl ( val api : EventAPI, private val multiPartUtil: Multi
         return api.uploadEvent(params).unWrapCompletable()
     }
 
-    override suspend fun updateStatus(eventId: Int, status: String): Completable {
+    override suspend fun updateStatus(eventId: Int, status: String): Any {
 
         val params = hashMapOf(
             "status" to status
