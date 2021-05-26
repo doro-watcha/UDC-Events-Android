@@ -9,6 +9,7 @@ import com.goddoro.udc.views.classShop.detail.ClassDetailViewModel
 import com.goddoro.udc.views.event.detail.EventDetailViewModel
 import com.goddoro.udc.views.upload.map.SearchAddressViewModel
 import com.goddoro.udc.views.home.HomeViewModel
+import com.goddoro.udc.views.intro.IntroViewModel
 import com.goddoro.udc.views.notification.NotificationViewModel
 import com.goddoro.udc.views.profile.EventCollectionViewModel
 import com.goddoro.udc.views.profile.JoinEventViewModel
@@ -54,4 +55,5 @@ val viewModelModule  = module {
     viewModel { SearchAddressViewModel(get()) }
 
     viewModel { AdminViewModel(get()) }
+    viewModel { IntroViewModel() }
 }

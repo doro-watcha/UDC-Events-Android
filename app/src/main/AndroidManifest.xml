@@ -18,10 +18,17 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.onboarding.OnBoardingActivity"></activity>
+        <activity android:name=".views.intro.IntroActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".views.onboarding.OnBoardingActivity" />
         <activity android:name=".views.classShop.create.MakeClassActivity" />
         <activity android:name=".views.admin.AdminActivity" />
-        <activity android:name="com.goddoro.udc.views.upload.map.SearchAddressActivity" />
+        <activity android:name=".views.upload.map.SearchAddressActivity" />
         <activity android:name=".views.search.detail.SearchDetailActivity" />
         <activity android:name=".views.search.SearchActivity" />
         <activity
@@ -34,17 +41,12 @@
         <activity android:name=".views.event.detail.EventDetailActivity" />
         <activity android:name=".views.auth.AuthActivity" />
         <activity android:name=".MainActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <meta-data
             android:name="com.naver.maps.map.86uizs8uuf"
             android:value="86uizs8uuf" />
-
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_icon"
             android:resource="@drawable/ic_camera" />
