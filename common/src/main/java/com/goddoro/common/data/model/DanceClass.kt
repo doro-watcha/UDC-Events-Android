@@ -36,6 +36,8 @@ data class DanceClass (
     val isMainClass : Boolean,
 
     @SerializedName("name")
-    val title : String
+    val title : String,
+
+    val temporaryImage : Int ? = 0
 
 ) : Parcelable

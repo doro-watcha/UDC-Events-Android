@@ -118,6 +118,7 @@ class AuthActivity : AppCompatActivity() {
                 if ( it is UnWrappingDataException) {
                     val errorMessage = when (it.errorCode) {
                         400 -> "존재하지 않는 유저입니다"
+                        500 -> "이미 존재하는 이메일입니다"
                         else -> it.message ?: ""
                     }
 

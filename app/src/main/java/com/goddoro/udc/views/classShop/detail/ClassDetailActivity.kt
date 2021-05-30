@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import androidx.appcompat.app.AppCompatActivity
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.data.model.DanceClass
 import com.goddoro.udc.databinding.ActivityClassDetailBinding
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
@@ -29,7 +30,7 @@ class ClassDetailActivity : AppCompatActivity() {
         mBinding = ActivityClassDetailBinding.inflate(LayoutInflater.from(this))
 
         mViewModel = getViewModel{
-            parametersOf(intent?.getIntExtra(ARG_CLASS_ID, 0))
+            parametersOf(intent?.getParcelableExtra(ARG_CLASS))
         }
 
         mBinding.lifecycleOwner = this
@@ -151,12 +152,12 @@ class ClassDetailActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val ARG_CLASS_ID = "ARG_CLASS_ID"
+        private const val ARG_CLASS = "ARG_CLASS"
 
-        fun newIntent(activity: Activity, classId: Int) : Intent  {
+        fun newIntent(activity: Activity, danceClass: DanceClass ) : Intent  {
 
             val intent = Intent(activity, ClassDetailActivity::class.java)
-            intent.putExtra(ARG_CLASS_ID, classId)
+            intent.putExtra(ARG_CLASS, danceClass)
             return intent
         }
     }

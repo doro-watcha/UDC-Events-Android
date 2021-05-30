@@ -1,5 +1,6 @@
 package com.goddoro.udc.di
 
+import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
 import com.goddoro.map.EventMapViewModel
 import com.goddoro.udc.MainViewModel
@@ -52,7 +53,7 @@ val viewModelModule  = module {
     viewModel { SearchViewModel() }
     viewModel { ( query : String) -> SearchDetailViewModel(query,get()) }
 
-    viewModel { (classId : Int ) -> ClassDetailViewModel(classId,get()) }
+    viewModel { (danceClass : DanceClass ) -> ClassDetailViewModel(danceClass,get()) }
     viewModel { SearchAddressViewModel(get()) }
 
     viewModel { AdminViewModel(get()) }

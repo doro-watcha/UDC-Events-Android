@@ -14,12 +14,11 @@ import kotlinx.coroutines.launch
  */
 
 class ClassDetailViewModel(
-    val classId : Int,
+    val danceClass : DanceClass,
     val classRepository: ClassRepository
 ) : ViewModel() {
 
 
-    val danceClass : MutableLiveData<DanceClass> = MutableLiveData()
     val artistProfiles : MutableLiveData<List<String>> = MutableLiveData()
 
     val askTitle : MutableLiveData<String> = MutableLiveData()
@@ -39,23 +38,8 @@ class ClassDetailViewModel(
             "zxcv","zxcv","zxcv"
         )
 
-        getClass()
-
     }
 
-    private fun getClass (){
-
-        viewModelScope.launch{
-
-            kotlin.runCatching {
-                classRepository.getClass(classId)
-            }.onSuccess {
-                danceClass.value = it
-            }.onFailure {
-                errorInvoked.value = Once(it)
-            }
-        }
-    }
 
 
     fun onClickInstagram() {

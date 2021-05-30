@@ -218,6 +218,10 @@ class MainActivity : AppCompatActivity() {
             MainMenu.CLASS -> fragment3
             MainMenu.PROFILE -> fragment4
         }
+
+        Broadcast.bottomIndexChangeBroadcast.onNext(menu.idx)
+
+
         supportFragmentManager.beginTransaction().hide(curFragment).show(willShow).commit()
         curFragment = willShow
     }

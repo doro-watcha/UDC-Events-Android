@@ -8,4 +8,6 @@ object Broadcast {
 
 
     val findAddressBroadcast : PublishSubject<String> = PublishSubject.create()
+
+    val bottomIndexChangeBroadcast : PublishSubject<Int> = PublishSubject.create()
 }

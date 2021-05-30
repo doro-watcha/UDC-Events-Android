@@ -12,6 +12,7 @@
     <item
         android:id="@+id/nav_item_class"
         android:title="클래스/워크샵"
+        android:icon="@drawable/ic_class"
         />
     <item
         android:id="@+id/nav_item_video"

@@ -2,11 +2,13 @@ package com.goddoro.udc.views.profile
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.data.model.Event
 import com.goddoro.udc.databinding.ItemEventCollectionBinding
 import io.reactivex.Observable
@@ -21,8 +23,9 @@ import org.koin.core.KoinComponent
 class EventCollectionAdapter: RecyclerView.Adapter<EventCollectionAdapter.EventCollectionHolder>() {
 
 
-    private val onClick: PublishSubject<String> = PublishSubject.create()
-    val clickEvent: Observable<String> = onClick
+
+    private val onClick: PublishSubject<Pair<Event, ImageView>> = PublishSubject.create()
+    val clickEvent: Observable<Pair<Event, ImageView>> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
@@ -55,6 +58,9 @@ class EventCollectionAdapter: RecyclerView.Adapter<EventCollectionAdapter.EventC
         KoinComponent {
         init {
 
+            binding.root.setOnDebounceClickListener{
+                onClick.onNext(Pair(differ.currentList[layoutPosition],binding.imgThumbnail))
+            }
 
         }
 

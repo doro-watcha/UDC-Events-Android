@@ -3,6 +3,7 @@ package com.goddoro.common.util
 import android.app.Activity
 import android.util.EventLog
 import android.widget.ImageView
+import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
 
 
@@ -27,7 +28,7 @@ interface Navigator {
 
     fun startNotificationListActivity ( activity : Activity )
 
-    fun startClassDetailActivity ( activity : Activity, classId : Int)
+    fun startClassDetailActivity ( activity : Activity, danceClass : DanceClass)
 
     fun startSearchActivity ( activity : Activity )
 

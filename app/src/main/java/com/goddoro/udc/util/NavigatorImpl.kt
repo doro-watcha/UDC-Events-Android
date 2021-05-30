@@ -6,6 +6,7 @@ import android.util.EventLog
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
+import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.MainActivity
@@ -86,9 +87,9 @@ class NavigatorImpl : Navigator{
         activity.startActivity(intent)
     }
 
-    override fun startClassDetailActivity(activity: Activity, classId : Int) {
+    override fun startClassDetailActivity(activity: Activity, danceClass : DanceClass) {
 
-        val intent = ClassDetailActivity.newIntent(activity,classId)
+        val intent = ClassDetailActivity.newIntent(activity,danceClass)
         activity.startActivity(intent)
     }
 

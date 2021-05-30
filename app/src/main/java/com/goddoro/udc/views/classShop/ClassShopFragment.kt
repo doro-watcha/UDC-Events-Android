@@ -12,9 +12,11 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.observe
 import androidx.viewpager2.widget.ViewPager2
+import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.extension.rxRepeatTimer
 import com.goddoro.common.util.AppPreference_Factory.create
 import com.goddoro.common.util.CommonUtils
 import com.goddoro.common.util.Navigator
@@ -26,6 +28,7 @@ import com.google.android.material.tabs.TabLayout
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.lang.Thread.sleep
 import java.net.URI.create
 
 
@@ -43,13 +46,14 @@ class ClassShopFragment : Fragment() {
 
     private val mViewModel : ClassShopViewModel by viewModel()
 
-    private val navigator : Navigator by inject()
+    private val autoScrollDisposable = CompositeDisposable()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentClassShopBinding.inflate(inflater, container, false).also { mBinding = it}.root
+    ): View = FragmentClassShopBinding.inflate(inflater, container, false).also { mBinding = it}.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -61,7 +65,9 @@ class ClassShopFragment : Fragment() {
 
         setupViewPagerWithTab()
         setupViewPager()
+        startAutoScroll()
     }
+
 
     private fun setupViewPager() {
 
@@ -71,15 +77,13 @@ class ClassShopFragment : Fragment() {
 
                 clickEvent.subscribe{
 
-                    val intent = Intent(context, ClassDetailActivity::class.java)
+                    val intent = ClassDetailActivity.newIntent(requireActivity(),it.first)
 
                     val optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation(requireActivity(),
                         it.second, ViewCompat.getTransitionName(it.second)!!
                     )
 
                     startActivity(intent,optionsCompat.toBundle())
-
-                   // navigator.startClassDetailActivity(requireActivity(), it.id)
 
                 }.disposedBy(compositeDisposable)
 
@@ -94,8 +98,11 @@ class ClassShopFragment : Fragment() {
             centerValue -= findFirstPosition
 
 
-            setCurrentItem(centerValue, false)
+            debugE(TAG, centerValue.toString())
+            debugE(TAG, findFirstPosition.toString())
 
+            setCurrentItem(centerValue - 2, false)
+            debugE(TAG, "CURRENT ITEM IN SET UP $currentItem")
             this.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
                 override fun onPageScrolled(
                     position: Int,
@@ -176,6 +183,21 @@ class ClassShopFragment : Fragment() {
 
     }
 
+    private fun startAutoScroll () {
+
+        rxRepeatTimer(5000){
+            mBinding.mMainClassViewPager.apply {
+
+                setCurrentItem(currentItem + 1 , true)
+                debugE(TAG, "CURRENT ITEM IN AUTO SCROLL $currentItem")
+            }
+
+        }.disposedBy(autoScrollDisposable)
+
+
+    }
+
+
 
 
     inner class ClassShopPagerAdapter(fragmentManager: FragmentManager) :
@@ -200,6 +222,14 @@ class ClassShopFragment : Fragment() {
             }
         }
 
+    }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        autoScrollDisposable.clear()
+        compositeDisposable.clear()
     }
 
 
