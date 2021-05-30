@@ -23,7 +23,7 @@ ext {
     buildToolsVersion = '29.0.1'
 
     versionCode = 3
-    versionName = '1.0.0'
+    versionName = '테스트 버전 1.0.1'
 
     testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
 

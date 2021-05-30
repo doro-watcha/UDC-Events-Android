@@ -49,7 +49,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var fragment1 : HomeFragment
     private lateinit var fragment2 : UnderConstructionFragment
-    private lateinit var fragment3 : UnderConstructionFragment
+    private lateinit var fragment3 : ClassShopFragment
     private lateinit var fragment4 : ProfileFragment
     private lateinit var curFragment: Fragment
 
@@ -190,7 +190,7 @@ class MainActivity : AppCompatActivity() {
 
         fragment1 = supportFragmentManager.findFragmentByTag("0") as? HomeFragment ?: HomeFragment.newInstance()
         fragment2 = supportFragmentManager.findFragmentByTag("1") as? UnderConstructionFragment ?: UnderConstructionFragment.newInstance("지도 기능이 추가될 예정입니다")
-        fragment3 = supportFragmentManager.findFragmentByTag("2") as? UnderConstructionFragment ?: UnderConstructionFragment.newInstance("수업 홍보 기능이 추가될 예정입니다")
+        fragment3 = supportFragmentManager.findFragmentByTag("2") as? ClassShopFragment ?: ClassShopFragment.newInstance()
         fragment4 = supportFragmentManager.findFragmentByTag("3") as? ProfileFragment ?: ProfileFragment.newInstance(authRepository.curUser.value?.id ?: -1)
         curFragment = when(menu.value) {
             MainMenu.HOME->fragment1
