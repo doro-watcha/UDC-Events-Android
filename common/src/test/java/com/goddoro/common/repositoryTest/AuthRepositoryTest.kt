@@ -2,7 +2,6 @@ package com.goddoro.common.repositoryTest
 
 import androidx.test.core.app.ApplicationProvider
 import androidx.test.filters.LargeTest
-import com.goddoro.common.common.debugE
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.di.apiModule
 import com.goddoro.common.di.repositoryModule
@@ -10,7 +9,12 @@ import com.goddoro.common.di.utilModule
 import com.goddoro.common.mock.FakeAuthInfo
 import com.goddoro.common.mock.fakeNetworkModule
 import kotlinx.coroutines.*
+import kotlinx.coroutines.test.TestCoroutineScope
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
 import org.junit.After
+import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -32,6 +36,8 @@ class AuthRepositoryTest : AutoCloseKoinTest() {
 
     private lateinit var repository: AuthRepository
 
+    private val testScope = TestCoroutineScope()
+
 
     private val mainThreadSurrogate = newSingleThreadContext("UI thread")
 
@@ -46,35 +52,31 @@ class AuthRepositoryTest : AutoCloseKoinTest() {
             modules(utilModule)
         }
 
+
         repository = get()
 
-//        Dispatchers.setMain(mainThreadSurrogate)
+        Dispatchers.setMain(mainThreadSurrogate)
     }
 
     @Test
-    fun `sign in with email`() = runBlocking {
+    fun `sign in with email`() = runBlockingTest {
 
-        launch(Dispatchers.IO){
-            kotlin.runCatching {
-                repository.signIn(FakeAuthInfo.email, FakeAuthInfo.password)
-            }.onSuccess {
-                debugE(TAG,it.token)
-            }.onFailure {
-                debugE(TAG, it.message)
-            }
 
+        val result = repository.signIn(FakeAuthInfo.email, FakeAuthInfo.password)
+
+        launch(Dispatchers.Main){
+            assert(result.token.length > 1 )
         }
-
-
-
+        this.cancel()
 
 
     }
 
     @After
     fun tearDown() {
-      //  Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
+        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
         mainThreadSurrogate.close()
+        testScope.cleanupTestCoroutines()
     }
 
 
