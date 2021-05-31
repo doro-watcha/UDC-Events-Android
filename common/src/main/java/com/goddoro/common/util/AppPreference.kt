@@ -5,14 +5,13 @@ import android.app.Application
 import android.content.SharedPreferences
 import androidx.preference.PreferenceManager
 import com.goddoro.common.di.ServerType
-import javax.inject.Inject
 
 
 /**
  * created By DORO 2020/10/02
  */
 
-class AppPreference @Inject constructor(context: Application) {
+class AppPreference(context: Application) {
 
     private val preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
 

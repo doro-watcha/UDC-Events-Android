@@ -13,14 +13,13 @@ import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.TokenUtil
 import com.google.gson.Gson
 import io.reactivex.Completable
-import javax.inject.Inject
 
 
 /**
  * created By DORO 2020/10/03
  */
 
-class AuthRepositoryImpl @Inject constructor(
+class AuthRepositoryImpl (
     private val api : AuthAPI,
     private val gson : Gson,
     private val appPreference: AppPreference,

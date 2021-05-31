@@ -5,9 +5,6 @@ import android.os.Parcelable
 import com.goddoro.common.data.model.User
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
-import dagger.Binds
-import dagger.Module
-import dagger.Provides
 import kotlinx.android.parcel.Parcelize
 import retrofit2.http.Field
 import retrofit2.http.FormUrlEncoded

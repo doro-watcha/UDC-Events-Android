@@ -2,6 +2,8 @@ package com.goddoro.common.data.api
 
 import android.os.Parcelable
 import androidx.lifecycle.Transformations.map
+import com.goddoro.common.data.api.response.ResponseCode
+import com.goddoro.common.data.api.response.UnWrappingDataException
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
@@ -60,21 +62,4 @@ data class ApiResponse<out T>(
 }
 
 
-class UnWrappingDataException(val errorCode: Int, message: String) : Exception(message)
 
-
-enum class ResponseCode(val code: Int) {
-
-    UNKNOWN(-999),
-
-    REQUEST_BODY_VALIATION_FAIL(102),
-
-    UNVERIFIED_EMAIL(202),
-
-    EXIST_EMAIL(500),
-    SERVER_ERROR(700),
-
-    NOT_FOUND(404),
-    ENTRY_DELETED(601),
-
-}

@@ -1,7 +1,6 @@
 package com.goddoro.common.data.model
 
 import android.os.Parcelable
-import androidx.room.PrimaryKey
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -13,7 +12,6 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class User(
     @SerializedName("id")
-    @PrimaryKey(autoGenerate = false)
     val id: Int,
 
     @SerializedName("email")
