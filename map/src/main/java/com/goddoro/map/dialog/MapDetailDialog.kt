@@ -119,7 +119,7 @@ class MapDetailDialog ( private val item : NaverItem) : DialogFragment(){
         val point = Point()
         wm.defaultDisplay.getSize(point)
         val width = (point.x * 0.8f).roundToInt()
-        val height = (point.y * 0.5f).roundToInt()
+        val height = (point.y * 0.4f).roundToInt()
         dialog?.window?.setLayout(width, height)
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
 
@@ -8,7 +9,7 @@
             type="com.goddoro.map.dialog.MapDetailDialog" />
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="10dp"
@@ -65,32 +66,62 @@
             android:layout_height="wrap_content"
             android:text=" (b-boying)"
             android:textColor="@color/black50"
+
             android:textSize="15dp"
             app:layout_constraintBottom_toBottomOf="@+id/txt_artist_name"
             app:layout_constraintStart_toEndOf="@+id/txt_artist_name"
             app:layout_constraintTop_toTopOf="@+id/txt_artist_name"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
             android:id="@+id/txt_location"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
             android:gravity="center"
-            app:layout_constraintTop_toBottomOf="@+id/txt_genre"
-            android:layout_marginTop="5dp"
+            android:text="장소 : "
             android:textColor="@color/black"
-            android:textSize="15dp"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/btn_detail_event"
+            app:layout_constraintTop_toTopOf="@+id/location"
+            app:layout_constraintBottom_toBottomOf="@+id/location"/>
+
+        <TextView
+            android:id="@+id/location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:gravity="top"
+            android:layout_marginTop="10dp"
             android:text="서울특별시 서대문구 신촌역로 7 , 신촌 푸르지오 시티 701호"
-            android:layout_height="wrap_content"/>
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="@id/btn_detail_event"
+            app:layout_constraintStart_toEndOf="@+id/txt_location"
+            app:layout_constraintTop_toBottomOf="@+id/txt_artist_name" />
 
         <TextView
             android:id="@+id/txt_date"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="10dp"
             android:textColor="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/txt_location"
-            android:text="2021-09-21 PM 3:00"/>
+            android:text="날짜 :"
+            android:textSize="12dp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/txt_location"
+            app:layout_constraintTop_toBottomOf="@+id/location" />
 
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="2021-07-01 PM 3:00"
+            android:textColor="@color/black"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="@+id/location"
+            app:layout_constraintStart_toStartOf="@+id/location"
+            app:layout_constraintTop_toTopOf="@+id/txt_date" />
 
 
         <com.google.android.material.button.MaterialButton
@@ -99,7 +130,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/date"
             android:backgroundTint="@color/black"
             android:textColor="@color/white"
             android:textStyle="bold"
