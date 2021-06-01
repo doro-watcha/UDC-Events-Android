@@ -1,6 +1,8 @@
 package com.goddoro.common.data.model
 
+import com.goddoro.common.R
 import com.naver.maps.geometry.LatLng
+import kotlinx.android.synthetic.main.view_custom_toast.view.*
 import ted.gun0912.clustering.clustering.TedClusterItem
 import ted.gun0912.clustering.geometry.TedLatLng
 
@@ -25,6 +27,8 @@ data class NaverItem(var position: LatLng) : TedClusterItem {
      * @param snippet string to be set as snippet
      */
     var snippet: String? = null
+
+    var profileSource : Int? = R.drawable.sample_image_01
 
     constructor(lat: Double, lng: Double) : this(LatLng(lat, lng)) {
         title = null

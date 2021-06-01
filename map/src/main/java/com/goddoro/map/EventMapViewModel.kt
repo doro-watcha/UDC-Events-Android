@@ -29,7 +29,6 @@ class EventMapViewModel (
 
 
     val errorInvoked : MutableLiveData<Throwable> = MutableLiveData()
-    val clickTest : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     init {
 
@@ -66,7 +65,4 @@ class EventMapViewModel (
         }
     }
 
-    fun onClickTest() {
-        clickTest.value = Once(Unit)
-    }
 }

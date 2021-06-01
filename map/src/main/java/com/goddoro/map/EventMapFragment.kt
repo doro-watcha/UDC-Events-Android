@@ -15,6 +15,10 @@ import dagger.android.support.DaggerFragment
 import ted.gun0912.clustering.naver.TedNaverClustering
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.MarkerIcons
+import de.hdodenhof.circleimageview.CircleImageView
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 
@@ -80,9 +84,6 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 //                }
             }
 
-            clickTest.observeOnce(viewLifecycleOwner){
-
-            }
 
             errorInvoked.observe(viewLifecycleOwner){
                 debugE(TAG,it.message)
@@ -103,6 +104,17 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         )
         TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
             .items(getItems())
+//            .customMarker{ clusterItem ->
+//                Marker(clusterItem.position).apply {
+//                    val circleImageView = CircleImageView(context).apply {
+//
+//                        setPadding(10, 10, 10, 10)
+//                        setImageResource(clusterItem.profileSource ?: 0)
+//                    }
+//
+//                    icon = OverlayImage.fromView(circleImageView)
+//                }
+//            }
             .markerClickListener {
                 MapDetailDialog.show(requireActivity().supportFragmentManager, it)
             }
