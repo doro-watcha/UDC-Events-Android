@@ -87,10 +87,10 @@ class NavigatorImpl : Navigator{
         activity.startActivity(intent)
     }
 
-    override fun startClassDetailActivity(activity: Activity, danceClass : DanceClass) {
+    override fun startClassDetailActivity(activity: Activity, danceClass : DanceClass, imageView : ImageView) {
 
         val intent = ClassDetailActivity.newIntent(activity,danceClass)
-        activity.startActivity(intent)
+        activity.startActivity(intent, ActivityOptionsCompat.makeSceneTransitionAnimation(activity,imageView,activity.getString(R.string.shared_element_transition)).toBundle())
     }
 
     override fun startSearchActivity(activity: Activity) {

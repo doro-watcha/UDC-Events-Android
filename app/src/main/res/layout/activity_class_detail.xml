@@ -40,7 +40,7 @@
                 android:id="@+id/txt_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="볼빨간사춘기"
+                android:text="@{vm.danceClass.artist.name}"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toBottomOf="@+id/btn_back_arrow"
@@ -54,9 +54,9 @@
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_margin="12dp"
-                android:transitionName="shared_element_transition"
+                android:transitionName="@string/shared_element_transition"
                 android:scaleType="centerCrop"
-                srcUrl="@{vm.danceClass.artist.avatarUrl}"
+                android:src="@{vm.danceClass.temporaryImage}"
                 tools:src="@drawable/sample_image_02"
                 app:layout_constraintDimensionRatio="1:1"
                 app:layout_constraintStart_toStartOf="parent"
@@ -297,6 +297,7 @@
                 android:onClick="@{() -> vm.onClickAskButton()}"
                 android:layout_marginTop="20dp"
                 android:layout_marginStart="12dp"
+                android:visibility="gone"
                 android:layout_marginEnd="12dp"
                 app:layout_constraintTop_toBottomOf="@+id/dance_activity"/>
 

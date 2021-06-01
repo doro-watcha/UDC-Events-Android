@@ -8,7 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.HasDefaultViewModelProviderFactory
 import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.*
-import com.goddoro.common.data.api.UnWrappingDataException
+import com.goddoro.common.data.api.response.UnWrappingDataException
 import com.goddoro.common.util.Navigator
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.R

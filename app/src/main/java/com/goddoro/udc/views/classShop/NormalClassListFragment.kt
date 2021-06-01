@@ -9,8 +9,12 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
+import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentNormalClassListBinding
+import io.reactivex.disposables.CompositeDisposable
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 /**
@@ -26,6 +30,10 @@ class NormalClassListFragment : Fragment() {
     private lateinit var mBinding: FragmentNormalClassListBinding
 
     private val mViewModel: ClassShopViewModel by sharedViewModel()
+
+    private val compositeDisposable = CompositeDisposable()
+
+    private val navigator : Navigator by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -43,9 +51,6 @@ class NormalClassListFragment : Fragment() {
         observeViewModel()
         setupRecyclerView()
 
-        debugE(TAG, "NOrmalClassListFragment")
-
-        debugE(TAG, mViewModel.normalClasses.value)
     }
 
     private fun setupRecyclerView() {
@@ -62,7 +67,12 @@ class NormalClassListFragment : Fragment() {
             addItemDecoration(mVideoGridSpacing)
             setHasFixedSize(true)
 
-            adapter = NormalClassAdapter()
+            adapter = NormalClassAdapter().apply {
+
+                clickEvent.subscribe{
+                    navigator.startClassDetailActivity(requireActivity(),it.first,it.second)
+                }.disposedBy(compositeDisposable)
+            }
 
         }
     }

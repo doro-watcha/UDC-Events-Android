@@ -20,7 +20,7 @@
             android:id="@+id/img_poster"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:transitionName="shared_element_transition"
+            android:transitionName="@string/shared_element_transition"
             app:layout_constraintDimensionRatio="2:3"
             android:scaleType="centerCrop"
             android:src="@{item.temporaryImage}"

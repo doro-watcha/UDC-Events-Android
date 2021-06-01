@@ -38,6 +38,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
     lateinit var naverMap: NaverMap
 
+    lateinit var tedNaverClustering: TedNaverClustering<NaverItem>
 
 
     override fun onCreateView(
@@ -55,6 +56,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
         initSetting()
         observeViewModel()
+
     }
 
     private fun initSetting() {
@@ -68,18 +70,14 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         mViewModel.apply {
 
             events.observe(viewLifecycleOwner){
-
-                if (it.isNotEmpty()) {
-
+//
+//                if (it.isNotEmpty()) {
+//
 //                    TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
 //                        .items(getMapItems(naverMap))
-//                        .markerClickListener {
-//                            MapDetailDialog.show(requireActivity().supportFragmentManager, it)
-//                        }
-//                        .customMarker()
-//                        .make()
-
-                }
+//
+//
+//                }
             }
 
             clickTest.observeOnce(viewLifecycleOwner){
@@ -103,14 +101,32 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
                 )
             )
         )
+        TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
+            .items(getItems())
+            .markerClickListener {
+                MapDetailDialog.show(requireActivity().supportFragmentManager, it)
+            }
+            .make()
 
-        mViewModel.getMapItems(naverMap)
 
         debugE(TAG, "FUCK")
 
 
     }
 
+    private fun getItems(): List<NaverItem> {
+        val bounds = naverMap.contentBounds
+        return ArrayList<NaverItem>().apply {
+            repeat(50) {
+                val temp = NaverItem(
+                    (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
+                    (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
+                )
+                add(temp)
+            }
+        }
+
+    }
 
 
     companion object {

@@ -6,7 +6,9 @@ import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.transition.*
 import android.view.LayoutInflater
+import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
@@ -41,6 +43,17 @@ class ClassDetailActivity : AppCompatActivity() {
         initView()
         setupRecyclerView()
         observeViewModel()
+
+        window.sharedElementEnterTransition = TransitionSet().apply {
+            interpolator = OvershootInterpolator(0.7f)
+            ordering = TransitionSet.ORDERING_TOGETHER
+            addTransition(ChangeBounds().apply{
+                pathMotion = ArcMotion()
+            })
+            addTransition(ChangeTransform())
+            addTransition(ChangeClipBounds())
+            addTransition(ChangeImageTransform())
+        }
     }
 
     private fun initView() {

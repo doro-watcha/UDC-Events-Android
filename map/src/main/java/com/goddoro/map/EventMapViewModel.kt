@@ -33,7 +33,7 @@ class EventMapViewModel (
 
     init {
 
-        listEvents()
+      //  listEvents()
         getLocation()
     }
 
@@ -64,20 +64,6 @@ class EventMapViewModel (
                 errorInvoked.value = it
             }
         }
-    }
-
-    fun getMapItems( naverMap : NaverMap): List<NaverItem> {
-        val bounds = naverMap.contentBounds
-        return ArrayList<NaverItem>().apply {
-            repeat(events.value?.size ?: 0) {
-                val naverItem = NaverItem(
-                    (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
-                    (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
-                )
-                add(naverItem)
-            }
-        }
-
     }
 
     fun onClickTest() {

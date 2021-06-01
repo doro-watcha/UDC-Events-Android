@@ -20,7 +20,7 @@ import dagger.android.support.DaggerFragment
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import javax.inject.Inject
 import androidx.fragment.app.Fragment
-import com.goddoro.common.data.api.UnWrappingDataException
+import com.goddoro.common.data.api.response.UnWrappingDataException
 import com.goddoro.common.util.Navigator
 import com.goddoro.common.util.ToastUtil
 import dagger.android.AndroidInjection.inject

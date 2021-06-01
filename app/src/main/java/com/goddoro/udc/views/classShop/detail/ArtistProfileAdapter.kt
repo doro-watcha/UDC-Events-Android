@@ -28,19 +28,19 @@ class ArtistProfileAdapter: RecyclerView.Adapter<ArtistProfileAdapter.ProfileVie
     private val onClick: PublishSubject<DanceClass> = PublishSubject.create()
     val clickEvent: Observable<DanceClass> = onClick
 
-    private val diff = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
+    private val diff = object : DiffUtil.ItemCallback<Int>() {
+        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
             return oldItem == newItem
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
             return oldItem == newItem
         }
     }
 
     private val differ = AsyncListDiffer(this, diff)
 
-    fun submitItems(items: List<String>?) {
+    fun submitItems(items: List<Int>?) {
         differ.submitList(items)
     }
 
@@ -62,18 +62,19 @@ class ArtistProfileAdapter: RecyclerView.Adapter<ArtistProfileAdapter.ProfileVie
 
         }
 
-        fun bind(item: String) {
+        fun bind(item: Int) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
 
 
+            binding.image.setImageResource(item)
         }
     }
 
 }
 
 @BindingAdapter("app:recyclerview_artist_profiles")
-fun RecyclerView.setArtistProfiles(items: List<String>?) {
+fun RecyclerView.setArtistProfiles(items: List<Int>?) {
     (adapter as? ArtistProfileAdapter)?.run {
         this.submitItems(items)
     }

@@ -8,14 +8,12 @@ import com.goddoro.common.di.repositoryModule
 import com.goddoro.common.di.utilModule
 import com.goddoro.common.mock.FakeAuthInfo
 import com.goddoro.common.mock.fakeNetworkModule
-import kotlinx.coroutines.*
-import kotlinx.coroutines.test.TestCoroutineScope
-import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
-import org.junit.After
-import org.junit.Assert
 import org.junit.Before
+import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.android.ext.koin.androidContext
@@ -36,10 +34,8 @@ class AuthRepositoryTest : AutoCloseKoinTest() {
 
     private lateinit var repository: AuthRepository
 
-    private val testScope = TestCoroutineScope()
-
-
-    private val mainThreadSurrogate = newSingleThreadContext("UI thread")
+    @get:Rule
+    var coroutinesTestRule = CoroutineTestRule()
 
 
     @Before
@@ -54,29 +50,19 @@ class AuthRepositoryTest : AutoCloseKoinTest() {
 
 
         repository = get()
-
-        Dispatchers.setMain(mainThreadSurrogate)
     }
 
     @Test
-    fun `sign in with email`() = runBlockingTest {
+    fun `sign in with email`() = coroutinesTestRule.testDispatcher.runBlockingTest {
 
-
-        val result = repository.signIn(FakeAuthInfo.email, FakeAuthInfo.password)
-
-        launch(Dispatchers.Main){
-            assert(result.token.length > 1 )
+        val job = launch(coroutinesTestRule.testDispatcherProvider.io()) {
+            val result = repository.signIn(FakeAuthInfo.email, FakeAuthInfo.password)
+            assert(result.token.length == 1)
         }
-        this.cancel()
+
+        job.cancel()
 
 
-    }
-
-    @After
-    fun tearDown() {
-        Dispatchers.resetMain() // reset main dispatcher to the original Main dispatcher
-        mainThreadSurrogate.close()
-        testScope.cleanupTestCoroutines()
     }
 
 

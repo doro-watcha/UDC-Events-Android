@@ -27,6 +27,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.firebase.iid.FirebaseInstanceId
+import com.naver.maps.map.MapFragment
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -48,7 +49,7 @@ class MainActivity : AppCompatActivity() {
     private val mViewModel : MainViewModel by viewModel()
 
     private lateinit var fragment1 : HomeFragment
-    private lateinit var fragment2 : UnderConstructionFragment
+    private lateinit var fragment2 : EventMapFragment
     private lateinit var fragment3 : ClassShopFragment
     private lateinit var fragment4 : ProfileFragment
     private lateinit var curFragment: Fragment
@@ -189,7 +190,7 @@ class MainActivity : AppCompatActivity() {
     private fun initFragments(isFirstCreation : Boolean) {
 
         fragment1 = supportFragmentManager.findFragmentByTag("0") as? HomeFragment ?: HomeFragment.newInstance()
-        fragment2 = supportFragmentManager.findFragmentByTag("1") as? UnderConstructionFragment ?: UnderConstructionFragment.newInstance("지도 기능이 추가될 예정입니다")
+        fragment2 = supportFragmentManager.findFragmentByTag("1") as? EventMapFragment ?: EventMapFragment.newInstance()
         fragment3 = supportFragmentManager.findFragmentByTag("2") as? ClassShopFragment ?: ClassShopFragment.newInstance()
         fragment4 = supportFragmentManager.findFragmentByTag("3") as? ProfileFragment ?: ProfileFragment.newInstance(authRepository.curUser.value?.id ?: -1)
         curFragment = when(menu.value) {

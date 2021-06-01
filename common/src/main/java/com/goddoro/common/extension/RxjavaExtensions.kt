@@ -56,8 +56,8 @@ fun rxSimpleRun(run: () -> Unit): Disposable {
         .subscribe()
 }
 
-fun rxRepeatTimer(tick: Long, onNext: (t: Long) -> Unit): Disposable {
-    return Observable.interval(0L, tick, TimeUnit.MILLISECONDS)
+fun rxRepeatTimer(tick: Long, onNext: (t: Long) -> Unit, initialDelay : Long? = 0): Disposable {
+    return Observable.interval(initialDelay ?: 0L, tick, TimeUnit.MILLISECONDS)
         .addSchedulers()
         .subscribe({
             onNext(it)
@@ -65,6 +65,7 @@ fun rxRepeatTimer(tick: Long, onNext: (t: Long) -> Unit): Disposable {
 
         })
 }
+
 
 fun Disposable.disposedBy(compositeDisposable: CompositeDisposable) {
     compositeDisposable.add(this)

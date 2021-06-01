@@ -2,12 +2,14 @@ package com.goddoro.udc.views.classShop
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
+import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
 import com.goddoro.udc.databinding.ItemEventCollectionBinding
@@ -25,8 +27,8 @@ import org.koin.core.KoinComponent
 class NormalClassAdapter: RecyclerView.Adapter<NormalClassAdapter.NormalClassViewHolder>() {
 
 
-    private val onClick: PublishSubject<String> = PublishSubject.create()
-    val clickEvent: Observable<String> = onClick
+    private val onClick: PublishSubject<Pair<DanceClass, ImageView>> = PublishSubject.create()
+    val clickEvent: Observable<Pair<DanceClass,ImageView>> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<DanceClass>() {
         override fun areItemsTheSame(oldItem: DanceClass, newItem: DanceClass): Boolean {
@@ -59,6 +61,9 @@ class NormalClassAdapter: RecyclerView.Adapter<NormalClassAdapter.NormalClassVie
         KoinComponent {
         init {
 
+            binding.root.setOnDebounceClickListener{
+                onClick.onNext(Pair(differ.currentList[layoutPosition],binding.videoThumbnail))
+            }
 
         }
 

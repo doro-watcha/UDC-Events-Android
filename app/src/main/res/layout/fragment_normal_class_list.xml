@@ -17,7 +17,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mRecyclerView"
             android:layout_width="match_parent"
-            app:recyclerview_normal_class="@{vm.normalClasses}"
+            android:overScrollMode="never"
+            app:recyclerview_normal_class="@{vm.mainClasses}"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
             android:layout_height="wrap_content"
             tools:listitem="@layout/item_normal_class"

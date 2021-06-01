@@ -134,7 +134,7 @@ class HomeFragment : Fragment() {
             centerValue -= findFirstPosition
 
 
-            setCurrentItem( centerValue -1 , false )
+            setCurrentItem( centerValue , false )
 
             val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
             val offsetPx = resources.getDimensionPixelOffset(R.dimen.offset)
@@ -273,7 +273,7 @@ class HomeFragment : Fragment() {
 
 
         autoScrollDisposable.clear()
-        rxRepeatTimer(5000){
+        rxRepeatTimer(5000,{
             mBinding.mViewPager2.apply {
 
                 //sleep(5000)
@@ -281,7 +281,7 @@ class HomeFragment : Fragment() {
                 setCurrentItem(currentItem + 1 , true)
             }
 
-        }.disposedBy(autoScrollDisposable)
+        },5000).disposedBy(autoScrollDisposable)
 
 
     }

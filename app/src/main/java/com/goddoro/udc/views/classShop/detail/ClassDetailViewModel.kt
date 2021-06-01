@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.goddoro.common.common.Once
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.repository.ClassRepository
+import com.goddoro.udc.R
 import kotlinx.coroutines.launch
 
 
@@ -19,7 +20,7 @@ class ClassDetailViewModel(
 ) : ViewModel() {
 
 
-    val artistProfiles : MutableLiveData<List<String>> = MutableLiveData()
+    val artistProfiles : MutableLiveData<List<Int>> = MutableLiveData()
 
     val askTitle : MutableLiveData<String> = MutableLiveData()
     val askBody : MutableLiveData<String> = MutableLiveData()
@@ -35,7 +36,7 @@ class ClassDetailViewModel(
     init {
 
         artistProfiles.value = listOf(
-            "zxcv","zxcv","zxcv"
+            R.drawable.c1,R.drawable.c2,R.drawable.c3,R.drawable.c4
         )
 
     }
