@@ -8,10 +8,10 @@ import com.goddoro.common.di.repositoryModule
 import com.goddoro.common.di.utilModule
 import com.goddoro.common.mock.FakeAuthInfo
 import com.goddoro.common.mock.fakeNetworkModule
+import junit.framework.Assert.assertEquals
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.runBlocking
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -53,14 +53,11 @@ class AuthRepositoryTest : AutoCloseKoinTest() {
     }
 
     @Test
-    fun `sign in with email`() = coroutinesTestRule.testDispatcher.runBlockingTest {
+    fun `sign in with email`() = runBlocking {
 
-        val job = launch(coroutinesTestRule.testDispatcherProvider.io()) {
-            val result = repository.signIn(FakeAuthInfo.email, FakeAuthInfo.password)
-            assert(result.token.length == 1)
-        }
 
-        job.cancel()
+        val result = repository.signIn(FakeAuthInfo.email, FakeAuthInfo.password)
+        assertEquals(result.user.email, FakeAuthInfo.email)
 
 
     }

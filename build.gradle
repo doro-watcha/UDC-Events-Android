@@ -24,8 +24,8 @@ ext {
     targetSdkVersion = 29
     buildToolsVersion = '29.0.1'
 
-    versionCode = 3
-    versionName = '테스트 버전 1.0.1'
+    versionCode = 4
+    versionName = '테스트 버전 1.0.2'
 
     testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
 
