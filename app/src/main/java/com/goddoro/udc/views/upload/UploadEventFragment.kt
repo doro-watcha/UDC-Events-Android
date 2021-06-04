@@ -43,7 +43,7 @@ class UploadEventFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentUploadEventBinding.inflate(inflater,container,false).also { mBinding = it}.root
+    ): View = FragmentUploadEventBinding.inflate(inflater,container,false).also { mBinding = it}.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -53,7 +53,16 @@ class UploadEventFragment : Fragment() {
 
         observeViewModel()
 
+        setupRecyclerView()
         setupBroadcast()
+    }
+
+    private fun setupRecyclerView(){
+
+        mBinding.mRecyclerView.apply {
+
+            adapter = EventDetailImageAdapter()
+        }
     }
 
     private fun observeViewModel() {

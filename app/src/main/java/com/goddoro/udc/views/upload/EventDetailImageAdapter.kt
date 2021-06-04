@@ -25,7 +25,7 @@ import org.koin.core.KoinComponent
 class EventDetailImageAdapter:
     RecyclerView.Adapter<EventDetailImageAdapter.ImageViewHolder>() {
 
-    private val TAG = SearchRecommendAdapter::class.java.simpleName
+    private val TAG = EventDetailImageAdapter::class.java.simpleName
 
 
     private val onClick: PublishSubject<Uri> = PublishSubject.create()
