@@ -25,7 +25,6 @@ class ClassDetailActivity : AppCompatActivity() {
 
     private lateinit var mViewModel : ClassDetailViewModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 

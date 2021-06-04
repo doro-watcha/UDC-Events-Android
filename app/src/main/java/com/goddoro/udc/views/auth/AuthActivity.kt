@@ -34,10 +34,7 @@ class AuthActivity : AppCompatActivity() {
     private val mFragment4 = PasswordFindFragment.newInstance()
     private var mActiveFragment: Fragment = mFragment1
 
-
     private val toastUtil : ToastUtil by inject()
-
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

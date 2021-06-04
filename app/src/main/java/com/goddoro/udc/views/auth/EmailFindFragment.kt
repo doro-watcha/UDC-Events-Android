@@ -29,7 +29,7 @@ class EmailFindFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentFindEmailBinding.inflate(inflater,container,false).also{mBinding=it}.root
+    ): View = FragmentFindEmailBinding.inflate(inflater,container,false).also{mBinding=it}.root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

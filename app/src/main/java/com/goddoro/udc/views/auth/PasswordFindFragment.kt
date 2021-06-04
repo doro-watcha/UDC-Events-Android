@@ -31,7 +31,7 @@ class PasswordFindFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentFindPasswordBinding.inflate(inflater,container,false).also{mBinding=it}.root
+    ): View = FragmentFindPasswordBinding.inflate(inflater,container,false).also{mBinding=it}.root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

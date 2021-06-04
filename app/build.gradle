@@ -1,6 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-parcelize'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'com.google.gms.google-services'
 
@@ -44,10 +44,10 @@ android {
     }
     signingConfigs {
         release {
-            storeFile file('./OSTS_KEYSTORE')
+            storeFile file('./udc')
             keyAlias 'key0'
-            storePassword 'Dancejoa1!'
-            keyPassword 'Dancejoa1!'
+            storePassword 'gusgh0705!!'
+            keyPassword 'gusgh0705!!'
         }
     }
 

@@ -4,7 +4,7 @@ import android.os.Parcelable
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.model.User
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import retrofit2.http.*
 import com.goddoro.common.data.api.response.ApiResponse
 

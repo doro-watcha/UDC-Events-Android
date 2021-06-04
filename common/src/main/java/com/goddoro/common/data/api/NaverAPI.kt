@@ -3,7 +3,7 @@ package com.goddoro.common.data.api
 import android.os.Parcelable
 import com.goddoro.common.data.model.*
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.HeaderMap

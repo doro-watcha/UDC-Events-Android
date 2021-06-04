@@ -19,7 +19,6 @@ class ClassDetailViewModel(
     val classRepository: ClassRepository
 ) : ViewModel() {
 
-
     val artistProfiles : MutableLiveData<List<Int>> = MutableLiveData()
 
     val askTitle : MutableLiveData<String> = MutableLiveData()

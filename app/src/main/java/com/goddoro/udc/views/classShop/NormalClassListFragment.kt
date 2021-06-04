@@ -83,6 +83,13 @@ class NormalClassListFragment : Fragment() {
 
 
         }
+
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable.clear()
     }
 
     companion object {

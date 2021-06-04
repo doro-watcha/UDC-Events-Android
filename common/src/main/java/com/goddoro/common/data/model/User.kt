@@ -2,7 +2,7 @@ package com.goddoro.common.data.model
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 
 /**
@@ -17,19 +17,19 @@ data class User(
     @SerializedName("email")
     val email: String?,
 
-    @SerializedName("username")
-    val username: String,
+    @SerializedName("name")
+    val username: String? = null,
 
     @SerializedName("loginType")
-    val loginType: LoginType,
+    val loginType: String,
 
     @SerializedName("isUDC")
-    val isUDC : Boolean,
+    val isUDC : Boolean? = null ,
 
     @SerializedName("location")
     val location : String? = null,
 
-    @SerializedName("avatarUrl")
+    @SerializedName("profileImgUrl")
     val avatarUrl : String? = null,
 
     @SerializedName("followArtists")
