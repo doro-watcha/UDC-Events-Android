@@ -77,8 +77,8 @@ class CalendarDialog (  private val listener: onClickDateListener): DialogFragme
 
             btnConfirm.setOnDebounceClickListener {
 
-                val eventTime = (if ( timePicker.hour < 12 ) "오전 " else "오후 ") + if ( timePicker.hour <= 12 ) timePicker.hour.toString() else (timePicker.hour-12).toString() + "시 " + timePicker.minute.toString() + "분"
-                val eventDate = datePicker.year.toString() + "년 " + datePicker.month.toString() + "월 " + datePicker.dayOfMonth.toString() + "일 "
+                val eventTime = (if ( timePicker.hour < 12 ) "오전 " else "오후 ") + timePicker.hour.toString() + "시 " + timePicker.minute.toString() + "분"
+                val eventDate = datePicker.year.toString() + "년 " + (datePicker.month+1).toString() + "월 " + datePicker.dayOfMonth.toString() + "일 "
 
                 listener.onClickDate(eventDate + eventTime)
                 dismiss()
