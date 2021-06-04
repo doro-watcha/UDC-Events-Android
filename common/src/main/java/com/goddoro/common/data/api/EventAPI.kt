@@ -6,6 +6,7 @@ import com.goddoro.common.data.model.User
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import retrofit2.http.*
+import com.goddoro.common.data.api.response.ApiResponse
 
 
 /**

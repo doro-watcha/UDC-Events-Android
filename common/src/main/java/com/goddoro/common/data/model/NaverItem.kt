@@ -2,7 +2,6 @@ package com.goddoro.common.data.model
 
 import com.goddoro.common.R
 import com.naver.maps.geometry.LatLng
-import kotlinx.android.synthetic.main.view_custom_toast.view.*
 import ted.gun0912.clustering.clustering.TedClusterItem
 import ted.gun0912.clustering.geometry.TedLatLng
 

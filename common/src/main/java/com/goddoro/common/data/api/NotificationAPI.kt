@@ -8,7 +8,7 @@ import kotlinx.android.parcel.Parcelize
 import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.http.QueryMap
-
+import com.goddoro.common.data.api.response.ApiResponse
 
 /**
  * created By DORO 2/2/21

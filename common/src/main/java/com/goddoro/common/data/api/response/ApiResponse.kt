@@ -1,4 +1,4 @@
-package com.goddoro.common.data.api
+package com.goddoro.common.data.api.response
 
 import android.os.Parcelable
 import androidx.lifecycle.Transformations.map
@@ -7,9 +7,8 @@ import com.goddoro.common.data.api.response.UnWrappingDataException
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import io.reactivex.Completable
-import io.reactivex.Single
-import kotlinx.android.parcel.Parcelize
 import kotlinx.android.parcel.RawValue
+import kotlinx.parcelize.Parcelize
 
 
 /**

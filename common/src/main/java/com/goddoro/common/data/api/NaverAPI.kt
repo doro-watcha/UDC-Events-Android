@@ -8,7 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.HeaderMap
 import retrofit2.http.QueryMap
-
+import com.goddoro.common.data.api.response.ApiResponse
 
 /**
  * created By DORO 4/25/21

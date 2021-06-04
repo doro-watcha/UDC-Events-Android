@@ -2,7 +2,7 @@ package com.goddoro.common.data.api
 
 import android.os.Parcelable
 import com.goddoro.common.data.model.DanceClass
-import com.goddoro.common.data.model.Event
+import com.goddoro.common.data.api.response.ApiResponse
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 import retrofit2.http.GET

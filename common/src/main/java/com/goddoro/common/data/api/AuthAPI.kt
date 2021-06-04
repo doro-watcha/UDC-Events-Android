@@ -2,6 +2,7 @@ package com.goddoro.common.data.api
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import com.goddoro.common.data.api.response.ApiResponse
 import com.goddoro.common.data.model.User
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
