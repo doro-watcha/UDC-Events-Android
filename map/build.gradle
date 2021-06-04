@@ -1,7 +1,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'jacoco'
+apply plugin: 'kotlin-parcelize'
 
 android {
     def constants = rootProject.ext
@@ -101,10 +102,6 @@ dependencies {
     implementation 'com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1'
 
 
-    // blur
-    implementation 'com.github.jrvansuita:GaussianBlur:1.0.3'
-
-    implementation 'com.eightbitlab:supportrenderscriptblur:1.0.2'
     implementation 'com.eightbitlab:blurview:1.6.3'
 
     implementation 'com.github.mmin18:realtimeblurview:1.2.1'

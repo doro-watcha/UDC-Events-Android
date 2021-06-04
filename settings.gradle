@@ -1,6 +1,4 @@
-include ':upload'
 include ':map'
 include ':common'
-include ':core'
 include ':app'
 rootProject.name = "UDC"

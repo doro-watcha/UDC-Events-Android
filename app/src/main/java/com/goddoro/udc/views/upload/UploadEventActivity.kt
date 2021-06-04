@@ -15,7 +15,6 @@ import com.goddoro.common.dialog.showCommonDialog
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.databinding.ActivityUploadEventBinding
 import com.goddoro.udc.views.upload.calendar.CalendarDialog
-import com.goddoro.upload.R
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
 import org.koin.android.ext.android.inject

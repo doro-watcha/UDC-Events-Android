@@ -13,9 +13,9 @@ import com.goddoro.common.common.observeOnce
 import com.goddoro.common.dialog.showCommonDialog
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.Navigator
+import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentUploadEventBinding
 import com.goddoro.udc.views.upload.calendar.CalendarDialog
-import com.goddoro.upload.R
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
 import io.reactivex.disposables.CompositeDisposable
@@ -63,6 +63,7 @@ class UploadEventFragment : Fragment() {
 
             clickPickPoster.observeOnce(viewLifecycleOwner){
                 TedImagePicker.with(requireContext())
+
                     .title(resources.getString(R.string.txt_pick_poster))
                     .showCameraTile(false)
                     .mediaType(
