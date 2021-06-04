@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.Window
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.DialogFragment
 import com.goddoro.common.CommonConst
 import com.goddoro.common.common.AutoClearedValue
@@ -51,6 +52,8 @@ class EventTypeDialog (  private val listener: onClickTypeListener): BottomSheet
         if (dialog != null && dialog?.window != null) {
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
+            dialog?.window?.statusBarColor =  (ContextCompat.getColor(requireActivity(), R.color.black))
+
         }
 
 
@@ -60,6 +63,7 @@ class EventTypeDialog (  private val listener: onClickTypeListener): BottomSheet
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
         mBinding.lifecycleOwner = viewLifecycleOwner
+
 
 
         initView()

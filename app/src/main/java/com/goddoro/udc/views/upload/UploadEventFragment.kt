@@ -11,6 +11,8 @@ import com.goddoro.common.Broadcast.eventUploadBroadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.dialog.showCommonDialog
+import com.goddoro.common.dialog.showTextDialog
+import com.goddoro.common.dialog.showTextDoubleDialog
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
@@ -107,8 +109,16 @@ class UploadEventFragment : Fragment() {
                 dialog.show(requireActivity().supportFragmentManager,dialog.tag)
             }
             clickUploadButton.observeOnce(viewLifecycleOwner) {
-                Broadcast.eventUploadBroadcast.onNext(Unit)
-                requireActivity().finish()
+                showTextDoubleDialog(
+                    titleResource = R.string.txt_upload_event,
+                    bodyResource = R.string.txt_upload_event_message,
+                    onPositive = {
+                        upload()
+                    },
+                    onNegative = {
+
+                    }
+                )
             }
 
             clickBackArrow.observeOnce(viewLifecycleOwner){
@@ -122,9 +132,18 @@ class UploadEventFragment : Fragment() {
                 eventUploadBroadcast.onNext(Unit)
                 requireActivity().finish()
             }
+
+            notFilledInvoked.observeOnce(viewLifecycleOwner){
+                showTextDialog(
+                    resources.getString(R.string.common_notification_upper),
+                    resources.getString(R.string.txt_fill_all_edit_text)
+                )
+            }
             errorInvoked.observeOnce(viewLifecycleOwner){
                 debugE(TAG, it.message)
-                showCommonDialog(R.string.dialog_error_unknown)
+                showTextDialog(
+                    resources.getString(R.string.dialog_error_unknown),
+                    it.message ?: "알 수 없는 에러 발생")
             }
 
 

@@ -14,6 +14,7 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:overScrollMode="never"
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -141,6 +142,7 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="12dp"
                 android:orientation="horizontal"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintBottom_toBottomOf="@id/btn_img_upload"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -188,6 +190,46 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/txt_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_event_description"
+                android:textColor="@color/text_color_1"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/btn_img_upload"
+                app:layout_constraintTop_toBottomOf="@+id/layout_edit_title" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edit_description"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/border_white_background"
+                app:hintEnabled="false"
+                app:endIconTint="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/txt_description">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:paddingTop="12dp"
+                    android:gravity="top"
+                    android:text="@={vm.description}"
+                    android:textColorHint="@color/gray_text_color_2"
+                    android:hint="@string/txt_write_description"
+                    android:textColor="@color/text_color_1" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
 
             <TextView
                 android:id="@+id/txt_location"
@@ -198,7 +240,7 @@
                 android:textColor="@color/text_color_1"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/layout_edit_title"
-                app:layout_constraintTop_toBottomOf="@+id/layout_edit_title" />
+                app:layout_constraintTop_toBottomOf="@+id/layout_edit_description" />
 
 
             <TextView
@@ -213,9 +255,10 @@
                 android:singleLine="true"
                 android:textColor="@{vm.location == null ? @color/gray_text_color_2 : @color/black}"
                 android:onDebounceClick="@{ () -> vm.onClickSearchAddress()}"
-                android:text="@{vm.location == null ? @string/txt_pick_date_message : vm.location}"
-                android:textStyle="bold"
+                android:text="@{vm.location == null ? @string/txt_pick_address_message : vm.location}"
                 app:layout_constraintEnd_toEndOf="parent"
+                tools:text="@string/txt_pick_address_message"
+                tools:textColor="@color/gray_text_color_2"
                 app:layout_constraintStart_toStartOf="@+id/txt_location"
                 app:layout_constraintTop_toBottomOf="@+id/txt_location" />
 
@@ -240,7 +283,6 @@
                 android:background="@drawable/border_white_background"
                 android:padding="10dp"
                 android:text="@{vm.date == null ? @string/txt_pick_date_message : vm.date}"
-                android:textStyle="bold"
                 android:onDebounceClick="@{() -> vm.onClickCalendarDialog()}"
                 app:layout_constraintEnd_toEndOf="@+id/location"
                 app:layout_constraintStart_toStartOf="@+id/location"
@@ -286,8 +328,8 @@
                 android:layout_marginTop="20dp"
                 android:layout_marginEnd="5dp"
                 android:backgroundTint="@color/black"
-                android:onDebounceClick="@{() -> vm.onClickPreview()}"
-                android:text="@string/txt_preview_event"
+                android:onDebounceClick="@{() -> vm.onClickUploadButton()}"
+                android:text="@string/txt_upload_event"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@+id/type" />
 

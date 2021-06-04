@@ -25,7 +25,7 @@
     <string name="txt_event_type">Event Type</string>
     <string name="txt_event_date">Event Date</string>
     <string name="common_ok">OK</string>
-    <string name="dialog_error_unknown">Erro Occured</string>
+    <string name="dialog_error_unknown">Error Occured</string>
     <string name="common_cancel">Cancel</string>
     <string name="dialog_upload_completed">Your Event is Uploaded Successfully</string>
     <string name="common_workshop">Workshop</string>
@@ -58,6 +58,7 @@
     <string name="txt_pick_date_message">Please pick the date</string>
     <string name="txt_pick_time_message">Please pick the time</string>
     <string name="txt_write_title_message">Please write title of event</string>
+    <string name="txt_write_description">Please write description of event</string>
     <string name="txt_pick_type_message">Please Pick type of event</string>
 
     <string name="txt_pick_server">Please pick server</string>
@@ -73,4 +74,12 @@
 
     <string name="txt_event_description_sample">진행방식 : 1차 예선 진행 후 Top 16 선발 , 2차 예선 진행 후 본선진행\n심사위원 : Mett / Daesong / Hyeon Joo\nMC / DJ : MC : Dancer Feel Dj : Bigmom\n참여방법 : 010-9518-6583으로 문자접수\n유의사항 : 2003년생까지 참가 가능</string>
 
+    <string name="common_confirm_upper">OK</string>
+    <string name="common_cancel_upper">CANCEL</string>
+
+    <string name="common_notification_upper">NOTIFICATION</string>
+    <string name="txt_fill_all_edit_text">Please fill all information about event.</string>
+
+    <string name="txt_upload_event_message">Do you want to upload the event?</string>
+    <string name="txt_upload_error_message">Error Occurence while uploading event</string>
 </resources>

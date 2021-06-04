@@ -46,6 +46,8 @@ class UploadEventViewModel (
     val clickBackStep : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     val uploadCompleted : MutableLiveData<Once<Unit>> = MutableLiveData()
+
+    val notFilledInvoked : MutableLiveData<Once<Unit>> = MutableLiveData()
     val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
 
     init {
@@ -65,7 +67,7 @@ class UploadEventViewModel (
         clickBackArrow.value = Once(Unit)
     }
 
-    fun onClickUploadButton() {
+    fun upload() {
 
         viewModelScope.launch {
             kotlin.runCatching {
@@ -85,6 +87,16 @@ class UploadEventViewModel (
             }
         }
 
+
+    }
+
+    fun onClickUploadButton() {
+        if ( curPoster.value == null || title.value == null || location.value == null || date.value == null || type.value == null) {
+            notFilledInvoked.value = Once(Unit)
+        }
+        else {
+            clickUploadButton.value = Once(Unit)
+        }
     }
 
     fun onClickTypeDialog() {
@@ -97,11 +109,6 @@ class UploadEventViewModel (
     fun onClickSearchAddress() {
         clickSearchAddress.value = Once(Unit)
     }
-
-    fun onClickPreview() {
-        clickPreview.value = Once(Unit)
-    }
-
     fun onClickBackStep() {
         clickBackStep.value = Once(Unit)
     }

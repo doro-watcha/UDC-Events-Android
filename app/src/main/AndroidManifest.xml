@@ -32,6 +32,7 @@
         <activity android:name=".views.upload.map.SearchAddressActivity" />
         <activity android:name=".views.search.detail.SearchDetailActivity" />
         <activity android:name=".views.search.SearchActivity" />
+        <activity android:name=".views.upload.UploadEventActivity"/>
         <activity
             android:name=".views.classShop.detail.ClassDetailActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
