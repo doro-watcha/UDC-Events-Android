@@ -46,8 +46,8 @@ android {
         release {
             storeFile file('./udc')
             keyAlias 'key0'
-            storePassword 'gusgh0705!!'
-            keyPassword 'gusgh0705!!'
+            storePassword 'gusgh0705!'
+            keyPassword 'gusgh0705!'
         }
     }
 
