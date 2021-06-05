@@ -34,6 +34,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
      */
     private lateinit var  mBinding: FragmentEventMapBinding
 
+
     /**
      * ViewModel Instance
      */
