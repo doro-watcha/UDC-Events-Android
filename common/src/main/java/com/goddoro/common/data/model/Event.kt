@@ -20,7 +20,7 @@ data class Event (
     @SerializedName("name")
     val name : String?,
 
-    val blurredImage : String? = "https://cdn.beatflo.co/video/mrbmraxzm4h_1584026271523.jpg",
+    val blurredImage : String?,
 
     val imageId : Int? = 0,
 
@@ -31,7 +31,7 @@ data class Event (
     @SerializedName("location")
     val location : String? = null,
 
-    @SerializedName("sketchImages")
+    @SerializedName("sketchImgs")
     val sketchImages : List<String>? = null,
 
     @SerializedName("createdAt")

@@ -25,7 +25,7 @@ class MultiPartUtil(private val fileUriUtil: UriUtil) {
 
     fun uriToPart(name: String, uri: Uri): MultipartBody.Part {
 
-        val mime: MediaType = "video/mp4".toMediaType()
+        val mime: MediaType = "image/jpeg".toMediaType()
 
         val file = File(
             try {

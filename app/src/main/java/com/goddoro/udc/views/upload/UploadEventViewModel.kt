@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goddoro.common.common.Once
+import com.goddoro.common.common.toUri
 import com.goddoro.common.data.repository.EventRepository
 import com.goddoro.common.util.MultiPartUtil
 import kotlinx.coroutines.launch
@@ -73,12 +74,13 @@ class UploadEventViewModel (
             kotlin.runCatching {
                 eventRepository.uploadEvent(
                     name = title.value ?: "",
-                    subTitle = "zxcv",
-                    description = description.value,
+                    subTitle = "zxcvzxcv",
+                    description = description.value ?: "",
                     date = date.value ?: "",
-                    posterImg = curPoster.value!!,
+                    posterImg = "content://media/external/images/media/54".toUri(),
                     eventType = "battle",
-                    location = location.value!!
+                    location = location.value!!,
+                    sketchImgs = eventDetailImages.value ?: listOf()
                 )
             }.onSuccess {
                 uploadCompleted.value = Once(Unit)
@@ -91,7 +93,7 @@ class UploadEventViewModel (
     }
 
     fun onClickUploadButton() {
-        if ( curPoster.value == null || title.value == null || location.value == null || date.value == null || type.value == null) {
+        if ( curPoster.value == null || title.value == null || location.value == null || date.value == null || type.value == null || eventDetailImages.value == null  ) {
             notFilledInvoked.value = Once(Unit)
         }
         else {

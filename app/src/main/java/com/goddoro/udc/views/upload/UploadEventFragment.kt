@@ -81,6 +81,7 @@ class UploadEventFragment : Fragment() {
                         MediaType.IMAGE
                     )
                     .start {
+                        debugE(TAG, "Poster Uri = $it")
                         curPoster.value = it
                     }
             }

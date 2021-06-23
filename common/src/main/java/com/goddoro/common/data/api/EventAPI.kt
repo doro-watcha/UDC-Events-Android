@@ -7,6 +7,8 @@ import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
 import retrofit2.http.*
 import com.goddoro.common.data.api.response.ApiResponse
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 
 /**
@@ -26,9 +28,10 @@ interface EventAPI {
     ) : ApiResponse<EventResponse>
 
     @POST("event")
-    @FormUrlEncoded
+    @Multipart
     suspend fun uploadEvent(
-        @FieldMap parameters : HashMap<String,Any>
+        @PartMap parameters : HashMap<String,RequestBody>,
+        @Part files : List<MultipartBody.Part>?
     ) : ApiResponse<Any>
 
     @PATCH("event/{id}")

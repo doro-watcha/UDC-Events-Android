@@ -26,13 +26,12 @@ class EventDetailViewModel (
 
     val curEvent : MutableLiveData<Event> = MutableLiveData(event)
 
-    val curSketchImages = listOf(R.drawable.s1, R.drawable.s2, R.drawable.s3, R.drawable.s4, R.drawable.s5)
-
     val clickBackArrow : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPoster : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     init {
 
+        debugE(TAG, curEvent.value)
 
 
     }

@@ -27,11 +27,12 @@ interface EventRepository{
     suspend fun uploadEvent(
         name : String,
         subTitle : String,
-        description : String? = null,
+        description : String,
         date : String,
         location : String,
         eventType : String,
-        posterImg : Uri
+        posterImg : Uri,
+        sketchImgs : List<Uri>
     ) : Any
 
     suspend fun updateStatus(

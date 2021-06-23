@@ -8,6 +8,7 @@ import com.goddoro.common.data.repository.EventRepository
 import com.goddoro.common.util.MultiPartUtil
 import io.reactivex.Completable
 import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 
 /**
@@ -42,30 +43,34 @@ class EventRepositoryImpl ( val api : EventAPI, private val multiPartUtil: Multi
     override suspend fun uploadEvent(
         name: String,
         subTitle: String,
-        description: String?,
+        description: String,
         date: String,
         location: String,
         eventType: String,
-        posterImg: Uri
+        posterImg: Uri,
+        sketchImgs : List<Uri>
     ): Any {
 
 
-        val params = hashMapOf(
-            "name" to name,
-            "subtitle" to subTitle,
-            "description" to description,
-            "date" to date,
-            "location" to location,
-            "eventType" to eventType
-        ).filterValueNotNull()
-
+        val params : HashMap<String,RequestBody> = hashMapOf()
 
         val files = mutableListOf<MultipartBody.Part>()
 
+        params["name"] = multiPartUtil.stringToPart(name)
+        params["subtitle"] = multiPartUtil.stringToPart(subTitle)
+        params["description"] = multiPartUtil.stringToPart(description ?: "")
+        params["date"] = multiPartUtil.stringToPart(date)
+        params["location"] = multiPartUtil.stringToPart(location)
+        params["eventType"] = multiPartUtil.stringToPart(eventType)
+
         posterImg.let { files.add(multiPartUtil.uriToPart("posterImg", it)) }
 
+        sketchImgs.forEach {
+            files.add(multiPartUtil.uriToPart("sketchImgs",it))
+        }
 
-        return api.uploadEvent(params).unWrapCompletable()
+
+        return api.uploadEvent(params, files).unWrapCompletable()
     }
 
     override suspend fun updateStatus(eventId: Int, status: String): Any {

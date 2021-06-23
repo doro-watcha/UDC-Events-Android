@@ -31,6 +31,9 @@ class UnConfirmedEventAdapter:
     private val onClickConfirm: PublishSubject<Event> = PublishSubject.create()
     val clickConfirm: Observable<Event> = onClickConfirm
 
+    private val onClick : PublishSubject<Pair<Event,ImageView>> = PublishSubject.create()
+    val clickEvent : Observable<Pair<Event,ImageView>> = onClick
+
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
@@ -65,6 +68,10 @@ class UnConfirmedEventAdapter:
 
             binding.btnConfirm.setOnDebounceClickListener {
                 onClickConfirm.onNext(differ.currentList[layoutPosition])
+            }
+
+            binding.root.setOnDebounceClickListener{
+                onClick.onNext(Pair(differ.currentList[layoutPosition],binding.imgPoster))
             }
 
         }
