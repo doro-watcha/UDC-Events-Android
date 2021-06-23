@@ -44,7 +44,13 @@ data class Event (
     val subtitle : String?= "많은 관심 부탁드립니다",
 
     @SerializedName("description")
-    val description : String? = "많은 관심 부탁드립니다"
+    val description : String? = "많은 관심 부탁드립니다",
+
+    @SerializedName("longitude")
+    val longitude : Double? = 0.0,
+
+    @SerializedName("latitude")
+    val latitude : Double? = 0.0
 ) : Parcelable, KoinComponent{
 
     fun getFormedDate() : String {

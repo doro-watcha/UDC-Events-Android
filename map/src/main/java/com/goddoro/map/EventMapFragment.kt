@@ -14,6 +14,7 @@ import com.naver.maps.map.*
 import dagger.android.support.DaggerFragment
 import ted.gun0912.clustering.naver.TedNaverClustering
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
@@ -74,21 +75,31 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
         mViewModel.apply {
 
-            events.observe(viewLifecycleOwner){
-//
-//                if (it.isNotEmpty()) {
-//
-//                    TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
-//                        .items(getMapItems(naverMap))
-//
-//
-//                }
-            }
+            events.observe(viewLifecycleOwner,Observer {
+
+                if (it.isNotEmpty()) {
+
+                    val mapItems : List<NaverItem> = it.map{ event ->
+                        NaverItem(lat = event.latitude ?: 0.0, lng = event.longitude ?: 0.0)
+                    }
+
+                    debugE(TAG, mapItems)
+
+                    TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
+                        .items(mapItems)
+                        .markerClickListener {
+                            MapDetailDialog.show(requireActivity().supportFragmentManager, it)
+                        }
+                        .make()
 
 
-            errorInvoked.observe(viewLifecycleOwner){
-                debugE(TAG,it.message)
-            }
+                }
+            })
+
+
+            errorInvoked.observe(viewLifecycleOwner, Observer {
+                debugE(TAG,it)
+            })
         }
     }
 
@@ -103,41 +114,8 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
                 )
             )
         )
-        TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
-            .items(getItems())
-//            .customMarker{ clusterItem ->
-//                Marker(clusterItem.position).apply {
-//                    val circleImageView = CircleImageView(context).apply {
-//
-//                        setPadding(10, 10, 10, 10)
-//                        setImageResource(clusterItem.profileSource ?: 0)
-//                    }
-//
-//                    icon = OverlayImage.fromView(circleImageView)
-//                }
-//            }
-            .markerClickListener {
-                MapDetailDialog.show(requireActivity().supportFragmentManager, it)
-            }
-            .make()
 
-
-        debugE(TAG, "FUCK")
-
-
-    }
-
-    private fun getItems(): List<NaverItem> {
-        val bounds = naverMap.contentBounds
-        return ArrayList<NaverItem>().apply {
-            repeat(50) {
-                val temp = NaverItem(
-                    (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
-                    (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
-                )
-                add(temp)
-            }
-        }
+        mViewModel.listEvents()
 
     }
 

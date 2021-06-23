@@ -31,38 +31,21 @@ class EventMapViewModel (
     val errorInvoked : MutableLiveData<Throwable> = MutableLiveData()
 
     init {
-
-      //  listEvents()
-        getLocation()
     }
 
     fun listEvents() {
         viewModelScope.launch {
 
-
             kotlin.runCatching {
                 eventRepository.listEventsBySort("upcoming")
             }.onSuccess {
+                debugE(TAG,it.filter{it.latitude != 0.0})
                 events.value = it
             }.onFailure {
-
                 errorInvoked.value = it
             }
         }
     }
 
-    fun getLocation() {
-
-        viewModelScope.launch {
-
-            kotlin.runCatching {
-                naverRepository.getLocationFromAddress("경기도 성남시 분당구 불정로 6 그린팩토리")
-            }.onSuccess {
-                debugE(TAG,it.addresses)
-            }.onFailure {
-                errorInvoked.value = it
-            }
-        }
-    }
 
 }
