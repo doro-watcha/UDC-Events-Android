@@ -57,5 +57,5 @@ val viewModelModule  = module {
     viewModel { SearchAddressViewModel(get()) }
 
     viewModel { AdminViewModel(get()) }
-    viewModel { IntroViewModel() }
+    viewModel { IntroViewModel(get()) }
 }

@@ -71,12 +71,13 @@ class SettingActivity : AppCompatActivity() {
                         MediaType.IMAGE
                     )
                     .start {
-                        profileImage.value = it.toString()
+
+                        mViewModel.updateProfile(it)
                     }
             }
 
             onProfileChangeCompleted.observeOnce(this@SettingActivity){
-
+                profileImage.value = it.toString()
             }
 
             errorInvoked.observe(this@SettingActivity){

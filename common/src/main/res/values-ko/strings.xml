@@ -26,6 +26,7 @@
     <string name="txt_event_date">행사 일정</string>
     <string name="common_ok">확인</string>
     <string name="dialog_error_unknown">에러가 발생하였습니다</string>
+    <string name="error_network">네트워크가 불안정합니다</string>
     <string name="common_cancel">취소</string>
     <string name="dialog_upload_completed">회원님의 행사 업로드가 완료되었습니다.</string>
     <string name="common_workshop">워크샵</string>

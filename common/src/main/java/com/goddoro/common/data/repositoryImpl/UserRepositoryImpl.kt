@@ -5,6 +5,7 @@ import com.goddoro.common.data.api.UserAPI
 import com.goddoro.common.data.model.User
 import com.goddoro.common.data.repository.UserRepository
 import com.goddoro.common.util.MultiPartUtil
+import io.reactivex.Completable
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 
@@ -20,10 +21,7 @@ class UserRepositoryImpl ( val api : UserAPI , private val multiPartUtil: MultiP
         return api.getUser(userId).unWrapData().user
     }
 
-    override suspend fun updateProfile(profileImage: Uri): Any {
-
-
-        val params : HashMap<String, RequestBody> = hashMapOf()
+    override suspend fun updateProfile(profileImage: Uri): Completable {
 
         val files = mutableListOf<MultipartBody.Part>()
 

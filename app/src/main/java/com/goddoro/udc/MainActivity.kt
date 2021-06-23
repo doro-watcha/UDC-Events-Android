@@ -16,6 +16,7 @@ import com.goddoro.common.dialog.CommonSingleDialog
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.Navigator
+import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.EventMapFragment
 import com.goddoro.udc.application.MainApplication.Companion.appPreference
 import com.goddoro.udc.databinding.ActivityMainBinding
@@ -46,6 +47,8 @@ class MainActivity : AppCompatActivity() {
     private val appPreference : AppPreference by inject()
 
     private val navigator : Navigator by inject()
+
+    private val toastUtil : ToastUtil by inject()
 
     private val authRepository : AuthRepository by inject()
     private val mViewModel : MainViewModel by viewModel()
@@ -106,7 +109,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-        debugE(TAG, authRepository.curUser.value )
 
         initView()
 
@@ -248,10 +250,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupBroadcast() {
 
-        Broadcast.eventUploadBroadcast.subscribe{
+        Broadcast.eventUploadBroadcast.subscribe({
             debugE(TAG, "Upload Complete!")
-            showUploadCompleteDialog(authRepository.curUser.value?.username ?: "유저")
-        }.disposedBy(eventUploadDisposable)
+            //showUploadCompleteDialog(authRepository.curUser.value?.username ?: "유저")
+            toastUtil.createToast("행사를 업로드하였습니다")?.show()
+        },{
+            debugE(TAG,it)
+        }).disposedBy(eventUploadDisposable)
     }
 
     override fun onDestroy() {

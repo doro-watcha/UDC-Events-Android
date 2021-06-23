@@ -48,7 +48,9 @@ class EventRepositoryImpl ( val api : EventAPI, private val multiPartUtil: Multi
         location: String,
         eventType: String,
         posterImg: Uri,
-        sketchImgs : List<Uri>
+        sketchImgs : List<Uri>,
+        longitude : Double,
+        latitude : Double
     ): Any {
 
 
@@ -62,6 +64,8 @@ class EventRepositoryImpl ( val api : EventAPI, private val multiPartUtil: Multi
         params["date"] = multiPartUtil.stringToPart(date)
         params["location"] = multiPartUtil.stringToPart(location)
         params["eventType"] = multiPartUtil.stringToPart(eventType)
+        params["longitude"] = multiPartUtil.stringToPart(longitude.toString())
+        params["latitude"] = multiPartUtil.stringToPart(latitude.toString())
 
         posterImg.let { files.add(multiPartUtil.uriToPart("posterImg", it)) }
 

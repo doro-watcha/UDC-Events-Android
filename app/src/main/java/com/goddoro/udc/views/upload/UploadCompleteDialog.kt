@@ -12,6 +12,7 @@ import android.view.ViewGroup
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import com.goddoro.common.common.AutoClearedValue
 import com.goddoro.common.common.widget.setOnDebounceClickListener
@@ -27,6 +28,15 @@ fun AppCompatActivity.showUploadCompleteDialog(
 ) {
     UploadCompleteDialog.show(
         supportFragmentManager, username
+    )
+}
+
+fun Fragment.showUploadCompleteDialog(
+    username: String
+
+) {
+    UploadCompleteDialog.show(
+        childFragmentManager, username
     )
 }
 
@@ -80,7 +90,7 @@ class UploadCompleteDialog(
     private fun initView() {
         mBinding.apply {
 
-            txtTitle.text = "${username}님 행사를 업로드하였습니다! \nUDC EVENTS에서 검수 후에 등록하고 알려드리도록 하겠습니다."
+            txtTitle.text = "good"
 
             btnConfirm.setOnDebounceClickListener {
                 dismiss()
@@ -95,7 +105,7 @@ class UploadCompleteDialog(
     override fun onResume() {
         super.onResume()
 
-        val wm = requireContext().getSystemService(Context.WINDOW_SERVICE) as WindowManager
+        val wm = context!!.getSystemService(Context.WINDOW_SERVICE) as WindowManager
         val point = Point()
         wm.defaultDisplay.getSize(point)
         val width = (point.x * 0.9f).roundToInt()

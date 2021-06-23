@@ -78,6 +78,7 @@ class HomeFragment : Fragment() {
         observeViewModel()
         setupList()
 
+
         setupBlurredImage()
 
     }

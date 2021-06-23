@@ -1,14 +1,17 @@
 package com.goddoro.udc.views.setting
 
+import android.net.Uri
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.goddoro.common.common.Once
 import com.goddoro.common.common.toUri
 import com.goddoro.common.data.model.Tag
 import com.goddoro.common.data.model.User
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.data.repository.UserRepository
+import kotlinx.coroutines.launch
 import net.bytebuddy.implementation.bytecode.Throw
 
 
@@ -80,7 +83,7 @@ class SettingViewModel (
 
     val clickEditProfile : MutableLiveData<Once<Unit>> = MutableLiveData()
 
-    val onProfileChangeCompleted : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val onProfileChangeCompleted : MutableLiveData<Once<Uri>> = MutableLiveData()
 
     val errorInvoked : MutableLiveData<Throwable> = MutableLiveData()
 
@@ -89,16 +92,17 @@ class SettingViewModel (
 
     val clickLogOut : MutableLiveData<Once<Unit>> = MutableLiveData()
     
-    suspend fun updateProfile() {
-        if ( profileImage.value != null)  {
+    fun updateProfile( uri : Uri) {
 
+        viewModelScope.launch {
             kotlin.runCatching {
-                userRepository.updateProfile(profileImage.value!!.toUri())
+                userRepository.updateProfile(uri)
             }.onSuccess {
-                onProfileChangeCompleted.value = Once(Unit)
+                onProfileChangeCompleted.value = Once(uri)
             }.onFailure {
                 errorInvoked.value = it
             }
+
 
         }
 

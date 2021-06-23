@@ -2,6 +2,7 @@ package com.goddoro.common.data.repository
 
 import android.net.Uri
 import com.goddoro.common.data.model.User
+import io.reactivex.Completable
 
 
 /**
@@ -22,5 +23,5 @@ interface UserRepository {
 
         profileImage : Uri
 
-    ) : Any
+    ) : Completable
 }

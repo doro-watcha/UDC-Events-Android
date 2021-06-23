@@ -77,10 +77,12 @@ class UploadEventViewModel (
                     subTitle = "zxcvzxcv",
                     description = description.value ?: "",
                     date = date.value ?: "",
-                    posterImg = "content://media/external/images/media/54".toUri(),
+                    posterImg = curPoster.value!!,
                     eventType = "battle",
                     location = location.value!!,
-                    sketchImgs = eventDetailImages.value ?: listOf()
+                    sketchImgs = eventDetailImages.value ?: listOf(),
+                    longitude = 1.3,
+                    latitude = 1.4
                 )
             }.onSuccess {
                 uploadCompleted.value = Once(Unit)

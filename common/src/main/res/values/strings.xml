@@ -26,6 +26,7 @@
     <string name="txt_event_date">Event Date</string>
     <string name="common_ok">OK</string>
     <string name="dialog_error_unknown">Error Occured</string>
+    <string name="error_network">Network is not stable</string>
     <string name="common_cancel">Cancel</string>
     <string name="dialog_upload_completed">Your Event is Uploaded Successfully</string>
     <string name="common_workshop">Workshop</string>

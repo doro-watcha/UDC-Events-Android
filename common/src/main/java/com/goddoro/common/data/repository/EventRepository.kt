@@ -32,7 +32,9 @@ interface EventRepository{
         location : String,
         eventType : String,
         posterImg : Uri,
-        sketchImgs : List<Uri>
+        sketchImgs : List<Uri>,
+        longitude : Double,
+        latitude : Double
     ) : Any
 
     suspend fun updateStatus(
