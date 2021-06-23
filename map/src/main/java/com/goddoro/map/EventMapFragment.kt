@@ -22,6 +22,7 @@ import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.MarkerIcons
 import de.hdodenhof.circleimageview.CircleImageView
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ted.gun0912.clustering.clustering.Cluster
 
 
 /**
@@ -88,10 +89,19 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
                     TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
                         .items(getItems())
+                        .customCluster {
+                            ImageView(requireActivity()).apply {
+                                setImageResource(R.drawable.ic_udc_blue)
+                            }
+
+                        }
                         .customMarker { clusterItem ->
                             Marker(clusterItem.position).apply {
-                                icon = OverlayImage.fromResource(R.drawable.ic_launcher_round)
+                                icon = OverlayImage.fromResource(R.drawable.ic_udc)
                             }
+                        }
+                        .clusterClickListener {
+
                         }
                         .markerClickListener {
                             MapDetailDialog.show(requireActivity().supportFragmentManager, it)
