@@ -23,12 +23,14 @@ import com.goddoro.udc.util.underConstruction.UnderConstructionFragment
 import com.goddoro.udc.views.classShop.ClassShopFragment
 import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.profile.ProfileFragment
+import com.goddoro.udc.views.upload.showUploadCompleteDialog
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.material.shape.CornerFamily
 import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.firebase.iid.FirebaseInstanceId
 import com.naver.maps.map.MapFragment
 import io.reactivex.disposables.CompositeDisposable
+import okhttp3.internal.notifyAll
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
@@ -63,6 +65,7 @@ class MainActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
 
+        setupBroadcast()
 
         setContentView(mBinding.root)
 
@@ -240,6 +243,14 @@ class MainActivity : AppCompatActivity() {
 
         Broadcast.eventUploadBroadcast.subscribe{
             CommonSingleDialog(R.drawable.ic_camera, R.string.dialog_upload_completed)
+        }.disposedBy(eventUploadDisposable)
+    }
+
+    private fun setupBroadcast() {
+
+        Broadcast.eventUploadBroadcast.subscribe{
+            debugE(TAG, "Upload Complete!")
+            showUploadCompleteDialog(authRepository.curUser.value?.username ?: "유저")
         }.disposedBy(eventUploadDisposable)
     }
 

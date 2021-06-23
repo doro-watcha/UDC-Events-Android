@@ -42,7 +42,7 @@ val viewModelModule  = module {
     viewModel { JoinEventViewModel() }
     viewModel{ (authorId : Int) -> ProfileViewModel(authorId, get(),get()) }
     viewModel { UdcViewModel() }
-    viewModel { SettingViewModel(get()) }
+    viewModel { SettingViewModel(get(),get()) }
 
     viewModel { EventMapViewModel(get(),get())}
     viewModel { TagDetailViewModel(get()) }

@@ -35,6 +35,7 @@
     <string name="common_login_info_txt">Login Info</string>
     <string name="common_profile_info_txt">Profile Info</string>
     <string name="common_dancer_info_txt">Dancer Info</string>
+    <string name="common_edit">Edit</string>
     <string name="txt_nick_name">Dancer Name</string>
     <string name="common_save">Save</string>
     <string name="txt_dancer_location">Place of Activity</string>

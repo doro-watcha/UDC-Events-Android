@@ -71,6 +71,7 @@ class UploadEventActivity :AppCompatActivity() {
             }
 
             uploadCompleted.observeOnce(this@UploadEventActivity){
+                Broadcast.eventUploadBroadcast.onNext(Unit)
                 finish()
             }
         }

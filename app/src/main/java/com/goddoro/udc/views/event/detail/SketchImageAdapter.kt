@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goddoro.common.common.loadUrlAsync
 import com.goddoro.common.data.model.DanceClass
+import com.goddoro.common.data.model.SketchImage
 import com.goddoro.udc.databinding.ItemGeneralImageBinding
 import com.goddoro.udc.views.classShop.detail.ArtistProfileAdapter
 import io.reactivex.Observable
@@ -26,19 +27,19 @@ class SketchImageAdapter: RecyclerView.Adapter<SketchImageAdapter.EventImageView
     private val onClick: PublishSubject<DanceClass> = PublishSubject.create()
     val clickEvent: Observable<DanceClass> = onClick
 
-    private val diff = object : DiffUtil.ItemCallback<String>() {
-        override fun areItemsTheSame(oldItem: String, newItem: String): Boolean {
-            return oldItem == newItem
+    private val diff = object : DiffUtil.ItemCallback<SketchImage>() {
+        override fun areItemsTheSame(oldItem: SketchImage, newItem: SketchImage): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: String, newItem: String): Boolean {
+        override fun areContentsTheSame(oldItem: SketchImage, newItem: SketchImage): Boolean {
             return oldItem == newItem
         }
     }
 
     private val differ = AsyncListDiffer(this, diff)
 
-    fun submitItems(items: List<String>?) {
+    fun submitItems(items: List<SketchImage>?) {
         differ.submitList(items)
     }
 
@@ -60,11 +61,11 @@ class SketchImageAdapter: RecyclerView.Adapter<SketchImageAdapter.EventImageView
 
         }
 
-        fun bind(item: String) {
+        fun bind(item: SketchImage) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
 
-            binding.image.loadUrlAsync(item)
+            binding.image.loadUrlAsync(item.sketchImage)
 
         }
     }
@@ -72,7 +73,7 @@ class SketchImageAdapter: RecyclerView.Adapter<SketchImageAdapter.EventImageView
 }
 
 @BindingAdapter("app:recyclerview_event_images")
-fun RecyclerView.setEventImages(items: List<String>?) {
+fun RecyclerView.setEventImages(items: List<SketchImage>?) {
     (adapter as? SketchImageAdapter)?.run {
         this.submitItems(items)
     }

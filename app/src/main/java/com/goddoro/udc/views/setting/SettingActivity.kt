@@ -4,15 +4,21 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.data.repository.AuthRepository
+import com.goddoro.common.dialog.showTextDialog
 import com.goddoro.common.util.Navigator
+import com.goddoro.udc.R
 import com.goddoro.udc.databinding.ActivitySettingBinding
 import dagger.android.AndroidInjection.inject
+import gun0912.tedimagepicker.builder.TedImagePicker
+import gun0912.tedimagepicker.builder.type.MediaType
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class SettingActivity : AppCompatActivity() {
+    private val TAG = SettingActivity::class.java.simpleName
 
     private lateinit var mBinding : ActivitySettingBinding
     private val mViewModel : SettingViewModel by viewModel()
@@ -55,6 +61,29 @@ class SettingActivity : AppCompatActivity() {
 
             clickTagDetailDialog.observeOnce(this@SettingActivity){
                 navigator.startTagDetailActivity(this@SettingActivity,it)
+            }
+
+            clickEditProfile.observeOnce(this@SettingActivity){
+                TedImagePicker.with(this@SettingActivity)
+                    .title(resources.getString(R.string.txt_pick_image))
+                    .showCameraTile(false)
+                    .mediaType(
+                        MediaType.IMAGE
+                    )
+                    .start {
+                        profileImage.value = it.toString()
+                    }
+            }
+
+            onProfileChangeCompleted.observeOnce(this@SettingActivity){
+
+            }
+
+            errorInvoked.observe(this@SettingActivity){
+                debugE(TAG, it.message)
+                showTextDialog(
+                    resources.getString(R.string.dialog_error_unknown),
+                    it.message ?: "알 수 없는 에러 발생")
             }
         }
 

@@ -32,7 +32,7 @@ data class Event (
     val location : String? = null,
 
     @SerializedName("sketchImgs")
-    val sketchImages : List<String>? = null,
+    val sketchImages : List<SketchImage>? = null,
 
     @SerializedName("createdAt")
     val createdAt : String,

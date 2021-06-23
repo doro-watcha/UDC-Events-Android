@@ -78,7 +78,6 @@ class HomeFragment : Fragment() {
         observeViewModel()
         setupList()
 
-        setupBroadcast()
         setupBlurredImage()
 
     }
@@ -286,12 +285,6 @@ class HomeFragment : Fragment() {
 
     }
 
-    private fun setupBroadcast() {
-
-        Broadcast.eventUploadBroadcast.subscribe{
-            Toast.makeText(context,"이벤트 업로드에 성공하셨습니다",Toast.LENGTH_SHORT).show()
-        }.disposedBy(compositeDisposable)
-    }
 
     override fun onResume() {
         super.onResume()

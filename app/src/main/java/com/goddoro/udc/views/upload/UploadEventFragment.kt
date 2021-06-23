@@ -138,10 +138,6 @@ class UploadEventFragment : Fragment() {
             clickSearchAddress.observeOnce(viewLifecycleOwner){
                 navigator.startSearchAddressActivity(requireActivity())
             }
-            uploadCompleted.observeOnce(viewLifecycleOwner){
-                eventUploadBroadcast.onNext(Unit)
-                requireActivity().finish()
-            }
 
             notFilledInvoked.observeOnce(viewLifecycleOwner){
                 showTextDialog(
