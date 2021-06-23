@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
@@ -86,7 +87,12 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
                     debugE(TAG, mapItems)
 
                     TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
-                        .items(mapItems)
+                        .items(getItems())
+                        .customMarker { clusterItem ->
+                            Marker(clusterItem.position).apply {
+                                icon = OverlayImage.fromResource(R.drawable.ic_launcher_round)
+                            }
+                        }
                         .markerClickListener {
                             MapDetailDialog.show(requireActivity().supportFragmentManager, it)
                         }
@@ -116,6 +122,20 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         )
 
         mViewModel.listEvents()
+
+    }
+
+    private fun getItems(): List<NaverItem> {
+        val bounds = naverMap.contentBounds
+        return ArrayList<NaverItem>().apply {
+            repeat(50) {
+                val temp = NaverItem(
+                    (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
+                    (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
+                )
+                add(temp)
+            }
+        }
 
     }
 
