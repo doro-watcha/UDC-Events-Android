@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit
 fun <T> Single<T>.addSchedulers(): Single<T> =
     subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
 
+
 fun <T> Single<T>.addComputationSchedulers(): Single<T> =
     subscribeOn(Schedulers.computation()).observeOn(AndroidSchedulers.mainThread())
 

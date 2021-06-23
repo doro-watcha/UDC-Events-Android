@@ -28,6 +28,7 @@ ext {
     versionCode = 9
     versionName = '테스트 버전 1.0.9'
 
+
     testInstrumentationRunner = 'androidx.test.runner.AndroidJUnitRunner'
 
     sourceCompatibility = 1.8
