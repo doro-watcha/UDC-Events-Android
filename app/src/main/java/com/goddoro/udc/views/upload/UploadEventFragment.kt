@@ -165,7 +165,9 @@ class UploadEventFragment : Fragment() {
 
 
             findAddressBroadcast.subscribe{
-                mViewModel.location.value = it
+                mViewModel.location.value = it.first
+                mViewModel.longitude = it.second
+                mViewModel.latitude = it.third
             }.disposedBy(compositeDisposable)
         }
     }

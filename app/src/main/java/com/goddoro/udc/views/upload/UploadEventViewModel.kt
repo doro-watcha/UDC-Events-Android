@@ -35,6 +35,11 @@ class UploadEventViewModel (
 
     val type: MutableLiveData<String> = MutableLiveData()
 
+    var longitude = 0.0
+    var latitude = 0.0
+
+
+
 
     val clickPickPoster : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPickImage: MutableLiveData<Once<Unit>> = MutableLiveData()
@@ -81,8 +86,8 @@ class UploadEventViewModel (
                     eventType = "battle",
                     location = location.value!!,
                     sketchImgs = eventDetailImages.value ?: listOf(),
-                    longitude = 1.3,
-                    latitude = 1.4
+                    longitude = longitude,
+                    latitude = latitude
                 )
             }.onSuccess {
                 uploadCompleted.value = Once(Unit)

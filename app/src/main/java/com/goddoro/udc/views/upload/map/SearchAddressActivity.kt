@@ -131,7 +131,7 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
             clickConfirm.observeOnce(this@SearchAddressActivity){
 
-                Broadcast.findAddressBroadcast.onNext(currentAddress.value ?: "")
+                Broadcast.findAddressBroadcast.onNext(Triple(currentAddress.value ?: "", naverMap.cameraPosition.target.longitude, naverMap.cameraPosition.target.latitude))
 
                 finish()
             }
