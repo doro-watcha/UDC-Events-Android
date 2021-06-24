@@ -17,7 +17,8 @@
     <string name="common_title">Title</string>
     <string name="common_body">Please input your description</string>
     <string name="txt_profile_tab_1">My Posts</string>
-    <string name="txt_profile_tab_2">Past Events</string>
+    <string name="txt_profile_tab_2">Pending Events</string>
+    <string name="txt_profile_tab_3">Past Events</string>
     <string name="txt_upload_event">Upload Event</string>
     <string name="txt_pick_poster">Pick your photo</string>
     <string name="txt_event_title">Event Title</string>
@@ -88,4 +89,7 @@
 
     <string name="txt_common">General</string>
     <string name="txt_admin">Admin</string>
+
+    <string name="txt_no_collection_events">There are no my events</string>
+    <string name="txt_no_pending_events">There are no pending events</string>
 </resources>

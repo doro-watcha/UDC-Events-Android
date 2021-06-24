@@ -1,23 +1,16 @@
-package com.goddoro.udc.views.profile
+package com.goddoro.udc.views.profile.join
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.HasDefaultViewModelProviderFactory
-import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.debugE
 import com.goddoro.udc.databinding.FragmentJoinEventBinding
-import com.goddoro.udc.databinding.FragmentProfileBinding
-import com.google.android.exoplayer2.upstream.DefaultHttpDataSourceFactory
-import dagger.android.support.DaggerFragment
-import javax.inject.Inject
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.udc.R
-import com.goddoro.udc.views.classShop.NormalClassAdapter
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**

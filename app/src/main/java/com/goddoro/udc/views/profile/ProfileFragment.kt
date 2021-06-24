@@ -6,26 +6,19 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.lifecycle.HasDefaultViewModelProviderFactory
-import androidx.lifecycle.ViewModelProvider
 import com.goddoro.udc.R
-import com.goddoro.udc.databinding.FragmentHomeBinding
 import com.goddoro.udc.databinding.FragmentProfileBinding
-import com.goddoro.udc.views.home.HomeViewModel
 import com.google.android.material.tabs.TabLayout
-import dagger.android.support.DaggerFragment
 import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
 import androidx.fragment.app.Fragment
-import com.goddoro.common.common.AutoClearedValue
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.util.underConstruction.UnderConstructionFragment
-import dagger.android.support.AndroidSupportInjection.inject
+import com.goddoro.udc.views.profile.collection.EventCollectionFragment
+import com.goddoro.udc.views.profile.pending.PendingEventFragment
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
 
 /**
@@ -130,13 +123,14 @@ class ProfileFragment : Fragment() {
         FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
         override fun getCount(): Int {
-            return 2
+            return 3
         }
 
         override fun getItem(position: Int): Fragment {
             return when (position) {
                 0 -> EventCollectionFragment.newInstance()
-                1 -> UnderConstructionFragment.newInstance("내가 참여한 행사에 대한 기능이 업데이트 될 예정입니다.")
+                1 -> PendingEventFragment.newInstance()
+                2 -> UnderConstructionFragment.newInstance("내가 참여한 행사에 대한 기능이 업데이트 될 예정입니다.")
                 else -> throw Exception("error")
             }
         }
@@ -144,7 +138,9 @@ class ProfileFragment : Fragment() {
         override fun getPageTitle(position: Int): CharSequence? {
             return when (position) {
                 0 -> resources.getString(R.string.txt_profile_tab_1)
-                else -> resources.getString(R.string.txt_profile_tab_2)
+                1 -> resources.getString(R.string.txt_profile_tab_2)
+                2 -> resources.getString(R.string.txt_profile_tab_3)
+                else -> throw Error()
             }
         }
 

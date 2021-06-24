@@ -1,4 +1,4 @@
-package com.goddoro.udc.views.profile
+package com.goddoro.udc.views.profile.join
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

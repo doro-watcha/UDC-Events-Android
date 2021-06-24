@@ -4,10 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="vm"
-            type="com.goddoro.udc.views.profile.collection.EventCollectionViewModel" />
+            type="com.goddoro.udc.views.profile.pending.PendingEventViewModel" />
 
     </data>
 
@@ -27,10 +26,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:overScrollMode="never"
-                android:visibility="@{vm.events.size() > 0}"
+                android:visibility="@{vm.pendingEvents.size() > 0}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toTopOf="parent"
-                app:recyclerview_event_collection="@{vm.events}"
+                app:recyclerview_event_pending="@{vm.pendingEvents}"
                 tools:itemCount="3"
                 tools:listitem="@layout/item_event_collection" />
 
@@ -39,11 +38,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="100dp"
-                android:text="@string/txt_no_collection_events"
+                android:text="@string/txt_no_pending_events"
                 android:textColor="@color/black"
                 android:textSize="16dp"
                 android:textStyle="bold"
-                android:visibility="@{vm.events.size() == 0 &amp;&amp; vm.onLoadCompleted == true}"
+                android:visibility="@{vm.pendingEvents.size() == 0 &amp;&amp; vm.onLoadCompleted == true}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
@@ -51,6 +50,5 @@
 
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
-
 
 </layout>

@@ -1,28 +1,28 @@
-package com.goddoro.udc.views.profile
+package com.goddoro.udc.views.profile.pending
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.data.model.Event
-import com.goddoro.udc.databinding.ItemJoinEventBinding
+import com.goddoro.udc.databinding.ItemEventCollectionBinding
+import com.goddoro.udc.databinding.ItemPendingEventBinding
+import com.goddoro.udc.views.profile.collection.EventCollectionAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent
 
-
-/**
- * created By DORO 2020/09/12
- */
-
-class JoinEventAdapter: RecyclerView.Adapter<JoinEventAdapter.JoinEventHolder>() {
+class PendingEventAdapter: RecyclerView.Adapter<PendingEventAdapter.PendingEventHolder>() {
 
 
-    private val onClick: PublishSubject<String> = PublishSubject.create()
-    val clickEvent: Observable<String> = onClick
+
+    private val onClick: PublishSubject<Pair<Event, ImageView>> = PublishSubject.create()
+    val clickEvent: Observable<Pair<Event, ImageView>> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
@@ -40,21 +40,20 @@ class JoinEventAdapter: RecyclerView.Adapter<JoinEventAdapter.JoinEventHolder>()
         differ.submitList(items)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): JoinEventHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PendingEventHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemJoinEventBinding.inflate(inflater, parent, false)
+        val binding = ItemPendingEventBinding.inflate(inflater, parent, false)
 
-        return JoinEventHolder(binding)
+        return PendingEventHolder(binding)
     }
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    override fun onBindViewHolder(holder: JoinEventHolder, position: Int) = holder.bind(differ.currentList[position])
+    override fun onBindViewHolder(holder: PendingEventHolder, position: Int) = holder.bind(differ.currentList[position])
 
-    inner class JoinEventHolder(private val binding: ItemJoinEventBinding) : RecyclerView.ViewHolder(binding.root),
+    inner class PendingEventHolder(private val binding: ItemPendingEventBinding) : RecyclerView.ViewHolder(binding.root),
         KoinComponent {
         init {
-
 
         }
 
@@ -68,9 +67,9 @@ class JoinEventAdapter: RecyclerView.Adapter<JoinEventAdapter.JoinEventHolder>()
 
 }
 
-@BindingAdapter("app:recyclerview_join_event")
-fun RecyclerView.setJoinEvents(items: List<Event>?) {
-    (adapter as? JoinEventAdapter)?.run {
+@BindingAdapter("app:recyclerview_event_pending")
+fun RecyclerView.setPendingEvents(items: List<Event>?) {
+    (adapter as? PendingEventAdapter)?.run {
         this.submitItems(items)
     }
 }

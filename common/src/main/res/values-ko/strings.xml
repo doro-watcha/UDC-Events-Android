@@ -16,7 +16,8 @@
     <string name="common_title">제목</string>
     <string name="common_body">문의 내용을 입력해주세요</string>
     <string name="txt_profile_tab_1">내 게시물</string>
-    <string name="txt_profile_tab_2">참여한 행사</string>
+    <string name="txt_profile_tab_2">승인 대기</string>
+    <string name="txt_profile_tab_3">참여한 행사</string>
     <string name="txt_upload_event">행사 등록하기</string>
 
     <string name="txt_pick_poster">행사 포스터를 골라주세요!</string>
@@ -89,5 +90,8 @@
 
     <string name="txt_common">일반</string>
     <string name="txt_admin">관리자</string>
+
+    <string name="txt_no_collection_events">내 게시물이 존재하지 않습니다</string>
+    <string name="txt_no_pending_events">승인 대기중인 게시물이 없습니다</string>
 
 </resources>

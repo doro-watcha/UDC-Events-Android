@@ -1,4 +1,4 @@
-package com.goddoro.udc.views.profile
+package com.goddoro.udc.views.profile.collection
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -8,7 +8,6 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.repository.EventRepository
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 /**
@@ -23,11 +22,12 @@ class EventCollectionViewModel (
 
     val events: MutableLiveData<List<Event>> = MutableLiveData()
 
+    val onLoadCompleted : MutableLiveData<Boolean> = MutableLiveData()
     val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
 
     init {
 
-        debugE(TAG, "EventCollecrionViewModel")
+
         listMyEvents()
 
     }
@@ -37,14 +37,19 @@ class EventCollectionViewModel (
         viewModelScope.launch {
 
             kotlin.runCatching {
-                eventRepository.listEventsByStatus("all")
+                eventRepository.listEventsByStatus("granted")
             }.onSuccess {
-                debugE(TAG, "My Events = " + it)
+                onLoadCompleted.value = true
                 events.value = it
             }.onFailure {
                 errorInvoked.value = Once(it)
             }
         }
 
+    }
+
+    fun refresh() {
+
+        listMyEvents()
     }
 }

@@ -13,9 +13,10 @@ import com.goddoro.udc.views.upload.map.SearchAddressViewModel
 import com.goddoro.udc.views.home.HomeViewModel
 import com.goddoro.udc.views.intro.IntroViewModel
 import com.goddoro.udc.views.notification.NotificationViewModel
-import com.goddoro.udc.views.profile.EventCollectionViewModel
-import com.goddoro.udc.views.profile.JoinEventViewModel
+import com.goddoro.udc.views.profile.collection.EventCollectionViewModel
+import com.goddoro.udc.views.profile.join.JoinEventViewModel
 import com.goddoro.udc.views.profile.ProfileViewModel
+import com.goddoro.udc.views.profile.pending.PendingEventViewModel
 import com.goddoro.udc.views.search.SearchViewModel
 import com.goddoro.udc.views.search.detail.SearchDetailViewModel
 import com.goddoro.udc.views.setting.SettingViewModel
@@ -58,4 +59,6 @@ val viewModelModule  = module {
 
     viewModel { AdminViewModel(get()) }
     viewModel { IntroViewModel(get()) }
+
+    viewModel { PendingEventViewModel(get()) }
 }
