@@ -110,7 +110,7 @@ class MapDetailDialog ( private val event : Event) : DialogFragment(){
         val point = Point()
         wm.defaultDisplay.getSize(point)
         val width = (point.x * 0.8f).roundToInt()
-        val height = (point.y * 0.4f).roundToInt()
+        val height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog?.window?.setLayout(width, height)
     }
 }

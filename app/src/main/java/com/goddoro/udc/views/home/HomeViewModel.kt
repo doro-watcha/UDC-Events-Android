@@ -61,14 +61,23 @@ class HomeViewModel (
         location.value = listOf ( "경기도 성남시 분당구 불정로 6 NAVER그린팩토리", "서울특별시 중구 세종대로 110 서울특별시청","서울특별시 중구 세종대로 101")
 
 
+        fetchData()
+
+
+    }
+
+    private fun fetchData() {
+
         getMainEvents()
         getNewEvents()
         getUpcomingEvents()
         getHotEvents()
         getRecommendEvents()
-
     }
 
+    fun refresh() {
+        fetchData()
+    }
     private fun getMainEvents() {
 
         viewModelScope.launch {

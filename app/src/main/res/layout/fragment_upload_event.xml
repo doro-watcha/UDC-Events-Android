@@ -23,6 +23,7 @@
             android:background="@color/white"
             tools:context="com.goddoro.udc.views.upload.UploadEventActivity">
 
+
             <ImageView
                 android:id="@+id/btn_back_arrow"
                 android:layout_width="wrap_content"
@@ -333,7 +334,12 @@
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@+id/type" />
 
+
+
+
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 
     </androidx.core.widget.NestedScrollView>

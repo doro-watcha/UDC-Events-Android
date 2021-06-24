@@ -15,7 +15,7 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:padding="10dp"
         android:background="@drawable/border_white_background">
 
@@ -137,6 +137,7 @@
             android:layout_marginEnd="10dp"
             android:layout_marginTop="10dp"
             app:layout_constraintTop_toBottomOf="@id/date"
+            app:layout_constraintBottom_toBottomOf="parent"
             android:backgroundTint="@color/black"
             android:textColor="@color/white"
             android:textStyle="bold"

@@ -153,7 +153,8 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         mViewModel.apply {
 
             query.observe(viewLifecycleOwner, Observer {
-                queryChanged.onNext(it)
+                if (it.isEmpty()) mViewModel.searchedEvents.value = listOf()
+                else queryChanged.onNext(it)
             })
 
             events.observe(viewLifecycleOwner,Observer {
