@@ -94,7 +94,7 @@ class MapDetailDialog ( private val event : Event) : DialogFragment(){
     private fun initView() {
 
         mBinding.btnDetailEvent.setOnDebounceClickListener {
-            navigator.startEventDetailActivity(requireActivity(),event,mBinding.imgProfile)
+            navigator.startEventDetailActivity(requireActivity(),event,mBinding.image)
         }
     }
 
