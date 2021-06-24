@@ -55,6 +55,8 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
     private val toastUtil : ToastUtil by inject()
 
+    private var mBound = false
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,9 +71,17 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         mBinding.vm = mViewModel
         mBinding.lifecycleOwner = viewLifecycleOwner
 
-        initSetting()
         observeViewModel()
 
+    }
+
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
+
+
+        if (!hidden) {
+            initSetting()
+        }
     }
 
 
@@ -86,15 +96,13 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
             .request()
             .subscribe({ result ->
                 debugE(TAG, result.isGranted)
-                if (result.isGranted) {
+                if (result.isGranted && !mBound) {
                     mBinding.mapView.getMapAsync(this)
                 }
 
             }, {
                 toastUtil.createToast(it.message ?: "")?.show()
             })
-
-//        mBinding.mapView.getMapAsync(this)
 
     }
 
@@ -146,6 +154,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
 
     override fun onMapReady(naverMap: NaverMap) {
+        mBound = true
         this.naverMap = naverMap
         naverMap.moveCamera(
             CameraUpdate.toCameraPosition(
