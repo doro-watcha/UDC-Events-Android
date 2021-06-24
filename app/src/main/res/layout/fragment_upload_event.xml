@@ -18,10 +18,15 @@
         android:background="@color/white">
 
         <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layout_root"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/white"
             tools:context="com.goddoro.udc.views.upload.UploadEventActivity">
+
+
+
+
 
 
             <ImageView
@@ -333,9 +338,6 @@
                 android:text="@string/txt_upload_event"
                 android:textColor="@color/white"
                 app:layout_constraintTop_toBottomOf="@+id/type" />
-
-
-
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

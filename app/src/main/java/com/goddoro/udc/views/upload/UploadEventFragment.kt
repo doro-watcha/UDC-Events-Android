@@ -127,6 +127,8 @@ class UploadEventFragment : Fragment() {
                     titleResource = R.string.txt_upload_event,
                     bodyResource = R.string.txt_upload_event_message,
                     onPositive = {
+                        mBinding.layoutRoot.foreground = resources.getDrawable(R.color.half_transparent)
+                        toastUtil.createToast("행사를 업로드중입니다. 잠시만 기다려주세요").show()
                         upload()
                     },
                     onNegative = {
