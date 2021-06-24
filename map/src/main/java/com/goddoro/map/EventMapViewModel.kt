@@ -37,9 +37,9 @@ class EventMapViewModel (
         viewModelScope.launch {
 
             kotlin.runCatching {
-                eventRepository.listEventsBySort("upcoming")
+                eventRepository.listEventsBySort("main")
             }.onSuccess {
-                debugE(TAG,it.filter{it.latitude != 0.0})
+//                debugE(TAG,it.filter{it.latitude != 0.0})
                 events.value = it
             }.onFailure {
                 errorInvoked.value = it

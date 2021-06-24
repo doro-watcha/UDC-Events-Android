@@ -129,4 +129,9 @@ dependencies {
     implementation "io.reactivex.rxjava2:rxjava:2.2.15"
 
 
+    implementation 'gun0912.ted:tedpermission:2.2.3'
+    implementation 'gun0912.ted:tedpermission-rx1:2.2.3'
+    implementation 'gun0912.ted:tedpermission-rx2:2.2.3'
+
+
 }

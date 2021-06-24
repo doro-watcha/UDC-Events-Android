@@ -17,11 +17,14 @@ import ted.gun0912.clustering.naver.TedNaverClustering
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
+import com.goddoro.common.util.ToastUtil
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
+import com.tedpark.tedpermission.rx1.TedRxPermission
 import de.hdodenhof.circleimageview.CircleImageView
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ted.gun0912.clustering.clustering.Cluster
 
@@ -50,6 +53,8 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
     lateinit var naverMap: NaverMap
     private lateinit var locationSource: FusedLocationSource
 
+    private val toastUtil : ToastUtil by inject()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -69,9 +74,27 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    private fun initSetting() {
 
-        mBinding.mapView.getMapAsync(this)
+
+    private fun initSetting() {
+        TedRxPermission.with(requireContext())
+            .setDeniedMessage("위치 권한이 거부되었습니다")
+            .setPermissions(
+                android.Manifest.permission.ACCESS_FINE_LOCATION,
+                android.Manifest.permission.ACCESS_COARSE_LOCATION
+            )
+            .request()
+            .subscribe({ result ->
+                debugE(TAG, result.isGranted)
+                if (result.isGranted) {
+                    mBinding.mapView.getMapAsync(this)
+                }
+
+            }, {
+                toastUtil.createToast(it.message ?: "")?.show()
+            })
+
+//        mBinding.mapView.getMapAsync(this)
 
     }
 

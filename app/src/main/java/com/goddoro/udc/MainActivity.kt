@@ -143,19 +143,8 @@ class MainActivity : AppCompatActivity() {
                     changeFragment(selectedMenu)
                 }
                 MainMenu.EVENT -> {
-                    TedRxPermission.with(this)
-                        .setDeniedMessage("권한이 거부되었습니다")
-                        .setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION)
-                        .request()
-                        .subscribe( { result ->
-                            if ( result.isGranted) {
-                                changeFragment(selectedMenu)
-                            } else {
-                                toastUtil.createToast("위치 권한이 거부되었습니다")?.show()
-                            }
-                        },{
-                            toastUtil.createToast(it.message ?: "")?.show()
-                        })
+
+                    changeFragment(selectedMenu)
                 }
                 MainMenu.CLASS -> {
                     changeFragment(selectedMenu)
