@@ -11,6 +11,7 @@ import androidx.lifecycle.observe
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.Navigator
+import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.databinding.ActivityAdminBinding
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
@@ -26,6 +27,8 @@ class AdminActivity : AppCompatActivity() {
 
     private lateinit var mBinding : ActivityAdminBinding
     private val mViewModel : AdminViewModel by viewModel()
+
+    private val toastUtil : ToastUtil by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,6 +61,8 @@ class AdminActivity : AppCompatActivity() {
             }
             errorInvoked.observe(this@AdminActivity){
                 Log.d(TAG, it.message.toString())
+                toastUtil.createToast(it.message ?: "").show()
+
             }
         }
 
