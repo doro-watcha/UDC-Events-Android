@@ -45,6 +45,7 @@ class ProfileFragment : Fragment() {
 
     private val compositeDisposable = CompositeDisposable()
     private val profileGoTopDisposable = CompositeDisposable()
+    private val profileImageChangeDisposable = CompositeDisposable()
 
 
     override fun onCreateView(
@@ -129,7 +130,18 @@ class ProfileFragment : Fragment() {
             profileGoTopBroadcast.subscribe{
                 mBinding.mAppBarLayout.setExpanded(true,true)
             }.disposedBy(profileGoTopDisposable)
+
+            profileImageUpdateBroadcast.subscribe{
+                mViewModel.refresh()
+            }.disposedBy(profileImageChangeDisposable)
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        profileGoTopDisposable.clear()
+        profileImageChangeDisposable.clear()
     }
 
 

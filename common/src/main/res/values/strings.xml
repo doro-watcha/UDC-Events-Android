@@ -93,4 +93,8 @@
 
     <string name="txt_no_collection_events">There are no my events</string>
     <string name="txt_no_pending_events">There are no pending events</string>
+
+
+    <string name="txt_change_profile">Profile Change</string>
+    <string name="txt_version_information">Version Information</string>
 </resources>

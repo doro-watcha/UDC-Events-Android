@@ -4,11 +4,13 @@ import android.content.pm.PackageManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.goddoro.common.Broadcast.profileImageUpdateBroadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.dialog.showTextDialog
 import com.goddoro.common.util.Navigator
+import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.ActivitySettingBinding
 import dagger.android.AndroidInjection.inject
@@ -26,6 +28,7 @@ class SettingActivity : AppCompatActivity() {
     private val authRepository : AuthRepository by inject()
     private val navigator : Navigator by inject()
 
+    private val toastUtil : ToastUtil by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -77,7 +80,9 @@ class SettingActivity : AppCompatActivity() {
             }
 
             onProfileChangeCompleted.observeOnce(this@SettingActivity){
+                toastUtil.createToast("프로필 사진을 변경하였습니다").show()
                 profileImage.value = it.toString()
+                profileImageUpdateBroadcast.onNext(Unit)
             }
 
             errorInvoked.observe(this@SettingActivity){

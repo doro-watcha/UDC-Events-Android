@@ -95,4 +95,8 @@
     <string name="txt_no_collection_events">내 게시물이 존재하지 않습니다</string>
     <string name="txt_no_pending_events">승인 대기중인 게시물이 없습니다</string>
 
+    <string name="txt_change_profile">프로필 사진 변경</string>
+
+    <string name="txt_version_information">버전 정보</string>
+
 </resources>

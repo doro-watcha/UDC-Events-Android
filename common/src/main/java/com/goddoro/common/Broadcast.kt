@@ -12,4 +12,6 @@ object Broadcast {
     val bottomIndexChangeBroadcast : PublishSubject<Int> = PublishSubject.create()
 
     val profileGoTopBroadcast : PublishSubject<Unit> = PublishSubject.create()
+
+    val profileImageUpdateBroadcast : PublishSubject<Unit> = PublishSubject.create()
 }

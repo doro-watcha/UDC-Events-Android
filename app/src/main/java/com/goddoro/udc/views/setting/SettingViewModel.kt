@@ -91,6 +91,8 @@ class SettingViewModel (
 
 
     val clickLogOut : MutableLiveData<Once<Unit>> = MutableLiveData()
+
+
     
     fun updateProfile( uri : Uri) {
 
@@ -102,7 +104,6 @@ class SettingViewModel (
             }.onFailure {
                 errorInvoked.value = it
             }
-
 
         }
 

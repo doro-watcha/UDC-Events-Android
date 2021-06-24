@@ -58,7 +58,7 @@ val viewModelModule  = module {
     viewModel { SearchAddressViewModel(get()) }
 
     viewModel { AdminViewModel(get()) }
-    viewModel { IntroViewModel(get()) }
+    viewModel { IntroViewModel(get(),get()) }
 
     viewModel { PendingEventViewModel(get()) }
 }

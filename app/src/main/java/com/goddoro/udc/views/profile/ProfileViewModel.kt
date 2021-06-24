@@ -51,6 +51,10 @@ class ProfileViewModel (
 
     }
 
+    fun refresh() {
+        getUser()
+    }
+
     fun onClickSetting() {
         clickSetting.value = Once(Unit)
     }
