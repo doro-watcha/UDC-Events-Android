@@ -75,7 +75,7 @@ class MapDetailDialog ( private val item : NaverItem) : DialogFragment(){
         mBinding.lifecycleOwner = viewLifecycleOwner
         mBinding.dialog = this
 
-        event = Event(id=4, name="date test", blurredImage=null, imageId=null, posterUrl="https://udc-files.s3.ap-northeast-2.amazonaws.com/event/undefined/KakaoTalk_20201108_171928048_1613407948543.jpg", location=null, sketchImages=null, createdAt="2021-02-16 01:52:27", status="granted", subtitle=null, description=null)
+        event = Event(id=4, name="date test", blurredImage=null, imageId=null, posterUrl="https://udc-files.s3.ap-northeast-2.amazonaws.com/event/undefined/KakaoTalk_20201108_171928048_1613407948543.jpg", location=null, sketchImages=null, createdAt="2021-02-16 01:52:27", status="granted", subtitle=null, description=null,eventType = "battle")
         initView()
         setupRecyclerView()
 

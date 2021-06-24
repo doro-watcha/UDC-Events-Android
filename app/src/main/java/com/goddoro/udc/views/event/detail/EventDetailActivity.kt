@@ -44,7 +44,6 @@ class EventDetailActivity : AppCompatActivity() {
 
     private fun initView() {
 
-        mBinding.txtTitle.isSelected = true
 
         window.sharedElementEnterTransition = TransitionSet().apply {
             interpolator = OvershootInterpolator(0.7f)

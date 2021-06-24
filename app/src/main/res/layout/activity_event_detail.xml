@@ -26,15 +26,28 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:id="@+id/layout_header"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:background="@color/black"
+                android:layout_height="300dp"
                 app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    imageSrc="@{vm.curEvent.posterUrl}"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:scaleType="centerCrop"
+                    tools:src="@drawable/sample_image_01" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="#99000000" />
+
 
                 <ImageButton
                     android:id="@+id/btn_back_arrow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginTop="15dp"
                     android:background="?attr/selectableItemBackground"
                     android:onClick="@{() -> vm.onClickBackArrow()}"
                     android:src="@drawable/ic_back_arrow_white"
@@ -42,44 +55,19 @@
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
-                    android:id="@+id/virtual_image"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:visibility="invisible"
-                    app:layout_constraintTop_toTopOf="@+id/btn_back_arrow"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    android:src="@drawable/ic_back_arrow_white"/>
-
-                <TextView
-                    android:id="@+id/txt_title"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:gravity="center"
-                    android:layout_marginStart="15dp"
-                    android:textStyle="bold"
-                    android:textColor="@color/white"
-                    android:layout_marginEnd="15dp"
-                    android:ellipsize="marquee"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:singleLine="true"
-                    android:text="@{vm.curEvent.name}"
-                    app:layout_constraintBottom_toBottomOf="@+id/btn_back_arrow"
-                    app:layout_constraintEnd_toStartOf="@id/virtual_image"
-                    app:layout_constraintStart_toEndOf="@+id/btn_back_arrow"
-                    app:layout_constraintTop_toTopOf="@+id/btn_back_arrow" />
-
-                <ImageView
                     android:id="@+id/img_poster"
                     imageSrc="@{vm.curEvent.posterUrl}"
-                    android:layout_width="200dp"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
+                    android:layout_marginStart="15dp"
                     android:layout_marginTop="10dp"
                     android:onDebounceClick="@{() -> vm.onClickPoster()}"
                     android:scaleType="centerCrop"
                     android:transitionName="@string/shared_element_transition"
-                    app:layout_constraintDimensionRatio="2:3"
+                    app:layout_constraintDimensionRatio="2:3.5"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/btn_back_arrow"
+                    app:layout_constraintWidth_percent="0.3"
                     tools:src="@drawable/sample_image_01" />
 
 
@@ -97,28 +85,42 @@
 
                     <TextView
                         android:id="@+id/event_date"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginStart="10dp"
-                        android:text="@{vm.curEvent.formedDate}"
-                        android:textColor="@color/white"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="2020.10.23" />
-
-
-                    <TextView
-                        android:id="@+id/event_location"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:text="서울특별시 서대문구 신촌역로7"
+                        android:layout_marginStart="10dp"
+                        android:paddingEnd="10dp"
+                        android:text="@{vm.curEvent.name}"
                         android:textColor="@color/white"
+                        android:textSize="18dp"
                         android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="@id/event_date"
-                        app:layout_constraintTop_toBottomOf="@id/event_date"
-                        tools:text="폼텍 웍스홀" />
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        tools:text="폴레폴레 댄스 스튜디오 월간 배틀 7월" />
+
+                    <TextView
+                        android:id="@+id/txt_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="@{vm.curEvent.type + ` | `}"
+                        android:textColor="@color/white"
+                        android:textSize="10dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toStartOf="@+id/event_date"
+                        app:layout_constraintTop_toBottomOf="@+id/event_date"
+                        tools:text="배틀 | " />
+
+                    <TextView
+                        android:id="@+id/txt_age"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="7세 이상"
+                        android:textColor="@color/white"
+                        android:textSize="10dp"
+                        android:textStyle="bold"
+                        app:layout_constraintStart_toEndOf="@+id/txt_type"
+                        app:layout_constraintTop_toTopOf="@+id/txt_type" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -126,51 +128,107 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <TextView
-            android:id="@+id/txt_detail_information"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="12dp"
-            android:text="@string/txt_detail_information"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_header" />
+            <TextView
+                android:id="@+id/txt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/txt_event_date"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/layout_header" />
 
-        <TextView
-            android:id="@+id/txt_description"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="12dp"
-            android:textColor="@color/black"
-            android:textSize="14dp"
-            android:paddingStart="3dp"
-            android:text="@string/txt_event_description_sample"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/txt_detail_information"
-            app:layout_constraintTop_toBottomOf="@+id/txt_detail_information"
-            tools:text="이거는 그냥 샘플로 적어 보는거인데 얼마나 길게 적어야할지 는 모르게습ㅂ니다. 여기에는 대략 ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇ" />
+            <TextView
+                android:id="@+id/date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:paddingStart="3dp"
+                android:text="@{vm.curEvent.formedDate}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txt_date"
+                app:layout_constraintTop_toBottomOf="@+id/txt_date"
+                tools:text="2021년 5월 21일 오후 3시 40분" />
 
-        <TextView
-            android:id="@+id/txt_event_introduction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:text="@string/txt_event_description"
-            android:textColor="@color/black"
-            android:textSize="20dp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/txt_description"
-            app:layout_constraintTop_toBottomOf="@+id/txt_description" />
+            <TextView
+                android:id="@+id/txt_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/txt_detail_information"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/date" />
+
+            <TextView
+                android:id="@+id/location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                android:paddingStart="3dp"
+                android:text="@{vm.curEvent.location}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txt_location"
+                app:layout_constraintTop_toBottomOf="@+id/txt_location"
+                tools:text="서울특별시 신촌동 701호" />
+
+            <TextView
+                android:id="@+id/txt_detail_information"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/txt_detail_information"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/location" />
+
+            <TextView
+                android:id="@+id/txt_description"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:paddingStart="3dp"
+                android:text="@{vm.curEvent.description}"
+                android:textColor="@color/black"
+                android:textSize="14dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txt_detail_information"
+                app:layout_constraintTop_toBottomOf="@+id/txt_detail_information"
+                tools:text="이거는 그냥 샘플로 적어 보는거인데 얼마나 길게 적어야할지 는 모르게습ㅂ니다. 여기에는 대략 ㅁㄴㅇㄹㅁㄴㅇㄹㅁㄴㅇ" />
+
+            <TextView
+                android:id="@+id/txt_event_introduction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="@string/txt_event_description"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/txt_description"
+                app:layout_constraintTop_toBottomOf="@+id/txt_description" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/imgRecyclerView"
                 android:layout_width="match_parent"
-                android:overScrollMode="never"
                 android:layout_height="wrap_content"
+                android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/txt_event_introduction"
                 app:recyclerview_event_images="@{vm.curEvent.sketchImages}"

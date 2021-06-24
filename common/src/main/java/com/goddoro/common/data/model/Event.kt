@@ -27,6 +27,9 @@ data class Event (
     @SerializedName("posterImgUrl")
     val posterUrl : String,
 
+    @SerializedName("eventType")
+    val eventType : String? = "battle",
+
 
     @SerializedName("location")
     val location : String? = null,
@@ -57,6 +60,17 @@ data class Event (
 
         val dateUtil = get<DateUtil>()
         return dateUtil.changeDateFormat(createdAt)
+
+    }
+
+    fun getType() : String {
+        return when (eventType) {
+
+            "battle" -> "배틀"
+            "performance" -> "퍼포먼스"
+            "party" -> "파티"
+            else -> "스트릿 행사"
+        }
 
     }
 }
