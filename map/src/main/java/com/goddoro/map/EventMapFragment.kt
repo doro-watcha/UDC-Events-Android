@@ -17,16 +17,24 @@ import ted.gun0912.clustering.naver.TedNaverClustering
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
+import com.goddoro.common.data.model.Event
+import com.goddoro.common.extension.addSchedulers
+import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.ToastUtil
+import com.goddoro.map.search.EventSearchAdapter
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
 import com.tedpark.tedpermission.rx1.TedRxPermission
 import de.hdodenhof.circleimageview.CircleImageView
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.subjects.BehaviorSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ted.gun0912.clustering.clustering.Cluster
+import java.util.concurrent.TimeUnit
 
 
 /**
@@ -57,6 +65,10 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
     private var mBound = false
 
+    private val queryChanged: BehaviorSubject<String> = BehaviorSubject.create()
+
+    private val compositeDisposable = CompositeDisposable()
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -72,7 +84,24 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         mBinding.lifecycleOwner = viewLifecycleOwner
 
         observeViewModel()
+        listenQueryChangeEvent()
+        setupRecyclerView()
 
+    }
+
+    private fun setupRecyclerView() {
+
+        mBinding.mRecyclerView.apply {
+            adapter = EventSearchAdapter().apply {
+                
+                clickEvent.subscribe{
+                    mViewModel.searchedEvents.value = listOf()
+                    mViewModel.query.value = ""
+                    changeCamera(it.first)
+                    MapDetailDialog.show(requireActivity().supportFragmentManager, it.first )
+                }.disposedBy(compositeDisposable)
+            }
+        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -82,6 +111,19 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         if (!hidden) {
             initSetting()
         }
+    }
+
+    private fun changeCamera ( event : Event) {
+
+        if ( event.longitude != null && event.latitude != null ) {
+
+            val cameraUpdate = CameraUpdate.scrollTo(LatLng(event.latitude ?: 0.0, event.longitude ?: 0.0))
+                .animate(CameraAnimation.Easing)
+            naverMap.moveCamera(cameraUpdate)
+
+
+        }
+
     }
 
 
@@ -101,7 +143,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
                 }
 
             }, {
-                toastUtil.createToast(it.message ?: "")?.show()
+                toastUtil.createToast(it.message ?: "").show()
             })
 
     }
@@ -110,18 +152,22 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
         mViewModel.apply {
 
+            query.observe(viewLifecycleOwner, Observer {
+                queryChanged.onNext(it)
+            })
+
             events.observe(viewLifecycleOwner,Observer {
 
                 if (it.isNotEmpty()) {
 
                     val mapItems : List<NaverItem> = it.map{ event ->
-                        NaverItem(lat = event.latitude ?: 0.0, lng = event.longitude ?: 0.0)
+                        NaverItem(lat = event.latitude ?: 0.0, lng = event.longitude ?: 0.0, _event = event )
                     }
 
                     debugE(TAG, mapItems)
 
                     TedNaverClustering.with<NaverItem>(requireContext(), naverMap)
-                        .items(getItems())
+                        .items(mapItems)
                         .customCluster {
                             ImageView(requireActivity()).apply {
                                 setImageResource(R.drawable.ic_udc_blue)
@@ -137,11 +183,13 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
                         }
                         .markerClickListener {
-                            MapDetailDialog.show(requireActivity().supportFragmentManager, it)
+                            MapDetailDialog.show(requireActivity().supportFragmentManager, it.event!!)
                         }
                         .make()
 
                     mBinding.progress.visibility = View.GONE
+
+                    toastUtil.createToast("${it.size}개의 행사가 있습니다").show()
 
                 }
             })
@@ -177,20 +225,36 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
     }
 
-    private fun getItems(): List<NaverItem> {
-        val bounds = naverMap.contentBounds
-        return ArrayList<NaverItem>().apply {
-            repeat(50) {
-                val temp = NaverItem(
-                    (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
-                    (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
-                )
-                add(temp)
-            }
-        }
+//    private fun getItems(): List<NaverItem> {
+//        val bounds = naverMap.contentBounds
+//        return ArrayList<NaverItem>().apply {
+//            repeat(50) {
+//                val temp = NaverItem(
+//                    (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
+//                    (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
+//                )
+//                add(temp)
+//            }
+//        }
+//
+//    }
 
+
+    private fun listenQueryChangeEvent() {
+        queryChanged
+            .distinctUntilChanged()
+            .debounce(200L, TimeUnit.MILLISECONDS)
+            .addSchedulers()
+            .subscribe {
+                mViewModel.onQueryChanged(it)
+            }.disposedBy(compositeDisposable)
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable.clear()
+    }
 
 
     companion object {

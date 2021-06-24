@@ -27,6 +27,9 @@ class EventMapViewModel (
 
     val events : MutableLiveData<List<Event>> = MutableLiveData()
 
+    val query : MutableLiveData<String> = MutableLiveData()
+    val searchedEvents : MutableLiveData<List<Event>> = MutableLiveData()
+
 
     val errorInvoked : MutableLiveData<Throwable> = MutableLiveData()
 
@@ -37,13 +40,20 @@ class EventMapViewModel (
         viewModelScope.launch {
 
             kotlin.runCatching {
-                eventRepository.listEventsBySort("main")
+                eventRepository.listEventsBySort("new")
             }.onSuccess {
-//                debugE(TAG,it.filter{it.latitude != 0.0})
-                events.value = it
+                debugE(TAG,it.filter{it.latitude!! > 5.0})
+                events.value = it.filter { it.latitude!! > 5.0}
             }.onFailure {
                 errorInvoked.value = it
             }
+        }
+    }
+
+    fun onQueryChanged ( query : String) {
+        debugE(TAG, query)
+        if (query.isNotEmpty()) {
+            searchedEvents.value = events.value?.filter { it.name?.contains(query) ?: false }
         }
     }
 

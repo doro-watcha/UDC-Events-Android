@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goddoro.common.data.model.DanceClass
+import com.goddoro.common.data.model.SketchImage
 import com.goddoro.map.databinding.ItemImageBinding
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent
@@ -18,19 +19,19 @@ class EventDialogImageAdapter: RecyclerView.Adapter<EventDialogImageAdapter.Even
 
 
 
-    private val diff = object : DiffUtil.ItemCallback<Int>() {
-        override fun areItemsTheSame(oldItem: Int, newItem: Int): Boolean {
-            return oldItem == newItem
+    private val diff = object : DiffUtil.ItemCallback<SketchImage>() {
+        override fun areItemsTheSame(oldItem: SketchImage, newItem: SketchImage): Boolean {
+            return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Int, newItem: Int): Boolean {
+        override fun areContentsTheSame(oldItem: SketchImage, newItem: SketchImage): Boolean {
             return oldItem == newItem
         }
     }
 
     private val differ = AsyncListDiffer(this, diff)
 
-    fun submitItems(items: List<Int>?) {
+    fun submitItems(items: List<SketchImage>?) {
         differ.submitList(items)
     }
 
@@ -41,7 +42,7 @@ class EventDialogImageAdapter: RecyclerView.Adapter<EventDialogImageAdapter.Even
         return EventImageViewHolder(binding)
     }
 
-    override fun getItemCount(): Int = 4
+    override fun getItemCount(): Int = differ.currentList.size
 
     override fun onBindViewHolder(holder: EventImageViewHolder, position: Int) = holder.bind(differ.currentList[position])
 
@@ -52,11 +53,9 @@ class EventDialogImageAdapter: RecyclerView.Adapter<EventDialogImageAdapter.Even
 
         }
 
-        fun bind(item: Int) {
+        fun bind(item: SketchImage) {
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
-
-            binding.image.setImageResource(item)
 
         }
     }
@@ -64,7 +63,7 @@ class EventDialogImageAdapter: RecyclerView.Adapter<EventDialogImageAdapter.Even
 }
 
 @BindingAdapter("app:recyclerview_event_dialog_images")
-fun RecyclerView.setEventDialogImages(items: List<Int>?) {
+fun RecyclerView.setEventDialogImages(items: List<SketchImage>?) {
     (adapter as? EventDialogImageAdapter)?.run {
         this.submitItems(items)
     }

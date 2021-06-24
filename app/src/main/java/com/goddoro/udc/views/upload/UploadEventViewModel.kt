@@ -75,6 +75,14 @@ class UploadEventViewModel (
 
     fun upload() {
 
+        val eventType = when ( type.value ?: "") {
+
+            "배틀" -> "battle"
+            "퍼포먼스" -> "performance"
+            "파티" -> "party"
+            else -> ""
+        }
+
         viewModelScope.launch {
             kotlin.runCatching {
                 eventRepository.uploadEvent(
@@ -83,7 +91,7 @@ class UploadEventViewModel (
                     description = description.value ?: "",
                     date = date.value ?: "",
                     posterImg = curPoster.value!!,
-                    eventType = type.value ?: "",
+                    eventType = eventType,
                     location = location.value!!,
                     sketchImgs = eventDetailImages.value ?: listOf(),
                     longitude = longitude,

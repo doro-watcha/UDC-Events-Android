@@ -7,7 +7,7 @@
 
         <variable
             name="item"
-            type="Integer" />
+            type="com.goddoro.common.data.model.SketchImage" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -19,6 +19,7 @@
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                srcUrl="@{item.sketchImage}"
                 app:layout_constraintDimensionRatio="1:1"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent" />

@@ -27,10 +27,10 @@ import kotlin.math.roundToInt
  * created By DORO 2020/09/14
  */
 
-class MapDetailDialog ( private val item : NaverItem) : DialogFragment(){
+class MapDetailDialog ( private val event : Event) : DialogFragment(){
 
     companion object {
-        fun show(fm: FragmentManager , item : NaverItem) {
+        fun show(fm: FragmentManager , item : Event) {
             val dialog = MapDetailDialog(item)
             dialog.show(fm, dialog.tag)
         }
@@ -40,15 +40,6 @@ class MapDetailDialog ( private val item : NaverItem) : DialogFragment(){
 
     override fun getTheme(): Int = R.style.Theme_UDC_MapDetailDialog
 
-    private lateinit var event : Event
-
-    val imageList : List<Int> = listOf(
-        R.drawable.c1,
-        R.drawable.c2,
-        R.drawable.c3,
-        R.drawable.c4,
-        R.drawable.s1
-    )
 
     private val navigator : Navigator by inject()
 
@@ -74,8 +65,8 @@ class MapDetailDialog ( private val item : NaverItem) : DialogFragment(){
 
         mBinding.lifecycleOwner = viewLifecycleOwner
         mBinding.dialog = this
+        mBinding.item = event
 
-        event = Event(id=4, name="date test", blurredImage=null, imageId=null, posterUrl="https://udc-files.s3.ap-northeast-2.amazonaws.com/event/undefined/KakaoTalk_20201108_171928048_1613407948543.jpg", location=null, sketchImages=null, createdAt="2021-02-16 01:52:27", status="granted", subtitle=null, description=null,eventType = "battle")
         initView()
         setupRecyclerView()
 
