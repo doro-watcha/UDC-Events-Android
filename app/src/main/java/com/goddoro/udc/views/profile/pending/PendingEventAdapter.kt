@@ -55,6 +55,9 @@ class PendingEventAdapter: RecyclerView.Adapter<PendingEventAdapter.PendingEvent
         KoinComponent {
         init {
 
+            binding.root.setOnDebounceClickListener{
+                onClick.onNext(Pair(differ.currentList[layoutPosition],binding.imgThumbnail))
+            }
         }
 
         fun bind(item: Event) {

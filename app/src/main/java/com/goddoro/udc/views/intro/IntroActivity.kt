@@ -1,5 +1,6 @@
 package com.goddoro.udc.views.intro
 
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -56,6 +57,13 @@ class IntroActivity : AppCompatActivity() {
         }
 
 
+    }
+
+
+    override fun onWindowFocusChanged(hasFocus: Boolean) {
+        super.onWindowFocusChanged(hasFocus)
+
+        window.navigationBarColor = Color.parseColor("#000000")
     }
 
 

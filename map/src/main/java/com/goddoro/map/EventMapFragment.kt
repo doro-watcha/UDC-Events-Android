@@ -62,7 +62,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? = FragmentEventMapBinding.inflate(inflater, container, false).also { mBinding = it}.root
+    ): View = FragmentEventMapBinding.inflate(inflater, container, false).also { mBinding = it}.root
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -141,6 +141,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
                         }
                         .make()
 
+                    mBinding.progress.visibility = View.GONE
 
                 }
             })
