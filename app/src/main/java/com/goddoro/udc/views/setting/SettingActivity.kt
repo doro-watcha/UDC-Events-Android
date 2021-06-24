@@ -65,7 +65,7 @@ class SettingActivity : AppCompatActivity() {
 
             clickEditProfile.observeOnce(this@SettingActivity){
                 TedImagePicker.with(this@SettingActivity)
-                    .title(resources.getString(R.string.txt_pick_image))
+                    .title(resources.getString(R.string.txt_pick_profile))
                     .showCameraTile(false)
                     .mediaType(
                         MediaType.IMAGE

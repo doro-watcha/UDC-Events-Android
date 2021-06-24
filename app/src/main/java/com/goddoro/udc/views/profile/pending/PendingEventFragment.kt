@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.goddoro.common.Broadcast
 import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.util.Navigator
 import com.goddoro.udc.databinding.FragmentEventPendingBinding
 import io.reactivex.disposables.CompositeDisposable
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class PendingEventFragment : Fragment() {
@@ -18,6 +20,10 @@ class PendingEventFragment : Fragment() {
     private val mViewModel : PendingEventViewModel by viewModel()
 
     val eventUploadDisposable = CompositeDisposable()
+
+    private val navigator : Navigator by inject()
+
+    private val compositeDisposable = CompositeDisposable()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,7 +47,13 @@ class PendingEventFragment : Fragment() {
 
         mBinding.mRecyclerView.apply {
 
-            adapter = PendingEventAdapter()
+            adapter = PendingEventAdapter().apply {
+
+                clickEvent.subscribe{
+
+                    navigator.startEventDetailActivity(requireActivity(),it.first,it.second)
+                }.disposedBy(compositeDisposable)
+            }
         }
     }
 

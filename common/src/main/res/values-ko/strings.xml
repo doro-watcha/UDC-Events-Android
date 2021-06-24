@@ -57,6 +57,7 @@
     <string name="common_event_poster">행사 포스터</string>
     <string name="common_event_detail_image">행사 상세 사진</string>
     <string name="txt_pick_image">행사 관련한 사진을 골라주세요!</string>
+    <string name="txt_pick_profile">프로필 사진을 골라주세요</string>
     <string name="txt_preview_event">행사 미리보기</string>
     <string name="txt_pick_address_message">행사 장소를 골라주세요!</string>
     <string name="txt_pick_date_message">날짜를 골라주세요!</string>

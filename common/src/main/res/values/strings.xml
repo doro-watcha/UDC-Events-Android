@@ -57,6 +57,7 @@
     <string name="common_event_poster">Event Poster</string>
     <string name="common_event_detail_image">Event Detail Images</string>
     <string name="txt_pick_image">Pick your event detail images</string>
+    <string name="txt_pick_profile">Pick your profile image</string>
     <string name="txt_preview_event">Preview Event</string>
     <string name="txt_pick_address_message">Please pick the address</string>
     <string name="txt_pick_date_message">Please pick the date</string>

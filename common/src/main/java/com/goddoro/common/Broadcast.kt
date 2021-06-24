@@ -10,4 +10,6 @@ object Broadcast {
     val findAddressBroadcast : PublishSubject<Triple<String,Double,Double>> = PublishSubject.create()
 
     val bottomIndexChangeBroadcast : PublishSubject<Int> = PublishSubject.create()
+
+    val profileGoTopBroadcast : PublishSubject<Unit> = PublishSubject.create()
 }

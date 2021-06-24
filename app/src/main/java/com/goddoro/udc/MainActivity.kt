@@ -168,10 +168,10 @@ class MainActivity : AppCompatActivity() {
 
         mBinding.bottomNavigation.setOnNavigationItemReselectedListener {
 
-//            // 이미 선택되어있는 탭을 다시 선택하면 목록 제일 위로 이동시킨다.
-//            // Broadcast 날림
-//            when (MainMenu.parseIdToMainMenu(it.itemId)) {
-//
+            // 이미 선택되어있는 탭을 다시 선택하면 목록 제일 위로 이동시킨다.
+            // Broadcast 날림
+            when (MainMenu.parseIdToMainMenu(it.itemId)) {
+
 //                MainMenu.FEED -> {
 //                    debugE(TAG, "Video Tab ReSelected")
 //                    Broadcast.videoListGoTop.onNext(Unit)
@@ -187,10 +187,16 @@ class MainActivity : AppCompatActivity() {
 //                    clearBadge()
 //                    Broadcast.notificationGoTopBroadcast.onNext(Unit)
 //                }
-//                MainMenu.PROFILE -> {
-//                    Broadcast.profileGoTopBroadcast.onNext(Unit)
-//                }
-//            }
+                MainMenu.PROFILE -> {
+                    Broadcast.profileGoTopBroadcast.onNext(Unit)
+
+
+                }
+            }
+
+            true
+
+
         }
 
     }

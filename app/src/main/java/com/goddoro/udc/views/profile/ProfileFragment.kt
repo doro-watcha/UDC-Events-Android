@@ -11,8 +11,10 @@ import com.goddoro.udc.databinding.FragmentProfileBinding
 import com.google.android.material.tabs.TabLayout
 import io.reactivex.disposables.CompositeDisposable
 import androidx.fragment.app.Fragment
+import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.util.underConstruction.UnderConstructionFragment
 import com.goddoro.udc.views.profile.collection.EventCollectionFragment
@@ -42,6 +44,7 @@ class ProfileFragment : Fragment() {
     private val navigator : Navigator by inject()
 
     private val compositeDisposable = CompositeDisposable()
+    private val profileGoTopDisposable = CompositeDisposable()
 
 
     override fun onCreateView(
@@ -60,6 +63,7 @@ class ProfileFragment : Fragment() {
 
         setupViewPagerWithTab()
         observeViewModel()
+        setupBroadcast()
 
 
     }
@@ -116,6 +120,16 @@ class ProfileFragment : Fragment() {
             }
         }
 
+    }
+
+    private fun setupBroadcast() {
+
+        Broadcast.apply {
+
+            profileGoTopBroadcast.subscribe{
+                mBinding.mAppBarLayout.setExpanded(true,true)
+            }.disposedBy(profileGoTopDisposable)
+        }
     }
 
 
