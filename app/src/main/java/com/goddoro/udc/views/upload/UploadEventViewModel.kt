@@ -79,11 +79,11 @@ class UploadEventViewModel (
             kotlin.runCatching {
                 eventRepository.uploadEvent(
                     name = title.value ?: "",
-                    subTitle = "zxcvzxcv",
+                    subTitle = title.value ?: "",
                     description = description.value ?: "",
                     date = date.value ?: "",
                     posterImg = curPoster.value!!,
-                    eventType = "battle",
+                    eventType = type.value ?: "",
                     location = location.value!!,
                     sketchImgs = eventDetailImages.value ?: listOf(),
                     longitude = longitude,
