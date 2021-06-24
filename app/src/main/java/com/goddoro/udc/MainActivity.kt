@@ -13,6 +13,7 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.common.navigation.MainMenu
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.dialog.CommonSingleDialog
+import com.goddoro.common.dialog.showTextDialog
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.Navigator
@@ -22,6 +23,7 @@ import com.goddoro.udc.databinding.ActivityMainBinding
 import com.goddoro.udc.views.classShop.ClassShopFragment
 import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.profile.ProfileFragment
+import com.goddoro.udc.views.upload.UploadCompleteDialog
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.gun0912.tedpermission.PermissionListener
@@ -53,13 +55,11 @@ class MainActivity : AppCompatActivity() {
     private val authRepository : AuthRepository by inject()
     private val mViewModel : MainViewModel by viewModel()
 
-    private lateinit var fragment1 : HomeFragment
-    private lateinit var fragment2 : EventMapFragment
-    private lateinit var fragment3 : ClassShopFragment
-    private lateinit var fragment4 : ProfileFragment
-    private lateinit var curFragment: Fragment
-
-    private lateinit var locationSource: FusedLocationSource
+    private val fragment1 = HomeFragment.newInstance()
+    private val fragment2 = EventMapFragment.newInstance()
+    private val fragment3 = ClassShopFragment.newInstance()
+    private val fragment4 = ProfileFragment.newInstance(authRepository.curUser.value?.id ?: 0)
+    private var curFragment: Fragment = fragment1
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -203,24 +203,11 @@ class MainActivity : AppCompatActivity() {
 
     private fun initFragments(isFirstCreation : Boolean) {
 
-        fragment1 = supportFragmentManager.findFragmentByTag("0") as? HomeFragment ?: HomeFragment.newInstance()
-        fragment2 = supportFragmentManager.findFragmentByTag("1") as? EventMapFragment ?: EventMapFragment.newInstance()
-        fragment3 = supportFragmentManager.findFragmentByTag("2") as? ClassShopFragment ?: ClassShopFragment.newInstance()
-        fragment4 = supportFragmentManager.findFragmentByTag("3") as? ProfileFragment ?: ProfileFragment.newInstance(authRepository.curUser.value?.id ?: -1)
-        curFragment = when(menu.value) {
-            MainMenu.HOME->fragment1
-            MainMenu.EVENT->fragment2
-            MainMenu.CLASS->fragment3
-            MainMenu.PROFILE->fragment4
-            else -> throw IllegalStateException()
-        }
-
         if(isFirstCreation) {
-            val fm = supportFragmentManager
-            fm.beginTransaction().add(R.id.fragmentContainer, fragment4, "0").hide(fragment4).commit()
-            fm.beginTransaction().add(R.id.fragmentContainer, fragment3, "1").hide(fragment3).commit()
-            fm.beginTransaction().add(R.id.fragmentContainer, fragment2, "2").hide(fragment2).commit()
-            fm.beginTransaction().add(R.id.fragmentContainer, fragment1, "3").commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment4, "0").hide(fragment4).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment3, "1").hide(fragment3).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment2, "2").hide(fragment2).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment1, "3").commit()
         }
     }
 
@@ -261,8 +248,9 @@ class MainActivity : AppCompatActivity() {
 
         Broadcast.eventUploadBroadcast.subscribe({
             debugE(TAG, "Upload Complete!")
-            //showUploadCompleteDialog(authRepository.curUser.value?.username ?: "유저")
-            toastUtil.createToast("행사를 업로드하였습니다")?.show()
+            val dialog = UploadCompleteDialog.newInstance(authRepository.curUser.value?.username ?: "", it)
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.add(dialog,dialog.tag).commitAllowingStateLoss()
         },{
             debugE(TAG,it)
         }).disposedBy(eventUploadDisposable)

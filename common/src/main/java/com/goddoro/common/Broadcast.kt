@@ -4,7 +4,7 @@ import io.reactivex.subjects.PublishSubject
 
 object Broadcast {
 
-    val eventUploadBroadcast : PublishSubject<Unit> = PublishSubject.create()
+    val eventUploadBroadcast : PublishSubject<String> = PublishSubject.create()
 
 
     val findAddressBroadcast : PublishSubject<Triple<String,Double,Double>> = PublishSubject.create()

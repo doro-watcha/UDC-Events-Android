@@ -72,7 +72,7 @@ class UploadEventActivity :AppCompatActivity() {
 
             uploadCompleted.observeOnce(this@UploadEventActivity){
                 debugE(TAG, "UPLOAD COMPLETE")
-                Broadcast.eventUploadBroadcast.onNext(Unit)
+                Broadcast.eventUploadBroadcast.onNext(title.value ?: "")
                 finish()
             }
         }

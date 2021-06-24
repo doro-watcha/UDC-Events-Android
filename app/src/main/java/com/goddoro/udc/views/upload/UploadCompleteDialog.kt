@@ -22,38 +22,41 @@ import org.koin.android.ext.android.inject
 import kotlin.math.roundToInt
 
 
-fun AppCompatActivity.showUploadCompleteDialog(
-    username: String
-
-) {
-    UploadCompleteDialog.show(
-        supportFragmentManager, username
-    )
-}
-
-fun Fragment.showUploadCompleteDialog(
-    username: String
-
-) {
-    UploadCompleteDialog.show(
-        childFragmentManager, username
-    )
-}
+//fun AppCompatActivity.showUploadCompleteDialog(
+//    username: String
+//
+//) {
+//    UploadCompleteDialog.show(
+//        supportFragmentManager, username
+//    )
+//}
+//
+//fun Fragment.showUploadCompleteDialog(
+//    username: String
+//
+//) {
+//    UploadCompleteDialog.show(
+//        childFragmentManager, username
+//    )
+//}
 
 class UploadCompleteDialog(
 
-    private val username : String
+    private val username : String,
+    private val title : String
 
 ) : DialogFragment() {
 
     companion object {
-        fun show(
-            fm: FragmentManager,
-            username : String
-        ) {
-            val dialog = UploadCompleteDialog(username)
-            dialog.show(fm, dialog.tag)
-        }
+//        fun show(
+//            fm: FragmentManager,
+//            username : String
+//        ) {
+//            val dialog = UploadCompleteDialog(username)
+//            dialog.show(fm, dialog.tag)
+//        }
+
+        fun newInstance( username : String , title : String ) = UploadCompleteDialog(username , title  )
     }
 
 
@@ -90,7 +93,9 @@ class UploadCompleteDialog(
     private fun initView() {
         mBinding.apply {
 
-            txtTitle.text = "good"
+            txtTitle.text = "$title"
+
+            txtBody.text = "UDC EVENTS에서 $username 님의 행사를 검토 후에 게시후에 알림을 보내드리도록 하겠습니다"
 
             btnConfirm.setOnDebounceClickListener {
                 dismiss()
