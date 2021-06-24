@@ -19,6 +19,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
+import com.naver.maps.map.util.FusedLocationSource
 import com.naver.maps.map.util.MarkerIcons
 import de.hdodenhof.circleimageview.CircleImageView
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -38,6 +39,8 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var  mBinding: FragmentEventMapBinding
 
 
+
+
     /**
      * ViewModel Instance
      */
@@ -45,8 +48,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
     private val mViewModel: EventMapViewModel by viewModel()
 
     lateinit var naverMap: NaverMap
-
-    lateinit var tedNaverClustering: TedNaverClustering<NaverItem>
+    private lateinit var locationSource: FusedLocationSource
 
 
     override fun onCreateView(
@@ -131,6 +133,13 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
             )
         )
 
+        this.naverMap.uiSettings.isLocationButtonEnabled = true
+
+        naverMap.locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
+
+
         mViewModel.listEvents()
 
     }
@@ -150,7 +159,10 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
     }
 
 
+
     companion object {
+
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
 
         fun newInstance() = EventMapFragment()
     }

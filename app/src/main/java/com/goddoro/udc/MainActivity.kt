@@ -1,12 +1,12 @@
 package com.goddoro.udc
 
 import android.graphics.Color
-import androidx.fragment.app.Fragment
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
 import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
@@ -18,23 +18,23 @@ import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.Navigator
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.EventMapFragment
-import com.goddoro.udc.application.MainApplication.Companion.appPreference
 import com.goddoro.udc.databinding.ActivityMainBinding
-import com.goddoro.udc.util.underConstruction.UnderConstructionFragment
 import com.goddoro.udc.views.classShop.ClassShopFragment
 import com.goddoro.udc.views.home.HomeFragment
 import com.goddoro.udc.views.profile.ProfileFragment
-import com.goddoro.udc.views.upload.showUploadCompleteDialog
 import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.material.shape.CornerFamily
-import com.google.android.material.shape.MaterialShapeDrawable
 import com.google.firebase.iid.FirebaseInstanceId
-import com.naver.maps.map.MapFragment
+import com.gun0912.tedpermission.PermissionListener
+import com.gun0912.tedpermission.TedPermission
+import com.naver.maps.map.LocationTrackingMode
+import com.naver.maps.map.util.FusedLocationSource
+import com.tedpark.tedpermission.rx1.TedRxPermission
 import io.reactivex.disposables.CompositeDisposable
-import okhttp3.internal.notifyAll
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
+import java.util.jar.Manifest
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -59,6 +59,8 @@ class MainActivity : AppCompatActivity() {
     private lateinit var fragment4 : ProfileFragment
     private lateinit var curFragment: Fragment
 
+    private lateinit var locationSource: FusedLocationSource
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,6 +73,7 @@ class MainActivity : AppCompatActivity() {
         setupBroadcast()
 
         setContentView(mBinding.root)
+
 
 
 
@@ -140,8 +143,19 @@ class MainActivity : AppCompatActivity() {
                     changeFragment(selectedMenu)
                 }
                 MainMenu.EVENT -> {
-                    debugE(TAG, "Map Tab Selected")
-                    changeFragment(selectedMenu)
+                    TedRxPermission.with(this)
+                        .setDeniedMessage("권한이 거부되었습니다")
+                        .setPermissions(android.Manifest.permission.ACCESS_FINE_LOCATION, android.Manifest.permission.ACCESS_COARSE_LOCATION)
+                        .request()
+                        .subscribe( { result ->
+                            if ( result.isGranted) {
+                                changeFragment(selectedMenu)
+                            } else {
+                                toastUtil.createToast("위치 권한이 거부되었습니다")?.show()
+                            }
+                        },{
+                            toastUtil.createToast(it.message ?: "")?.show()
+                        })
                 }
                 MainMenu.CLASS -> {
                     changeFragment(selectedMenu)
@@ -265,6 +279,7 @@ class MainActivity : AppCompatActivity() {
         eventUploadDisposable.clear()
     }
 
+
     override fun onWindowFocusChanged(hasFocus: Boolean) {
         super.onWindowFocusChanged(hasFocus)
 
@@ -272,6 +287,8 @@ class MainActivity : AppCompatActivity() {
     }
 
     companion object {
+
+
         private val _menu : MutableLiveData<MainMenu> = MutableLiveData(MainMenu.HOME)
         val menu : LiveData<MainMenu> = _menu
     }
