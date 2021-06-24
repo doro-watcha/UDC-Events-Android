@@ -13,13 +13,14 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_white_background">
+>
 
             <ImageView
                 android:id="@+id/image"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 srcUrl="@{item.sketchImage}"
+                android:background="@drawable/border_white_background"
                 app:layout_constraintDimensionRatio="1:1"
                 android:scaleType="centerCrop"
                 app:layout_constraintTop_toTopOf="parent" />

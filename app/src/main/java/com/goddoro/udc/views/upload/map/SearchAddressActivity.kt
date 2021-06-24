@@ -10,8 +10,10 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.addSchedulers
 import com.goddoro.common.extension.disposedBy
+import com.goddoro.map.EventMapFragment
 import com.goddoro.udc.databinding.ActivitySearchAddressBinding
 import com.naver.maps.map.*
+import com.naver.maps.map.util.FusedLocationSource
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -148,6 +150,8 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+
         fun newIntent ( context : Context) : Intent {
             return Intent(context, SearchAddressActivity::class.java)
         }
@@ -155,6 +159,12 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(p0: NaverMap) {
         naverMap = p0
+
+        this.naverMap.uiSettings.isLocationButtonEnabled = true
+
+        naverMap.locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
         initMap( )
     }
 }

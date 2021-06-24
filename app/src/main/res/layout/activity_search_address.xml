@@ -34,14 +34,16 @@
 
         <TextView
             android:id="@+id/txt_address"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="80dp"
-            android:background="@color/white"
+            android:background="@drawable/border_white_background"
             android:textColor="@color/black"
             android:textSize="14dp"
             android:gravity="center"
             tools:text="서울역 "
             android:text="@{vm.currentAddress}"
+            app:layout_constraintStart_toStartOf="@+id/btn_confirm"
+            app:layout_constraintEnd_toEndOf="@+id/btn_confirm"
             app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
             android:layout_marginBottom="20dp"/>
 
@@ -51,6 +53,9 @@
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:text="확인"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:onDebounceClick="@{() -> vm.onClickConfirm()}"
             android:visibility="@{vm.isValidAddress}"
             app:layout_constraintBottom_toBottomOf="parent"/>

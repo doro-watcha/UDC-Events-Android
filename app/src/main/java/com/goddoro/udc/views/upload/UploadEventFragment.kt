@@ -15,9 +15,11 @@ import com.goddoro.common.dialog.showTextDialog
 import com.goddoro.common.dialog.showTextDoubleDialog
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.Navigator
+import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentUploadEventBinding
 import com.goddoro.udc.views.upload.calendar.CalendarDialog
+import com.tedpark.tedpermission.rx1.TedRxPermission
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
 import io.reactivex.disposables.CompositeDisposable
@@ -38,6 +40,8 @@ class UploadEventFragment : Fragment() {
     private val mViewModel : UploadEventViewModel by sharedViewModel()
 
     private val compositeDisposable = CompositeDisposable()
+
+    private val toastUtil : ToastUtil by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -136,7 +140,23 @@ class UploadEventFragment : Fragment() {
             }
 
             clickSearchAddress.observeOnce(viewLifecycleOwner){
-                navigator.startSearchAddressActivity(requireActivity())
+
+                TedRxPermission.with(requireContext())
+                    .setDeniedMessage("위치 권한이 거부되었습니다")
+                    .setPermissions(
+                        android.Manifest.permission.ACCESS_FINE_LOCATION,
+                        android.Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
+                    .request()
+                    .subscribe({ result ->
+                        debugE(TAG, result.isGranted)
+                        if (result.isGranted) {
+                            navigator.startSearchAddressActivity(requireActivity())
+                        }
+
+                    }, {
+                        toastUtil.createToast(it.message ?: "").show()
+                    })
             }
 
             notFilledInvoked.observeOnce(viewLifecycleOwner){

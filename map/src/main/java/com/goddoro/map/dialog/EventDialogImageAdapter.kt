@@ -65,6 +65,9 @@ class EventDialogImageAdapter: RecyclerView.Adapter<EventDialogImageAdapter.Even
 @BindingAdapter("app:recyclerview_event_dialog_images")
 fun RecyclerView.setEventDialogImages(items: List<SketchImage>?) {
     (adapter as? EventDialogImageAdapter)?.run {
-        this.submitItems(items)
+        if ( items?.size ?: 0 > 4) {
+            this.submitItems(items?.subList(0,4))
+        } else this.submitItems(items)
+
     }
 }
