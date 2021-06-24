@@ -60,7 +60,10 @@ class AuthActivity : AppCompatActivity() {
 
         val fm = supportFragmentManager
 
-        fm.beginTransaction().add(R.id.mContainer, mFragment1, "1").commit()
+        fm.beginTransaction().add(R.id.mContainer, mFragment1, "1").show(mFragment1).commit()
+        fm.beginTransaction().add(R.id.mContainer, mFragment2, "2").hide(mFragment2).commit()
+        fm.beginTransaction().add(R.id.mContainer, mFragment3, "3").hide(mFragment3).commit()
+        fm.beginTransaction().add(R.id.mContainer, mFragment4,"4").hide(mFragment4).commit()
     }
 
 
@@ -73,13 +76,14 @@ class AuthActivity : AppCompatActivity() {
             4 -> mFragment4
             else -> throw IllegalArgumentException()
         }
-        supportFragmentManager.beginTransaction()
-
-
 
         supportFragmentManager.beginTransaction()
-            .add(R.id.mContainer, willShow,null)
+            .replace(R.id.mContainer, willShow,null)
             .addToBackStack(null)
+            .hide(mFragment1)
+            .hide(mFragment2)
+            .hide(mFragment3)
+            .hide(mFragment4)
             .show(willShow)
             .commit()
         mActiveFragment = willShow
@@ -110,16 +114,23 @@ class AuthActivity : AppCompatActivity() {
 
             }
 
+            signUpCompleted.observeOnce(this@AuthActivity){
+                toastUtil.createToast("회원가입이 완료되었습니다").show()
+                changeFragment(1)
+            }
+
             errorInvoked.observeOnce(this@AuthActivity){
-                debugE(TAG, "GOOODDD")
+                debugE(TAG, it)
                 if ( it is UnWrappingDataException) {
+                    debugE(TAG, "zxcv")
                     val errorMessage = when (it.errorCode) {
+                        102 -> "이메일과 비밀번호를 모두 입력해주세요"
                         400 -> "존재하지 않는 유저입니다"
                         500 -> "이미 존재하는 이메일입니다"
                         else -> it.message ?: ""
                     }
 
-                    toastUtil.createToast(errorMessage)?.show()
+                    toastUtil.createToast(errorMessage).show()
                 }
             }
 

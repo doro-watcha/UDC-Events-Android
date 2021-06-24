@@ -27,7 +27,8 @@ interface AuthAPI {
     @FormUrlEncoded
     suspend fun signUp(
         @Field("email") email: String,
-        @Field("password") password: String
+        @Field("password") password: String,
+        @Field("name") username : String
     ): ApiResponse<Any>
 
     /**

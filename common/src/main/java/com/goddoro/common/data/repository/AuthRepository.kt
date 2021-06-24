@@ -28,7 +28,8 @@ interface AuthRepository {
 
     suspend fun signUp (
         email : String,
-        password : String
+        password : String,
+        username : String
     ) : Completable
 
     fun signOut() : Boolean

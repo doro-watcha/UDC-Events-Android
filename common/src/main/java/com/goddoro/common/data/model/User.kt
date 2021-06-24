@@ -26,6 +26,9 @@ data class User(
     @SerializedName("isUDC")
     val isUDC : Boolean? = null ,
 
+    @SerializedName("isAdmin")
+    val isAdmin : Boolean? = false,
+
     @SerializedName("location")
     val location : String? = null,
 

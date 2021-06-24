@@ -141,6 +141,42 @@
             app:layout_constraintTop_toBottomOf="@+id/layout_edit_password" />
 
 
+        <TextView
+            android:id="@+id/txt_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:text="@string/common_username"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@+id/txt_email"
+            app:layout_constraintTop_toBottomOf="@+id/txt_password_pattern_error"
+            android:textColor="@color/text_color_1" />
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/layout_edit_username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
+            android:layout_marginEnd="12dp"
+            android:layout_marginBottom="10dp"
+            app:boxBackgroundColor="@color/white"
+            app:endIconTint="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/txt_username">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edit_username"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:padding="6dp"
+                android:text="@={vm.signUpUsername}"
+                android:textColor="@color/text_color_1"
+                android:theme="@style/EditTextTheme" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btn_sign_up"
             android:layout_width="0dp"

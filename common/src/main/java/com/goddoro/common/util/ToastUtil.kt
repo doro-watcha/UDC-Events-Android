@@ -11,7 +11,7 @@ import com.goddoro.common.databinding.ViewCustomToastBinding
 
 class ToastUtil ( val context : Context) {
 
-    fun createToast( message: String): Toast? {
+    fun createToast( message: String): Toast {
         val inflater = LayoutInflater.from(context)
         val binding: ViewCustomToastBinding =
             DataBindingUtil.inflate(inflater, R.layout.view_custom_toast, null, false)

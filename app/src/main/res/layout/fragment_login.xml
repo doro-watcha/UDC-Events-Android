@@ -236,11 +236,14 @@
             android:onClick="@{() -> vm.onClickSignUpPage()}"
             android:text="@string/txt_sign_up_message"
             android:textColor="@color/text_color_1"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:textStyle="bold"
+            android:background="?attr/selectableItemBackground"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.497"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_find_email" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_find_email"
+            app:layout_constraintVertical_bias="0.498" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

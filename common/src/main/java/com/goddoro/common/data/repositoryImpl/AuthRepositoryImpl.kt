@@ -59,9 +59,9 @@ class AuthRepositoryImpl (
         return api.signIn(email,password).unWrapData()
     }
 
-    override suspend fun signUp(email: String, password: String): Completable {
+    override suspend fun signUp(email: String, password: String,username : String ): Completable {
 
-        return api.signUp(email,password).unWrapCompletable()
+        return api.signUp(email,password,username).unWrapCompletable()
     }
 
     @MainThread

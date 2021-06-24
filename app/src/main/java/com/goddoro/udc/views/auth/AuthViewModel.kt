@@ -61,6 +61,7 @@ class AuthViewModel (
      */
     val signUpEmail : MutableLiveData<String> = MutableLiveData()
     val signUpPassword : MutableLiveData<String> = MutableLiveData()
+    val signUpUsername : MutableLiveData<String> = MutableLiveData()
 
 
     val signUpEmailPatternOk = MediatorLiveData<Boolean>().apply {
@@ -100,9 +101,11 @@ class AuthViewModel (
 
         viewModelScope.launch {
             kotlin.runCatching {
-                authRepository.signUp(signUpEmail.value!!, signUpPassword.value!!)
+                signUpEmail.value = ""
+                signUpPassword.value = ""
+                signUpUsername.value = ""
+                authRepository.signUp(signUpEmail.value ?: "", signUpPassword.value ?: "", signUpUsername.value ?: "")
             }.onSuccess {
-                onClickLogin()
                 signUpCompleted.value = Once(Unit)
             }.onFailure {
                 errorInvoked.value = Once(it)
@@ -114,7 +117,7 @@ class AuthViewModel (
 
         viewModelScope.launch {
             kotlin.runCatching {
-                authRepository.signIn(email.value!!, password.value!!)
+                authRepository.signIn(email.value ?: "", password.value ?: "")
             }.onSuccess {
                 tokenUtil.saveToken(it.token)
                 authRepository.setCurrentUser(it.user)
