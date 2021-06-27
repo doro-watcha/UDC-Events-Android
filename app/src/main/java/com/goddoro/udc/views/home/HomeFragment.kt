@@ -30,6 +30,7 @@ import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxRepeatTimer
 import com.goddoro.common.util.Navigator
+import com.goddoro.udc.util.setCurrentItem
 import com.goddoro.udc.util.startActivity
 import com.goddoro.udc.views.admin.AdminActivity
 import com.goddoro.udc.views.event.detail.EventDetailActivity
@@ -278,7 +279,7 @@ class HomeFragment : Fragment() {
 
                 //sleep(5000)
 
-                setCurrentItem(currentItem + 1 , true)
+                setCurrentItem(currentItem + 1 , 1000)
             }
 
         },5000).disposedBy(autoScrollDisposable)
