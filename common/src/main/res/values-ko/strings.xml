@@ -101,4 +101,7 @@
 
     <string name="txt_version_information">버전 정보</string>
 
+    <string name="txt_planner_pressed">공연 플래너</string>
+    <string name="txt_planner_not_pressed">공연 플래너 담기</string>
+
 </resources>

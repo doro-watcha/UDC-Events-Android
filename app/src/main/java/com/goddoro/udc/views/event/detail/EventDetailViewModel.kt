@@ -1,5 +1,6 @@
 package com.goddoro.udc.views.event.detail
 
+import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -29,6 +30,12 @@ class EventDetailViewModel (
     val clickBackArrow : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPoster : MutableLiveData<Once<Unit>> = MutableLiveData()
 
+    val onPlannerPressed = MediatorLiveData<Boolean>().apply {
+
+        addSource(curEvent) {
+            this.value = it.isLike ?: false
+        }
+    }
     init {
 
         debugE(TAG, curEvent.value)
@@ -43,6 +50,10 @@ class EventDetailViewModel (
 
     fun onClickPoster () {
         clickPoster.value = Once(Unit)
+    }
+
+    fun onClickPlanner() {
+        onPlannerPressed.value = !(onPlannerPressed.value ?: false )
     }
 }
 

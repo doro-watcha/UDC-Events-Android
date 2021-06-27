@@ -53,7 +53,10 @@ data class Event (
     val longitude : Double? = 0.0,
 
     @SerializedName("latitude")
-    val latitude : Double? = 0.0
+    val latitude : Double? = 0.0,
+
+    @SerializedName("isLike")
+    val isLike : Boolean? = false
 ) : Parcelable, KoinComponent{
 
     fun getFormedDate() : String {

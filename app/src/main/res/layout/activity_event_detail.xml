@@ -145,6 +145,25 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <TextView
+                android:id="@+id/btn_planner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                tools:text="공연 플래너 담기"
+                android:text="@{vm.onPlannerPressed ? @string/txt_planner_pressed : @string/txt_planner_not_pressed}"
+                android:textColor="@color/gray"
+                android:onClick="@{() -> vm.onClickPlanner()}"
+                app:drawableTint="@{vm.onPlannerPressed ? @color/naverGreen : @color/gray}"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:padding="10dp"
+                app:drawableStartCompat="@drawable/ic_check"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="12dp"
+                android:background="@drawable/border_white_background"
+                app:layout_constraintTop_toBottomOf="@+id/layout_header"/>
+
+            <TextView
                 android:id="@+id/txt_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,7 +174,7 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/layout_header" />
+                app:layout_constraintTop_toBottomOf="@+id/btn_planner" />
 
             <TextView
                 android:id="@+id/date"

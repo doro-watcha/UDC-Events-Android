@@ -99,4 +99,7 @@
 
     <string name="txt_change_profile">Profile Change</string>
     <string name="txt_version_information">Version Information</string>
+
+    <string name="txt_planner_pressed">Event Planner</string>
+    <string name="txt_planner_not_pressed">Put Event Planner</string>
 </resources>
