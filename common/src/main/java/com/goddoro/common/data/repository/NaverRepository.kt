@@ -2,6 +2,8 @@ package com.goddoro.common.data.repository
 
 import com.goddoro.common.data.api.AddressResponse
 import com.goddoro.common.data.api.LocationResponse
+import com.goddoro.common.data.api.NaverUser
+import com.goddoro.common.data.api.NaverUserResponse
 
 
 /**
@@ -20,4 +22,8 @@ interface NaverRepository {
     suspend fun getLocationFromAddress(
         address : String
     ) : LocationResponse
+
+    suspend fun getNaverUserData(
+        accessToken : String
+    ) : NaverUser
 }

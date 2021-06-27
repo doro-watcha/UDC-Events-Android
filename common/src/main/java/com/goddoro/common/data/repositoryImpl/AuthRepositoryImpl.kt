@@ -1,18 +1,23 @@
 package com.goddoro.common.data.repositoryImpl
 
+import android.net.Uri
 import android.os.Looper
 import androidx.annotation.MainThread
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.goddoro.common.common.debugE
+import com.goddoro.common.common.filterValueNotNull
 import com.goddoro.common.data.api.AuthAPI
 import com.goddoro.common.data.api.AuthSignInResponse
+import com.goddoro.common.data.api.AuthSignUpResponse
 import com.goddoro.common.data.model.User
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.util.AppPreference
+import com.goddoro.common.util.MultiPartUtil
 import com.goddoro.common.util.TokenUtil
 import com.google.gson.Gson
 import io.reactivex.Completable
+import okhttp3.MultipartBody
 
 
 /**
@@ -23,6 +28,7 @@ class AuthRepositoryImpl (
     private val api : AuthAPI,
     private val gson : Gson,
     private val appPreference: AppPreference,
+    private val multiPartUtil: MultiPartUtil,
     private val tokenUtil: TokenUtil
 ) : AuthRepository {
 
@@ -55,13 +61,30 @@ class AuthRepositoryImpl (
         return curUser.value != null
     }
 
-    override suspend fun signIn(email: String, password: String): AuthSignInResponse {
-        return api.signIn(email,password).unWrapData()
+    override suspend fun signIn(loginId: String, password: String): AuthSignInResponse {
+        return api.signIn(loginId,password).unWrapData()
     }
 
-    override suspend fun signUp(email: String, password: String,username : String ): Completable {
+    override suspend fun signUp(loginId: String, password: String,username : String ): Completable {
 
-        return api.signUp(email,password,username).unWrapCompletable()
+        return api.signUp(loginId,password,username).unWrapCompletable()
+    }
+
+    override suspend fun snsSignUp(
+        loginId: String,
+        username: String,
+        loginType: String,
+        profileImgUrl : String
+    ): AuthSignUpResponse {
+
+        val params = hashMapOf(
+            "loginId" to loginId,
+            "username" to username,
+            "loginType" to loginType,
+            "profileImgUrl" to profileImgUrl
+        ).filterValueNotNull()
+
+        return api.snsSignUp(params).unWrapData()
     }
 
     @MainThread

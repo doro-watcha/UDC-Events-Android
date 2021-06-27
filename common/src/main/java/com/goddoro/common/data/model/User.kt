@@ -17,8 +17,11 @@ data class User(
     @SerializedName("email")
     val email: String?,
 
-    @SerializedName("name")
+    @SerializedName("username")
     val username: String? = null,
+
+    @SerializedName("nickname")
+    val nickname : String? = null,
 
     @SerializedName("loginType")
     val loginType: String,

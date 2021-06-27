@@ -48,7 +48,7 @@
             android:layout_marginTop="20dp"
             android:layout_marginBottom="5dp"
             android:text="@string/common_email"
-            android:textColor="@{vm.signUpEmailPatternOk == true || vm.signUpEmail.length() == 0 ? @color/text_color_1 : @color/colorRed}"
+            android:textColor="@{vm.signUpEmailPatternOk == true || vm.signUpLoginId.length() == 0 ? @color/text_color_1 : @color/colorRed}"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@+id/btn_back_arrow"
             app:layout_constraintTop_toBottomOf="@+id/btn_back_arrow"
@@ -72,7 +72,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:padding="6dp"
-                android:text="@={vm.signUpEmail}"
+                android:text="@={vm.signUpLoginId}"
                 android:textColor="@color/text_color_1"
                 android:theme="@style/EditTextTheme" />
 
@@ -87,7 +87,7 @@
             android:text="@string/txt_email_pattern_error"
             android:textColor="@color/colorRed"
             android:textSize="10dp"
-            android:visibility_invisible="@{vm.signUpEmailPatternOk == false &amp;&amp; vm.signUpEmail.length() > 0}"
+            android:visibility_invisible="@{vm.signUpEmailPatternOk == false &amp;&amp; vm.signUpLoginId.length() > 0}"
             app:layout_constraintTop_toBottomOf="@+id/layout_edit_email" />
 
         <TextView

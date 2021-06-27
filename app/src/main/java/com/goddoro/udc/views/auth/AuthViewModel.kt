@@ -6,6 +6,7 @@ import com.goddoro.common.common.StrPatternChecker
 import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.User
 import com.goddoro.common.data.repository.AuthRepository
+import com.goddoro.common.data.repository.NaverRepository
 import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.TokenUtil
 import kotlinx.coroutines.launch
@@ -18,6 +19,7 @@ import javax.inject.Inject
 
 class AuthViewModel (
     private val authRepository : AuthRepository,
+    private val naverRepository: NaverRepository,
     private val tokenUtil: TokenUtil
 ) : ViewModel() {
 
@@ -27,12 +29,12 @@ class AuthViewModel (
      *  Login
      */
 
-    val email : MutableLiveData<String> = MutableLiveData()
+    val loginId : MutableLiveData<String> = MutableLiveData()
     val password : MutableLiveData<String> = MutableLiveData()
 
-    val emailPatternOk = MediatorLiveData<Boolean>().apply {
-        addSource(email){
-            this.value = StrPatternChecker.EmailTypeOk(it)
+    val loginIdPatternOk = MediatorLiveData<Boolean>().apply {
+        addSource(loginId){
+            this.value = StrPatternChecker.LoginIdTypeOk(it)
         }
     }
 
@@ -45,12 +47,12 @@ class AuthViewModel (
 
     val isClickableLoginButton = MediatorLiveData<Boolean>().apply {
 
-        addSource(emailPatternOk) {
-            this.value = emailPatternOk.value == true && passwordPatternOk.value == true
+        addSource(loginIdPatternOk) {
+            this.value = loginIdPatternOk.value == true && passwordPatternOk.value == true
         }
 
         addSource(passwordPatternOk){
-            this.value = emailPatternOk.value == true && passwordPatternOk.value == true
+            this.value = loginIdPatternOk.value == true && passwordPatternOk.value == true
         }
     }
     val clickNaverLogin : MutableLiveData<Once<Unit>> = MutableLiveData()
@@ -59,13 +61,13 @@ class AuthViewModel (
     /**
      * Sign Up
      */
-    val signUpEmail : MutableLiveData<String> = MutableLiveData()
+    val signUpLoginId : MutableLiveData<String> = MutableLiveData()
     val signUpPassword : MutableLiveData<String> = MutableLiveData()
     val signUpUsername : MutableLiveData<String> = MutableLiveData()
 
 
     val signUpEmailPatternOk = MediatorLiveData<Boolean>().apply {
-        addSource(signUpEmail){
+        addSource(signUpLoginId){
             this.value = StrPatternChecker.EmailTypeOk(it)
         }
     }
@@ -101,10 +103,11 @@ class AuthViewModel (
 
         viewModelScope.launch {
             kotlin.runCatching {
-                signUpEmail.value = ""
+
+                authRepository.signUp(signUpLoginId.value ?: "", signUpPassword.value ?: "", signUpUsername.value ?: "")
+                signUpLoginId.value = ""
                 signUpPassword.value = ""
                 signUpUsername.value = ""
-                authRepository.signUp(signUpEmail.value ?: "", signUpPassword.value ?: "", signUpUsername.value ?: "")
             }.onSuccess {
                 signUpCompleted.value = Once(Unit)
             }.onFailure {
@@ -117,7 +120,7 @@ class AuthViewModel (
 
         viewModelScope.launch {
             kotlin.runCatching {
-                authRepository.signIn(email.value ?: "", password.value ?: "")
+                authRepository.signIn(loginId.value ?: "", password.value ?: "")
             }.onSuccess {
                 tokenUtil.saveToken(it.token)
                 authRepository.setCurrentUser(it.user)
@@ -144,5 +147,29 @@ class AuthViewModel (
 
     fun onClickSignUpPage () {
         clickSignUpPage.value = Once(Unit)
+    }
+
+    fun fetchUserData( accessToken : String) {
+
+        debugE(TAG, accessToken)
+
+        viewModelScope.launch {
+
+            kotlin.runCatching {
+                val user = naverRepository.getNaverUserData(accessToken)
+                authRepository.snsSignUp(
+                    loginId = user.email ?: "",
+                    loginType = "Naver",
+                    username = user.name ?: "",
+                    profileImgUrl = user.profileImgUrl ?: ""
+                )
+            }.onSuccess {
+                signUpCompleted.value = Once(Unit)
+            }.onFailure {
+
+            }
+        }
+
+
     }
 }

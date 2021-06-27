@@ -33,7 +33,7 @@ import org.koin.dsl.module
 
 val viewModelModule  = module {
 
-    viewModel { AuthViewModel(get(),get()) }
+    viewModel { AuthViewModel(get(),get(),get()) }
     viewModel { MainViewModel(get()) }
     viewModel { (event : Event) -> EventDetailViewModel(event,get()) }
 

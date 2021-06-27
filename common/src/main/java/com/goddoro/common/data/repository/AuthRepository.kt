@@ -1,7 +1,9 @@
 package com.goddoro.common.data.repository
 
+import android.net.Uri
 import androidx.lifecycle.LiveData
 import com.goddoro.common.data.api.AuthSignInResponse
+import com.goddoro.common.data.api.AuthSignUpResponse
 import com.goddoro.common.data.model.User
 import io.reactivex.Completable
 
@@ -22,15 +24,22 @@ interface AuthRepository {
     fun isSignedIn() : Boolean
 
     suspend fun signIn (
-        email : String,
+        loginId : String,
         password : String
     ) : AuthSignInResponse
 
     suspend fun signUp (
-        email : String,
+        loginId : String,
         password : String,
         username : String
     ) : Completable
+
+    suspend fun snsSignUp(
+        loginId : String,
+        username : String,
+        loginType : String,
+        profileImgUrl : String
+    ) : AuthSignUpResponse
 
     fun signOut() : Boolean
 }

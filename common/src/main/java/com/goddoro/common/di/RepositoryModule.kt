@@ -13,13 +13,13 @@ import org.koin.dsl.module
 val repositoryModule = module {
 
 
-    single { AuthRepositoryImpl(get(), get(), get(),get()) } bind AuthRepository::class
+    single { AuthRepositoryImpl(get(), get(), get(),get(),get()) } bind AuthRepository::class
     single { UserRepositoryImpl(get(),get()) } bind UserRepository::class
     single { EventRepositoryImpl(get(),get()) } bind EventRepository::class
     single { SearchRepositoryImpl(get()) } bind SearchRepository::class
     single { ClassRepositoryImpl(get()) } bind ClassRepository::class
     single { DeviceRepositoryImpl(get())} bind DeviceRepository::class
     single { NotificationRepositoryImpl(get())} bind NotificationRepository::class
-    single { NaverRepositoryImpl(get())} bind NaverRepository::class
+    single { NaverRepositoryImpl(get(),get())} bind NaverRepository::class
 
 }

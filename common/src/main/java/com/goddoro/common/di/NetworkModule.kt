@@ -31,7 +31,8 @@ enum class ServerType(val apiUrl: String, val homepageUrl: String, val value: In
 
     DEVELOPMENT("http://ec2-3-35-4-201.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 0),
     PRODUCTION("http://ec2-13-209-64-88.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 1),
-    NAVER("https://naveropenapi.apigw.ntruss.com/","https://naver.com",2)
+    NAVER("https://naveropenapi.apigw.ntruss.com/","https://naver.com",2),
+    NAVEROPENAPI("https://openapi.naver.com","https://naver.com",3)
 
 
     ;
@@ -129,6 +130,42 @@ val networkModule = module {
             .client(get(named("NAVER_OKHTTP")))
             .build()
     }
+
+
+    single( named("NAVER_OPEN_INTERCEPTOR") ){
+        Interceptor { chain ->
+
+            chain.proceed(chain.request().newBuilder().apply {
+            }.build())
+        }
+
+    }
+
+
+    single ( named("NAVER_OPEN_OKHTTP") ){
+        OkHttpClient.Builder().apply {
+            connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+            readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
+            retryOnConnectionFailure(true)
+            addInterceptor(get<Interceptor>(named("NAVER_OPEN_INTERCEPTOR")))
+            addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
+        }.build()
+
+    }
+
+
+
+    single(named("NAVER_OPEN")) {
+        Retrofit.Builder()
+            .baseUrl(ServerType.NAVEROPENAPI.apiUrl)
+            .addConverterFactory(GsonConverterFactory.create(get()))
+            .client(get(named("NAVER_OPEN_OKHTTP")))
+            .build()
+    }
+
 
 
 

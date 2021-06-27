@@ -7,10 +7,8 @@ import com.goddoro.common.data.model.User
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import retrofit2.http.Field
-import retrofit2.http.FormUrlEncoded
-import retrofit2.http.GET
-import retrofit2.http.POST
+import okhttp3.MultipartBody
+import retrofit2.http.*
 
 
 /**
@@ -26,10 +24,10 @@ interface AuthAPI {
     @POST("auth/signup")
     @FormUrlEncoded
     suspend fun signUp(
-        @Field("email") email: String,
+        @Field("loginId") loginId: String,
         @Field("password") password: String,
-        @Field("name") username : String
-    ): ApiResponse<Any>
+        @Field("username") username : String
+    ): ApiResponse<AuthSignUpResponse>
 
     /**
      * Email Login
@@ -37,9 +35,15 @@ interface AuthAPI {
     @POST("auth/signin")
     @FormUrlEncoded
     suspend fun signIn(
-        @Field("email") email : String,
+        @Field("loginId") loginId : String,
         @Field("password") password : String
     ) : ApiResponse<AuthSignInResponse>
+
+    @POST("auth/social-signin")
+    @Multipart
+    suspend fun snsSignUp(
+        @FieldMap parameters : HashMap<String,Any>
+    ) : ApiResponse<AuthSignUpResponse>
 
 //    /**
 //     * Token validate
@@ -80,4 +84,13 @@ data class AuthSignInResponse(
 
     @SerializedName("token")
     val token: String
+) : Parcelable
+
+@Parcelize
+data class AuthSignUpResponse(
+    @SerializedName("user")
+    val user : User,
+
+    @SerializedName("token")
+    val token : String
 ) : Parcelable

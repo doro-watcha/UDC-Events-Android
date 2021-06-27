@@ -53,10 +53,7 @@ class LoginFragment : Fragment() {
     object : OAuthLoginHandler() {
         override fun run(success: Boolean) {
             if (success) {
-                val accessToken = mOAuthLoginModule.getAccessToken(context)
-                val refreshToken = mOAuthLoginModule.getRefreshToken(context)
-                val expiresAt = mOAuthLoginModule.getExpiresAt(context)
-                val tokenType = mOAuthLoginModule.getTokenType(context)
+                mViewModel.fetchUserData(mOAuthLoginModule.getAccessToken(context))
             } else {
                 val errorCode = mOAuthLoginModule.getLastErrorCode(context).code
                 val errorDesc = mOAuthLoginModule.getLastErrorDesc(context)
