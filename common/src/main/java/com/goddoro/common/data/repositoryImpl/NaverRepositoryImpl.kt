@@ -33,8 +33,8 @@ class NaverRepositoryImpl ( val naverApi : NaverAPI, val naverOpenAPI: NaverOpen
         return naverApi.getLocation(parameters)
     }
 
-    override suspend fun getNaverUserData(accessToken: String): NaverUserResponse {
-        return naverOpenAPI.getUserData(accessToken).response
+    override suspend fun getNaverUserData(accessToken: String): NaverUser {
+        return naverOpenAPI.getUserData("Bearer $accessToken").response
     }
 
 

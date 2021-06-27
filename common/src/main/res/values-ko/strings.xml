@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="common_email">이메일 주소</string>
+    <string name="common_id">아이디</string>
     <string name="common_password">비밀번호</string>
     <string name="common_username">유저명</string>
     <string name="txt_login">로그인</string>
@@ -11,7 +12,7 @@
     <string name="txt_email_pattern_error">올바른 이메일 주소를 입력하세요</string>
     <string name="txt_login_id_pattern_error">아이디는 8자 이상 24자 영문이고, .(점)과 _(언더바)를 제외한 특수문자는 들어갈 수 없습니다.</string>
     <string name="txt_password_pattern_error">영문,숫자,특수문자를 조합해서 8자리 이상 입력해주세요</string>
-    <string name="txt_useername_pattern_error">유저명은 8자 이상 24자이고, .(점)과 _(언더바)를 제외한 특수문자는 들어갈 수 없습니다.</string>
+    <string name="txt_username_pattern_error">유저명은 8자 이상 24자이고, .(점)과 _(언더바)를 제외한 특수문자는 들어갈 수 없습니다.</string>
     <string name="common_sign_up">회원가입</string>
     <string name="common_user_grade">회원 등급</string>
     <string name="common_point">포인트</string>

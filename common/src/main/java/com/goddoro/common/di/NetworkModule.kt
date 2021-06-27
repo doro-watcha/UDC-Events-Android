@@ -4,6 +4,8 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.goddoro.common.common.NAVER_CLIENT_ID
 import com.goddoro.common.common.NAVER_CLIENT_SECRET
+import com.goddoro.common.common.NAVER_MAP_CLIENT_ID
+import com.goddoro.common.common.NAVER_MAP_SECRET_ID
 import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.TokenUtil
 import com.google.gson.GsonBuilder
@@ -99,8 +101,8 @@ val networkModule = module {
                 "========== [ Network Module : Header Intercepter ] ==========="
             )
             chain.proceed(chain.request().newBuilder().apply {
-                header("X-NCP-APIGW-API-KEY", NAVER_CLIENT_SECRET)
-                addHeader("X-NCP-APIGW-API-KEY-ID", NAVER_CLIENT_ID)
+                header("X-NCP-APIGW-API-KEY", NAVER_MAP_SECRET_ID)
+                addHeader("X-NCP-APIGW-API-KEY-ID", NAVER_MAP_CLIENT_ID)
             }.build())
         }
 

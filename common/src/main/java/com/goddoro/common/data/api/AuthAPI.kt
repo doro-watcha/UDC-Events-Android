@@ -40,7 +40,7 @@ interface AuthAPI {
     ) : ApiResponse<AuthSignInResponse>
 
     @POST("auth/social-signin")
-    @Multipart
+    @FormUrlEncoded
     suspend fun snsSignUp(
         @FieldMap parameters : HashMap<String,Any>
     ) : ApiResponse<AuthSignUpResponse>

@@ -155,11 +155,13 @@ class AuthViewModel (
 
         viewModelScope.launch {
 
+            val user = naverRepository.getNaverUserData(accessToken)
+
             kotlin.runCatching {
-                val user = naverRepository.getNaverUserData(accessToken)
+
                 authRepository.snsSignUp(
                     loginId = user.email ?: "",
-                    loginType = "Naver",
+                    loginType = "naver",
                     username = user.name ?: "",
                     profileImgUrl = user.profileImgUrl ?: ""
                 )

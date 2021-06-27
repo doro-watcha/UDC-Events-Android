@@ -46,7 +46,7 @@ class SignUpFragment : Fragment() {
 
         mBinding.apply {
 
-            txtEmail.text = resources.getString(R.string.common_email) + " *"
+            txtId.text = resources.getString(R.string.common_email) + " *"
             txtPassword.text = resources.getString(R.string.common_password) + " *"
         }
     }

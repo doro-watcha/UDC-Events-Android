@@ -51,8 +51,6 @@ class HomeViewModel (
 
     // region DATA
 
-    val currentPage : MutableLiveData<Int> = MutableLiveData()
-
 
     init {
 

@@ -2,6 +2,7 @@
 <resources>
 
     <string name="common_email">E-Mail Address</string>
+    <string name="common_id">ID</string>
     <string name="common_password">Password</string>
     <string name="common_username">Username</string>
     <string name="txt_login">Login</string>
@@ -12,7 +13,7 @@
     <string name="txt_email_pattern_error">You should enter right email address</string>
     <string name="txt_login_id_pattern_error">Your ID should be 8 to 24 length, including . /</string>
     <string name="txt_password_pattern_error">Only 8 to 20 digits that combine English letters, numbers, and special characters</string>
-    <string name="txt_useername_pattern_error">Your username should be 8 to 24 length, including . /</string>
+    <string name="txt_username_pattern_error">Your username should be 8 to 24 length, including . /</string>
     <string name="common_sign_up">SignUp</string>
     <string name="common_user_grade">User Grade</string>
     <string name="common_point">Point</string>

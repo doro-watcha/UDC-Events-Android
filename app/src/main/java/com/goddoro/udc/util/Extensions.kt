@@ -4,6 +4,7 @@ import android.animation.Animator
 import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.content.Intent
+import android.content.res.Resources
 import android.view.animation.AccelerateDecelerateInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -44,10 +45,9 @@ fun ViewPager2.setCurrentItem(
 ) {
     val pxToDrag: Int = if (orientation == ViewPager2.ORIENTATION_HORIZONTAL)
     {
-        pagePxWidth * (item - currentItem)
+        pagePxWidth * (item - currentItem )
     }
     else
-
     {
         pagePxHeight * (item - currentItem)
     }
@@ -71,3 +71,6 @@ fun ViewPager2.setCurrentItem(
     animator.duration = duration
     animator.start()
 }
+
+val Int.dp: Int
+    get() = (this * Resources.getSystem().displayMetrics.density + 0.5f).toInt()

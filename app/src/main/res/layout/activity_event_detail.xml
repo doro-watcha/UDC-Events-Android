@@ -153,7 +153,6 @@
                 android:text="@{vm.onPlannerPressed ? @string/txt_planner_pressed : @string/txt_planner_not_pressed}"
                 android:textColor="@color/gray"
                 android:onClick="@{() -> vm.onClickPlanner()}"
-                app:drawableTint="@{vm.onPlannerPressed ? @color/naverGreen : @color/gray}"
                 android:drawablePadding="10dp"
                 android:gravity="center"
                 android:padding="10dp"

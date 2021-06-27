@@ -11,16 +11,16 @@ import retrofit2.http.QueryMap
 
 interface NaverOpenAPI {
 
-    @GET("/vi/nid/me")
+    @GET("/v1/nid/me")
     suspend fun getUserData(
         @Header("Authorization") authorization : String
-    ) : NaverUser
+    ) : NaverUserResponse
 }
 
 @Parcelize
 data class NaverUserResponse(
     @SerializedName("resultcode")
-    val resultCode : Status,
+    val resultCode : String,
 
     @SerializedName("message")
     val message : String,

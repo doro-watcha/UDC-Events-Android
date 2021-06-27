@@ -1,42 +1,30 @@
 package com.goddoro.udc.views.home
 
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
-import androidx.lifecycle.HasDefaultViewModelProviderFactory
-import androidx.lifecycle.ViewModelProvider
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
 import com.goddoro.common.common.debugE
-import com.goddoro.common.common.widget.GridSpacingItemDecoration
-import com.goddoro.udc.R
-import com.goddoro.udc.databinding.FragmentHomeBinding
-import com.goddoro.udc.views.auth.AuthActivity
-import com.goddoro.udc.views.upload.UploadEventActivity
-import dagger.android.support.DaggerFragment
-import io.reactivex.disposables.CompositeDisposable
-import javax.inject.Inject
-import androidx.fragment.app.Fragment
-import com.goddoro.common.Broadcast
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxRepeatTimer
 import com.goddoro.common.util.Navigator
+import com.goddoro.udc.R
+import com.goddoro.udc.databinding.FragmentHomeBinding
 import com.goddoro.udc.util.setCurrentItem
 import com.goddoro.udc.util.startActivity
 import com.goddoro.udc.views.admin.AdminActivity
-import com.goddoro.udc.views.event.detail.EventDetailActivity
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import java.lang.Thread.sleep
 
 /**
  * created By DORO 2020/08/16
@@ -111,6 +99,17 @@ class HomeFragment : Fragment() {
             isUserInputEnabled = false
             offscreenPageLimit = 10
 
+            this.registerOnPageChangeCallback( object : ViewPager2.OnPageChangeCallback() {
+
+                override fun onPageSelected(position: Int) {
+                    super.onPageSelected(position)
+
+                    mBinding.mViewPager2.setCurrentItem(currentItem + 1, 800)
+                    mBinding.indicator.selection = position % ( mViewModel.mainEvents.value?.size ?: 0)
+                }
+
+            })
+
         }
     }
 
@@ -152,7 +151,7 @@ class HomeFragment : Fragment() {
                     page.translationY = offset
                 }
             }
-            this.setPadding(offsetPx, offsetPx, offsetPx, offsetPx)
+            this.setPadding(0, offsetPx, 0, offsetPx)
 
 
             this.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
@@ -167,10 +166,7 @@ class HomeFragment : Fragment() {
                 override fun onPageSelected(position: Int) {
                     super.onPageSelected(position)
 
-                    mViewModel.currentPage.value = position
-                    mViewModel.curPoster.value = mViewModel.mainEvents.value!![position % ( mViewModel.mainEvents.value?.size ?: 0)]
-                    mBinding.mViewPagerBlurred.setCurrentItem(mBinding.mViewPager2.currentItem % ( mViewModel.mainEvents.value?.size ?: 0), false)
-                    mBinding.indicator.selection = position % ( mViewModel.mainEvents.value?.size ?: 0)
+
                 }
 
                 override fun onPageScrollStateChanged(state: Int) {
@@ -274,15 +270,18 @@ class HomeFragment : Fragment() {
 
 
         autoScrollDisposable.clear()
-        rxRepeatTimer(5000,{
-            mBinding.mViewPager2.apply {
+        rxRepeatTimer(2000, {
 
-                //sleep(5000)
+            //sleep(5000)
 
-                setCurrentItem(currentItem + 1 , 1000)
-            }
+            mBinding.mViewPagerBlurred.setCurrentItem(
+                mBinding.mViewPager2.currentItem % (mViewModel.mainEvents.value?.size ?: 0) + 1, false
+            )
 
-        },5000).disposedBy(autoScrollDisposable)
+
+
+
+        }, 2000).disposedBy(autoScrollDisposable)
 
 
     }

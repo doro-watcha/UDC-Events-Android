@@ -3,6 +3,7 @@ package com.goddoro.udc.application
 import android.app.Application
 import android.content.Context
 import com.goddoro.common.common.NAVER_CLIENT_ID
+import com.goddoro.common.common.NAVER_MAP_CLIENT_ID
 import com.goddoro.common.di.apiModule
 import com.goddoro.common.di.networkModule
 import com.goddoro.common.di.repositoryModule
@@ -37,7 +38,7 @@ class MainApplication : Application() {
         super.onCreate()
 
         NaverMapSdk.getInstance(this).client =
-            NaverMapSdk.NaverCloudPlatformClient(NAVER_CLIENT_ID)
+            NaverMapSdk.NaverCloudPlatformClient(NAVER_MAP_CLIENT_ID)
 
         inject()
 
