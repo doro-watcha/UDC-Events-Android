@@ -22,7 +22,6 @@ class PageIndicator (context : Context, attributeSet : AttributeSet?= null) : Vi
 
 
     init {
-
     }
 
     override fun onDraw(canvas: Canvas?) {

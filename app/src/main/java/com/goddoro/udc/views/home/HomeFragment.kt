@@ -278,6 +278,7 @@ class HomeFragment : Fragment() {
                     debugE(TAG, it.map { it.id })
 
                     setupViewPager()
+                    mBinding.pageIndicator.refresh(mBinding.mViewPagerBlurred.currentItem)
                 }
             }
 
