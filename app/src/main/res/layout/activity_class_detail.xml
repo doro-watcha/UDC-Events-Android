@@ -193,6 +193,55 @@
                 app:layout_constraintTop_toTopOf="@+id/btn_instagram" />
 
             <TextView
+                android:id="@+id/txt_class_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="날짜"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/img_profile"/>
+
+            <TextView
+                android:id="@+id/class_date"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@+id/txt_class_date"
+                app:layout_constraintTop_toBottomOf="@+id/txt_class_date"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="매주 월/수 오후 8시 30분" />
+
+            <TextView
+                android:id="@+id/txt_class_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="위치"
+                android:textSize="20dp"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginStart="12dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/class_date"/>
+
+            <TextView
+                android:id="@+id/class_location"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@+id/txt_class_location"
+                app:layout_constraintTop_toBottomOf="@+id/txt_class_location"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:text="경기 안성시 중앙로419번길 18 3층 루츠댄스 학원" />
+
+
+            <TextView
                 android:id="@+id/txt_class_description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -203,7 +252,7 @@
                 android:textStyle="bold"
                 android:layout_marginStart="12dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile"/>
+                app:layout_constraintTop_toBottomOf="@+id/class_location"/>
 
             <TextView
                 android:id="@+id/class_description"

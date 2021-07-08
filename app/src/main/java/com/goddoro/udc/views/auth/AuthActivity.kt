@@ -125,6 +125,7 @@ class AuthActivity : AppCompatActivity() {
                     debugE(TAG, "zxcv")
                     val errorMessage = when (it.errorCode) {
                         102 -> "이메일과 비밀번호를 모두 입력해주세요"
+                        200 -> "비밀번호가 일치하지 않습니다"
                         400 -> "존재하지 않는 유저입니다"
                         500 -> "이미 존재하는 이메일입니다"
                         else -> it.message ?: ""

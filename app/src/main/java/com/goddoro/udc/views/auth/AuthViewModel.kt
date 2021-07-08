@@ -65,10 +65,10 @@ class AuthViewModel (
     val signUpPassword : MutableLiveData<String> = MutableLiveData()
     val signUpUsername : MutableLiveData<String> = MutableLiveData()
 
+    val signUpLoginIdPatternOk = MediatorLiveData<Boolean>().apply {
 
-    val signUpEmailPatternOk = MediatorLiveData<Boolean>().apply {
         addSource(signUpLoginId){
-            this.value = StrPatternChecker.EmailTypeOk(it)
+            this.value = StrPatternChecker.LoginIdTypeOk(it)
         }
     }
 
