@@ -23,7 +23,6 @@ class PageIndicator (context : Context, attributeSet : AttributeSet?= null) : Vi
 
     init {
 
-
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -34,8 +33,8 @@ class PageIndicator (context : Context, attributeSet : AttributeSet?= null) : Vi
 
     }
 
-    fun setEventCount( _eventCount : Int) {
-        this.eventCount = _eventCount
+    fun setEventCount( _eventCount : Int? = 0) {
+        this.eventCount = _eventCount ?: 0
     }
 
     fun refresh( _position : Int ) {
@@ -45,6 +44,6 @@ class PageIndicator (context : Context, attributeSet : AttributeSet?= null) : Vi
 }
 
 @BindingAdapter("app:page_count")
-fun PageIndicator.setPageCount( count : Int) {
+fun PageIndicator.setPageCount( count : Int?= 0) {
     setEventCount(count)
 }

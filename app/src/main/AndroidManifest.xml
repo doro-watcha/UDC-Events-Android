@@ -38,12 +38,24 @@
             android:name=".views.classShop.detail.ClassDetailActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".views.notification.NotificationListActivity" />
-        <activity android:name=".views.tag.TagDetailActivity" />
-        <activity android:name=".views.setting.SettingActivity" />
-        <activity android:name=".views.event.detail.EventDetailActivity" />
-        <activity android:name=".views.auth.AuthActivity" />
-        <activity android:name=".MainActivity">
+        <activity android:name=".views.notification.NotificationListActivity"
+            android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".views.tag.TagDetailActivity"
+            android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".views.setting.SettingActivity"
+            android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".views.event.detail.EventDetailActivity"
+            android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".views.auth.AuthActivity"
+            android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" />
+        <activity android:name=".MainActivity"
+            android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" >
 
         </activity>
 

@@ -81,7 +81,7 @@
                 android:fadingEdge="none"
                 android:overScrollMode="never"
                 app:layout_constraintBottom_toBottomOf="@id/mViewPager_blurred"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/txt_title"
                 app:recyclerview_main_posters="@{vm.mainEvents}" />
 
             <com.goddoro.common.widget.PageIndicator
@@ -105,7 +105,7 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/indicator" />
+                app:layout_constraintTop_toBottomOf="@+id/page_indicator" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/list_new_event"

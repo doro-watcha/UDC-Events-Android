@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
         <variable
@@ -18,6 +18,17 @@
             android:scaleType="centerCrop"
             blurred="@{item.posterUrl}"
             android:layout_height="match_parent"/>
+
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@color/semiTransparentBlack"
+            app:layout_constraintStart_toStartOf="@+id/img_blurred_poster"
+            app:layout_constraintEnd_toEndOf="@+id/img_blurred_poster"
+            app:layout_constraintTop_toTopOf="@+id/img_blurred_poster"
+            app:layout_constraintBottom_toBottomOf="@+id/img_blurred_poster"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

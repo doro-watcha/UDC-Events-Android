@@ -7,8 +7,8 @@
     <dimen name="cardCornerRadius">8dp</dimen>
     <dimen name="cardElevation">2dp</dimen>
 
-    <dimen name="pageMargin">20dp</dimen>
-    <dimen name="offset">30dp</dimen>
+    <dimen name="pageMargin">30dp</dimen>
+    <dimen name="offset">50dp</dimen>
 
     <dimen name="paddingItemDecoration4">4dp</dimen>
 

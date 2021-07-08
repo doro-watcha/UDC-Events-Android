@@ -16,6 +16,7 @@
     </data>
 
 
+
     <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
@@ -27,12 +28,11 @@
 
         <androidx.cardview.widget.CardView
             android:id="@+id/poster_card"
-            android:layout_width="match_parent"
+            android:layout_width="250dp"
             android:layout_height="0dp"
             android:layout_marginStart="35dp"
             android:layout_marginEnd="35dp"
-            app:layout_constraintDimensionRatio="3:4"
-            android:background="@drawable/ripple_effect"
+            app:layout_constraintDimensionRatio="1:1.1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -44,8 +44,6 @@
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
                 srcUrl="@{item.posterUrl}"
-                android:transitionName="@string/shared_element_transition"
-                android:background="@drawable/ripple_effect"
                 tools:src="@drawable/sample_image_01" />
 
 
@@ -53,32 +51,51 @@
 
         <TextView
             android:id="@+id/txt_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:text="요즘 관객들은 이렇게 관람함!"
-            android:textColor="@color/naverGreen"
+            android:text="@{item.name}"
+            android:textSize="12dp"
+            android:textColor="@color/melonGreen"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/poster_card"
+            app:layout_constraintStart_toStartOf="@id/poster_card"
             app:layout_constraintTop_toBottomOf="@+id/poster_card" />
 
         <TextView
             android:id="@+id/txt_sub_title"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
             android:layout_height="wrap_content"
-            tools:text="모네에서 세잔까지"
-            android:text="@{item.name}"
+            android:text="@{item.subtitle}"
             android:textStyle="bold"
             android:textColor="@color/white"
-            android:layout_marginTop="10dp"
-            android:textSize="24dp"
+            android:layout_marginTop="5dp"
+            android:textSize="20dp"
             app:layout_constraintEnd_toEndOf="@id/txt_title"
             app:layout_constraintStart_toStartOf="@id/txt_title"
             app:layout_constraintTop_toBottomOf="@+id/txt_title" />
 
+        <TextView
+            android:id="@+id/txt_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="@+id/txt_sub_title"
+            app:layout_constraintEnd_toEndOf="@+id/txt_sub_title"
+            app:layout_constraintTop_toBottomOf="@+id/txt_sub_title"
+            android:textColor="@color/grayWhite"
+            android:layout_marginTop="5dp"
+            android:textSize="12dp"
+            android:text="@{item.formedDate}"/>
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 
 </layout>

@@ -2,6 +2,7 @@ package com.goddoro.udc.views.home
 
 import android.os.Bundle
 import android.os.Handler
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,6 +17,7 @@ import com.goddoro.common.common.observeOnce
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxRepeatTimer
+import com.goddoro.common.extension.rxSingleTimer
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentHomeBinding
@@ -98,38 +100,19 @@ class HomeFragment : Fragment() {
             adapter = BlurredAdapter()
             isUserInputEnabled = false
             offscreenPageLimit = 10
-
-            this.registerOnPageChangeCallback( object : ViewPager2.OnPageChangeCallback() {
-
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-
-                    mBinding.mViewPager2.setCurrentItem(currentItem + 1, 800)
-                    mBinding.indicator.selection = position % ( mViewModel.mainEvents.value?.size ?: 0)
-                }
-
-            })
-
         }
     }
-
 
     private fun setupViewPager() {
 
         mBinding.mViewPager2.apply {
 
 
-            adapter = MainPosterAdapter().apply {
-
-                clickEvent.subscribe{
-                    navigator.startEventDetailActivity(requireActivity(),it.first,it.second)
-                }.disposedBy(compositeDisposable)
-
-            }
+            adapter = MainPosterAdapter()
 
             var centerValue =  Integer.MAX_VALUE / 2
 
-            val findFirstPosition = centerValue % ( mViewModel.mainEvents.value?.size ?: 0)
+            val findFirstPosition = centerValue % ( mViewModel.mainEvents.value?.size ?: 1 )
 
             centerValue -= findFirstPosition
 
@@ -141,6 +124,7 @@ class HomeFragment : Fragment() {
             this.setPageTransformer { page, position ->
                 val viewPager = page.parent.parent as ViewPager2
                 val offset = position * -(2 * offsetPx + pageMarginPx)
+
                 if (viewPager.orientation == ViewPager2.ORIENTATION_HORIZONTAL) {
                     if (ViewCompat.getLayoutDirection(viewPager) == ViewCompat.LAYOUT_DIRECTION_RTL) {
                         page.translationX = -offset
@@ -151,28 +135,37 @@ class HomeFragment : Fragment() {
                     page.translationY = offset
                 }
             }
-            this.setPadding(0, offsetPx, 0, offsetPx)
 
 
             this.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                }
-
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-
-
-                }
 
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)
+
+                    when ( state ) {
+                        ViewPager2.SCROLL_STATE_IDLE -> {
+
+                            scrollToNext()
+
+                            val position = mBinding.mViewPager2.currentItem
+                            if (position % ( mViewModel.mainEvents.value?.size ?: 1 ) != (mBinding.mViewPagerBlurred.currentItem ) ) {
+
+                                mBinding.mViewPagerBlurred.setCurrentItem(
+                                    position % ( mViewModel.mainEvents.value?.size ?: 1 ) ,
+                                    false
+                                )
+                                mBinding.pageIndicator.refresh(position % ( mViewModel.mainEvents.value?.size ?: 1 ) )
+                            }
+
+                        }
+
+                        ViewPager2.SCROLL_STATE_DRAGGING -> {
+                            autoScrollDisposable.clear()
+                        }
+                    }
                 }
             })
+
 
             offscreenPageLimit = 10
         }
@@ -180,6 +173,45 @@ class HomeFragment : Fragment() {
 
     }
 
+    private fun scrollToNext () {
+
+        autoScrollDisposable.clear()
+        rxSingleTimer(4000) {
+
+            val position = mBinding.mViewPager2.currentItem + 1
+
+            mBinding.pageIndicator.refresh( position % ( mViewModel.mainEvents.value?.size ?: 1 )  )
+            mBinding.mViewPagerBlurred.setCurrentItem(position % ( mViewModel.mainEvents.value?.size ?: 1 ) , false)
+            mBinding.mViewPager2.setCurrentItem(position, 600)
+
+        }.disposedBy(autoScrollDisposable)
+
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        Log.d(TAG, "onResume")
+
+        scrollToNext()
+
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+
+        autoScrollDisposable.clear()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable.dispose()
+        autoScrollDisposable.dispose()
+
+    }
     private fun setupList() {
 
         mBinding.apply {
@@ -245,10 +277,7 @@ class HomeFragment : Fragment() {
                 if ( it.isNotEmpty()) {
                     debugE(TAG, it.map { it.id })
 
-                    mBinding.indicator.count = it.size
-
                     setupViewPager()
-                    //   startAutoScroll()
                 }
             }
 
@@ -266,44 +295,6 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun startAutoScroll () {
-
-
-        autoScrollDisposable.clear()
-        rxRepeatTimer(2000, {
-
-            //sleep(5000)
-
-            mBinding.mViewPagerBlurred.setCurrentItem(
-                mBinding.mViewPager2.currentItem % (mViewModel.mainEvents.value?.size ?: 0) + 1, false
-            )
-
-
-
-
-        }, 2000).disposedBy(autoScrollDisposable)
-
-
-    }
-
-
-    override fun onResume() {
-        super.onResume()
-
-        startAutoScroll()
-    }
-
-    override fun onPause() {
-        super.onPause()
-
-        autoScrollDisposable.clear()
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-
-        compositeDisposable.clear()
-    }
 
     companion object {
         fun newInstance() = HomeFragment()
