@@ -84,20 +84,16 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:recyclerview_main_posters="@{vm.mainEvents}" />
 
-            <com.rd.PageIndicatorView
-                android:id="@+id/indicator"
-                android:layout_width="wrap_content"
-                android:layout_height="30dp"
-                android:layout_marginBottom="5dp"
-                app:layout_constraintBottom_toBottomOf="@+id/mViewPager_blurred"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:piv_animationType="drop"
-                app:piv_dynamicCount="true"
-                app:piv_interactiveAnimation="true"
-                app:piv_radius="3dp"
-                app:piv_selectedColor="@color/naverGreen" />
-
+            <com.goddoro.common.widget.PageIndicator
+                android:id="@+id/page_indicator"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:layout_marginBottom="10dp"
+                android:background="@color/semiTransparent"
+                app:layout_constraintEnd_toEndOf="@+id/mViewPager2"
+                app:layout_constraintStart_toStartOf="@+id/mViewPager2"
+                app:layout_constraintBottom_toBottomOf="@+id/mViewPager2"
+                app:page_count="@{vm.mainEvents.size()}" />
 
             <TextView
                 android:id="@+id/txt_title_new_event"

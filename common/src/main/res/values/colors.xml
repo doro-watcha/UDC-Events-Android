@@ -114,5 +114,9 @@
     <color name="thin_gray">#e6e7e8</color>
 
     <color name="half_transparent">#99000000</color>
+    <color name="melonGreen">#75ee49</color>
 
+    <color name="semiTransparent">#6ef9f9f9</color>
+    <color name="grayWhite">#e4e0ff</color>
+    <color name="semiTransparentBlack">#6e232323</color>
 </resources>

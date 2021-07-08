@@ -181,6 +181,7 @@
             android:gravity="center"
             android:letterSpacing="0.0"
             android:paddingLeft="7dp"
+            android:visibility="gone"
             android:text="@string/txt_login_naver"
             android:textColor="@color/font3"
             android:textSize="14dp"

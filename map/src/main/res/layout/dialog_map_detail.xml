@@ -44,7 +44,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 tools:src="@drawable/sample_image_01"
-                android:layout_margin="2dp"
                 android:scaleType="centerCrop"
                 srcUrl="@{item.posterUrl}"/>
         </androidx.cardview.widget.CardView>
