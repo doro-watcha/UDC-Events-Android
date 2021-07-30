@@ -10,7 +10,7 @@ import com.goddoro.common.data.model.DanceClass
 interface ClassRepository {
 
     suspend fun listClasses (
-        isMainClass : Boolean? = false,
+        sort : String? = null,
         type : String? = null
     ) : List<DanceClass>
 

@@ -104,9 +104,9 @@ class NavigatorImpl : Navigator{
         slide(activity,intent)
     }
 
-    override fun startSearchAddressActivity(activity: Activity) {
+    override fun startSearchAddressActivity(activity: Activity, address : String ) {
 
-        val intent = SearchAddressActivity.newIntent(activity)
+        val intent = SearchAddressActivity.newIntent(activity, address)
         slide(activity,intent)
     }
 

@@ -89,7 +89,7 @@ class ClassShopFragment : Fragment() {
 
             var centerValue =  Integer.MAX_VALUE / 2
 
-            val findFirstPosition = centerValue % ( mViewModel.mainClasses.value?.size ?: 0)
+            val findFirstPosition = centerValue % ( mViewModel.mainClasses.value?.size ?: 1)
 
             centerValue -= findFirstPosition
 

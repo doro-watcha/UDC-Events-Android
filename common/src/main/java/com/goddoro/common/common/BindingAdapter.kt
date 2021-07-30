@@ -12,7 +12,9 @@ import android.animation.AnimatorListenerAdapter
 import android.animation.ObjectAnimator
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.text.InputType
 import android.view.View
+import android.widget.EditText
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.StringRes
@@ -133,4 +135,10 @@ fun ImageView.setBlurImage( src : String?) {
     Glide.with(this).load(src)
         .apply(RequestOptions.bitmapTransform(BlurTransformation(25, 3)))
         .into(this)
+}
+
+@BindingAdapter("android:inputType")
+fun EditText.setInputType(editable : Boolean) {
+    if ( !editable) this.inputType = InputType.TYPE_NULL
+    else this.inputType = InputType.TYPE_CLASS_TEXT
 }

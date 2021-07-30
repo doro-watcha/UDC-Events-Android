@@ -75,23 +75,12 @@ class ClassDetailActivity : AppCompatActivity() {
 
 
             clickInstagram.observeOnce(this@ClassDetailActivity){
-                val insta_intent = packageManager.getLaunchIntentForPackage("com.instagram.android")
+                val instagram_intent = packageManager.getLaunchIntentForPackage("com.instagram.android")
 
-                if ( insta_intent != null) {
-
-                    debugE(TAG, "Insta 설치 되어있지롱")
-
-//                    insta_intent.component = ComponentName(
-//                        "com.instagram.android",
-//                        "com.instagram.android.activity.UrlHandlerActivity"
-//                    )
-                    insta_intent.data = Uri.parse("http://instagram.com/d__panic")
-
-                    startActivity(insta_intent)
+                if ( instagram_intent != null) {
+                    instagram_intent.data = Uri.parse(danceClass.artist.instagramUrl)
+                    startActivity(instagram_intent)
                 } else {
-
-                    debugE(TAG, "설치 안되있지롱")
-
                     try {
                         startActivity(
                             Intent(
@@ -115,7 +104,7 @@ class ClassDetailActivity : AppCompatActivity() {
 
                 if ( youtube_intent != null ) {
 
-                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=mrP30UnUQjY&feature=youtu.be"));
+                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(danceClass.artist.youtubeUrl));
                     startActivity(browserIntent);
                 }
                 else {

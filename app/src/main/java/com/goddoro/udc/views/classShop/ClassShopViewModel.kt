@@ -35,28 +35,7 @@ class ClassShopViewModel(
 
     init {
 
-//        listMainClasses()
-//        listNormalClasses()
-//        listWorkshopClasses()
-
-        mainClasses.value = listOf(
-            DanceClass(0,"zxcv", Artist(0,"Jiyoung Ahn","BoolBbalgan Music"),"기초부터 차근차근","2020년 제9회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 4월\n" +
-                    "2019년 엠넷 아시안 뮤직 어워즈 베스트 보컬 퍼포먼스 그룹\n" +
-                    "2019년 멜론 뮤직 어워드 TOP 10","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
-                R.drawable.sample_image_02),
-            DanceClass(0,"zxcv", Artist(0,"Yuree Choi","Solo"),"zxcvzxcv","2020년 제9회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 4월\n" +
-                    "2019년 엠넷 아시안 뮤직 어워즈 베스트 보컬 퍼포먼스 그룹\n" +
-                    "2019년 멜론 뮤직 어워드 TOP 10","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
-                R.drawable.sample_image_05),
-            DanceClass(0,"zxcv", Artist(0,"Jiyoung Ahn","BoolBbalgan Music"),"zxcvzxcv","2020년 제9회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 4월\n" +
-                    "2019년 엠넷 아시안 뮤직 어워즈 베스트 보컬 퍼포먼스 그룹\n" +
-                    "2019년 멜론 뮤직 어워드 TOP 10","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
-                R.drawable.sample_image_03),
-            DanceClass(0,"zxcv", Artist(0,"Dudan","Solo"),"zxcvzxcv","2020년 제9회 가온차트 뮤직 어워즈 디지털음원부문 올해의 가수상 4월\n" +
-                    "2019년 엠넷 아시안 뮤직 어워즈 베스트 보컬 퍼포먼스 그룹\n" +
-                    "2019년 멜론 뮤직 어워드 TOP 10","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
-                R.drawable.sample_image_01)
-        )
+        listMainClasses()
 
         normalClasses.value = listOf(
             DanceClass(0,"zxcv", Artist(0,"Jiyoung Ahn"),"zxcvzxcv","zxcvzxcv","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
@@ -78,7 +57,7 @@ class ClassShopViewModel(
         viewModelScope.launch {
 
             kotlin.runCatching {
-                classRepository.listClasses(isMainClass = true)
+                classRepository.listClasses(sort = "main")
             }.onSuccess {
                 debugE(TAG,it)
                 mainClasses.value = it

@@ -11,10 +11,10 @@ import com.goddoro.common.data.repository.ClassRepository
  */
 
 class ClassRepositoryImpl ( val api : ClassAPI) : ClassRepository {
-    override suspend fun listClasses( isMainClass : Boolean?, type : String?): List<DanceClass> {
+    override suspend fun listClasses( sort : String?, type : String?): List<DanceClass> {
 
         val params = hashMapOf(
-            "isMainClass" to isMainClass,
+            "sort" to sort,
             "classType" to type
         ).filterValueNotNull()
 

@@ -34,7 +34,7 @@ interface Navigator {
 
     fun startSearchDetailActivity ( activity : Activity, query : String)
 
-    fun startSearchAddressActivity ( activity : Activity)
+    fun startSearchAddressActivity ( activity : Activity, address : String )
 
     fun startAdminActivity ( activity : Activity)
 

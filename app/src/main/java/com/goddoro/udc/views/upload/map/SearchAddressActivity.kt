@@ -4,18 +4,22 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.inputmethod.InputMethodManager
 import androidx.appcompat.app.AppCompatActivity
 import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
+import com.goddoro.common.common.hideKeyboard
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.addSchedulers
 import com.goddoro.common.extension.disposedBy
-import com.goddoro.map.EventMapFragment
+import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.databinding.ActivitySearchAddressBinding
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.util.FusedLocationSource
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.concurrent.TimeUnit
 
@@ -26,12 +30,17 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var naverMap : NaverMap
 
+    private val toastUtil : ToastUtil by inject()
+
+
     private lateinit var mBinding : ActivitySearchAddressBinding
     private val mViewModel : SearchAddressViewModel by viewModel()
 
     private val cameraChanged: BehaviorSubject<Pair<Double, Double>> = BehaviorSubject.create()
 
     private val compositeDisposable = CompositeDisposable()
+
+    private val queryChanged: BehaviorSubject<String> = BehaviorSubject.create()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,9 +57,14 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
         observeViewModel()
 
+        listenQueryChangeEvent()
         setContentView(mBinding.root)
 
         listenChangeCamera()
+
+        debugE("CUR LOCATION = " + intent?.getStringExtra(ARG_ADDRESS))
+
+
 
 
 
@@ -131,16 +145,37 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
         mViewModel.apply {
 
-            clickConfirm.observeOnce(this@SearchAddressActivity){
+            query.observe(this@SearchAddressActivity) {
+                if (it.isNotEmpty()) queryChanged.onNext(it)
 
-                Broadcast.findAddressBroadcast.onNext(Triple(currentAddress.value ?: "", naverMap.cameraPosition.target.longitude, naverMap.cameraPosition.target.latitude))
+            }
+
+            clickConfirm.observeOnce(this@SearchAddressActivity) {
+
+                Broadcast.findAddressBroadcast.onNext(
+                    Triple(
+                        currentAddress.value ?: "",
+                        naverMap.cameraPosition.target.longitude,
+                        naverMap.cameraPosition.target.latitude
+                    )
+                )
 
                 finish()
             }
 
+            clickAddress.observeOnce(this@SearchAddressActivity){
+                val cameraUpdate = CameraUpdate.scrollTo(LatLng(query_x, query_y))
+                naverMap.moveCamera(cameraUpdate)
+                query_x = 0.0
+                query_y = 0.0
+            }
+
+
             errorInvoked.observeOnce(this@SearchAddressActivity){
                 debugE("NAVER",it.message)
             }
+
+
         }
 
 
@@ -151,9 +186,12 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+        const val ARG_ADDRESS = "ARG_ADDRESS"
 
-        fun newIntent ( context : Context) : Intent {
-            return Intent(context, SearchAddressActivity::class.java)
+        fun newIntent ( context : Context, address : String) : Intent {
+            val intent = Intent ( context, SearchAddressActivity::class.java)
+            intent.putExtra(ARG_ADDRESS, address)
+            return intent
         }
     }
 
@@ -161,10 +199,32 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
         naverMap = p0
 
         this.naverMap.uiSettings.isLocationButtonEnabled = true
-
         naverMap.locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+
+
+        initMap()
+
+
+
+
+
+
+
+
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
 
-        initMap( )
+
+
+
+    }
+    private fun listenQueryChangeEvent () {
+
+        queryChanged
+            .distinctUntilChanged()
+            .debounce(300L, TimeUnit.MILLISECONDS)
+            .addSchedulers()
+            .subscribe {
+                mViewModel.findLocation(it)
+            }.disposedBy(compositeDisposable)
     }
 }

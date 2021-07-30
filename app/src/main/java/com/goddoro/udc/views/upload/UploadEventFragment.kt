@@ -153,7 +153,7 @@ class UploadEventFragment : Fragment() {
                     .subscribe({ result ->
                         debugE(TAG, result.isGranted)
                         if (result.isGranted) {
-                            navigator.startSearchAddressActivity(requireActivity())
+                            navigator.startSearchAddressActivity(requireActivity(),mViewModel.location.value ?: "")
                         }
 
                     }, {
