@@ -105,4 +105,6 @@
     <string name="txt_planner_pressed">공연 플래너</string>
     <string name="txt_planner_not_pressed">공연 플래너 담기</string>
 
+    <string name="txt_class_name">클래스 이름</string>
+
 </resources>

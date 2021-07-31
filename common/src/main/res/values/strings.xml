@@ -103,4 +103,13 @@
 
     <string name="txt_planner_pressed">Event Planner</string>
     <string name="txt_planner_not_pressed">Put Event Planner</string>
+
+    <string name="txt_class_name">클래스 이름</string>
+    <string name="txt_class_genre">클래스 장르</string>
+    <string name="txt_class_description">클래스 소개</string>
+    <string name="txt_class_youtube_url">클래스 Youtube URL</string>
+    <string name="txt_class_location">클래스 위치</string>
+    <string name="txt_class_level">클래스 난이도</string>
+    <string name="txt_class_purpose">클래스 수강대상</string>
+
 </resources>
