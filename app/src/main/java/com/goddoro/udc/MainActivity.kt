@@ -4,7 +4,6 @@ import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
@@ -13,7 +12,6 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.common.navigation.MainMenu
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.dialog.CommonSingleDialog
-import com.goddoro.common.dialog.showTextDialog
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.Navigator
@@ -21,21 +19,15 @@ import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.EventMapFragment
 import com.goddoro.udc.databinding.ActivityMainBinding
 import com.goddoro.udc.views.classShop.ClassShopFragment
-import com.goddoro.udc.views.home.HomeFragment
+import com.goddoro.udc.views.home.EventFragment
 import com.goddoro.udc.views.profile.ProfileFragment
 import com.goddoro.udc.views.upload.UploadCompleteDialog
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
-import com.gun0912.tedpermission.PermissionListener
-import com.gun0912.tedpermission.TedPermission
-import com.naver.maps.map.LocationTrackingMode
-import com.naver.maps.map.util.FusedLocationSource
-import com.tedpark.tedpermission.rx1.TedRxPermission
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import java.util.*
-import java.util.jar.Manifest
 
 
 class MainActivity : AppCompatActivity() {
@@ -55,9 +47,9 @@ class MainActivity : AppCompatActivity() {
     private val authRepository : AuthRepository by inject()
     private val mViewModel : MainViewModel by viewModel()
 
-    private val fragment1 = HomeFragment.newInstance()
+    private val fragment1 = ClassShopFragment.newInstance()
     private val fragment2 = EventMapFragment.newInstance()
-    private val fragment3 = ClassShopFragment.newInstance()
+    private val fragment3 = EventFragment.newInstance()
     private val fragment4 = ProfileFragment.newInstance(authRepository.curUser.value?.id ?: 0)
     private var curFragment: Fragment = fragment1
 

@@ -10,6 +10,7 @@ import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.hideKeyboard
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.data.model.Location
 import com.goddoro.common.extension.addSchedulers
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.ToastUtil
@@ -25,6 +26,7 @@ import java.util.concurrent.TimeUnit
 
 class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
+    private val TAG = SearchAddressActivity::class.java.simpleName
 
     private lateinit var mapView: MapView
 
@@ -32,6 +34,7 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val toastUtil : ToastUtil by inject()
 
+    var isFirstMove = false
 
     private lateinit var mBinding : ActivitySearchAddressBinding
     private val mViewModel : SearchAddressViewModel by viewModel()
@@ -62,7 +65,8 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
         listenChangeCamera()
 
-        debugE("CUR LOCATION = " + intent?.getStringExtra(ARG_ADDRESS))
+        debugE( TAG, "FUCK +" + intent?.getParcelableExtra(ARG_LOCATION) as Location?)
+
 
 
 
@@ -87,11 +91,10 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
         mapView.onPause()
     }
 
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-
-        mapView.onSaveInstanceState(outState)
-    }
+//    override fun onSaveInstanceState(outState: Bundle) {
+//        super.onSaveInstanceState(outState)
+//
+//        mapView.onSaveInstanceState(outState)
 
     override fun onStop() {
         super.onStop()
@@ -122,8 +125,16 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
                         "기울임 각도: " + cameraPosition.tilt.toString() + ", " +
                         "베어링 각도: " + cameraPosition.bearing
             )
-
-            cameraChanged.onNext(Pair(cameraPosition.target.longitude, cameraPosition.target.latitude))
+            if ( !isFirstMove) {
+                isFirstMove = true
+            } else {
+                cameraChanged.onNext(
+                    Pair(
+                        cameraPosition.target.longitude,
+                        cameraPosition.target.latitude
+                    )
+                )
+            }
 
 
         }
@@ -149,11 +160,10 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (it.isNotEmpty()) queryChanged.onNext(it)
 
             }
-
             clickConfirm.observeOnce(this@SearchAddressActivity) {
 
                 Broadcast.findAddressBroadcast.onNext(
-                    Triple(
+                    Location(
                         currentAddress.value ?: "",
                         naverMap.cameraPosition.target.longitude,
                         naverMap.cameraPosition.target.latitude
@@ -182,18 +192,10 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
 
+
     }
 
-    companion object {
-        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
-        const val ARG_ADDRESS = "ARG_ADDRESS"
 
-        fun newIntent ( context : Context, address : String) : Intent {
-            val intent = Intent ( context, SearchAddressActivity::class.java)
-            intent.putExtra(ARG_ADDRESS, address)
-            return intent
-        }
-    }
 
     override fun onMapReady(p0: NaverMap) {
         naverMap = p0
@@ -204,17 +206,13 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
         initMap()
 
-
-
-
-
-
-
-
-        naverMap.locationTrackingMode = LocationTrackingMode.Follow
-
-
-
+        if ( (intent?.getParcelableExtra(ARG_LOCATION) as Location? )?.address != "") {
+            val location : Location = intent?.getParcelableExtra(ARG_LOCATION) as Location
+            mViewModel.currentAddress.value = location.address
+            changeCamera(location.y, location.x)
+        } else {
+            naverMap.locationTrackingMode = LocationTrackingMode.Follow
+        }
 
     }
     private fun listenQueryChangeEvent () {
@@ -226,5 +224,22 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
             .subscribe {
                 mViewModel.findLocation(it)
             }.disposedBy(compositeDisposable)
+    }
+
+
+    private fun changeCamera( x : Double, y : Double) {
+
+        val cameraUpdate = CameraUpdate.scrollTo(LatLng(x, y))
+        naverMap.moveCamera(cameraUpdate)
+    }
+    companion object {
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
+        const val ARG_LOCATION = "ARG_LOCATION"
+
+        fun newIntent ( context : Context, location : Location) : Intent {
+            val intent = Intent ( context, SearchAddressActivity::class.java)
+            intent.putExtra(ARG_LOCATION, location)
+            return intent
+        }
     }
 }

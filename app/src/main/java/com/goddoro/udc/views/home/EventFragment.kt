@@ -16,11 +16,10 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.common.extension.disposedBy
-import com.goddoro.common.extension.rxRepeatTimer
 import com.goddoro.common.extension.rxSingleTimer
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
-import com.goddoro.udc.databinding.FragmentHomeBinding
+import com.goddoro.udc.databinding.FragmentEventBinding
 import com.goddoro.udc.util.setCurrentItem
 import com.goddoro.udc.util.startActivity
 import com.goddoro.udc.views.admin.AdminActivity
@@ -32,19 +31,19 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  * created By DORO 2020/08/16
  */
 
-class HomeFragment : Fragment() {
+class EventFragment : Fragment() {
 
-    private val TAG = HomeFragment::class.java.simpleName
+    private val TAG = EventFragment::class.java.simpleName
 
     /**
      * Binding Instance
      */
-    private lateinit var mBinding: FragmentHomeBinding
+    private lateinit var mBinding: FragmentEventBinding
 
     /**
      * ViewModel Instance
      */
-    private val mViewModel: HomeViewModel by viewModel()
+    private val mViewModel: EventViewModel by viewModel()
 
     private var adminClickCount = 5
 
@@ -57,7 +56,7 @@ class HomeFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ) = FragmentHomeBinding.inflate(inflater, container, false).also { mBinding = it }.root
+    ) = FragmentEventBinding.inflate(inflater, container, false).also { mBinding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
 
@@ -298,7 +297,7 @@ class HomeFragment : Fragment() {
 
 
     companion object {
-        fun newInstance() = HomeFragment()
+        fun newInstance() = EventFragment()
     }
 
 }

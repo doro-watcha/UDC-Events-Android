@@ -10,6 +10,7 @@ import com.goddoro.common.Broadcast
 import com.goddoro.common.Broadcast.eventUploadBroadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.data.model.Location
 import com.goddoro.common.dialog.showCommonDialog
 import com.goddoro.common.dialog.showTextDialog
 import com.goddoro.common.dialog.showTextDoubleDialog
@@ -153,7 +154,9 @@ class UploadEventFragment : Fragment() {
                     .subscribe({ result ->
                         debugE(TAG, result.isGranted)
                         if (result.isGranted) {
-                            navigator.startSearchAddressActivity(requireActivity(),mViewModel.location.value ?: "")
+                            navigator.startSearchAddressActivity(requireActivity(),
+                                Location(location.value ?: "", longitude, latitude)
+                            )
                         }
 
                     }, {
@@ -187,9 +190,9 @@ class UploadEventFragment : Fragment() {
 
 
             findAddressBroadcast.subscribe{
-                mViewModel.location.value = it.first
-                mViewModel.longitude = it.second
-                mViewModel.latitude = it.third
+                mViewModel.location.value = it.address
+                mViewModel.longitude = it.x
+                mViewModel.latitude = it.y
             }.disposedBy(compositeDisposable)
         }
     }

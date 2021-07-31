@@ -8,6 +8,7 @@ import androidx.core.app.ActivityOptionsCompat
 import androidx.core.view.ViewCompat
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
+import com.goddoro.common.data.model.Location
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.MainActivity
 import com.goddoro.udc.R
@@ -104,9 +105,9 @@ class NavigatorImpl : Navigator{
         slide(activity,intent)
     }
 
-    override fun startSearchAddressActivity(activity: Activity, address : String ) {
+    override fun startSearchAddressActivity(activity: Activity, location : Location ) {
 
-        val intent = SearchAddressActivity.newIntent(activity, address)
+        val intent = SearchAddressActivity.newIntent(activity, location)
         slide(activity,intent)
     }
 

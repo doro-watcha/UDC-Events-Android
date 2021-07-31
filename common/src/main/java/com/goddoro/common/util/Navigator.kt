@@ -5,6 +5,7 @@ import android.util.EventLog
 import android.widget.ImageView
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
+import com.goddoro.common.data.model.Location
 
 
 /**
@@ -34,7 +35,7 @@ interface Navigator {
 
     fun startSearchDetailActivity ( activity : Activity, query : String)
 
-    fun startSearchAddressActivity ( activity : Activity, address : String )
+    fun startSearchAddressActivity ( activity : Activity, location : Location )
 
     fun startAdminActivity ( activity : Activity)
 

@@ -8,21 +8,19 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.data.repository.EventRepository
-import com.goddoro.udc.R
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 /**
  * created By DORO 2020/08/16
  */
 
-class HomeViewModel (
+class EventViewModel (
     private val eventRepository: EventRepository,
     val authRepository: AuthRepository
 ): ViewModel() {
 
-    private val TAG = HomeViewModel::class.java.simpleName
+    private val TAG = EventViewModel::class.java.simpleName
 
 
     val mainEvents : MutableLiveData<List<Event>> = MutableLiveData()

@@ -10,7 +10,7 @@ import com.goddoro.udc.views.auth.AuthViewModel
 import com.goddoro.udc.views.classShop.detail.ClassDetailViewModel
 import com.goddoro.udc.views.event.detail.EventDetailViewModel
 import com.goddoro.udc.views.upload.map.SearchAddressViewModel
-import com.goddoro.udc.views.home.HomeViewModel
+import com.goddoro.udc.views.home.EventViewModel
 import com.goddoro.udc.views.intro.IntroViewModel
 import com.goddoro.udc.views.notification.NotificationViewModel
 import com.goddoro.udc.views.profile.collection.EventCollectionViewModel
@@ -37,7 +37,7 @@ val viewModelModule  = module {
     viewModel { MainViewModel(get()) }
     viewModel { (event : Event) -> EventDetailViewModel(event,get()) }
 
-    viewModel { HomeViewModel(get(),get()) }
+    viewModel { EventViewModel(get(),get()) }
     viewModel { EventCollectionViewModel(get()) }
     viewModel { UploadEventViewModel(get())}
     viewModel { JoinEventViewModel() }

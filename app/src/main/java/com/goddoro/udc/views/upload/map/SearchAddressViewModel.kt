@@ -35,13 +35,14 @@ class SearchAddressViewModel (
     val clickConfirm : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickCancelEdit : MutableLiveData<Once<Unit>> = MutableLiveData()
 
+    val onCameraUpdate : MutableLiveData<Pair<Double,Double>> = MutableLiveData()
     val clickAddress : MutableLiveData<Once<Unit>> = MutableLiveData()
-    val findSuccessAddress : MutableLiveData<LocationResponse> = MutableLiveData()
+
     val findWrongAddress : MutableLiveData<Once<Unit>> = MutableLiveData()
     val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
 
 
-    fun findLocation( address : String ) {
+    fun findLocation( address : String  ) {
 
         if ( address == "") return
 
@@ -93,25 +94,14 @@ class SearchAddressViewModel (
                 errorInvoked.value = Once(it)
             }
         }
-
-
-
-
     }
 
     fun onClickConfirm() {
         clickConfirm.value = Once(Unit)
     }
-    fun onClickEditButton() {
-        if ( isAddressEditable.value == false) {
-            isAddressEditable.value = true
-        } else {
-            findLocation(currentAddress.value ?: "")
-        }
-    }
 
-    fun onClickCancelEdit() {
-        isAddressEditable.value = false
+    fun onCopyAddress() {
+
     }
 
     fun onClickAddress() {

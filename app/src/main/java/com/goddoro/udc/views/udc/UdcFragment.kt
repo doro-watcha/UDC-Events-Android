@@ -4,12 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.ViewModelProvider
-import com.goddoro.udc.databinding.FragmentHomeBinding
 import com.goddoro.udc.databinding.FragmentUdcBinding
-import com.goddoro.udc.views.home.HomeFragment
-import com.goddoro.udc.views.home.HomeViewModel
-import dagger.android.support.DaggerFragment
 import androidx.fragment.app.Fragment
 import org.koin.androidx.viewmodel.ext.android.viewModel
 

@@ -8,11 +8,10 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
-
     <application
         android:name=".application.MainApplication"
-        android:extractNativeLibs="true"
         android:allowBackup="true"
+        android:extractNativeLibs="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:requestLegacyExternalStorage="true"
@@ -20,6 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
+        <activity android:name=".views.upload.danceClass.UploadClassActiivty"></activity>
         <activity android:name=".views.intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,10 +32,7 @@
         <activity android:name=".views.admin.AdminActivity" />
         <activity
             android:name=".views.upload.map.SearchAddressActivity"
-            android:windowSoftInputMode="adjustResize">
-
-
-        </activity>
+            android:windowSoftInputMode="adjustResize"></activity>
         <activity android:name=".views.search.detail.SearchDetailActivity" />
         <activity android:name=".views.search.SearchActivity" />
         <activity android:name=".views.upload.UploadEventActivity" />
@@ -47,23 +44,26 @@
             android:name=".views.notification.NotificationListActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".views.tag.TagDetailActivity"
+        <activity
+            android:name=".views.tag.TagDetailActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".views.setting.SettingActivity"
+        <activity
+            android:name=".views.setting.SettingActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".views.event.detail.EventDetailActivity"
+        <activity
+            android:name=".views.event.detail.EventDetailActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".views.auth.AuthActivity"
+        <activity
+            android:name=".views.auth.AuthActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
-            android:screenOrientation="portrait" >
-
-        </activity>
+            android:screenOrientation="portrait"></activity>
 
         <meta-data
             android:name="com.naver.maps.map.86uizs8uuf"

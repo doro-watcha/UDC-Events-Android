@@ -1,5 +1,6 @@
 package com.goddoro.common
 
+import com.goddoro.common.data.model.Location
 import io.reactivex.subjects.PublishSubject
 
 object Broadcast {
@@ -7,7 +8,7 @@ object Broadcast {
     val eventUploadBroadcast : PublishSubject<String> = PublishSubject.create()
 
 
-    val findAddressBroadcast : PublishSubject<Triple<String,Double,Double>> = PublishSubject.create()
+    val findAddressBroadcast : PublishSubject<Location> = PublishSubject.create()
 
     val bottomIndexChangeBroadcast : PublishSubject<Int> = PublishSubject.create()
 
