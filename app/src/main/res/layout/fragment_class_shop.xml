@@ -40,15 +40,18 @@
                 android:layout_height="30dp"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintBottom_toBottomOf="@+id/mainViewPager"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
 
             <TextView
                 android:id="@+id/txt_this_week_classes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
                 android:text="@string/txt_this_week_classes"
+                android:textSize="20dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mainViewPager" />
@@ -58,10 +61,46 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                app:recycler_view_date_list="@{vm.dateList}"
+                android:layout_marginTop="10dp"
                 android:padding="5dp"
-                app:layout_constraintTop_toBottomOf="@+id/txt_this_week_classes"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_this_week_classes"
+                app:recycler_view_date_list="@{vm.dateList}" />
 
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/day_of_class_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                app:layout_constraintTop_toBottomOf="@+id/date_recycler_view"
+                app:recyclerview_day_of_classes="@{vm.dayOfClasses}"
+                tools:itemCount="3"
+                tools:listitem="@layout/item_day_of_class" />
+
+            <TextView
+                android:id="@+id/txt_genre_classes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_genre_classes"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"
+                android:textSize="20dp"
+                app:layout_constraintStart_toStartOf="@+id/txt_this_week_classes"
+                app:layout_constraintTop_toBottomOf="@+id/day_of_class_recycler_view"/>
+
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/genre_tab_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/txt_genre_classes"/>
+
+
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/genre_view_pager"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toBottomOf="@+id/genre_tab_layout"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

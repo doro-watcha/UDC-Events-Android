@@ -40,4 +40,6 @@ data class DanceClass (
 
     val temporaryImage : Int ? = 0
 
-) : Parcelable
+) : Parcelable {
+
+}

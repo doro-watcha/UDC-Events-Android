@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.lifecycle.Observer
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -46,11 +47,11 @@ class ClassShopFragment : Fragment() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private lateinit var mBinding : FragmentClassShopBinding
+    private lateinit var mBinding: FragmentClassShopBinding
 
-    private val mViewModel : ClassShopViewModel by viewModel()
+    private val mViewModel: ClassShopViewModel by viewModel()
 
-    private val navigator : Navigator by inject()
+    private val navigator: Navigator by inject()
 
     private val autoScrollDisposable = CompositeDisposable()
 
@@ -59,7 +60,8 @@ class ClassShopFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View = FragmentClassShopBinding.inflate(inflater, container, false).also { mBinding = it}.root
+    ): View =
+        FragmentClassShopBinding.inflate(inflater, container, false).also { mBinding = it }.root
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -71,8 +73,10 @@ class ClassShopFragment : Fragment() {
 
         setupViewPager()
         setupDateRecyclerView()
-    }
+        setupDayOfRecyclerView()
 
+
+    }
 
 
     private fun setupViewPager() {
@@ -81,18 +85,17 @@ class ClassShopFragment : Fragment() {
 
             adapter = MainClassAdapter().apply {
 
-                clickEvent.subscribe{
+                clickEvent.subscribe {
 
-                    navigator.startClassDetailActivity(requireActivity(),it.first,it.second)
+                    navigator.startClassDetailActivity(requireActivity(), it.first, it.second)
                 }.disposedBy(compositeDisposable)
-
 
 
             }
 
-            var centerValue =  Integer.MAX_VALUE / 2
+            var centerValue = Integer.MAX_VALUE / 2
 
-            val findFirstPosition = centerValue % ( mViewModel.mainClasses.value?.size ?: 1)
+            val findFirstPosition = centerValue % (mViewModel.mainClasses.value?.size ?: 1)
 
             centerValue -= findFirstPosition
 
@@ -124,33 +127,70 @@ class ClassShopFragment : Fragment() {
 
             adapter = DateListAdapter(context).apply {
 
-                clickEvent.subscribe{
+                clickEvent.subscribe {
                     mViewModel.listDateClasses()
                 }.disposedBy(compositeDisposable)
             }
         }
     }
 
+    private fun setupDayOfRecyclerView() {
+
+        mBinding.dayOfClassRecyclerView.apply {
+
+            adapter = DayOfClassAdapter()
+        }
+    }
+
+    private fun setupViewPagerWithTab() {
+
+        mBinding.apply {
+
+            var position = 0
+            mViewModel.genres.value?.forEach {
+                genreTabLayout.addTab(genreTabLayout.newTab().setText(it.name), position++)
+            }
 
 
+            /**
+             * 2. viewpagerAdapter 생성 / viewPager.adapter 로 설정
+             */
+            val viewPagerAdapter = GenreClassPagerAdapter(childFragmentManager)
+            genreViewPager.adapter = viewPagerAdapter
+
+
+            TabLayoutMediator(genreTabLayout, genreViewPager) { tab, position ->
+                tab.text = mViewModel.genres.value?.get(position)?.name
+            }.attach()
+
+            CommonUtils.reduceMarginsInTabs(genreTabLayout, 30)
+            genreViewPager.offscreenPageLimit = 3
+        }
+    }
 
 
     private fun observeViewModel() {
 
         mViewModel.apply {
 
-            mainClasses.observe(viewLifecycleOwner){
+            genres.observe(viewLifecycleOwner, Observer {
+                if ( it != null) {
+                    setupViewPagerWithTab()
+                }
+            })
+
+            mainClasses.observe(viewLifecycleOwner) {
 
             }
 
-            errorInvoked.observeOnce(viewLifecycleOwner){
+            errorInvoked.observeOnce(viewLifecycleOwner) {
                 debugE(TAG, it.message)
             }
         }
 
     }
 
-    private fun startAutoScroll () {
+    private fun startAutoScroll() {
 
         autoScrollDisposable.clear()
 //
@@ -167,19 +207,13 @@ class ClassShopFragment : Fragment() {
     }
 
 
-
-
-    inner class ClassShopPagerAdapter(fragmentManager: FragmentManager) :
+    inner class GenreClassPagerAdapter(fragmentManager: FragmentManager) :
         FragmentStateAdapter(fragmentManager, lifecycle) {
 
-        override fun getItemCount(): Int = 2
+        override fun getItemCount(): Int = mViewModel.genres.value?.size ?: 0
 
         override fun createFragment(position: Int): Fragment {
-            return when (position) {
-                0 -> NormalClassListFragment.newInstance()
-                1 -> WorkShopListFragment.newInstance()
-                else -> throw Exception("error")
-            }
+            return GenreClassFragment.newInstance(mViewModel.genres.value?.get(position))
         }
     }
 
@@ -201,7 +235,6 @@ class ClassShopFragment : Fragment() {
 
         compositeDisposable.clear()
     }
-
 
 
     companion object {

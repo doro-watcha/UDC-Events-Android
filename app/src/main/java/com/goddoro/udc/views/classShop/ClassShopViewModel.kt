@@ -8,7 +8,9 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.Artist
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Date
+import com.goddoro.common.data.model.Genre
 import com.goddoro.common.data.repository.ClassRepository
+import com.goddoro.common.data.repository.GenreRepository
 import com.goddoro.udc.R
 import kotlinx.coroutines.launch
 import java.util.*
@@ -19,7 +21,8 @@ import java.util.*
  */
 
 class ClassShopViewModel(
-    private val classRepository : ClassRepository
+    private val classRepository: ClassRepository,
+    private val genreRepository: GenreRepository
 ) : ViewModel() {
 
     private val TAG = ClassShopViewModel::class.java.simpleName
@@ -27,14 +30,57 @@ class ClassShopViewModel(
 
     val mainClasses: MutableLiveData<List<DanceClass>?> = MutableLiveData()
 
-    val dateList : MutableLiveData<ArrayList<Date>> = MutableLiveData(ArrayList())
+    val dayOfClasses: MutableLiveData<List<DanceClass>> = MutableLiveData()
 
-    val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
+    val dateList: MutableLiveData<ArrayList<Date>> = MutableLiveData(ArrayList())
+
+    val genres : MutableLiveData<List<Genre>> = MutableLiveData()
+
+    val errorInvoked: MutableLiveData<Once<Throwable>> = MutableLiveData()
 
     init {
+        
+        genres.value = listOf(Genre(0,"비보잉"), Genre(1,"힙합"), Genre(2,"걸스힙합"))
 
         listMainClasses()
         setupDateList()
+
+        dayOfClasses.value = listOf(
+            DanceClass(
+                0,
+                "zxcv",
+                Artist(0, "zxcv", "zxcv", "zxcv"),
+                "zxcv",
+                "zxcv",
+                "zxcv",
+                "zxcv",
+                false,
+                "zxcv"
+            ),
+            DanceClass(
+                0,
+                "zxcv",
+                Artist(0, "zxcv", "zxcv", "zxcv"),
+                "zxcv",
+                "zxcv",
+                "zxcv",
+                "zxcv",
+                false,
+                "zxcv"
+            ),
+            DanceClass(
+                0,
+                "zxcv",
+                Artist(0, "zxcv", "zxcv", "zxcv"),
+                "zxcv",
+                "zxcv",
+                "zxcv",
+                "zxcv",
+                false,
+                "zxcv"
+            )
+        )
+
 
     }
 
@@ -44,7 +90,7 @@ class ClassShopViewModel(
             kotlin.runCatching {
                 classRepository.listClasses(sort = "main")
             }.onSuccess {
-                debugE(TAG,it)
+                debugE(TAG, it)
                 mainClasses.value = it
             }.onFailure {
                 debugE(TAG, "1")
@@ -53,17 +99,17 @@ class ClassShopViewModel(
         }
     }
 
-    private fun setupDateList () {
+    private fun setupDateList() {
 
         val today = Calendar.getInstance()
 
-        for ( i in 0..7){
+        for (i in 0..7) {
 
             debugE(TAG, today.get(Calendar.DATE))
             debugE(TAG, today.get(Calendar.DAY_OF_WEEK))
 
             val today_day = today.get(Calendar.DATE)
-            val today_date = when ( today.get(Calendar.DAY_OF_WEEK)){
+            val today_date = when (today.get(Calendar.DAY_OF_WEEK)) {
 
                 1 -> "일"
                 2 -> "월"
@@ -75,7 +121,7 @@ class ClassShopViewModel(
                 else -> throw Error()
             }
             dateList.value?.add(Date(date = today_date, day = today_day))
-            today.add(Calendar.DATE,1)
+            today.add(Calendar.DATE, 1)
 
         }
 
@@ -85,6 +131,20 @@ class ClassShopViewModel(
     fun listDateClasses() {
 
 
+    }
+
+    fun listGenres() {
+
+        viewModelScope.launch {
+
+            kotlin.runCatching {
+                genreRepository.listGenre()
+            }.onSuccess {
+                genres.value = it
+            }.onFailure {
+                errorInvoked.value = Once(it)
+            }
+        }
     }
 
 

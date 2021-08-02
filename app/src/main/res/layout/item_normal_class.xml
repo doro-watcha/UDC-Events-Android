@@ -13,7 +13,7 @@
 
     <com.goddoro.common.common.widget.SquareImageView
         android:id="@+id/video_thumbnail"
-        android:src="@{item.temporaryImage}"
+        android:src="@drawable/sample_image_04"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_columnWeight="1"

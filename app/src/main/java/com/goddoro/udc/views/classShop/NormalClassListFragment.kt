@@ -55,26 +55,26 @@ class NormalClassListFragment : Fragment() {
 
     private fun setupRecyclerView() {
 
-        mBinding.mRecyclerView.apply {
-            val mVideoGridLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
-            val spacingTop = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
-            val spacingLeft = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
-
-            val mVideoGridSpacing =
-                GridSpacingItemDecoration(3, spacingLeft, spacingTop, 0)
-
-            layoutManager = mVideoGridLayoutManager
-            addItemDecoration(mVideoGridSpacing)
-            setHasFixedSize(true)
-
-            adapter = NormalClassAdapter().apply {
-
-                clickEvent.subscribe{
-                    navigator.startClassDetailActivity(requireActivity(),it.first,it.second)
-                }.disposedBy(compositeDisposable)
-            }
-
-        }
+//        mBinding.mRecyclerView.apply {
+//            val mVideoGridLayoutManager: LinearLayoutManager = GridLayoutManager(context, 3)
+//            val spacingTop = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
+//            val spacingLeft = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
+//
+//            val mVideoGridSpacing =
+//                GridSpacingItemDecoration(3, spacingLeft, spacingTop, 0)
+//
+//            layoutManager = mVideoGridLayoutManager
+//            addItemDecoration(mVideoGridSpacing)
+//            setHasFixedSize(true)
+//
+//            adapter = NormalClassAdapter().apply {
+//
+//                clickEvent.subscribe{
+//                    navigator.startClassDetailActivity(requireActivity(),it.first,it.second)
+//                }.disposedBy(compositeDisposable)
+//            }
+//
+//        }
     }
 
     private fun observeViewModel() {

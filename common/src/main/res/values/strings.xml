@@ -126,5 +126,6 @@
     <string name="txt_right_location">주소가 확인되었습니다.</string>
 
     <string name="txt_this_week_classes">금주의 클래스</string>
+    <string name="txt_genre_classes">장르별 클래스</string>
 
 </resources>

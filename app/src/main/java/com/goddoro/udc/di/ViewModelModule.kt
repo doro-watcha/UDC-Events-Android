@@ -2,12 +2,14 @@ package com.goddoro.udc.di
 
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
+import com.goddoro.common.data.model.Genre
 import com.goddoro.map.EventMapViewModel
 import com.goddoro.udc.MainViewModel
 import com.goddoro.udc.views.admin.AdminViewModel
 import com.goddoro.udc.views.classShop.ClassShopViewModel
 import com.goddoro.udc.views.auth.AuthViewModel
 import com.goddoro.udc.views.classShop.detail.ClassDetailViewModel
+import com.goddoro.udc.views.classShop.GenreClassViewModel
 import com.goddoro.udc.views.event.detail.EventDetailViewModel
 import com.goddoro.udc.views.upload.map.SearchAddressViewModel
 import com.goddoro.udc.views.home.EventViewModel
@@ -51,7 +53,7 @@ val viewModelModule  = module {
     viewModel { EventMapViewModel(get(),get())}
     viewModel { TagDetailViewModel(get()) }
 
-    viewModel { ClassShopViewModel(get()) }
+    viewModel { ClassShopViewModel(get(),get()) }
     viewModel { NotificationViewModel(get()) }
 
     viewModel { SearchViewModel() }
@@ -68,4 +70,6 @@ val viewModelModule  = module {
     viewModel { UploadClassViewModel()}
     viewModel { UploadAcademyViewModel(get(),get()) }
     viewModel { AcademyPickViewModel(get()) }
+
+    viewModel { ( genre : Genre) -> GenreClassViewModel(genre, get()) }
 }
