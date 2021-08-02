@@ -7,9 +7,11 @@ import com.goddoro.common.common.Once
 import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.Artist
 import com.goddoro.common.data.model.DanceClass
+import com.goddoro.common.data.model.Date
 import com.goddoro.common.data.repository.ClassRepository
 import com.goddoro.udc.R
 import kotlinx.coroutines.launch
+import java.util.*
 
 
 /**
@@ -17,7 +19,7 @@ import kotlinx.coroutines.launch
  */
 
 class ClassShopViewModel(
-    val classRepository : ClassRepository
+    private val classRepository : ClassRepository
 ) : ViewModel() {
 
     private val TAG = ClassShopViewModel::class.java.simpleName
@@ -25,31 +27,14 @@ class ClassShopViewModel(
 
     val mainClasses: MutableLiveData<List<DanceClass>?> = MutableLiveData()
 
-    val normalClasses : MutableLiveData<List<DanceClass>?> = MutableLiveData()
-
-    val workshopClasses : MutableLiveData<List<DanceClass>?> = MutableLiveData()
-
-    val mainClassPosition : MutableLiveData<Int> = MutableLiveData()
+    val dateList : MutableLiveData<ArrayList<Date>> = MutableLiveData(ArrayList())
 
     val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
 
     init {
 
         listMainClasses()
-
-        normalClasses.value = listOf(
-            DanceClass(0,"zxcv", Artist(0,"Jiyoung Ahn"),"zxcvzxcv","zxcvzxcv","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
-                R.drawable.sample_image_01),
-            DanceClass(0,"zxcv", Artist(0,"Jiyoung Ahn"),"zxcvzxcv","zxcvzxcv","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
-                R.drawable.sample_image_01)
-        )
-
-        workshopClasses.value = listOf(
-            DanceClass(0,"zxcv", Artist(0,"Jiyoung Ahn"),"zxcvzxcv","zxcvzxcv","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
-                R.drawable.sample_image_01),
-            DanceClass(0,"zxcv", Artist(0,"Jiyoung Ahn"),"zxcvzxcv","zxcvzxcv","zxcvzxcv","zxcvzxcv",true,"zxcvzxcv",
-                R.drawable.sample_image_01)
-        )
+        setupDateList()
 
     }
 
@@ -68,34 +53,39 @@ class ClassShopViewModel(
         }
     }
 
-    private fun listNormalClasses() {
+    private fun setupDateList () {
 
-        viewModelScope.launch {
+        val today = Calendar.getInstance()
 
-            kotlin.runCatching {
-                classRepository.listClasses(type = "regular")
-            }.onSuccess{
-                normalClasses.value = it
-            }.onFailure {
-                debugE(TAG,"2")
-                errorInvoked.value = Once(it)
+        for ( i in 0..7){
+
+            debugE(TAG, today.get(Calendar.DATE))
+            debugE(TAG, today.get(Calendar.DAY_OF_WEEK))
+
+            val today_day = today.get(Calendar.DATE)
+            val today_date = when ( today.get(Calendar.DAY_OF_WEEK)){
+
+                1 -> "일"
+                2 -> "월"
+                3 -> "화"
+                4 -> "수"
+                5 -> "목"
+                6 -> "금"
+                7 -> "토"
+                else -> throw Error()
             }
+            dateList.value?.add(Date(date = today_date, day = today_day))
+            today.add(Calendar.DATE,1)
+
         }
+
+
     }
 
-    private fun listWorkshopClasses () {
+    fun listDateClasses() {
 
-        viewModelScope.launch {
 
-            kotlin.runCatching {
-                classRepository.listClasses(type = "popup")
-            }.onSuccess {
-                workshopClasses.value = it
-            }.onFailure {
-                debugE(TAG,"3")
-                errorInvoked.value = Once(it)
-            }
-        }
     }
+
 
 }

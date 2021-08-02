@@ -20,10 +20,6 @@ data class Event (
     @SerializedName("name")
     val name : String?,
 
-    val blurredImage : String?,
-
-    val imageId : Int? = 0,
-
     @SerializedName("posterImgUrl")
     val posterUrl : String,
 

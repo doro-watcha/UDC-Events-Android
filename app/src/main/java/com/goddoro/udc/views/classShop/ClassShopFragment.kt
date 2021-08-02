@@ -11,11 +11,14 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.lifecycle.observe
+import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxRepeatTimer
 import com.goddoro.common.util.CommonUtils
@@ -66,15 +69,15 @@ class ClassShopFragment : Fragment() {
 
         observeViewModel()
 
-        setupViewPagerWithTab()
         setupViewPager()
+        setupDateRecyclerView()
     }
 
 
 
     private fun setupViewPager() {
 
-        mBinding.mMainClassViewPager.apply {
+        mBinding.mainViewPager.apply {
 
             adapter = MainClassAdapter().apply {
 
@@ -99,62 +102,38 @@ class ClassShopFragment : Fragment() {
 
             setCurrentItem(centerValue, false)
             debugE(TAG, "CURRENT ITEM IN SET UP $currentItem")
-            this.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
-                override fun onPageScrolled(
-                    position: Int,
-                    positionOffset: Float,
-                    positionOffsetPixels: Int
-                ) {
-                    super.onPageScrolled(position, positionOffset, positionOffsetPixels)
-                }
 
-                override fun onPageSelected(position: Int) {
-                    super.onPageSelected(position)
-
-                    mBinding.indicator.selection = position % (mViewModel.mainClasses.value?.size ?: 0)
-                }
-
-                override fun onPageScrollStateChanged(state: Int) {
-                    super.onPageScrollStateChanged(state)
-                }
-            })
 
         }
     }
 
+    private fun setupDateRecyclerView() {
 
-    private fun setupViewPagerWithTab() {
+        mBinding.dateRecyclerView.apply {
 
-        mBinding.apply {
+            val mVideoGridLayoutManager: LinearLayoutManager = GridLayoutManager(context, 7)
+            val spacingTop = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
+            val spacingLeft = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
 
-            mTabLayout.addTab(
-                mTabLayout.newTab().setText(getString(R.string.common_dance_class)),
-                0
-            )
-            mTabLayout.addTab(mTabLayout.newTab().setText(getString(R.string.common_workshop)), 1)
+            val mVideoGridSpacing =
+                GridSpacingItemDecoration(7, spacingLeft, spacingTop, 0)
 
-            /**
-             * 2. viewpagerAdapter 생성 / viewPager.adapter 로 설정
-             */
-            val viewPagerAdapter = ClassShopPagerAdapter(childFragmentManager)
-            mViewPager.adapter = viewPagerAdapter
+            layoutManager = mVideoGridLayoutManager
+            addItemDecoration(mVideoGridSpacing)
+            setHasFixedSize(true)
 
+            adapter = DateListAdapter(context).apply {
 
-            TabLayoutMediator(mTabLayout, mViewPager) { tab, position ->
-                tab.text = when ( position ) {
-                    0 -> "클래스"
-                    1 -> "워크샵"
-                    else -> throw Error()
-                }
-            }.attach()
-            /*
-* Tab indicator margin조정
-* default는 fullwidth이다.
- */
-            CommonUtils.reduceMarginsInTabs(mTabLayout, 30)
-            mViewPager.offscreenPageLimit = 3
+                clickEvent.subscribe{
+                    mViewModel.listDateClasses()
+                }.disposedBy(compositeDisposable)
+            }
         }
     }
+
+
+
+
 
     private fun observeViewModel() {
 
@@ -162,7 +141,6 @@ class ClassShopFragment : Fragment() {
 
             mainClasses.observe(viewLifecycleOwner){
 
-                mBinding.indicator.count = it?.size ?: 0
             }
 
             errorInvoked.observeOnce(viewLifecycleOwner){
@@ -175,15 +153,15 @@ class ClassShopFragment : Fragment() {
     private fun startAutoScroll () {
 
         autoScrollDisposable.clear()
-
-        rxRepeatTimer(5000,{
-            mBinding.mMainClassViewPager.apply {
-
-                setCurrentItem(currentItem + 1 , false)
-                debugE(TAG, "CURRENT ITEM IN AUTO SCROLL $currentItem")
-            }
-
-        },5000).disposedBy(autoScrollDisposable)
+//
+//        rxRepeatTimer(5000,{
+//            mBinding.mMainClassViewPager.apply {
+//
+//                setCurrentItem(currentItem + 1 , false)
+//                debugE(TAG, "CURRENT ITEM IN AUTO SCROLL $currentItem")
+//            }
+//
+//        },5000).disposedBy(autoScrollDisposable)
 
 
     }
