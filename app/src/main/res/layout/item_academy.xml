@@ -12,6 +12,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="5dp"
         android:foreground="?attr/selectableItemBackground"
         android:background="@drawable/border_white_background">
 
@@ -53,6 +54,7 @@
             app:layout_constraintTop_toBottomOf="@+id/txt_name"
             android:layout_marginTop="5dp"
             android:text="@{item.location}"
+            android:textSize="10dp"
             app:layout_constraintBottom_toBottomOf="@+id/img_logo"
             tools:text="서울특별시 서대문구 대현동 104-5, 701호"/>
 

@@ -16,6 +16,18 @@ object StrPatternChecker {
     private const val str_login_id_pattern = "^[a-zA-Z0-9.]{6,24}$"
     private val LoginIdMattcher = Pattern.compile(str_login_id_pattern)
 
+    private val youtube_url_pattern =".*(?:youtu.be\\/|v\\/|u\\/\\w\\/|embed\\/|watch\\?v=)([^#\\&\\?]*).*"
+    private val urlPatternMatcher = Pattern.compile(youtube_url_pattern)
+
+    fun YoutubeUrlTypeOk ( url : String) : Boolean {
+        return urlPatternMatcher.matcher(url).matches()
+    }
+
+    fun getYoutubeIdFromUrl ( url : String) : String? {
+        return if (urlPatternMatcher.matcher(url).find()) urlPatternMatcher.matcher(url).group(1)
+        else ""
+    }
+
     //    private static final String str_user_name_pattern = "^(?=.*[a-zA-Z0-9.]){6,24}([a-zA-Z0-9]+[.]{0,1}[a-zA-Z0-9]+)$";
     private const val str_user_name_pattern = "^(?=.{2,24}$)([a-zA-Z0-9가-]+[.]{0,1}[a-zA-Z0-9]+)$"
     private val UserNameMatcher = Pattern.compile(str_user_name_pattern)

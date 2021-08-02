@@ -5,10 +5,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import com.goddoro.common.common.StrPatternChecker.YoutubeUrlTypeOk
+import com.goddoro.common.common.StrPatternChecker.getYoutubeIdFromUrl
+import com.goddoro.common.common.debugE
 import com.goddoro.udc.databinding.FragmentUploadClassBasicBinding
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
+import java.util.regex.Pattern
 
 class UploadClassBasicFragment : Fragment() {
+
+    private val TAG = UploadClassBasicFragment::class.java.simpleName
 
     private lateinit var binding : FragmentUploadClassBasicBinding
     private val viewModel : UploadClassViewModel by sharedViewModel()
@@ -25,7 +31,27 @@ class UploadClassBasicFragment : Fragment() {
 
         binding.vm = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
+
+        observeViewModel()
     }
+
+    private fun observeViewModel() {
+
+        viewModel.apply {
+
+            youtubeUrl.observe(viewLifecycleOwner){
+                debugE(TAG, it)
+                if ( YoutubeUrlTypeOk(it)) {
+
+                    //binding.youtubeView.play(getYoutubeIdFromUrl(it))
+                    debugE(TAG, getYoutubeIdFromUrl(it))
+
+                }
+            }
+
+        }
+    }
+
 
 
     companion object {

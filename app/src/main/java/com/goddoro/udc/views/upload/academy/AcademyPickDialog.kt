@@ -17,6 +17,7 @@ import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.Navigator
+import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.R
 import com.goddoro.map.databinding.DialogMapDetailBinding
 import com.goddoro.udc.databinding.DialogAcademyPickBinding
@@ -35,6 +36,8 @@ class AcademyPickDialog  : DialogFragment(){
 
     private var mBinding : DialogAcademyPickBinding by AutoClearedValue()
     private val viewModel : AcademyPickViewModel by viewModel()
+
+    private val toastUtil : ToastUtil by inject()
 
     override fun getTheme(): Int = R.style.Theme_UDC_MapDetailDialog
 
@@ -127,6 +130,7 @@ class AcademyPickDialog  : DialogFragment(){
         Broadcast.apply {
 
             registerAcademyCompleteBroadcast.subscribe{
+                toastUtil.createToast("$it 등록을 완료하였습니다").show()
                 viewModel.listAcademies()
             }.disposedBy(compositeDisposable)
         }

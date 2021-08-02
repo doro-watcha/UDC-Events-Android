@@ -175,6 +175,15 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
+            <kr.co.prnd.YouTubePlayerView
+                android:id="@+id/youtube_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:layout_height="100dp"
+                tools:visibility="visible"
+                android:visibility="@{vm.youtubeUrl.length() > 0 }"
+                app:layout_constraintTop_toBottomOf="@+id/layout_edit_youtube_url"/>
+
             <TextView
                 android:id="@+id/txt_class_level"
                 android:layout_width="wrap_content"
@@ -183,7 +192,7 @@
                 android:textColor="@color/black"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/txt_youtube_url"
-                app:layout_constraintTop_toBottomOf="@+id/layout_edit_youtube_url" />
+                app:layout_constraintTop_toBottomOf="@+id/youtube_view" />
 
             <TextView
                 android:id="@+id/class_level"

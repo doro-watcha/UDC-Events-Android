@@ -65,7 +65,9 @@ class UploadAcademyViewModel(
                 academyRepository.registerAcademy(
                     name = name.value ?: "",
                     location = location.value ?: "",
-                    logoImage = logoImage.value
+                    logoImage = logoImage.value,
+                    latitude = latitude,
+                    longitude = longitude
                 )
             }.onSuccess {
                 onRegisterComplete.value = Once(Unit)

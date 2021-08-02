@@ -19,5 +19,5 @@ object Broadcast {
 
     val pickAcademyBroadcast : PublishSubject<Academy> = PublishSubject.create()
 
-    val registerAcademyCompleteBroadcast : PublishSubject<Unit> = PublishSubject.create()
+    val registerAcademyCompleteBroadcast : PublishSubject<String> = PublishSubject.create()
 }

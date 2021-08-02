@@ -11,6 +11,8 @@ interface AcademyRepository {
     suspend fun registerAcademy (
         name : String,
         location : String,
-        logoImage : Uri?= null
+        logoImage : Uri?= null,
+        latitude : Double,
+        longitude : Double
     ) : Any
 }

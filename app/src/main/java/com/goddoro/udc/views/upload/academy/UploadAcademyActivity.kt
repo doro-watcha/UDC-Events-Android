@@ -3,6 +3,7 @@ package com.goddoro.udc.views.upload.academy
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.LayoutInflater
+import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.extension.addSchedulers
@@ -98,7 +99,7 @@ class UploadAcademyActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
             onRegisterComplete.observeOnce(this@UploadAcademyActivity){
-                toastUtil.createToast("${name.value} 등록을 완료하였습니다").show()
+                Broadcast.registerAcademyCompleteBroadcast.onNext(name.value ?: "")
                 finish()
             }
 

@@ -48,6 +48,7 @@ class UploadClassActivity : AppCompatActivity() {
         viewModel.apply {
 
 
+
             clickPickAcademy.observeOnce(this@UploadClassActivity){
                 val dialog = AcademyPickDialog()
                 dialog.show(supportFragmentManager,null)

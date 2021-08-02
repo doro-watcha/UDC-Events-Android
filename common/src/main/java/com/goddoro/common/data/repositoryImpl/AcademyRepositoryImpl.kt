@@ -16,13 +16,15 @@ class AcademyRepositoryImpl ( private val api : AcademyAPI, private val multiPar
     }
 
 
-    override suspend fun registerAcademy(name: String, location: String, logoImage: Uri?): Any {
+    override suspend fun registerAcademy(name: String, location: String, logoImage: Uri?, latitude : Double, longitude : Double ): Any {
         val params : HashMap<String, RequestBody> = hashMapOf()
 
         val files = mutableListOf<MultipartBody.Part>()
 
         params["name"] = multiPartUtil.stringToPart(name)
         params["location"] = multiPartUtil.stringToPart(location)
+        params["latitude"] = multiPartUtil.stringToPart(latitude.toString())
+        params["longitude"] = multiPartUtil.stringToPart(longitude.toString())
 
         logoImage?.let { files.add(multiPartUtil.uriToPart("logoImg", it)) }
 
