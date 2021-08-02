@@ -6,9 +6,12 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.goddoro.common.common.observeOnce
 import com.goddoro.udc.databinding.ActivityUploadClassBinding
 import com.goddoro.udc.views.upload.EventPreviewFragment
 import com.goddoro.udc.views.upload.UploadEventFragment
+import com.goddoro.udc.views.upload.academy.AcademyPickDialog
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UploadClassActivity : AppCompatActivity() {
 
@@ -16,10 +19,15 @@ class UploadClassActivity : AppCompatActivity() {
 
     private lateinit var binding : ActivityUploadClassBinding
 
+    private val viewModel : UploadClassViewModel by viewModel()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityUploadClassBinding.inflate(LayoutInflater.from(this))
+
+        binding.lifecycleOwner = this
+        binding.vm = viewModel
 
         setContentView(binding.root)
 
@@ -36,6 +44,15 @@ class UploadClassActivity : AppCompatActivity() {
     }
 
     private fun observeViewModel() {
+
+        viewModel.apply {
+
+
+            clickPickAcademy.observeOnce(this@UploadClassActivity){
+                val dialog = AcademyPickDialog()
+                dialog.show(supportFragmentManager,null)
+            }
+        }
 
 
 

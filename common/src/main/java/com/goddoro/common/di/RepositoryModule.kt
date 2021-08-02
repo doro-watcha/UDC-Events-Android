@@ -21,5 +21,6 @@ val repositoryModule = module {
     single { DeviceRepositoryImpl(get())} bind DeviceRepository::class
     single { NotificationRepositoryImpl(get())} bind NotificationRepository::class
     single { NaverRepositoryImpl(get(),get())} bind NaverRepository::class
+    single { AcademyRepositoryImpl(get(),get())} bind AcademyRepository::class
 
 }

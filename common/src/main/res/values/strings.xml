@@ -74,6 +74,8 @@
     <string name="txt_enter_email">Please enter email</string>
     <string name="txt_unconfirmed_event">Need to confirm</string>
     <string name="txt_grant">Grant</string>
+    <string name="txt_pick_images">Pick Images</string>
+    <string name="common_next">NEXT</string>
 
     <string name="shared_element_transition">sharedElementTransition</string>
 
@@ -109,7 +111,18 @@
     <string name="txt_class_description">클래스 소개</string>
     <string name="txt_class_youtube_url">클래스 Youtube URL</string>
     <string name="txt_class_location">클래스 위치</string>
+    <string name="txt_class_date">클래스 날짜</string>
     <string name="txt_class_level">클래스 난이도</string>
-    <string name="txt_class_purpose">클래스 수강대상</string>
+    <string name="txt_class_target">클래스 수강대상</string>
+
+    <string name="txt_class_register">클래스 등록하기</string>
+    <string name="txt_register_academy">아카데미 등록하기</string>
+    <string name="txt_academy_name">아카데미(학원, 연습실, 학교 등) 이름이 어떻게 되나요?</string>
+    <string name="txt_address_input_msg">주소를 입력해주세요!</string>
+    <string name="txt_logo_input_msg">아카데미 로고를 골라주세요!(선택)</string>
+    <string name="txt_find_academy">아카데미를 선택해주세요!</string>
+
+    <string name="txt_wrong_location">잘못된 주소입니다. 줌을 더 땡겨보세요!</string>
+    <string name="txt_right_location">주소가 확인되었습니다.</string>
 
 </resources>

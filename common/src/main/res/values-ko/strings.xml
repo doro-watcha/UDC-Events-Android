@@ -76,6 +76,8 @@
     <string name="txt_unconfirmed_event">승인되지 않은 행사들</string>
 
     <string name="txt_grant">허가</string>
+    <string name="txt_pick_images">클래스 관련 사진을 골라주세요! ( 최대 10장 )</string>
+    <string name="common_next">다음</string>
 
     <string name="shared_element_transition">sharedElementTransition</string>
 

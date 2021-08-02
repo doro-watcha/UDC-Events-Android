@@ -19,7 +19,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.upload.danceClass.UploadClassActiivty"></activity>
+        <activity android:name=".views.upload.academy.UploadAcademyActivity"></activity>
+        <activity android:name=".views.upload.danceClass.UploadClassActivity" />
         <activity android:name=".views.intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +33,7 @@
         <activity android:name=".views.admin.AdminActivity" />
         <activity
             android:name=".views.upload.map.SearchAddressActivity"
-            android:windowSoftInputMode="adjustResize"></activity>
+            android:windowSoftInputMode="adjustResize" />
         <activity android:name=".views.search.detail.SearchDetailActivity" />
         <activity android:name=".views.search.SearchActivity" />
         <activity android:name=".views.upload.UploadEventActivity" />
@@ -63,7 +64,7 @@
         <activity
             android:name=".MainActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
-            android:screenOrientation="portrait"></activity>
+            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="com.naver.maps.map.86uizs8uuf"

@@ -13,6 +13,8 @@ import com.goddoro.common.util.Navigator
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.ActivitySettingBinding
+import com.goddoro.udc.util.startActivity
+import com.goddoro.udc.views.upload.danceClass.UploadClassActivity
 import dagger.android.AndroidInjection.inject
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
@@ -64,6 +66,10 @@ class SettingActivity : AppCompatActivity() {
 
             clickTagDetailDialog.observeOnce(this@SettingActivity){
                 navigator.startTagDetailActivity(this@SettingActivity,it)
+            }
+
+            clickRegisterClass.observeOnce(this@SettingActivity) {
+                startActivity(UploadClassActivity::class, enterAnim = R.anim.slide_in_from_right,R.anim.slide_out_to_left)
             }
 
             clickEditProfile.observeOnce(this@SettingActivity){

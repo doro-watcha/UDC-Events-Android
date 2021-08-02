@@ -228,10 +228,10 @@ class SearchAddressActivity : AppCompatActivity(), OnMapReadyCallback {
 
 
     private fun changeCamera( x : Double, y : Double) {
-
         val cameraUpdate = CameraUpdate.scrollTo(LatLng(x, y))
         naverMap.moveCamera(cameraUpdate)
     }
+
     companion object {
         private const val LOCATION_PERMISSION_REQUEST_CODE = 1000
         const val ARG_LOCATION = "ARG_LOCATION"

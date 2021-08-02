@@ -29,12 +29,12 @@ data class NaverItem(var position: LatLng) : TedClusterItem {
 
     var profileSource : Int? = R.drawable.sample_image_01
 
-    var event : Event? = null
+    var academy : Academy? = null
 
-    constructor(lat: Double, lng: Double, _event : Event ) : this(LatLng(lat, lng)) {
+    constructor(lat: Double, lng: Double, _academy : Academy ) : this(LatLng(lat, lng)) {
         title = null
         snippet = null
-        this.event = _event
+        this.academy = _academy
     }
 
     constructor(lat: Double, lng: Double, title: String?, snippet: String?) : this(

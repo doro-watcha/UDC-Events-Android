@@ -81,6 +81,8 @@ class SettingViewModel (
 
     val clickTagDetailDialog : MutableLiveData<Once<Int>> = MutableLiveData()
 
+    val clickRegisterClass : MutableLiveData<Once<Unit>> = MutableLiveData()
+
     val clickEditProfile : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     val onProfileChangeCompleted : MutableLiveData<Once<Uri>> = MutableLiveData()
@@ -122,6 +124,10 @@ class SettingViewModel (
 
     fun onClickEditProfile() {
         clickEditProfile.value = Once(Unit)
+    }
+
+    fun onClickRegisterClass() {
+        clickRegisterClass.value = Once(Unit)
     }
 
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,44 +11,49 @@
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/txt_class_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_class_name"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"/>
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_edit_class_name"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="10dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/txt_class_name">
+            android:background="@color/white">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_name"
+            <TextView
+                android:id="@+id/txt_class_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_class_name"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edit_class_name"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:padding="6dp"
-                android:text="@={vm.name}"
-                android:textColor="@color/text_color_1"
-                android:theme="@style/EditTextTheme" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/txt_class_name">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:padding="6dp"
+                    android:text="@={vm.name}"
+                    android:textColor="@color/text_color_1"
+                    android:theme="@style/EditTextTheme" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
 
         <TextView
@@ -67,46 +73,74 @@
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="@+id/txt_class_genre"
             app:layout_constraintTop_toBottomOf="@+id/txt_class_genre"
-            tools:text="B-BOYING"
+            android:background="@drawable/border_white_background"
             android:textColor="@color/black"
             android:padding="10dp"
             android:text="@{vm.genre}"
             android:layout_marginTop="10dp"
-            android:background="@drawable/border_white_background"/>
+            tools:text="`B-BOYING" />
 
-        <TextView
-            android:id="@+id/txt_class_description"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintStart_toStartOf="@+id/class_genre"
-            app:layout_constraintTop_toBottomOf="@+id/class_genre"
-            android:layout_marginTop="10dp"
-            android:text="@string/txt_class_description"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/txt_class_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_class_location"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/class_genre"
+                app:layout_constraintTop_toBottomOf="@+id/class_genre" />
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/layout_edit_class_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
-            android:layout_marginEnd="12dp"
-            android:layout_marginBottom="10dp"
-            android:layout_marginTop="10dp"
-            app:endIconMode="clear_text"
-            app:endIconTint="@color/black"
-            app:layout_constraintTop_toBottomOf="@+id/txt_class_description">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edit_description"
+            <TextView
+                android:id="@+id/class_location"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{vm.location == null ? @string/txt_find_academy : vm.location}"
+                android:textColor="@color/black"
+                tools:text="서울특별시 서대문구 신촌역로 7"
+                android:layout_marginTop="10dp"
+                android:padding="10dp"
+                android:onDebounceClick="@{() -> vm.onClickPickAcademy()}"
+                android:background="@drawable/border_white_background"
+                app:layout_constraintStart_toStartOf="@+id/txt_class_location"
+                app:layout_constraintTop_toBottomOf="@+id/txt_class_location" />
+
+
+
+            <TextView
+                android:id="@+id/txt_class_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_class_description"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/class_location"
+                app:layout_constraintTop_toBottomOf="@+id/class_location" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edit_class_description"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:padding="6dp"
-                android:text="@={vm.description}"
-                android:textColor="@color/text_color_1"
-                android:theme="@style/EditTextTheme" />
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/txt_class_description">
 
-        </com.google.android.material.textfield.TextInputLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_description"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:padding="6dp"
+                    android:text="@={vm.description}"
+                    android:textColor="@color/text_color_1"
+                    android:theme="@style/EditTextTheme" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:id="@+id/txt_youtube_url"
@@ -141,28 +175,75 @@
 
         </com.google.android.material.textfield.TextInputLayout>
 
-        <TextView
-            android:id="@+id/txt_class_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/txt_class_level"
-            app:layout_constraintStart_toStartOf="@+id/txt_youtube_url"
-            app:layout_constraintTop_toBottomOf="@+id/layout_edit_youtube_url"
-            android:textColor="@color/black"
-            android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/txt_class_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/txt_class_level"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/txt_youtube_url"
+                app:layout_constraintTop_toBottomOf="@+id/layout_edit_youtube_url" />
 
-        <TextView
-            android:id="@+id/class_level"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="beginner"
-            app:layout_constraintStart_toStartOf="@+id/txt_class_level"
-            app:layout_constraintTop_toBottomOf="@+id/txt_class_level"
-            android:textColor="@color/black"
-            android:layout_marginTop="10dp"/>
+            <TextView
+                android:id="@+id/class_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/border_white_background"
+                android:padding="10dp"
+                android:textColor="@color/black"
+                app:layout_constraintStart_toStartOf="@+id/txt_class_level"
+                app:layout_constraintTop_toBottomOf="@+id/txt_class_level"
+                tools:text="beginner" />
+
+            <TextView
+                android:id="@+id/txt_class_target"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/txt_class_target"
+                android:textColor="@color/black"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/txt_class_level"
+                app:layout_constraintTop_toBottomOf="@+id/class_level" />
 
 
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/layout_edit_class_target"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="12dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="12dp"
+                android:layout_marginBottom="10dp"
+                app:endIconMode="clear_text"
+                app:endIconTint="@color/black"
+                app:layout_constraintTop_toBottomOf="@+id/txt_class_target">
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edit_target"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:padding="6dp"
+                    android:text="@={vm.target}"
+                    android:textColor="@color/text_color_1"
+                    android:theme="@style/EditTextTheme" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btn_next"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:text="@string/common_next"
+                app:layout_constraintTop_toBottomOf="@+id/layout_edit_class_target" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
 
 </layout>

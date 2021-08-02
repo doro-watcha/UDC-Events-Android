@@ -23,6 +23,8 @@ import com.goddoro.udc.views.setting.SettingViewModel
 import com.goddoro.udc.views.tag.TagDetailViewModel
 import com.goddoro.udc.views.udc.UdcViewModel
 import com.goddoro.udc.views.upload.UploadEventViewModel
+import com.goddoro.udc.views.upload.academy.AcademyPickViewModel
+import com.goddoro.udc.views.upload.academy.UploadAcademyViewModel
 import com.goddoro.udc.views.upload.danceClass.UploadClassViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -64,4 +66,6 @@ val viewModelModule  = module {
     viewModel { PendingEventViewModel(get()) }
 
     viewModel { UploadClassViewModel()}
+    viewModel { UploadAcademyViewModel(get(),get()) }
+    viewModel { AcademyPickViewModel(get()) }
 }

@@ -50,8 +50,6 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
     private lateinit var  mBinding: FragmentEventMapBinding
 
 
-
-
     /**
      * ViewModel Instance
      */
@@ -91,17 +89,17 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
     private fun setupRecyclerView() {
 
-        mBinding.mRecyclerView.apply {
-            adapter = EventSearchAdapter().apply {
-                
-                clickEvent.subscribe{
-                    mViewModel.searchedEvents.value = listOf()
-                    mViewModel.query.value = ""
-                    changeCamera(it.first)
-                    MapDetailDialog.show(requireActivity().supportFragmentManager, it.first )
-                }.disposedBy(compositeDisposable)
-            }
-        }
+//        mBinding.mRecyclerView.apply {
+//            adapter = EventSearchAdapter().apply {
+//
+//                clickEvent.subscribe{
+//                    mViewModel.searchedAcademies.value = listOf()
+//                    mViewModel.query.value = ""
+//                    changeCamera(it.first)
+//                    MapDetailDialog.show(requireActivity().supportFragmentManager, it.first )
+//                }.disposedBy(compositeDisposable)
+//            }
+//        }
     }
 
     override fun onHiddenChanged(hidden: Boolean) {
@@ -145,7 +143,6 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
             }, {
                 toastUtil.createToast(it.message ?: "").show()
             })
-
     }
 
     private fun observeViewModel() {
@@ -153,16 +150,16 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         mViewModel.apply {
 
             query.observe(viewLifecycleOwner, Observer {
-                if (it.isEmpty()) mViewModel.searchedEvents.value = listOf()
+                if (it.isEmpty()) mViewModel.searchedAcademies.value = listOf()
                 else queryChanged.onNext(it)
             })
 
-            events.observe(viewLifecycleOwner,Observer {
+            academies.observe(viewLifecycleOwner,Observer {
 
                 if (it.isNotEmpty()) {
 
-                    val mapItems : List<NaverItem> = it.map{ event ->
-                        NaverItem(lat = event.latitude ?: 0.0, lng = event.longitude ?: 0.0, _event = event )
+                    val mapItems : List<NaverItem> = it.map{ academy ->
+                        NaverItem(lat = academy.latitude, lng = academy.longitude, _academy = academy )
                     }
 
                     debugE(TAG, mapItems)
@@ -184,11 +181,11 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
                         }
                         .markerClickListener {
-                            MapDetailDialog.show(requireActivity().supportFragmentManager, it.event!!)
+                            //MapDetailDialog.show(requireActivity().supportFragmentManager, it.academy!!)
                         }
                         .make()
 
-                    mBinding.progress.visibility = View.GONE
+                    //mBinding.progress.visibility = View.GONE
 
                     toastUtil.createToast("${it.size}개의 행사가 있습니다").show()
 
@@ -225,20 +222,6 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
         mViewModel.listEvents()
 
     }
-
-//    private fun getItems(): List<NaverItem> {
-//        val bounds = naverMap.contentBounds
-//        return ArrayList<NaverItem>().apply {
-//            repeat(50) {
-//                val temp = NaverItem(
-//                    (bounds.northLatitude - bounds.southLatitude) * Math.random() + bounds.southLatitude,
-//                    (bounds.eastLongitude - bounds.westLongitude) * Math.random() + bounds.westLongitude
-//                )
-//                add(temp)
-//            }
-//        }
-//
-//    }
 
 
     private fun listenQueryChangeEvent() {
