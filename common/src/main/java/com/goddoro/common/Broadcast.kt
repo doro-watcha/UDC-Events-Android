@@ -1,6 +1,7 @@
 package com.goddoro.common
 
 import com.goddoro.common.data.model.Academy
+import com.goddoro.common.data.model.Genre
 import com.goddoro.common.data.model.Location
 import io.reactivex.subjects.PublishSubject
 
@@ -18,6 +19,8 @@ object Broadcast {
     val profileImageUpdateBroadcast : PublishSubject<Unit> = PublishSubject.create()
 
     val pickAcademyBroadcast : PublishSubject<Academy> = PublishSubject.create()
+
+    val pickGenreBroadcast : PublishSubject<Genre> = PublishSubject.create()
 
     val registerAcademyCompleteBroadcast : PublishSubject<String> = PublishSubject.create()
 }

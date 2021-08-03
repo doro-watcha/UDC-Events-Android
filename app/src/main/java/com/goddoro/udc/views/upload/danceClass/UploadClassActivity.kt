@@ -6,16 +6,22 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.goddoro.common.Broadcast
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.extension.disposedBy
 import com.goddoro.udc.databinding.ActivityUploadClassBinding
 import com.goddoro.udc.views.upload.EventPreviewFragment
 import com.goddoro.udc.views.upload.UploadEventFragment
 import com.goddoro.udc.views.upload.academy.AcademyPickDialog
+import com.goddoro.udc.views.upload.danceClass.genre.GenrePickDialog
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class UploadClassActivity : AppCompatActivity() {
 
     private val TAG = UploadClassActivity::class.java.simpleName
+
+    private val compositeDisposable = CompositeDisposable()
 
     private lateinit var binding : ActivityUploadClassBinding
 
@@ -33,6 +39,7 @@ class UploadClassActivity : AppCompatActivity() {
 
         observeViewModel()
         initViewPager()
+        setupBroadcast()
     }
 
     private fun initViewPager() {
@@ -40,6 +47,8 @@ class UploadClassActivity : AppCompatActivity() {
         binding.viewPager.apply {
 
             adapter = UploadClassPager(supportFragmentManager,3)
+
+            isUserInputEnabled = false
         }
     }
 
@@ -47,10 +56,33 @@ class UploadClassActivity : AppCompatActivity() {
 
         viewModel.apply {
 
+            clickBackArrow.observeOnce(this@UploadClassActivity){
+
+                if ( binding.viewPager.currentItem == 0 ) {
+                    finish()
+                } else {
+                    binding.viewPager.currentItem = binding.viewPager.currentItem - 1
+                }
+            }
+
+            clickToImageStep.observeOnce(this@UploadClassActivity){
+
+                binding.viewPager.currentItem = 1
+            }
+
+            clickToSpecificStep.observeOnce(this@UploadClassActivity) {
+
+                binding.viewPager.currentItem = 2
+            }
 
 
             clickPickAcademy.observeOnce(this@UploadClassActivity){
                 val dialog = AcademyPickDialog()
+                dialog.show(supportFragmentManager,null)
+            }
+
+            clickPickGenre.observeOnce(this@UploadClassActivity){
+                val dialog = GenrePickDialog()
                 dialog.show(supportFragmentManager,null)
             }
         }
@@ -59,6 +91,26 @@ class UploadClassActivity : AppCompatActivity() {
 
     }
 
+    private fun setupBroadcast() {
+
+        Broadcast.apply {
+
+            pickAcademyBroadcast.subscribe{
+                viewModel.academy.value = it
+            }.disposedBy(compositeDisposable)
+
+            pickGenreBroadcast.subscribe{
+                viewModel.genre.value = it
+            }.disposedBy(compositeDisposable)
+
+        }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable.dispose()
+    }
     inner class UploadClassPager (fragmentManager: FragmentManager, pageCount: Int) :
         FragmentStateAdapter(fragmentManager, lifecycle) {
         private val _count: Int = pageCount

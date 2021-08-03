@@ -124,8 +124,12 @@
 
     <string name="txt_wrong_location">잘못된 주소입니다. 줌을 더 땡겨보세요!</string>
     <string name="txt_right_location">주소가 확인되었습니다.</string>
+    <string name="txt_pick_genre_msg">장르를 선택해주세요!</string>
 
     <string name="txt_this_week_classes">금주의 클래스</string>
     <string name="txt_genre_classes">장르별 클래스</string>
+
+    <string name="hint_class_name">예) Panic Choreo Master Class</string>
+    <string name="hint_class_description">예) 직장인 대상 Choreography 클래스입니다!</string>
 
 </resources>
