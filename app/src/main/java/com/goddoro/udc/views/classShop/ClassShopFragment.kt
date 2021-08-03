@@ -2,6 +2,7 @@ package com.goddoro.udc.views.classShop
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -22,10 +23,12 @@ import com.goddoro.common.common.observeOnce
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxRepeatTimer
+import com.goddoro.common.extension.rxSingleTimer
 import com.goddoro.common.util.CommonUtils
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentClassShopBinding
+import com.goddoro.udc.util.setCurrentItem
 import com.goddoro.udc.views.classShop.detail.ClassDetailActivity
 import com.goddoro.udc.views.udc.UdcViewModel_Factory.create
 import com.google.android.material.tabs.TabLayout
@@ -113,6 +116,8 @@ class ClassShopFragment : Fragment() {
 
                     when (state) {
                         ViewPager2.SCROLL_STATE_IDLE -> {
+
+                            scrollToNext()
                             val position = mBinding.mainViewPager.currentItem
                             mBinding.indicator.refresh(
                                 position % (mViewModel.mainClasses.value?.size ?: 1)
@@ -210,18 +215,17 @@ class ClassShopFragment : Fragment() {
 
     }
 
-    private fun startAutoScroll() {
+    private fun scrollToNext () {
 
         autoScrollDisposable.clear()
-//
-//        rxRepeatTimer(5000,{
-//            mBinding.mMainClassViewPager.apply {
-//
-//                setCurrentItem(currentItem + 1 , false)
-//                debugE(TAG, "CURRENT ITEM IN AUTO SCROLL $currentItem")
-//            }
-//
-//        },5000).disposedBy(autoScrollDisposable)
+        rxSingleTimer(4000) {
+
+            val position = mBinding.mainViewPager.currentItem + 1
+
+            mBinding.indicator.refresh( position % ( mViewModel.mainClasses.value?.size ?: 1 )  )
+            mBinding.mainViewPager.setCurrentItem(position, 600)
+
+        }.disposedBy(autoScrollDisposable)
 
 
     }
@@ -236,13 +240,14 @@ class ClassShopFragment : Fragment() {
             return GenreClassFragment.newInstance(mViewModel.genres.value?.get(position))
         }
     }
-
     override fun onResume() {
         super.onResume()
 
-        startAutoScroll()
-    }
+        Log.d(TAG, "onResume")
 
+        scrollToNext()
+
+    }
     override fun onPause() {
         super.onPause()
 
@@ -252,6 +257,8 @@ class ClassShopFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        autoScrollDisposable.dispose()
 
         compositeDisposable.clear()
     }
