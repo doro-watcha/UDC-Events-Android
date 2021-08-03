@@ -40,14 +40,9 @@ class UploadClassBasicFragment : Fragment() {
 
         viewModel.apply {
 
-            youtubeUrl.observe(viewLifecycleOwner){
-                debugE(TAG, it)
-                debugE(TAG, YoutubeUrlTypeOk(it))
-                if ( YoutubeUrlTypeOk(it)) {
-
-                    binding.youtubeView.play(extractVideoIdFromUrl(it) ?: "")
-                    debugE(TAG, extractVideoIdFromUrl(it))
-
+            isValidYoutubeUrl.observe(viewLifecycleOwner){
+                if ( it == true ) {
+                    binding.youtubeView.play(extractVideoIdFromUrl(youtubeUrl.value ?: "") ?: "")
                 }
             }
 

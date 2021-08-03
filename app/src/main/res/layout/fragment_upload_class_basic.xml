@@ -209,8 +209,9 @@
                 android:layout_marginEnd="10dp"
                 app:layout_constraintStart_toStartOf="@+id/layout_edit_youtube_url"
                 app:layout_constraintEnd_toEndOf="@+id/layout_edit_youtube_url"
+                android:layout_marginTop="10dp"
                 android:layout_height="wrap_content"
-                android:visibility="@{vm.youtubeUrl.length() > 0 }"
+                android:visibility="@{vm.isValidYoutubeUrl()}"
                 app:layout_constraintTop_toBottomOf="@+id/layout_edit_youtube_url"
                 tools:layout_height="100dp"
                 tools:visibility="visible" />
@@ -235,6 +236,7 @@
                 android:padding="10dp"
                 android:text="@{vm.level == null ? @string/hint_class_level : vm.level}"
                 android:gravity="center"
+                android:textSize="12dp"
                 android:onDebounceClick="@{() -> vm.onClickPickLevel()}"
                 android:textColor="@{vm.level == null ? @color/gray_text_color : @color/black}"
                 app:layout_constraintStart_toStartOf="@+id/txt_class_level"

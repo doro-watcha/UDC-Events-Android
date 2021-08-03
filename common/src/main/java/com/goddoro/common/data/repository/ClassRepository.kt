@@ -17,4 +17,6 @@ interface ClassRepository {
     suspend fun getClass (
          id : Int
     ) : DanceClass
+
+    suspend fun registerClass () : Any
 }

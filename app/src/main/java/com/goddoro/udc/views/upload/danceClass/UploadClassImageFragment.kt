@@ -77,6 +77,7 @@ class UploadClassImageFragment : Fragment() {
                 TedImagePicker.with(requireContext())
                     .title(resources.getString(R.string.txt_pick_class_images))
                     .showCameraTile(false)
+                    .max(10,"최대 10개까지 선택할 수 있습니다")
                     .selectedUri(detailImages.value)
                     .mediaType(
                         MediaType.IMAGE

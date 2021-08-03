@@ -28,4 +28,8 @@ class ClassRepositoryImpl ( val api : ClassAPI) : ClassRepository {
     }
 
 
+    override suspend fun registerClass(): Any {
+        TODO("Not yet implemented")
+    }
+
 }

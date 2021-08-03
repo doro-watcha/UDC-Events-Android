@@ -68,7 +68,7 @@ val viewModelModule  = module {
 
     viewModel { PendingEventViewModel(get()) }
 
-    viewModel { UploadClassViewModel()}
+    viewModel { UploadClassViewModel(get())}
     viewModel { UploadAcademyViewModel(get(),get()) }
     viewModel { AcademyPickViewModel(get()) }
 

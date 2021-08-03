@@ -24,9 +24,9 @@ class UploadClassActivity : AppCompatActivity() {
 
     private val compositeDisposable = CompositeDisposable()
 
-    private lateinit var binding : ActivityUploadClassBinding
+    private lateinit var binding: ActivityUploadClassBinding
 
-    private val viewModel : UploadClassViewModel by viewModel()
+    private val viewModel: UploadClassViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -47,7 +47,7 @@ class UploadClassActivity : AppCompatActivity() {
 
         binding.viewPager.apply {
 
-            adapter = UploadClassPager(supportFragmentManager,3)
+            adapter = UploadClassPager(supportFragmentManager, 3)
 
             isUserInputEnabled = false
         }
@@ -57,16 +57,16 @@ class UploadClassActivity : AppCompatActivity() {
 
         viewModel.apply {
 
-            clickBackArrow.observeOnce(this@UploadClassActivity){
+            clickBackArrow.observeOnce(this@UploadClassActivity) {
 
-                if ( binding.viewPager.currentItem == 0 ) {
+                if (binding.viewPager.currentItem == 0) {
                     finish()
                 } else {
                     binding.viewPager.currentItem = binding.viewPager.currentItem - 1
                 }
             }
 
-            clickToImageStep.observeOnce(this@UploadClassActivity){
+            clickToImageStep.observeOnce(this@UploadClassActivity) {
 
                 binding.viewPager.currentItem = 1
             }
@@ -77,22 +77,21 @@ class UploadClassActivity : AppCompatActivity() {
             }
 
 
-            clickPickAcademy.observeOnce(this@UploadClassActivity){
+            clickPickAcademy.observeOnce(this@UploadClassActivity) {
                 val dialog = AcademyPickDialog()
-                dialog.show(supportFragmentManager,null)
+                dialog.show(supportFragmentManager, null)
             }
 
-            clickPickGenre.observeOnce(this@UploadClassActivity){
+            clickPickGenre.observeOnce(this@UploadClassActivity) {
                 val dialog = GenrePickDialog()
-                dialog.show(supportFragmentManager,null)
+                dialog.show(supportFragmentManager, null)
             }
 
-            clickPickLevel.observeOnce(this@UploadClassActivity){
+            clickPickLevel.observeOnce(this@UploadClassActivity) {
                 val dialog = LevelPickDialog()
                 dialog.show(supportFragmentManager, null)
             }
         }
-
 
 
     }
@@ -101,15 +100,15 @@ class UploadClassActivity : AppCompatActivity() {
 
         Broadcast.apply {
 
-            pickAcademyBroadcast.subscribe{
+            pickAcademyBroadcast.subscribe {
                 viewModel.academy.value = it
             }.disposedBy(compositeDisposable)
 
-            pickGenreBroadcast.subscribe{
+            pickGenreBroadcast.subscribe {
                 viewModel.genre.value = it
             }.disposedBy(compositeDisposable)
 
-            pickLevelBroadcast.subscribe{
+            pickLevelBroadcast.subscribe {
                 viewModel.level.value = it
             }.disposedBy(compositeDisposable)
 
@@ -121,7 +120,8 @@ class UploadClassActivity : AppCompatActivity() {
 
         compositeDisposable.dispose()
     }
-    inner class UploadClassPager (fragmentManager: FragmentManager, pageCount: Int) :
+
+    inner class UploadClassPager(fragmentManager: FragmentManager, pageCount: Int) :
         FragmentStateAdapter(fragmentManager, lifecycle) {
         private val _count: Int = pageCount
 
@@ -131,7 +131,7 @@ class UploadClassActivity : AppCompatActivity() {
         }
 
         override fun createFragment(position: Int): Fragment {
-            return when ( position ) {
+            return when (position) {
 
                 0 -> UploadClassBasicFragment.newInstance()
                 1 -> UploadClassImageFragment.newInstance()
@@ -139,6 +139,14 @@ class UploadClassActivity : AppCompatActivity() {
             }
         }
 
+    }
+
+    override fun onBackPressed() {
+
+        if (binding.viewPager.currentItem == 0) super.onBackPressed()
+        else {
+            binding.viewPager.currentItem = binding.viewPager.currentItem - 1
+        }
     }
 
 }
