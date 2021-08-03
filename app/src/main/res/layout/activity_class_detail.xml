@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:overScrollMode="never"
-        android:background="@color/background3"
+        android:background="@color/background4"
         android:scrollbars="none">
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -24,334 +24,180 @@
             android:layout_height="wrap_content"
             tools:context=".views.classShop.detail.ClassDetailActivity">
 
-            <ImageButton
-                android:id="@+id/btn_back_arrow"
+            <ImageView
+                android:id="@+id/img_main"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="16:9"
+                android:src="@drawable/sample_image_05"
+                app:layout_constraintTop_toTopOf="parent"
+                android:scaleType="centerCrop"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintDimensionRatio="32:9"
+                android:background="@drawable/gradation_deem"
+                app:layout_constraintBottom_toBottomOf="@+id/img_main"/>
+
+            <ImageView
+                android:id="@+id/img_back_arrow"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:onClick="@{() -> vm.onClickBackArrow()}"
-                android:layout_marginStart="12dp"
-                android:layout_marginTop="12dp"
-                android:background="?attr/selectableItemBackground"
                 android:src="@drawable/ic_back_arrow_white"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                android:layout_marginTop="12dp"
+                android:layout_marginStart="12dp"/>
+
 
             <TextView
-                android:id="@+id/txt_title"
+                android:id="@+id/txt_genre"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@{vm.danceClass.artist.name}"
+                android:text="비보잉 | "
                 android:textColor="@color/white"
+                app:layout_constraintStart_toStartOf="@+id/img_back_arrow"
+                app:layout_constraintBottom_toBottomOf="@+id/img_main"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/txt_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Basic Class | "
+                android:textColor="@color/white"
+                app:layout_constraintTop_toTopOf="@+id/txt_genre"
+                app:layout_constraintStart_toEndOf="@+id/txt_genre"/>
+
+            <TextView
+                android:id="@+id/txt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginStart="2dp"
+                app:layout_constraintStart_toEndOf="@+id/txt_level"
+                app:layout_constraintTop_toTopOf="@+id/txt_level"
+                android:text="매주 월 수 PM 7:00 ~ 8:30"/>
+
+            <TextView
+                android:id="@+id/txt_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="B-BOY PANIC의 Master Class"
+                android:textSize="18dp"
                 android:textStyle="bold"
-                app:layout_constraintBottom_toBottomOf="@+id/btn_back_arrow"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/btn_back_arrow" />
-
-
-            <ImageView
-                android:id="@+id/img_profile"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:layout_margin="12dp"
-                android:transitionName="@string/shared_element_transition"
-                android:scaleType="centerCrop"
-                android:src="@{vm.danceClass.posterImgUrl}"
-                tools:src="@drawable/sample_image_02"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/btn_back_arrow"
-                app:layout_constraintWidth_percent="0.66" />
-
-            <TextView
-                android:id="@+id/txt_dancer_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginTop="10dp"
-                android:text="Artist"
                 android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/img_profile"
-                app:layout_constraintTop_toTopOf="@+id/img_profile" />
+                app:layout_constraintBottom_toTopOf="@+id/txt_genre"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintStart_toStartOf="@+id/img_back_arrow"/>
 
             <TextView
-                android:id="@+id/dancer_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                tools:text="Ji Youn Ahn"
-                android:text="@{vm.danceClass.artist.name}"
-                android:textSize="10dp"
-                app:layout_constraintStart_toStartOf="@+id/txt_dancer_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_dancer_name" />
-
-            <TextView
-                android:id="@+id/txt_genre_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Genre"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/dancer_name"
-                app:layout_constraintTop_toBottomOf="@+id/dancer_name" />
-
-            <TextView
-                android:id="@+id/genre_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@{vm.danceClass.artist.genre}"
-                tools:text="BolBBalGan Music"
-                android:textSize="10dp"
-                app:layout_constraintStart_toStartOf="@id/txt_genre_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_genre_name" />
-
-            <TextView
-                android:id="@+id/txt_team_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Team"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@id/genre_name"
-                app:layout_constraintTop_toBottomOf="@+id/genre_name" />
-
-            <TextView
-                android:id="@+id/team_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@{vm.danceClass.artist.team}"
-                tools:text="볼빨간사춘기"
-                android:textSize="10dp"
-                app:layout_constraintStart_toStartOf="@+id/txt_team_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_team_name" />
-
-            <TextView
-                android:id="@+id/txt_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Location"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/team_name"
-                app:layout_constraintTop_toBottomOf="@+id/team_name" />
-
-            <TextView
-                android:id="@+id/location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@{vm.danceClass.artist.location}"
-                tools:text="서울"
-                android:textSize="10dp"
-                app:layout_constraintStart_toStartOf="@+id/txt_location"
-                app:layout_constraintTop_toBottomOf="@+id/txt_location" />
-
-            <TextView
-                android:id="@+id/txt_ask"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="문의"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                android:textSize="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/location"
-                app:layout_constraintStart_toStartOf="@+id/location"/>
-
-
-            <ImageView
-                android:id="@+id/btn_instagram"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/ripple_effect_black_background"
-                android:layout_marginTop="10dp"
-                android:visibility="@{vm.danceClass.artist.instagramUrl != ` `}"
-                android:onDebounceClick="@{ () -> vm.onClickInstagram()}"
-                android:src="@drawable/ic_instagram"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toStartOf="@+id/btn_youtube"
-                app:layout_constraintStart_toStartOf="@+id/txt_ask"
-                app:layout_constraintTop_toBottomOf="@+id/txt_ask" />
-
-            <ImageView
-                android:id="@+id/btn_youtube"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:background="@drawable/ripple_effect_black_background"
-                android:layout_marginStart="10dp"
-                android:visibility="@{vm.danceClass.artist.youtubeUrl != ` `}"
-                android:onDebounceClick="@{() -> vm.onClickYoutube()}"
-                android:layout_marginEnd="10dp"
-                android:src="@drawable/ic_youtube"
-                app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/btn_instagram"
-                app:layout_constraintTop_toTopOf="@+id/btn_instagram" />
-
-            <TextView
-                android:id="@+id/txt_class_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="날짜"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/img_profile"/>
-
-            <TextView
-                android:id="@+id/class_date"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@+id/txt_class_date"
-                app:layout_constraintTop_toBottomOf="@+id/txt_class_date"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="매주 월/수 오후 8시 30분" />
-
-            <TextView
-                android:id="@+id/txt_class_location"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="위치"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/class_date"/>
-
-            <TextView
-                android:id="@+id/class_location"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@+id/txt_class_location"
-                app:layout_constraintTop_toBottomOf="@+id/txt_class_location"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="경기 안성시 중앙로419번길 18 3층 루츠댄스 학원" />
-
-
-            <TextView
-                android:id="@+id/txt_class_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="수강 내용"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginStart="12dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/class_location"/>
-
-            <TextView
-                android:id="@+id/class_description"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@+id/txt_class_description"
-                app:layout_constraintTop_toBottomOf="@+id/txt_class_description"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:text="@{vm.danceClass.description}"
-                tools:text="이 강의는 초보 대상자이고..비보잉이고..글쎄 여기다가 대충 어떤 클래스인지 적으면 좋을듯.."/>
-
-            <TextView
-                android:id="@+id/txt_profile"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="프로필 사진"
-                android:textColor="@color/white"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/txt_class_description"
-                app:layout_constraintTop_toBottomOf="@+id/class_description" />
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/mRecyclerView"
+                android:id="@+id/txt_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginStart="12dp"
+                android:layout_marginEnd="12dp"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical"
-                android:overScrollMode="never"
-                android:padding="12dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                app:layout_constraintTop_toBottomOf="@id/txt_profile"
-                app:recyclerview_artist_profiles="@{vm.artistProfiles}"
-                tools:itemCount="3"
-                tools:listitem="@layout/item_general_image" />
+                android:text="글쎼요 여기다가 뭐라고 적어야 좋을지는 모르겠는데 일단 여기에는 클래스의 설명을 적는곳이긴 하거든요. 일단 평균적으로 3줄정도 적을 것 같으니깐 이정도로 찌끄려 보겠습니다."
+                app:layout_constraintTop_toBottomOf="@+id/img_main"/>
 
             <TextView
-                android:id="@+id/txt_youtube_video"
+                android:id="@+id/txt_artist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="대표영상"
+                android:text="강사님"
+                android:textSize="18dp"
+                android:layout_marginTop="30dp"
                 android:textColor="@color/white"
-                android:textSize="20dp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/txt_profile"
-                app:layout_constraintTop_toBottomOf="@+id/mRecyclerView" />
+                app:layout_constraintStart_toStartOf="@+id/txt_description"
+                app:layout_constraintTop_toBottomOf="@+id/txt_description"/>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_profile"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.5"
+                app:layout_constraintDimensionRatio="9:12"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="@+id/txt_artist"
+                app:layout_constraintTop_toBottomOf="@+id/txt_artist"
+                android:layout_marginTop="10dp"
+                app:cardCornerRadius="10dp">
+
+                <ImageView
+                    android:id="@+id/img_profile"
+                    android:src="@drawable/sample_image_03"
+                    android:layout_width="match_parent"
+                    android:scaleType="centerCrop"
+                    android:layout_height="match_parent"/>
+            </androidx.cardview.widget.CardView>
+
+            <TextView
+                android:id="@+id/txt_artist_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PANIC"
+                android:layout_marginTop="10dp"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/card_profile"
+                app:layout_constraintTop_toTopOf="@+id/card_profile"/>
+
+            <TextView
+                android:id="@+id/txt_academy_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="루츠댄스아카데미(안성점)"
+                app:layout_constraintStart_toStartOf="@+id/txt_artist_name"
+                app:layout_constraintEnd_toEndOf="@+id/txt_artist_name"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/txt_artist_name"
+                android:layout_marginTop="20dp"/>
+
+            <ImageView
+                android:id="@+id/img_instagram"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:src="@drawable/ic_instagram"
+                app:layout_constraintStart_toStartOf="@+id/txt_academy_name"
+                android:layout_marginTop="20dp"
+                app:layout_constraintEnd_toEndOf="@+id/txt_academy_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_academy_name"/>
+
+            <TextView
+                android:id="@+id/txt_artist_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/card_profile"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:text="여기에는 강사님의 한 마디를 적으려고 하거든요. 대충 뭐 한 두줄 정도 되지 않겠습네까"
+                app:layout_constraintTop_toBottomOf="@+id/card_profile"/>
+
+            <TextView
+                android:id="@+id/txt_youtube_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="소개 영상"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="@+id/txt_artist_description"
+                app:layout_constraintTop_toBottomOf="@+id/txt_artist_description"
+                android:layout_marginTop="30dp"/>
 
             <kr.co.prnd.YouTubePlayerView
-                android:id="@+id/youtubePlayer"
+                android:id="@+id/youtube_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                app:layout_constraintTop_toBottomOf="@+id/txt_youtube_video" />
-
-
-
-            <TextView
-                android:id="@+id/txt_dance_activity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="활동 경력"
-                android:textSize="20dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:layout_marginTop="10dp"
-                app:layout_constraintStart_toStartOf="@+id/txt_youtube_video"
-                app:layout_constraintTop_toBottomOf="@+id/youtubePlayer" />
-
-            <TextView
-                android:id="@+id/dance_activity"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/txt_dance_activity"
-                app:layout_constraintStart_toStartOf="@+id/txt_dance_activity"
-                tools:text="2019 Red Bull Bc One 우승\n2019 Red Bull Bc One 우승\n2019 Red Bull Bc One 우승\n2019 Red Bull Bc One 우승"
-                android:text="@{vm.danceClass.career}"
-                android:layout_marginTop="15dp"
-                android:paddingBottom="20dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:text="Class 문의 하기"
-                android:onClick="@{() -> vm.onClickAskButton()}"
-                android:layout_marginTop="20dp"
                 android:layout_marginStart="12dp"
-                android:visibility="gone"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="12dp"
-                app:layout_constraintTop_toBottomOf="@+id/dance_activity"/>
-
+                app:videoId="w__SnKoIZPo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_youtube_view"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

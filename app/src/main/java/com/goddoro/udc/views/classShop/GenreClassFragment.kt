@@ -11,9 +11,11 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.common.data.model.Genre
 import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentGenreClassBinding
 import io.reactivex.disposables.CompositeDisposable
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -26,6 +28,8 @@ class GenreClassFragment : Fragment() {
     private lateinit var binding : FragmentGenreClassBinding
 
     private lateinit var  viewModel : GenreClassViewModel
+
+    private val navigator : Navigator by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -67,7 +71,7 @@ class GenreClassFragment : Fragment() {
             adapter = NormalClassAdapter().apply {
 
                 clickEvent.subscribe{
-                    //navigator.startClassDetailActivity(requireActivity(),it.first,it.second)
+                    navigator.startClassDetailActivity(requireActivity(),it.first,it.second)
                 }.disposedBy(compositeDisposable)
             }
 

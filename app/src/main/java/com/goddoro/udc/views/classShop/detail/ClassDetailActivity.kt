@@ -57,16 +57,16 @@ class ClassDetailActivity : AppCompatActivity() {
 
     private fun initView() {
 
-        mBinding.youtubePlayer.play("mrP30UnUQjY")
+//        mBinding.youtubePlayer.play("mrP30UnUQjY")
     }
 
     private fun setupRecyclerView() {
 
-        mBinding.mRecyclerView.apply {
-
-
-            adapter = ArtistProfileAdapter()
-        }
+//        mBinding.mRecyclerView.apply {
+//
+//
+//            adapter = ArtistProfileAdapter()
+//        }
     }
     private fun observeViewModel() {
 
