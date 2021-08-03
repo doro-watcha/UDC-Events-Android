@@ -16,7 +16,7 @@ class UploadClassViewModel : ViewModel() {
     val academy : MutableLiveData<Academy> = MutableLiveData()
     val target : MutableLiveData<String> = MutableLiveData()
 
-    val mainPosterImage : MutableLiveData<Uri> = MutableLiveData()
+    var mainIndex = 0
     val detailImages : MutableLiveData<List<Uri>> = MutableLiveData()
 
     val clickGalleryButton : MutableLiveData<Once<Unit>> = MutableLiveData()

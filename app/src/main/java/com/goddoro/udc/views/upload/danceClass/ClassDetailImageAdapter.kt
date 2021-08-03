@@ -1,8 +1,11 @@
 package com.goddoro.udc.views.upload.danceClass
 
+import android.content.Context
 import android.net.Uri
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -10,6 +13,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.widget.setOnDebounceClickListener
+import com.goddoro.udc.R
 import com.goddoro.udc.databinding.ItemClassDetailImageBinding
 import com.goddoro.udc.databinding.ItemSearchRecommendationBinding
 import com.goddoro.udc.views.search.SearchRecommendAdapter
@@ -22,7 +26,7 @@ import org.koin.core.KoinComponent
  * created By DORO 11/28/20
  */
 
-class ClassDetailImageAdapter:
+class ClassDetailImageAdapter ( private val context : Context):
     RecyclerView.Adapter<ClassDetailImageAdapter.ImageViewHolder>() {
 
     private val TAG = ClassDetailImageAdapter::class.java.simpleName
@@ -30,8 +34,8 @@ class ClassDetailImageAdapter:
     var mainIndex = 0
 
 
-    private val onClick: PublishSubject<Uri> = PublishSubject.create()
-    val clickClass: Observable<Uri> = onClick
+    private val onClick: PublishSubject<Int> = PublishSubject.create()
+    val clickEvent: Observable<Int> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Uri>() {
         override fun areItemsTheSame(oldItem: Uri, newItem: Uri): Boolean {
@@ -69,7 +73,9 @@ class ClassDetailImageAdapter:
 
             binding.root.setOnDebounceClickListener {
 
-                onClick.onNext(differ.currentList[layoutPosition])
+                onClick.onNext(layoutPosition)
+                mainIndex = layoutPosition
+                notifyDataSetChanged()
             }
 
         }
@@ -80,10 +86,12 @@ class ClassDetailImageAdapter:
 
 
             if ( layoutPosition == mainIndex) {
-
+                binding.imgMain.visibility = View.VISIBLE
+                binding.root.background = ContextCompat.getDrawable(context, R.drawable.border_green_background)
 
             } else {
-
+                binding.imgMain.visibility = View.GONE
+                binding.root.background = ContextCompat.getDrawable(context, R.drawable.border_white_background)
 
             }
 

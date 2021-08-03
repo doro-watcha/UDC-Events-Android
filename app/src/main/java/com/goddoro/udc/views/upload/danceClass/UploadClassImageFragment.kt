@@ -9,14 +9,20 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
+import com.goddoro.common.extension.disposedBy
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentUploadClassImageBinding
 import com.goddoro.udc.views.upload.EventDetailImageAdapter
 import gun0912.tedimagepicker.builder.TedImagePicker
 import gun0912.tedimagepicker.builder.type.MediaType
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 
 class UploadClassImageFragment : Fragment() {
+
+    private val TAG = UploadClassImageFragment::class.java.simpleName
+
+    private val compositeDisposable = CompositeDisposable()
 
     private lateinit var binding : FragmentUploadClassImageBinding
     private val viewModel : UploadClassViewModel by sharedViewModel()
@@ -54,8 +60,10 @@ class UploadClassImageFragment : Fragment() {
             addItemDecoration(mVideoGridSpacing)
             setHasFixedSize(true)
 
-            adapter = ClassDetailImageAdapter().apply {
-
+            adapter = ClassDetailImageAdapter(context).apply {
+                clickEvent.subscribe{
+                    viewModel.mainIndex = it
+                }.disposedBy(compositeDisposable)
             }
 
         }
@@ -78,6 +86,12 @@ class UploadClassImageFragment : Fragment() {
                     }
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable.clear()
     }
 
     companion object {
