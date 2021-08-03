@@ -17,7 +17,7 @@ class PageIndicatorFill (context : Context, attributeSet : AttributeSet?= null) 
 
     private var paint = Paint(Paint.ANTI_ALIAS_FLAG).apply {
         this.style = Paint.Style.FILL_AND_STROKE
-        this.color = resources.getColor(R.color.melonGreen)
+        this.color = resources.getColor(R.color.white)
     }
 
 
@@ -43,6 +43,6 @@ class PageIndicatorFill (context : Context, attributeSet : AttributeSet?= null) 
 }
 
 @BindingAdapter("app:page_fill_count")
-fun PageIndicatorFill.setPageCount( count : Int?= 0) {
+fun PageIndicatorFill.setPageFillCount( count : Int?= 0) {
     setEventCount(count)
 }

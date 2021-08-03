@@ -106,6 +106,24 @@ class ClassShopFragment : Fragment() {
             setCurrentItem(centerValue, false)
             debugE(TAG, "CURRENT ITEM IN SET UP $currentItem")
 
+            this.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+
+                override fun onPageScrollStateChanged(state: Int) {
+                    super.onPageScrollStateChanged(state)
+
+                    when (state) {
+                        ViewPager2.SCROLL_STATE_IDLE -> {
+                            val position = mBinding.mainViewPager.currentItem
+                            mBinding.indicator.refresh(
+                                position % (mViewModel.mainClasses.value?.size ?: 1)
+                            )
+
+
+                        }
+
+                    }
+                }
+            })
 
         }
     }
@@ -165,6 +183,8 @@ class ClassShopFragment : Fragment() {
 
             CommonUtils.reduceMarginsInTabs(genreTabLayout, 30)
             genreViewPager.offscreenPageLimit = 3
+
+
         }
     }
 
@@ -174,7 +194,7 @@ class ClassShopFragment : Fragment() {
         mViewModel.apply {
 
             genres.observe(viewLifecycleOwner, Observer {
-                if ( it != null) {
+                if (it != null) {
                     setupViewPagerWithTab()
                 }
             })

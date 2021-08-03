@@ -23,7 +23,7 @@
             android:transitionName="@string/shared_element_transition"
             app:layout_constraintDimensionRatio="2:3"
             android:scaleType="centerCrop"
-            srcUrl="@{item.posterImgUrl}"
+            android:src="@{item.temporaryImage}"
             tools:src="@drawable/sample_image_02"
             app:layout_constraintTop_toTopOf="parent" />
 

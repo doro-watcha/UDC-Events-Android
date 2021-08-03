@@ -34,13 +34,13 @@ class ClassShopViewModel(
 
     val dateList: MutableLiveData<ArrayList<Date>> = MutableLiveData(ArrayList())
 
-    val genres : MutableLiveData<List<Genre>> = MutableLiveData()
+    val genres: MutableLiveData<List<Genre>> = MutableLiveData()
 
     val errorInvoked: MutableLiveData<Once<Throwable>> = MutableLiveData()
 
     init {
-        
-        genres.value = listOf(Genre(0,"비보잉"), Genre(1,"힙합"), Genre(2,"걸스힙합"))
+
+        genres.value = listOf(Genre(0, "비보잉"), Genre(1, "힙합"), Genre(2, "걸스힙합"))
 
         listMainClasses()
         setupDateList()
@@ -49,37 +49,54 @@ class ClassShopViewModel(
             DanceClass(
                 0,
                 "zxcv",
-                Artist(0, "zxcv", "zxcv", "zxcv"),
+                Artist(0, "BBOY PANIC", "MID DANCE STUDIO", "zxcv"),
                 "zxcv",
                 "zxcv",
                 "zxcv",
                 "zxcv",
                 false,
-                "zxcv"
+                "zxcv",
+                temporaryImage = R.drawable.class_sample_1
             ),
             DanceClass(
-                0,
+                1,
                 "zxcv",
-                Artist(0, "zxcv", "zxcv", "zxcv"),
+                Artist(0, "POPPIN DOKYUN", "1M STUDIO", "zxcv"),
                 "zxcv",
                 "zxcv",
                 "zxcv",
                 "zxcv",
                 false,
-                "zxcv"
+                "zxcv",
+                temporaryImage = R.drawable.class_sample_2
             ),
             DanceClass(
-                0,
+                2,
                 "zxcv",
-                Artist(0, "zxcv", "zxcv", "zxcv"),
+                Artist(0, "G_DRAGON", "Just Jerk Studio", "zxcv"),
                 "zxcv",
                 "zxcv",
                 "zxcv",
                 "zxcv",
                 false,
-                "zxcv"
+                "zxcv",
+                temporaryImage = R.drawable.class_sample_3
+            ),
+            DanceClass(
+                3,
+                "zxcv",
+                Artist(0, "YOUNG-J", "ROOTS Dance Studio", "zxcv"),
+                "zxcv",
+                "zxcv",
+                "zxcv",
+                "zxcv",
+                false,
+                "zxcv",
+                temporaryImage = R.drawable.class_sample_4
             )
         )
+
+        mainClasses.value = dayOfClasses.value
 
 
     }
