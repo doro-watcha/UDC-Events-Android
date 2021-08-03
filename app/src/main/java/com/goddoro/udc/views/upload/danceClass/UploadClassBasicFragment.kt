@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.goddoro.common.common.StrPatternChecker.YoutubeUrlTypeOk
+import com.goddoro.common.common.StrPatternChecker.extractVideoIdFromUrl
 import com.goddoro.common.common.StrPatternChecker.getYoutubeIdFromUrl
 import com.goddoro.common.common.debugE
 import com.goddoro.udc.databinding.FragmentUploadClassBasicBinding
@@ -41,10 +42,11 @@ class UploadClassBasicFragment : Fragment() {
 
             youtubeUrl.observe(viewLifecycleOwner){
                 debugE(TAG, it)
+                debugE(TAG, YoutubeUrlTypeOk(it))
                 if ( YoutubeUrlTypeOk(it)) {
 
-                    //binding.youtubeView.play(getYoutubeIdFromUrl(it))
-                    debugE(TAG, getYoutubeIdFromUrl(it))
+                    binding.youtubeView.play(extractVideoIdFromUrl(it) ?: "")
+                    debugE(TAG, extractVideoIdFromUrl(it))
 
                 }
             }

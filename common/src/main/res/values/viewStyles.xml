@@ -8,7 +8,7 @@
 
 
 
-    <style name=" Theme.UDC.MapDetailDialog" parent="Theme.MaterialComponents.Dialog">
+    <style name="Theme.UDC.MapDetailDialog" parent="Theme.MaterialComponents.Dialog">
         <item name="android:backgroundDimEnabled">true</item>
         <item name="android:windowCloseOnTouchOutside">true</item>
     </style>
