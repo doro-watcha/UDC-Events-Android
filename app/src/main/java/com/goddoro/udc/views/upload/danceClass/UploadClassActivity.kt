@@ -14,6 +14,7 @@ import com.goddoro.udc.views.upload.EventPreviewFragment
 import com.goddoro.udc.views.upload.UploadEventFragment
 import com.goddoro.udc.views.upload.academy.AcademyPickDialog
 import com.goddoro.udc.views.upload.danceClass.genre.GenrePickDialog
+import com.goddoro.udc.views.upload.danceClass.level.LevelPickDialog
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -85,6 +86,11 @@ class UploadClassActivity : AppCompatActivity() {
                 val dialog = GenrePickDialog()
                 dialog.show(supportFragmentManager,null)
             }
+
+            clickPickLevel.observeOnce(this@UploadClassActivity){
+                val dialog = LevelPickDialog()
+                dialog.show(supportFragmentManager, null)
+            }
         }
 
 
@@ -101,6 +107,10 @@ class UploadClassActivity : AppCompatActivity() {
 
             pickGenreBroadcast.subscribe{
                 viewModel.genre.value = it
+            }.disposedBy(compositeDisposable)
+
+            pickLevelBroadcast.subscribe{
+                viewModel.level.value = it
             }.disposedBy(compositeDisposable)
 
         }

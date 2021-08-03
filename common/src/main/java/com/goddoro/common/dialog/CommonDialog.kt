@@ -165,7 +165,7 @@ class CommonDialog private constructor(
             mBinding.body.text = body
         mBinding.button.text = okButtonText ?: getString(R.string.common_ok)
         mBinding.button.backgroundTintList =
-            ColorStateList.valueOf(okButtonColor ?: resources.getColor(R.color.purpleDark))
+            ColorStateList.valueOf(okButtonColor ?: resources.getColor(R.color.black))
 
         mBinding.button.setOnDebounceClickListener {
             clickListener?.onPositiveButtonClicked()

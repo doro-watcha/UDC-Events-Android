@@ -22,6 +22,7 @@ class UploadClassViewModel : ViewModel() {
     val clickGalleryButton : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPickAcademy : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPickGenre : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickPickLevel : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickBackArrow : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickToImageStep : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickToSpecificStep : MutableLiveData<Once<Unit>> = MutableLiveData()
@@ -53,5 +54,9 @@ class UploadClassViewModel : ViewModel() {
 
     fun onClickBackArrow() {
         clickBackArrow.value = Once(Unit)
+    }
+
+    fun onClickPickLevel() {
+        clickPickLevel.value = Once(Unit)
     }
 }

@@ -131,5 +131,10 @@
 
     <string name="hint_class_name">예) Panic Choreo Master Class</string>
     <string name="hint_class_description">예) 직장인 대상 Choreography 클래스입니다!</string>
+    <string name="hint_youtube_url">클래스 관련 Youtube URL을 입력해주세요!</string>
+    <string name="hint_class_target">이 클래스의 수강 대상을 정해주세요!</string>
+    <string name="hint_class_level">이 클래스의 난이도를 알려주세요!</string>
+
+    <string name="txt_pick_class_images">클래스 관련 사진을 골라주세요!</string>
 
 </resources>

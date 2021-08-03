@@ -11,17 +11,17 @@
 
     </data>
 
-    <ScrollView
+    <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:background="@color/white"
         android:overScrollMode="never">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:paddingBottom="50dp">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/txt_class_name"
@@ -42,6 +42,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="12dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_marginBottom="10dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
@@ -51,14 +52,14 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_name"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:background="@drawable/border_white_background"
                     android:hint="@string/hint_class_name"
                     android:padding="10dp"
                     android:text="@={vm.name}"
                     android:textColor="@color/text_color_1"
                     android:textColorHint="@color/gray_text_color"
-                    android:textSize="13dp"
+                    android:textSize="12dp"
                     android:theme="@style/EditTextTheme" />
 
             </com.google.android.material.textfield.TextInputLayout>
@@ -79,10 +80,12 @@
             <TextView
                 android:id="@+id/class_genre"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_white_background"
                 android:padding="10dp"
+                android:textSize="12dp"
+                android:gravity="center"
                 android:onDebounceClick="@{() -> vm.onClickPickGenre()}"
                 android:text="@{vm.genre == null ? @string/txt_pick_genre_msg : vm.genre.name }"
                 android:textColor="@{vm.genre == null ? @color/gray_text_color : @color/black}"
@@ -105,11 +108,13 @@
             <TextView
                 android:id="@+id/class_location"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_white_background"
                 android:onDebounceClick="@{() -> vm.onClickPickAcademy()}"
                 android:padding="10dp"
+                android:textSize="12dp"
+                android:gravity="center"
                 android:text="@{vm.academy == null ? @string/txt_find_academy : vm.academy.location + ` (` + vm.academy.name + `)`}"
                 android:textColor="@{vm.academy == null ? @color/gray_text_color : @color/black}"
                 app:layout_constraintStart_toStartOf="@+id/txt_class_location"
@@ -134,6 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
                 android:layout_marginEnd="12dp"
                 android:layout_marginBottom="10dp"
                 app:endIconTint="@color/black"
@@ -146,8 +152,9 @@
                     android:layout_height="200dp"
                     android:background="@drawable/border_white_background"
                     android:gravity="top"
+                    android:maxLength="150"
                     android:hint="@string/hint_class_description"
-                    android:padding="6dp"
+                    android:padding="10dp"
                     android:text="@={vm.description}"
                     android:textColor="@color/text_color_1"
                     android:textColorHint="@color/gray_text_color"
@@ -163,6 +170,7 @@
                 android:text="@string/txt_class_youtube_url"
                 android:textColor="@color/black"
                 android:textStyle="bold"
+                android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="@+id/txt_class_description"
                 app:layout_constraintTop_toBottomOf="@+id/layout_edit_class_description" />
 
@@ -176,13 +184,18 @@
                 android:layout_marginBottom="10dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
+                app:hintEnabled="false"
                 app:layout_constraintTop_toBottomOf="@+id/txt_youtube_url">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_youtube_url"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:padding="6dp"
+                    android:background="@drawable/border_white_background"
+                    android:hint="@string/hint_youtube_url"
+                    android:textColorHint="@color/gray_text_color"
+                    android:textSize="12dp"
                     android:text="@={vm.youtubeUrl}"
                     android:textColor="@color/text_color_1"
                     android:theme="@style/EditTextTheme" />
@@ -191,7 +204,11 @@
 
             <kr.co.prnd.YouTubePlayerView
                 android:id="@+id/youtube_view"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="10dp"
+                app:layout_constraintStart_toStartOf="@+id/layout_edit_youtube_url"
+                app:layout_constraintEnd_toEndOf="@+id/layout_edit_youtube_url"
                 android:layout_height="wrap_content"
                 android:visibility="@{vm.youtubeUrl.length() > 0 }"
                 app:layout_constraintTop_toBottomOf="@+id/layout_edit_youtube_url"
@@ -204,6 +221,7 @@
                 android:layout_height="wrap_content"
                 android:text="@string/txt_class_level"
                 android:textColor="@color/black"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/txt_youtube_url"
                 app:layout_constraintTop_toBottomOf="@+id/youtube_view" />
@@ -211,11 +229,14 @@
             <TextView
                 android:id="@+id/class_level"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="40dp"
                 android:layout_marginTop="10dp"
                 android:background="@drawable/border_white_background"
                 android:padding="10dp"
-                android:textColor="@color/black"
+                android:text="@{vm.level == null ? @string/hint_class_level : vm.level}"
+                android:gravity="center"
+                android:onDebounceClick="@{() -> vm.onClickPickLevel()}"
+                android:textColor="@{vm.level == null ? @color/gray_text_color : @color/black}"
                 app:layout_constraintStart_toStartOf="@+id/txt_class_level"
                 app:layout_constraintTop_toBottomOf="@+id/txt_class_level"
                 tools:text="beginner" />
@@ -242,14 +263,19 @@
                 android:layout_marginBottom="10dp"
                 app:endIconMode="clear_text"
                 app:endIconTint="@color/black"
+                app:hintEnabled="false"
                 app:layout_constraintTop_toBottomOf="@+id/txt_class_target">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/edit_target"
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
+                    android:layout_height="40dp"
                     android:padding="6dp"
+                    android:textSize="12dp"
                     android:text="@={vm.target}"
+                    android:background="@drawable/border_white_background"
+                    android:hint="@string/hint_class_target"
+                    android:textColorHint="@color/gray_text_color"
                     android:textColor="@color/text_color_1"
                     android:theme="@style/EditTextTheme" />
 
@@ -268,6 +294,6 @@
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </ScrollView>
+    </androidx.core.widget.NestedScrollView>
 
 </layout>

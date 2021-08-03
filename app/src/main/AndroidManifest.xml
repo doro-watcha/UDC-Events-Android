@@ -19,8 +19,15 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".views.upload.academy.UploadAcademyActivity"></activity>
-        <activity android:name=".views.upload.danceClass.UploadClassActivity" />
+        <activity
+            android:name=".views.upload.academy.UploadAcademyActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
+            android:screenOrientation="portrait" ></activity>
+        <activity
+            android:name=".views.upload.danceClass.UploadClassActivity">
+
+        </activity>
         <activity android:name=".views.intro.IntroActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
