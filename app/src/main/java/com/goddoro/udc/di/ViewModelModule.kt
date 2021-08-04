@@ -7,7 +7,7 @@ import com.goddoro.map.EventMapViewModel
 import com.goddoro.udc.MainViewModel
 import com.goddoro.udc.views.admin.AdminViewModel
 import com.goddoro.udc.views.classShop.ClassShopViewModel
-import com.goddoro.udc.views.auth.AuthViewModel
+import com.goddoro.udc.views.auth.LoginViewModel
 import com.goddoro.udc.views.classShop.detail.ClassDetailViewModel
 import com.goddoro.udc.views.classShop.GenreClassViewModel
 import com.goddoro.udc.views.event.detail.EventDetailViewModel
@@ -29,7 +29,6 @@ import com.goddoro.udc.views.upload.academy.AcademyPickViewModel
 import com.goddoro.udc.views.upload.academy.UploadAcademyViewModel
 import com.goddoro.udc.views.upload.danceClass.genre.GenrePickViewModel
 import com.goddoro.udc.views.upload.danceClass.UploadClassViewModel
-import com.goddoro.udc.views.upload.danceClass.schedule.SchedulePickDialog
 import com.goddoro.udc.views.upload.danceClass.schedule.SchedulePickViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
@@ -41,7 +40,7 @@ import org.koin.dsl.module
 
 val viewModelModule  = module {
 
-    viewModel { AuthViewModel(get(),get(),get()) }
+    viewModel { LoginViewModel(get(),get()) }
     viewModel { MainViewModel(get()) }
     viewModel { (event : Event) -> EventDetailViewModel(event,get()) }
 

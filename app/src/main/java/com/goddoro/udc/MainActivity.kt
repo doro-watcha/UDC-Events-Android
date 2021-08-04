@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
                         changeFragment(selectedMenu)
                     }
                     else {
-                        navigator.startNeedLoginActivity(this)
+                        navigator.startLoginActivity(this)
                         return@setOnNavigationItemSelectedListener false
                     }
                 }

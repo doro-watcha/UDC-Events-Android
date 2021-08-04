@@ -17,7 +17,7 @@ interface Navigator {
 
     fun startUploadEventActivity ( activity : Activity)
 
-    fun startNeedLoginActivity ( activity : Activity)
+    fun startLoginActivity ( activity : Activity)
 
     fun startMainActivity (activity : Activity , clearTask : Boolean  )
 

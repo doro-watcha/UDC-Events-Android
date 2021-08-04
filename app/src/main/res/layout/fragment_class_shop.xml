@@ -24,15 +24,28 @@
             android:background="@color/black"
             android:descendantFocusability="blocksDescendants">
 
+            <TextView
+                android:id="@+id/txt_class_main"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="18dp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:text="KOREA TOP CLASS 힙합 모범 노블레스 "
+                android:layout_marginTop="10dp"
+                android:layout_marginStart="10dp"/>
+
 
             <androidx.viewpager2.widget.ViewPager2
                 android:id="@+id/mainViewPager"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_marginBottom="10dp"
-                app:layout_constraintBottom_toTopOf="@id/indicator"
+                android:layout_marginTop="5dp"
                 app:layout_constraintDimensionRatio="1:1"
-                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/txt_class_main"
                 app:recyclerview_main_class="@{vm.mainClasses}" />
 
             <View

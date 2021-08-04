@@ -84,13 +84,13 @@ class EventDetailActivity : AppCompatActivity() {
             }
 
             onPlannerPressed.observe(this@EventDetailActivity){
-
-                val message = if ( it ) {
-                    "공연 플래너 담기 완료!"
-                } else {
-                    "공연 플래너 담기 취소"
-                }
-                toastUtil.createToast(message).show()
+//
+//                val message = if ( it ) {
+//                    "공연 플래너 담기 완료!"
+//                } else {
+//                    "공연 플래너 담기 취소"
+//                }
+//                toastUtil.createToast(message).show()
             }
 
         }

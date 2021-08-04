@@ -27,6 +27,7 @@ class UploadClassViewModel(
     val artistName: MutableLiveData<String> = MutableLiveData()
     val artistProfileImg: MutableLiveData<Uri> = MutableLiveData()
     val artistDescription: MutableLiveData<String> = MutableLiveData()
+    val artistInstagram : MutableLiveData<String> = MutableLiveData()
 
     var mainIndex = 0
     val detailImages: MutableLiveData<List<Uri>> = MutableLiveData()

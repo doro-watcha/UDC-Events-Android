@@ -2,10 +2,8 @@ package com.goddoro.udc.util
 
 import android.app.Activity
 import android.content.Intent
-import android.util.EventLog
 import android.widget.ImageView
 import androidx.core.app.ActivityOptionsCompat
-import androidx.core.view.ViewCompat
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.model.Location
@@ -13,7 +11,7 @@ import com.goddoro.common.util.Navigator
 import com.goddoro.udc.MainActivity
 import com.goddoro.udc.R
 import com.goddoro.udc.views.admin.AdminActivity
-import com.goddoro.udc.views.auth.AuthActivity
+import com.goddoro.udc.views.auth.LoginActivity
 import com.goddoro.udc.views.classShop.create.MakeClassActivity
 import com.goddoro.udc.views.classShop.detail.ClassDetailActivity
 import com.goddoro.udc.views.event.detail.EventDetailActivity
@@ -46,8 +44,8 @@ class NavigatorImpl : Navigator{
         activity.startActivity(intent)
     }
 
-    override fun startNeedLoginActivity(activity: Activity) {
-        val intent = Intent ( activity , AuthActivity::class.java)
+    override fun startLoginActivity(activity: Activity) {
+        val intent = Intent ( activity , LoginActivity::class.java)
         activity.startActivity(intent)
     }
 

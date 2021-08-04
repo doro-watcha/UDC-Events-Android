@@ -84,16 +84,17 @@
                 app:layout_constraintTop_toBottomOf="@id/txt_title"
                 app:recyclerview_main_posters="@{vm.mainEvents}" />
 
-            <com.goddoro.common.widget.PageIndicatorFill
+            <com.goddoro.common.widget.PageIndicator
                 android:id="@+id/page_indicator"
-                android:layout_width="150dp"
-                android:layout_height="1dp"
+                android:layout_width="0dp"
+                app:layout_constraintWidth_percent="0.8"
+                android:layout_height="2dp"
                 android:layout_marginBottom="10dp"
                 android:background="@color/semiTransparent"
                 app:layout_constraintEnd_toEndOf="@+id/mViewPager2"
                 app:layout_constraintStart_toStartOf="@+id/mViewPager2"
                 app:layout_constraintBottom_toBottomOf="@+id/mViewPager2"
-                app:page_fill_count="@{vm.mainEvents.size()}" />
+                app:page_count="@{vm.mainEvents.size()}" />
 
             <TextView
                 android:id="@+id/txt_title_new_event"
