@@ -35,11 +35,12 @@
             android:layout_height="0dp"
             android:layout_marginStart="12dp"
             app:boxStrokeColor="@color/gray"
+            android:layout_marginEnd="10dp"
             app:endIconMode="clear_text"
             app:endIconTint="@color/black"
             app:hintEnabled="false"
             app:layout_constraintBottom_toTopOf="@+id/divider"
-            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/img_filter"
             app:layout_constraintStart_toEndOf="@+id/btn_back_arrow"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -58,6 +59,17 @@
                 android:textSize="14dp" />
 
         </com.google.android.material.textfield.TextInputLayout>
+
+        <ImageView
+            android:id="@+id/img_filter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="10dp"
+            android:onDebounceClick="@{() -> vm.onClickFilterButton()}"
+            android:src="@drawable/ic_filter"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/edit_query_layout"
+            app:layout_constraintBottom_toBottomOf="@+id/edit_query_layout"/>
 
 
         <View

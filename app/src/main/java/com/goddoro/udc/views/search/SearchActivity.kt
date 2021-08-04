@@ -116,6 +116,10 @@ class SearchActivity : AppCompatActivity() {
             clickCurrentQuery.observeOnce(this@SearchActivity){
                 goResult(query.value ?: "")
             }
+            clickFilterButton.observeOnce(this@SearchActivity){
+                val dialog = FilterDialog()
+                dialog.show(supportFragmentManager,null)
+            }
         }
 
 

@@ -114,7 +114,7 @@
     <string name="txt_class_location">클래스 위치</string>
     <string name="txt_class_date">클래스 날짜</string>
     <string name="txt_class_level">클래스 난이도</string>
-    <string name="txt_class_target">클래스 수강대상</string>
+    <string name="txt_class_target">수강대상</string>
 
     <string name="txt_class_register">클래스 등록하기</string>
     <string name="txt_register_academy">아카데미 등록하기</string>
@@ -158,7 +158,9 @@
 
     <string name="txt_artist_instagram">강사님이 인스타그램 계정이 있으신가요?</string>
 
-
+    <string name="txt_filter_class">클래스 필터</string>
+    <string name="txt_filter_genre">장르 고르기</string>
+    <string name="txt_filter_level">수강 난이도 고르기</string>
 
 
 

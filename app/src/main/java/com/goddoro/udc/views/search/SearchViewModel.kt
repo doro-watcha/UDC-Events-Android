@@ -23,6 +23,7 @@ class SearchViewModel(
 
     val clickBackArrow: MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickCurrentQuery: MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickFilterButton : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     val onSearchCompleted: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -40,5 +41,9 @@ class SearchViewModel(
 
     fun onClickCurrentQuery() {
         clickCurrentQuery.value = Once(Unit)
+    }
+
+    fun onClickFilterButton(){
+        clickFilterButton.value = Once(Unit)
     }
 }

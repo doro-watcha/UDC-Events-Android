@@ -21,6 +21,7 @@ import com.goddoro.udc.views.profile.ProfileViewModel
 import com.goddoro.udc.views.profile.pending.PendingEventViewModel
 import com.goddoro.udc.views.search.SearchViewModel
 import com.goddoro.udc.views.search.detail.SearchDetailViewModel
+import com.goddoro.udc.views.search.filter.FilterViewModel
 import com.goddoro.udc.views.setting.SettingViewModel
 import com.goddoro.udc.views.tag.TagDetailViewModel
 import com.goddoro.udc.views.udc.UdcViewModel
@@ -76,4 +77,6 @@ val viewModelModule  = module {
     viewModel { ( genre : Genre) -> GenreClassViewModel(genre, get()) }
     viewModel { GenrePickViewModel(get()) }
     viewModel { SchedulePickViewModel()}
+
+    viewModel { FilterViewModel()}
 }
