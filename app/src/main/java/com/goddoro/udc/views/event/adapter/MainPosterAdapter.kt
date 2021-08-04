@@ -1,5 +1,4 @@
-package com.goddoro.udc.views.home
-
+package com.goddoro.udc.views.event.adapter
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -8,20 +7,23 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager2.widget.ViewPager2
 import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.data.model.Event
-import com.goddoro.udc.databinding.ItemGridPosterBinding
+import com.goddoro.udc.databinding.ItemMainPosterBinding
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent
 
 
 /**
- * created By DORO 2020/08/03
+ * created By DORO 2020/07/28
  */
 
-class GridPosterAdapter:
-    RecyclerView.Adapter<GridPosterAdapter.GridPosterHolder>() {
+class MainPosterAdapter:
+    RecyclerView.Adapter<MainPosterAdapter.MainPosterHolder>() {
+
+    private val TAG = MainPosterAdapter::class.java.simpleName
 
 
     private val onClick: PublishSubject<Pair<Event, ImageView>> = PublishSubject.create()
@@ -43,24 +45,25 @@ class GridPosterAdapter:
         differ.submitList(items)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GridPosterHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainPosterHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemGridPosterBinding.inflate(inflater, parent, false)
+        val binding = ItemMainPosterBinding.inflate(inflater, parent, false)
 
-        return GridPosterHolder(binding)
+        return MainPosterHolder(binding)
     }
 
-    override fun getItemCount(): Int = differ.currentList.size
+    override fun getItemCount(): Int = Integer.MAX_VALUE
 
-    override fun onBindViewHolder(holder: GridPosterHolder, position: Int) = holder.bind(differ.currentList[position])
+    override fun onBindViewHolder(holder: MainPosterHolder, position: Int) = holder.bind(differ.currentList[position % differ.currentList.size ])
 
-    inner class GridPosterHolder(private val binding: ItemGridPosterBinding) : RecyclerView.ViewHolder(binding.root),
+    inner class MainPosterHolder(private val binding: ItemMainPosterBinding) : RecyclerView.ViewHolder(binding.root),
         KoinComponent {
         init {
 
-            binding.root.setOnDebounceClickListener {
-                onClick.onNext(Pair(differ.currentList[layoutPosition], binding.gridPoster))
+            binding.posterCard.setOnDebounceClickListener {
+                onClick.onNext(Pair(differ.currentList[layoutPosition % differ.currentList.size],binding.poster))
             }
+
 
         }
 
@@ -74,9 +77,10 @@ class GridPosterAdapter:
 
 }
 
-@BindingAdapter("app:recyclerview_grid_posters")
-fun RecyclerView.setGridPosters(items: List<Event>?) {
-    (adapter as? GridPosterAdapter)?.run {
+@BindingAdapter("app:recyclerview_main_posters")
+fun ViewPager2.setMainPosters(items: List<Event>?) {
+    (adapter as? MainPosterAdapter)?.run {
         this.submitItems(items)
     }
 }
+

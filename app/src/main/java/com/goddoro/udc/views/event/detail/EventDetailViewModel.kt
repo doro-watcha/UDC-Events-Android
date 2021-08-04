@@ -3,14 +3,10 @@ package com.goddoro.udc.views.event.detail
 import androidx.lifecycle.MediatorLiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.goddoro.common.common.Once
 import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.repository.EventRepository
-import com.goddoro.udc.R
-import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 
 /**

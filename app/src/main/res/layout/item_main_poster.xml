@@ -6,7 +6,7 @@
 
         <variable
             name="vm"
-            type="com.goddoro.udc.views.home.EventViewModel" />
+            type="com.goddoro.udc.views.event.EventViewModel" />
 
         <variable
             name="item"

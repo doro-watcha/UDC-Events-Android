@@ -5,21 +5,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.transition.*
-import android.util.EventLog
 import android.view.LayoutInflater
 import android.view.animation.OvershootInterpolator
-import androidx.lifecycle.ViewModelProvider
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.databinding.ActivityEventDetailBinding
 import com.goddoro.udc.views.common.ImageDialog
-import com.goddoro.udc.views.upload.UploadEventViewModel
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import org.koin.androidx.viewmodel.ext.android.viewModel
 import org.koin.core.parameter.parametersOf
-import javax.inject.Inject
 
 class EventDetailActivity : AppCompatActivity() {
 

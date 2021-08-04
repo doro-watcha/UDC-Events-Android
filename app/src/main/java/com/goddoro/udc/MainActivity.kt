@@ -19,7 +19,7 @@ import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.EventMapFragment
 import com.goddoro.udc.databinding.ActivityMainBinding
 import com.goddoro.udc.views.classShop.ClassShopFragment
-import com.goddoro.udc.views.home.EventFragment
+import com.goddoro.udc.views.event.EventFragment
 import com.goddoro.udc.views.profile.ProfileFragment
 import com.goddoro.udc.views.upload.UploadCompleteDialog
 import com.google.android.gms.tasks.OnCompleteListener

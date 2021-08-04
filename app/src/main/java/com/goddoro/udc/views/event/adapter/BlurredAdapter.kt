@@ -1,31 +1,33 @@
-package com.goddoro.udc.views.home
+package com.goddoro.udc.views.event.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.goddoro.common.common.widget.setOnDebounceClickListener
+import androidx.viewpager2.widget.ViewPager2
+import com.goddoro.common.common.debugE
 import com.goddoro.common.data.model.Event
-import com.goddoro.udc.databinding.ItemPosterBinding
+import com.goddoro.udc.databinding.ItemBlurredImageBinding
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent
 
 
 /**
- * created By DORO 2020/08/03
+ * created By DORO 2020/08/16
  */
 
-class PosterAdapter:
-    RecyclerView.Adapter<PosterAdapter.PosterHolder>() {
+class BlurredAdapter:
+    RecyclerView.Adapter<BlurredAdapter.BlurredHolder>() {
+
+    private val TAG = BlurredAdapter::class.java.simpleName
 
 
-    private val onClick: PublishSubject<Pair<Event,ImageView>> = PublishSubject.create()
-    val clickEvent: Observable<Pair<Event,ImageView>> = onClick
+    private val onClick: PublishSubject<String> = PublishSubject.create()
+    val clickEvent: Observable<String> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
         override fun areItemsTheSame(oldItem: Event, newItem: Event): Boolean {
@@ -43,24 +45,21 @@ class PosterAdapter:
         differ.submitList(items)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PosterHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BlurredHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemPosterBinding.inflate(inflater, parent, false)
+        val binding = ItemBlurredImageBinding.inflate(inflater, parent, false)
 
-        return PosterHolder(binding)
+        return BlurredHolder(binding)
     }
 
     override fun getItemCount(): Int = differ.currentList.size
 
-    override fun onBindViewHolder(holder: PosterHolder, position: Int) = holder.bind(differ.currentList[position])
+    override fun onBindViewHolder(holder: BlurredHolder, position: Int) = holder.bind(differ.currentList[position])
 
-    inner class PosterHolder(private val binding: ItemPosterBinding) : RecyclerView.ViewHolder(binding.root),
+    inner class BlurredHolder(private val binding: ItemBlurredImageBinding) : RecyclerView.ViewHolder(binding.root),
         KoinComponent {
         init {
 
-            binding.imgPoster.setOnDebounceClickListener {
-                onClick.onNext(Pair(differ.currentList[layoutPosition],binding.poster))
-            }
 
         }
 
@@ -68,15 +67,17 @@ class PosterAdapter:
             binding.setVariable(BR.item, item)
             binding.executePendingBindings()
 
+            debugE(TAG, "asdlfjsdaflkajs")
+
 
         }
     }
 
 }
 
-@BindingAdapter("app:recyclerview_posters")
-fun RecyclerView.setPosters(items: List<Event>?) {
-    (adapter as? PosterAdapter)?.run {
+@BindingAdapter("app:recyclerview_poster_blurred")
+fun ViewPager2.setPosterBlurred(items: List<Event>?) {
+    (adapter as? BlurredAdapter)?.run {
         this.submitItems(items)
     }
 }

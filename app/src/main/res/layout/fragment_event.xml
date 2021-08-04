@@ -7,7 +7,7 @@
 
         <variable
             name="vm"
-            type="com.goddoro.udc.views.home.EventViewModel" />
+            type="com.goddoro.udc.views.event.EventViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -64,7 +64,6 @@
             <ImageView
                 android:id="@+id/img_search"
                 android:layout_width="wrap_content"
-                android:visibility="gone"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="12dp"
                 android:foreground="?attr/selectableItemBackgroundBorderless"

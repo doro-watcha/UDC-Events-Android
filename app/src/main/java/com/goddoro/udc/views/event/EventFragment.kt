@@ -1,9 +1,7 @@
-package com.goddoro.udc.views.home
+package com.goddoro.udc.views.event
 
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,6 +22,10 @@ import com.goddoro.udc.databinding.FragmentEventBinding
 import com.goddoro.udc.util.setCurrentItem
 import com.goddoro.udc.util.startActivity
 import com.goddoro.udc.views.admin.AdminActivity
+import com.goddoro.udc.views.event.adapter.BlurredAdapter
+import com.goddoro.udc.views.event.adapter.GridPosterAdapter
+import com.goddoro.udc.views.event.adapter.MainPosterAdapter
+import com.goddoro.udc.views.event.adapter.PosterAdapter
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel

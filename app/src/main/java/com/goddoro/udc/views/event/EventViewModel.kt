@@ -1,4 +1,4 @@
-package com.goddoro.udc.views.home
+package com.goddoro.udc.views.event
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

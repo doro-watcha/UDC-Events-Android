@@ -9,11 +9,8 @@ import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.goddoro.common.common.widget.setOnDebounceClickListener
-import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
-import com.goddoro.udc.databinding.ItemPosterBinding
 import com.goddoro.udc.databinding.ItemUnconfirmedEventBinding
-import com.goddoro.udc.views.home.PosterAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent

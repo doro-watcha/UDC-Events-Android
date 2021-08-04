@@ -2,19 +2,14 @@ package com.goddoro.udc.views.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.widget.setOnDebounceClickListener
-import com.goddoro.common.data.model.Event
 import com.goddoro.udc.databinding.ItemHistoryBinding
-import com.goddoro.udc.databinding.ItemMainPosterBinding
-import com.goddoro.udc.views.home.MainPosterAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent

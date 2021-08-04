@@ -1,4 +1,5 @@
-package com.goddoro.udc.views.home
+package com.goddoro.udc.views.event.adapter
+
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
@@ -7,27 +8,23 @@ import androidx.databinding.library.baseAdapters.BR
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager2.widget.ViewPager2
-import com.goddoro.common.common.debugE
 import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.data.model.Event
-import com.goddoro.udc.databinding.ItemMainPosterBinding
+import com.goddoro.udc.databinding.ItemPosterBinding
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent
 
 
 /**
- * created By DORO 2020/07/28
+ * created By DORO 2020/08/03
  */
 
-class MainPosterAdapter:
-    RecyclerView.Adapter<MainPosterAdapter.MainPosterHolder>() {
-
-    private val TAG = MainPosterAdapter::class.java.simpleName
+class PosterAdapter:
+    RecyclerView.Adapter<PosterAdapter.PosterHolder>() {
 
 
-    private val onClick: PublishSubject<Pair<Event, ImageView>> = PublishSubject.create()
+    private val onClick: PublishSubject<Pair<Event,ImageView>> = PublishSubject.create()
     val clickEvent: Observable<Pair<Event,ImageView>> = onClick
 
     private val diff = object : DiffUtil.ItemCallback<Event>() {
@@ -46,25 +43,24 @@ class MainPosterAdapter:
         differ.submitList(items)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainPosterHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PosterHolder {
         val inflater = LayoutInflater.from(parent.context)
-        val binding = ItemMainPosterBinding.inflate(inflater, parent, false)
+        val binding = ItemPosterBinding.inflate(inflater, parent, false)
 
-        return MainPosterHolder(binding)
+        return PosterHolder(binding)
     }
 
-    override fun getItemCount(): Int = Integer.MAX_VALUE
+    override fun getItemCount(): Int = differ.currentList.size
 
-    override fun onBindViewHolder(holder: MainPosterHolder, position: Int) = holder.bind(differ.currentList[position % differ.currentList.size ])
+    override fun onBindViewHolder(holder: PosterHolder, position: Int) = holder.bind(differ.currentList[position])
 
-    inner class MainPosterHolder(private val binding: ItemMainPosterBinding) : RecyclerView.ViewHolder(binding.root),
+    inner class PosterHolder(private val binding: ItemPosterBinding) : RecyclerView.ViewHolder(binding.root),
         KoinComponent {
         init {
 
-            binding.posterCard.setOnDebounceClickListener {
-                onClick.onNext(Pair(differ.currentList[layoutPosition % differ.currentList.size],binding.poster))
+            binding.imgPoster.setOnDebounceClickListener {
+                onClick.onNext(Pair(differ.currentList[layoutPosition],binding.poster))
             }
-
 
         }
 
@@ -78,10 +74,9 @@ class MainPosterAdapter:
 
 }
 
-@BindingAdapter("app:recyclerview_main_posters")
-fun ViewPager2.setMainPosters(items: List<Event>?) {
-    (adapter as? MainPosterAdapter)?.run {
+@BindingAdapter("app:recyclerview_posters")
+fun RecyclerView.setPosters(items: List<Event>?) {
+    (adapter as? PosterAdapter)?.run {
         this.submitItems(items)
     }
 }
-

@@ -13,10 +13,10 @@
 
     <com.goddoro.common.common.widget.SquareImageView
         android:id="@+id/video_thumbnail"
-        android:src="@drawable/sample_image_04"
+        android:src="@drawable/sample_image_03"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:transitionName="@string/shared_element_transition"
         android:layout_columnWeight="1"
-        android:scaleType="centerCrop"
-        tools:src="@tools:sample/avatars[1]" />
+        android:scaleType="centerCrop" />
 </layout>

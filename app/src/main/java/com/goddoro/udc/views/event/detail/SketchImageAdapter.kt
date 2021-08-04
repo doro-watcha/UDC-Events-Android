@@ -11,7 +11,6 @@ import com.goddoro.common.common.loadUrlAsync
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.SketchImage
 import com.goddoro.udc.databinding.ItemGeneralImageBinding
-import com.goddoro.udc.views.classShop.detail.ArtistProfileAdapter
 import io.reactivex.Observable
 import io.reactivex.subjects.PublishSubject
 import org.koin.core.KoinComponent
