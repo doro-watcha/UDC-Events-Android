@@ -24,5 +24,7 @@ object Broadcast {
 
     val pickLevelBroadcast : PublishSubject<String> = PublishSubject.create()
 
+    val pickScheduleBroadcast : PublishSubject<String> = PublishSubject.create()
+
     val registerAcademyCompleteBroadcast : PublishSubject<String> = PublishSubject.create()
 }

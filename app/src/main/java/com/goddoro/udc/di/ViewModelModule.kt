@@ -29,6 +29,8 @@ import com.goddoro.udc.views.upload.academy.AcademyPickViewModel
 import com.goddoro.udc.views.upload.academy.UploadAcademyViewModel
 import com.goddoro.udc.views.upload.danceClass.genre.GenrePickViewModel
 import com.goddoro.udc.views.upload.danceClass.UploadClassViewModel
+import com.goddoro.udc.views.upload.danceClass.schedule.SchedulePickDialog
+import com.goddoro.udc.views.upload.danceClass.schedule.SchedulePickViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
@@ -74,4 +76,5 @@ val viewModelModule  = module {
 
     viewModel { ( genre : Genre) -> GenreClassViewModel(genre, get()) }
     viewModel { GenrePickViewModel(get()) }
+    viewModel { SchedulePickViewModel()}
 }

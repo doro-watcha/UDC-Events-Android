@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+
+
+        <variable
+            name="vm"
+            type="com.goddoro.udc.views.upload.danceClass.schedule.SchedulePickViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/border_white_background">
+
+        <TextView
+            android:id="@+id/txt_pick_day"
+            android:text="@string/txt_pick_day"
+            android:textColor="@color/black"
+            android:textSize="18dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_width="wrap_content"
+            android:textStyle="bold"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/txt_monday"
+            android:text="@string/txt_monday_short"
+            android:layout_width="0dp"
+            android:onClick="@{() -> vm.onClickMonday()}"
+            android:textColor="@{vm.isMondayClicked() ? @color/white : @color/black}"
+            android:background="@{vm.isMondayClicked() ? @drawable/border_black_background : @drawable/border_white_background}"
+            app:layout_constraintStart_toStartOf="@+id/txt_pick_day"
+            app:layout_constraintTop_toBottomOf="@+id/txt_pick_day"
+            android:layout_marginTop="20dp"
+            tools:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_height="0dp"/>
+
+        <TextView
+            android:id="@+id/txt_tuesday"
+            android:text="@string/txt_tuesday_short"
+            android:layout_width="0dp"
+            android:onClick="@{ () -> vm.onClickTuesday()}"
+            android:textColor="@{vm.isTuesdayClicked() ? @color/white : @color/black}"
+            android:background="@{vm.isTuesdayClicked() ? @drawable/border_black_background : @drawable/border_white_background}"
+            app:layout_constraintStart_toEndOf="@+id/txt_monday"
+            app:layout_constraintTop_toTopOf="@+id/txt_monday"
+            android:layout_marginStart="5dp"
+            tools:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_height="0dp"/>
+
+        <TextView
+            android:id="@+id/txt_wednesday"
+            android:text="@string/txt_wednesday_short"
+            android:layout_width="0dp"
+            android:onClick="@{() -> vm.onClickWednesday()}"
+            android:textColor="@{vm.isWednesdayClicked() ? @color/white : @color/black}"
+            android:background="@{vm.isWednesdayClicked() ? @drawable/border_black_background : @drawable/border_white_background}"
+            app:layout_constraintStart_toEndOf="@+id/txt_tuesday"
+            app:layout_constraintTop_toTopOf="@+id/txt_monday"
+            android:layout_marginStart="5dp"
+            tools:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_height="0dp"/>
+
+        <TextView
+            android:id="@+id/txt_thursday"
+            android:text="@string/txt_thursday_short"
+            android:layout_width="0dp"
+            android:onClick="@{() -> vm.onClickThursday()}"
+            android:textColor="@{vm.isThursdayClicked() ? @color/white : @color/black}"
+            android:background="@{vm.isThursdayClicked() ? @drawable/border_black_background : @drawable/border_white_background}"
+            app:layout_constraintStart_toEndOf="@+id/txt_wednesday"
+            app:layout_constraintTop_toTopOf="@+id/txt_monday"
+            android:layout_marginStart="5dp"
+            tools:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_height="0dp"/>
+
+
+        <TextView
+            android:id="@+id/txt_friday"
+            android:text="@string/txt_friday_short"
+            android:layout_width="0dp"
+            android:onClick="@{() -> vm.onClickFriday()}"
+            android:textColor="@{vm.isFridayClicked() ? @color/white : @color/black}"
+            android:background="@{vm.isFridayClicked() ? @drawable/border_black_background : @drawable/border_white_background}"
+            app:layout_constraintStart_toEndOf="@+id/txt_thursday"
+            app:layout_constraintTop_toTopOf="@+id/txt_monday"
+            android:layout_marginStart="5dp"
+            tools:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_height="0dp"/>
+
+
+        <TextView
+            android:id="@+id/txt_saturday"
+            android:text="@string/txt_saturday_short"
+            android:layout_width="0dp"
+            android:onClick="@{() -> vm.onClickSaturday()}"
+            android:textColor="@{vm.isSaturdayClicked() ? @color/white : @color/black}"
+            android:background="@{vm.isSaturdayClicked() ? @drawable/border_black_background : @drawable/border_white_background}"
+            app:layout_constraintStart_toEndOf="@+id/txt_friday"
+            app:layout_constraintTop_toTopOf="@+id/txt_monday"
+            android:layout_marginStart="5dp"
+            tools:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_height="0dp"/>
+
+
+        <TextView
+            android:id="@+id/txt_sunday"
+            android:text="@string/txt_sunday_short"
+            android:layout_width="0dp"
+            android:onClick="@{() -> vm.onClickSunday()}"
+            android:textColor="@{vm.isSundayClicked() ? @color/white : @color/black}"
+            android:background="@{vm.isSundayClicked() ? @drawable/border_black_background : @drawable/border_white_background}"
+            app:layout_constraintStart_toEndOf="@+id/txt_saturday"
+            app:layout_constraintTop_toTopOf="@+id/txt_monday"
+            android:layout_marginStart="5dp"
+            tools:textColor="@color/black"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            app:layout_constraintWidth_percent="0.1"
+            app:layout_constraintDimensionRatio="1:1"
+            android:layout_height="0dp"/>
+
+        <TextView
+            android:id="@+id/txt_pick_time"
+            android:text="@string/txt_pick_time"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/txt_monday"
+            android:layout_width="wrap_content"
+            android:textSize="18dp"
+            android:layout_marginTop="30dp"
+            app:layout_constraintStart_toStartOf="@+id/txt_pick_day"
+            android:layout_height="wrap_content"/>
+
+        <TimePicker
+            android:id="@+id/time_picker"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:timePickerMode="spinner"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="20dp"
+            app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+            app:layout_constraintTop_toBottomOf="@+id/txt_pick_time" />
+
+        <TextView
+            android:id="@+id/btn_confirm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
+            android:gravity="center"
+
+            android:textStyle="bold"
+            android:onDebounceClick="@{() -> vm.onClickPickSchedule()}"
+            android:background="@drawable/border_white_background"
+            android:textColor="@{vm.isScheduleSelected() ? @color/black : @color/gray}"
+            android:clickable="@{vm.isScheduleSelected()}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:text="@string/common_confirm_upper"/>
+
+
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

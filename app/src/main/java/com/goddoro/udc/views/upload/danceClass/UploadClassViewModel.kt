@@ -21,6 +21,7 @@ class UploadClassViewModel(
     val description: MutableLiveData<String> = MutableLiveData()
     val youtubeUrl: MutableLiveData<String> = MutableLiveData()
     val academy: MutableLiveData<Academy> = MutableLiveData()
+    val schedule : MutableLiveData<String> = MutableLiveData()
     val target: MutableLiveData<String> = MutableLiveData()
 
     val artistName: MutableLiveData<String> = MutableLiveData()
@@ -34,6 +35,7 @@ class UploadClassViewModel(
     val clickPickAcademy: MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPickGenre: MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickPickLevel: MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickPickSchedule : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickBackArrow: MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickToImageStep: MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickToSpecificStep: MutableLiveData<Once<Unit>> = MutableLiveData()
@@ -76,6 +78,9 @@ class UploadClassViewModel(
 
     fun onClickPickLevel() {
         clickPickLevel.value = Once(Unit)
+    }
+    fun onClickPickSchedule() {
+        clickPickSchedule.value = Once(Unit)
     }
 
     fun onClickArtistImage() {
