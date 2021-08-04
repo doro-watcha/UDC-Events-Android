@@ -1,5 +1,6 @@
 package com.goddoro.udc.views.home
 
+import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.util.Log
@@ -106,16 +107,17 @@ class EventFragment : Fragment() {
 
         mBinding.mViewPager2.apply {
 
+            debugE(TAG, "setupViewPager In EventFragment")
 
             adapter = MainPosterAdapter()
 
-            var centerValue =  Integer.MAX_VALUE / 2
+            var centerValue =  Integer.MAX_VALUE / 100
 
             val findFirstPosition = centerValue % ( mViewModel.mainEvents.value?.size ?: 1 )
 
             centerValue -= findFirstPosition
 
-
+            debugE(TAG, "$centerValue in setupViewPager")
             setCurrentItem( centerValue , false )
 
             val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
@@ -165,7 +167,6 @@ class EventFragment : Fragment() {
                 }
             })
 
-
             offscreenPageLimit = 10
         }
 
@@ -179,6 +180,8 @@ class EventFragment : Fragment() {
 
             val position = mBinding.mViewPager2.currentItem + 1
 
+            debugE(TAG, "$position in scroll To Next ")
+
             mBinding.pageIndicator.refresh( position % ( mViewModel.mainEvents.value?.size ?: 1 )  )
             mBinding.mViewPagerBlurred.setCurrentItem(position % ( mViewModel.mainEvents.value?.size ?: 1 ) , false)
             mBinding.mViewPager2.setCurrentItem(position, 600)
@@ -188,21 +191,21 @@ class EventFragment : Fragment() {
 
     }
 
-    override fun onResume() {
-        super.onResume()
 
-        Log.d(TAG, "onResume")
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
 
-        scrollToNext()
+        debugE(TAG, hidden)
 
+        if (hidden) {
+            autoScrollDisposable.clear()
+        }
+        else {
+            scrollToNext()
+        }
     }
 
 
-    override fun onPause() {
-        super.onPause()
-
-        autoScrollDisposable.clear()
-    }
 
     override fun onDestroy() {
         super.onDestroy()
@@ -271,7 +274,7 @@ class EventFragment : Fragment() {
         mViewModel.apply {
 
 
-            mainEvents.observe(viewLifecycleOwner){
+            mainEvents.observe(viewLifecycleOwner, {
 
                 if ( it.isNotEmpty()) {
                     debugE(TAG, it.map { it.id })
@@ -279,7 +282,7 @@ class EventFragment : Fragment() {
                     setupViewPager()
                     mBinding.pageIndicator.refresh(mBinding.mViewPagerBlurred.currentItem)
                 }
-            }
+            })
 
             clickSearch.observeOnce(viewLifecycleOwner){
                 navigator.startSearchActivity(requireActivity())
