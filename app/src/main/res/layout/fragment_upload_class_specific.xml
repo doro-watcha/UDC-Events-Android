@@ -198,9 +198,10 @@
             android:layout_height="wrap_content"
             android:text="@string/txt_class_register"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="30dp"
             android:layout_marginEnd="10dp"
-            android:onDebounceClick="@{() -> vm.onClickRegisterClass()}"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toBottomOf="@+id/layout_edit_artist_instagram"
+            android:onDebounceClick="@{() -> vm.onClickRegisterClass()}" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
