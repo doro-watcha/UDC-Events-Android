@@ -5,6 +5,7 @@ import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.model.Genre
 import com.goddoro.map.EventMapViewModel
 import com.goddoro.udc.MainViewModel
+import com.goddoro.udc.views.PopupDialogViewModel
 import com.goddoro.udc.views.admin.AdminViewModel
 import com.goddoro.udc.views.classShop.ClassShopViewModel
 import com.goddoro.udc.views.auth.LoginViewModel
@@ -79,4 +80,5 @@ val viewModelModule  = module {
     viewModel { SchedulePickViewModel()}
 
     viewModel { FilterViewModel()}
+    viewModel { PopupDialogViewModel(get()) }
 }

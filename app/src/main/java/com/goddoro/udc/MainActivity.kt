@@ -18,6 +18,7 @@ import com.goddoro.common.util.Navigator
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.EventMapFragment
 import com.goddoro.udc.databinding.ActivityMainBinding
+import com.goddoro.udc.views.PopupDialog
 import com.goddoro.udc.views.classShop.ClassShopFragment
 import com.goddoro.udc.views.event.EventFragment
 import com.goddoro.udc.views.profile.ProfileFragment
@@ -64,6 +65,7 @@ class MainActivity : AppCompatActivity() {
 
         setupBroadcast()
 
+        showPopup()
         setContentView(mBinding.root)
 
 
@@ -246,6 +248,12 @@ class MainActivity : AppCompatActivity() {
         },{
             debugE(TAG,it)
         }).disposedBy(eventUploadDisposable)
+    }
+
+    private fun showPopup() {
+
+        val dialog = PopupDialog()
+        dialog.show(supportFragmentManager,null)
     }
 
     override fun onDestroy() {
