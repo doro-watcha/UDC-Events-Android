@@ -67,6 +67,9 @@ data class DanceClass (
     @SerializedName("subImgs")
     val subImgs : List<SubImage>,
 
+    @SerializedName("star")
+    val star : Star? = null,
+
 
     val temporaryImage : Int ? = 0
 

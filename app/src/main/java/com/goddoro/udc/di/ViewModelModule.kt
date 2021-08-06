@@ -11,6 +11,7 @@ import com.goddoro.udc.views.classShop.ClassShopViewModel
 import com.goddoro.udc.views.auth.LoginViewModel
 import com.goddoro.udc.views.classShop.detail.ClassDetailViewModel
 import com.goddoro.udc.views.classShop.GenreClassViewModel
+import com.goddoro.udc.views.classShop.detail.RatingViewModel
 import com.goddoro.udc.views.event.detail.EventDetailViewModel
 import com.goddoro.udc.views.upload.map.SearchAddressViewModel
 import com.goddoro.udc.views.event.EventViewModel
@@ -81,4 +82,6 @@ val viewModelModule  = module {
 
     viewModel { FilterViewModel()}
     viewModel { PopupDialogViewModel(get(),get()) }
+
+    viewModel { RatingViewModel()}
 }

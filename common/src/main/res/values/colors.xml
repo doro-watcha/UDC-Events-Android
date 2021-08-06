@@ -116,4 +116,5 @@
     <color name="semiTransparent">#6ef9f9f9</color>
     <color name="grayWhite">#e4e0ff</color>
     <color name="semiTransparentBlack">#6e232323</color>
+    <color name="gold">#FFD077</color>
 </resources>

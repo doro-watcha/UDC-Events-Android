@@ -39,7 +39,7 @@ interface ClassAPI {
 
 @Parcelize
 data class ClassListResponse(
-    @SerializedName("classInfo")
+    @SerializedName("classes")
     val classes : List<DanceClass>
 ) : Parcelable
 

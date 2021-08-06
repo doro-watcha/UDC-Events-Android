@@ -136,6 +136,10 @@ class ClassDetailActivity : AppCompatActivity() {
             clickBackArrow.observeOnce(this@ClassDetailActivity){
                 finish()
             }
+            clickRatingButton.observeOnce(this@ClassDetailActivity){
+                val dialog = RatingClassDialog()
+                dialog.show(supportFragmentManager, dialog.tag)
+            }
         }
     }
 

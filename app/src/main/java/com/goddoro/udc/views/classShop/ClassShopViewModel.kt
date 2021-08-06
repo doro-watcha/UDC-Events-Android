@@ -42,61 +42,9 @@ class ClassShopViewModel(
 
     init {
 
-        genres.value = listOf(Genre(0, "비보잉"), Genre(1, "힙합"), Genre(2, "걸스힙합"))
-
         listMainClasses()
         setupDateList()
-
-//        dayOfClasses.value = listOf(
-//            DanceClass(
-//                0,
-//                "zxcv",
-//                Artist(0, "BBOY PANIC", "MID DANCE STUDIO", "zxcv"),
-//                "zxcv",
-//                "zxcv",
-//                "zxcv",
-//                "zxcv",
-//                false,
-//                "zxcv",
-//                temporaryImage = R.drawable.class_sample_1
-//            ),
-//            DanceClass(
-//                1,
-//                "zxcv",
-//                Artist(0, "POPPIN DOKYUN", "1M STUDIO", "zxcv"),
-//                "zxcv",
-//                "zxcv",
-//                "zxcv",
-//                "zxcv",
-//                false,
-//                "zxcv",
-//                temporaryImage = R.drawable.class_sample_2
-//            ),
-//            DanceClass(
-//                2,
-//                "zxcv",
-//                Artist(0, "G_DRAGON", "Just Jerk Studio", "zxcv"),
-//                "zxcv",
-//                "zxcv",
-//                "zxcv",
-//                "zxcv",
-//                false,
-//                "zxcv",
-//                temporaryImage = R.drawable.class_sample_3
-//            ),
-//            DanceClass(
-//                3,
-//                "zxcv",
-//                Artist(0, "YOUNG-J", "ROOTS Dance Studio", "zxcv"),
-//                "zxcv",
-//                "zxcv",
-//                "zxcv",
-//                "zxcv",
-//                false,
-//                "zxcv",
-//                temporaryImage = R.drawable.class_sample_4
-//            )
-//        )
+        listGenres()
 
         mainClasses.value = dayOfClasses.value
 
@@ -123,10 +71,6 @@ class ClassShopViewModel(
         val today = Calendar.getInstance()
 
         for (i in 0..7) {
-
-            debugE(TAG, today.get(Calendar.DATE))
-            debugE(TAG, today.get(Calendar.DAY_OF_WEEK))
-
             val today_day = today.get(Calendar.DATE)
             val today_date = when (today.get(Calendar.DAY_OF_WEEK)) {
 
@@ -141,10 +85,7 @@ class ClassShopViewModel(
             }
             dateList.value?.add(Date(date = today_date, day = today_day, dateInt = today.get(Calendar.DAY_OF_WEEK) - 1))
             today.add(Calendar.DATE, 1)
-
         }
-
-
     }
 
     fun listDateClasses( date : Date) {
@@ -157,13 +98,14 @@ class ClassShopViewModel(
                 )
             }.onSuccess {
                 dayOfClasses.value = it
+                debugE(TAG, "WOw "+ it )
             }.onFailure {
                 errorInvoked.value = Once(it)
             }
         }
     }
 
-    fun listGenres() {
+    private fun listGenres() {
 
         viewModelScope.launch {
 

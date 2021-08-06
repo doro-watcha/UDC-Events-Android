@@ -74,7 +74,6 @@ class ClassShopFragment : Fragment() {
 
         observeViewModel()
 
-        setupViewPager()
         setupDateRecyclerView()
         setupDayOfRecyclerView()
 
@@ -210,7 +209,9 @@ class ClassShopFragment : Fragment() {
             })
 
             mainClasses.observe(viewLifecycleOwner) {
-
+                if ( it?.size != 0) {
+                    setupViewPager()
+                }
             }
 
             errorInvoked.observeOnce(viewLifecycleOwner) {
@@ -222,16 +223,18 @@ class ClassShopFragment : Fragment() {
 
     private fun scrollToNext () {
 
-        autoScrollDisposable.clear()
-        rxSingleTimer(4000) {
+        if ( mViewModel.mainClasses.value?.size ?: 0 > 0 ) {
 
-            val position = mBinding.mainViewPager.currentItem + 1
+            autoScrollDisposable.clear()
+            rxSingleTimer(4000) {
 
-            mBinding.indicator.refresh( position % ( mViewModel.mainClasses.value?.size ?: 1 )  )
-            mBinding.mainViewPager.setCurrentItem(position, 600)
+                val position = mBinding.mainViewPager.currentItem + 1
 
-        }.disposedBy(autoScrollDisposable)
+                mBinding.indicator.refresh(position % (mViewModel.mainClasses.value?.size ?: 1))
+                mBinding.mainViewPager.setCurrentItem(position, 600)
 
+            }.disposedBy(autoScrollDisposable)
+        }
 
     }
 
