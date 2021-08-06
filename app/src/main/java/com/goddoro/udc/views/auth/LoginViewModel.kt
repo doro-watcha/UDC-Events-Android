@@ -48,8 +48,5 @@ class LoginViewModel(
 
             }
         }
-
-
     }
-
 }

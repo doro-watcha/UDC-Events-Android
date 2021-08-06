@@ -8,5 +8,7 @@ data class Date(
 
     val day: Int,
 
-    val date: String
+    val date: String,
+
+    val dateInt : Int
 ) : Parcelable

@@ -1,5 +1,6 @@
 package com.goddoro.udc.views.intro
 
+import android.content.pm.PackageManager
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -9,6 +10,7 @@ import com.goddoro.common.common.observeOnce
 import com.goddoro.common.dialog.showTextDialog
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxSingleTimer
+import com.goddoro.common.util.AppPreference
 import com.goddoro.udc.MainActivity
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.ActivityIntroBinding
@@ -26,6 +28,8 @@ class IntroActivity : AppCompatActivity() {
     private lateinit var mBinding : ActivityIntroBinding
     private val mViewModel : IntroViewModel by viewModel()
 
+    private val appPreference : AppPreference by inject()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -35,22 +39,33 @@ class IntroActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this
         setContentView(mBinding.root)
 
-        observeViewModel()
+        //observeViewModel()
 
+
+        startActivity(MainActivity::class)
+        finish()
     }
 
     private fun observeViewModel() {
 
         mViewModel.apply {
             onLoadCompleted.observeOnce(this@IntroActivity){
-                startActivity(MainActivity::class)
+
+                val info = packageManager.getPackageInfo(packageName, PackageManager.GET_ACTIVITIES)
+                if ( it > info.versionCode){
+                    startActivity(VersionUpdateActivity::class)
+                }
+                else {
+                    startActivity(MainActivity::class)
+                }
+
                 finish()
             }
             onErrorInvoked.observe(this@IntroActivity){
                 debugE(TAG, it.message)
                 showTextDialog(
                     resources.getString(R.string.dialog_error_unknown),
-                    it.message ?: "알 수 없는 에러 발생")
+                    "네트워크 및 서버가 불안정합니다")
             }
 
 

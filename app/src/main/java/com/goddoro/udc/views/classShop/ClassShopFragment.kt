@@ -151,7 +151,7 @@ class ClassShopFragment : Fragment() {
             adapter = DateListAdapter(context).apply {
 
                 clickEvent.subscribe {
-                    mViewModel.listDateClasses()
+                    mViewModel.listDateClasses(it)
                 }.disposedBy(compositeDisposable)
             }
         }
@@ -161,7 +161,12 @@ class ClassShopFragment : Fragment() {
 
         mBinding.dayOfClassRecyclerView.apply {
 
-            adapter = DayOfClassAdapter()
+            adapter = DayOfClassAdapter().apply {
+
+                clickEvent.subscribe{
+
+                }.disposedBy(compositeDisposable)
+            }
         }
     }
 

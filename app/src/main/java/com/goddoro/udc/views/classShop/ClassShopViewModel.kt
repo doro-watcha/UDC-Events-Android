@@ -34,6 +34,8 @@ class ClassShopViewModel(
 
     val dateList: MutableLiveData<ArrayList<Date>> = MutableLiveData(ArrayList())
 
+    var curDayIndex = 0
+
     val genres: MutableLiveData<List<Genre>> = MutableLiveData()
 
     val errorInvoked: MutableLiveData<Once<Throwable>> = MutableLiveData()
@@ -45,56 +47,56 @@ class ClassShopViewModel(
         listMainClasses()
         setupDateList()
 
-        dayOfClasses.value = listOf(
-            DanceClass(
-                0,
-                "zxcv",
-                Artist(0, "BBOY PANIC", "MID DANCE STUDIO", "zxcv"),
-                "zxcv",
-                "zxcv",
-                "zxcv",
-                "zxcv",
-                false,
-                "zxcv",
-                temporaryImage = R.drawable.class_sample_1
-            ),
-            DanceClass(
-                1,
-                "zxcv",
-                Artist(0, "POPPIN DOKYUN", "1M STUDIO", "zxcv"),
-                "zxcv",
-                "zxcv",
-                "zxcv",
-                "zxcv",
-                false,
-                "zxcv",
-                temporaryImage = R.drawable.class_sample_2
-            ),
-            DanceClass(
-                2,
-                "zxcv",
-                Artist(0, "G_DRAGON", "Just Jerk Studio", "zxcv"),
-                "zxcv",
-                "zxcv",
-                "zxcv",
-                "zxcv",
-                false,
-                "zxcv",
-                temporaryImage = R.drawable.class_sample_3
-            ),
-            DanceClass(
-                3,
-                "zxcv",
-                Artist(0, "YOUNG-J", "ROOTS Dance Studio", "zxcv"),
-                "zxcv",
-                "zxcv",
-                "zxcv",
-                "zxcv",
-                false,
-                "zxcv",
-                temporaryImage = R.drawable.class_sample_4
-            )
-        )
+//        dayOfClasses.value = listOf(
+//            DanceClass(
+//                0,
+//                "zxcv",
+//                Artist(0, "BBOY PANIC", "MID DANCE STUDIO", "zxcv"),
+//                "zxcv",
+//                "zxcv",
+//                "zxcv",
+//                "zxcv",
+//                false,
+//                "zxcv",
+//                temporaryImage = R.drawable.class_sample_1
+//            ),
+//            DanceClass(
+//                1,
+//                "zxcv",
+//                Artist(0, "POPPIN DOKYUN", "1M STUDIO", "zxcv"),
+//                "zxcv",
+//                "zxcv",
+//                "zxcv",
+//                "zxcv",
+//                false,
+//                "zxcv",
+//                temporaryImage = R.drawable.class_sample_2
+//            ),
+//            DanceClass(
+//                2,
+//                "zxcv",
+//                Artist(0, "G_DRAGON", "Just Jerk Studio", "zxcv"),
+//                "zxcv",
+//                "zxcv",
+//                "zxcv",
+//                "zxcv",
+//                false,
+//                "zxcv",
+//                temporaryImage = R.drawable.class_sample_3
+//            ),
+//            DanceClass(
+//                3,
+//                "zxcv",
+//                Artist(0, "YOUNG-J", "ROOTS Dance Studio", "zxcv"),
+//                "zxcv",
+//                "zxcv",
+//                "zxcv",
+//                "zxcv",
+//                false,
+//                "zxcv",
+//                temporaryImage = R.drawable.class_sample_4
+//            )
+//        )
 
         mainClasses.value = dayOfClasses.value
 
@@ -137,7 +139,7 @@ class ClassShopViewModel(
                 7 -> "토"
                 else -> throw Error()
             }
-            dateList.value?.add(Date(date = today_date, day = today_day))
+            dateList.value?.add(Date(date = today_date, day = today_day, dateInt = today.get(Calendar.DAY_OF_WEEK) - 1))
             today.add(Calendar.DATE, 1)
 
         }
@@ -145,9 +147,20 @@ class ClassShopViewModel(
 
     }
 
-    fun listDateClasses() {
+    fun listDateClasses( date : Date) {
 
+        viewModelScope.launch {
 
+            kotlin.runCatching {
+                classRepository.listClasses(
+                    day = date.dateInt
+                )
+            }.onSuccess {
+                dayOfClasses.value = it
+            }.onFailure {
+                errorInvoked.value = Once(it)
+            }
+        }
     }
 
     fun listGenres() {

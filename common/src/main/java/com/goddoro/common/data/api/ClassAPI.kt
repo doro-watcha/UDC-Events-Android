@@ -5,9 +5,9 @@ import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.api.response.ApiResponse
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
-import retrofit2.http.GET
-import retrofit2.http.Path
-import retrofit2.http.QueryMap
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
+import retrofit2.http.*
 
 
 /**
@@ -26,6 +26,15 @@ interface ClassAPI {
     suspend fun getClass(
         @Path("id") id : Int
     ) : ApiResponse<ClassResponse>
+
+    @POST("class")
+    @Multipart
+    suspend fun registerClass(
+        @PartMap parameters : HashMap<String, RequestBody>,
+        @Part files : List<MultipartBody.Part>?
+    ) : ApiResponse<Any>
+
+
 }
 
 @Parcelize

@@ -17,9 +17,10 @@ val repositoryModule = module {
     single { UserRepositoryImpl(get(),get()) } bind UserRepository::class
     single { EventRepositoryImpl(get(),get()) } bind EventRepository::class
     single { SearchRepositoryImpl(get()) } bind SearchRepository::class
-    single { ClassRepositoryImpl(get()) } bind ClassRepository::class
+    single { ClassRepositoryImpl(get(),get()) } bind ClassRepository::class
     single { DeviceRepositoryImpl(get())} bind DeviceRepository::class
     single { NotificationRepositoryImpl(get())} bind NotificationRepository::class
+    single { VersionRepositoryImpl(get())} bind VersionRepository::class
     single { NaverRepositoryImpl(get(),get())} bind NaverRepository::class
     single { AcademyRepositoryImpl(get(),get())} bind AcademyRepository::class
     single { GenreRepositoryImpl(get())} bind GenreRepository::class

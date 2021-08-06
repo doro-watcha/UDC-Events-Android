@@ -7,39 +7,33 @@ import com.goddoro.common.common.Once
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.data.repository.EventRepository
 import com.goddoro.common.data.repository.UserRepository
+import com.goddoro.common.data.repository.VersionRepository
 import kotlinx.coroutines.launch
 
 class IntroViewModel(
-    private val userRepository: UserRepository,
-    private val authRepository: AuthRepository
+    private val authRepository: AuthRepository,
+    private val versionRepository: VersionRepository
 ) : ViewModel() {
 
-    val onLoadCompleted: MutableLiveData<Once<Unit>> = MutableLiveData()
+    val onLoadCompleted: MutableLiveData<Once<Int>> = MutableLiveData()
     val onErrorInvoked: MutableLiveData<Throwable> = MutableLiveData()
 
     init {
 
-        onNetworkCheck()
+        //onVersionCheck()
     }
 
-    private fun onNetworkCheck() {
+    private fun onVersionCheck() {
 
-        if (authRepository.isSignedIn()) {
+        viewModelScope.launch {
 
-            viewModelScope.launch {
-                kotlin.runCatching {
-                    userRepository.getUser(authRepository.curUser.value?.id ?: 0)
-                }.onSuccess {
-                    authRepository.setCurrentUser(it)
-                    onLoadCompleted.value = Once(Unit)
-                }.onFailure {
-                    onErrorInvoked.value = it
-                }
+            kotlin.runCatching {
+                versionRepository.getMinimumVersion()
+            }.onSuccess {
+                onLoadCompleted.value = Once(it)
+            }.onFailure {
+                onErrorInvoked.value = it
             }
-        } else {
-            onLoadCompleted.value = Once(Unit)
         }
-
-
     }
 }

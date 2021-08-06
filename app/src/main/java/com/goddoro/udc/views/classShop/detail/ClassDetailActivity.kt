@@ -78,7 +78,7 @@ class ClassDetailActivity : AppCompatActivity() {
                 val instagram_intent = packageManager.getLaunchIntentForPackage("com.instagram.android")
 
                 if ( instagram_intent != null) {
-                    instagram_intent.data = Uri.parse(danceClass.artist.instagramUrl)
+                    instagram_intent.data = Uri.parse(danceClass.artistInstagram)
                     startActivity(instagram_intent)
                 } else {
                     try {
@@ -104,7 +104,7 @@ class ClassDetailActivity : AppCompatActivity() {
 
                 if ( youtube_intent != null ) {
 
-                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(danceClass.artist.youtubeUrl));
+                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(danceClass.youtubeUrl));
                     startActivity(browserIntent);
                 }
                 else {

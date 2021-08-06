@@ -3,6 +3,7 @@ package com.goddoro.common.util
 import android.annotation.SuppressLint
 import android.app.Application
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
 import androidx.preference.PreferenceManager
 import com.goddoro.common.di.ServerType
 
@@ -43,7 +44,9 @@ class AppPreference(context: Application) {
 
         KEY_USER("KEY_USER"),
 
-        KEY_POP_UP_DATE("KEY_POP_UP_DATE")
+        KEY_POP_UP_DATE("KEY_POP_UP_DATE"),
+
+        KEY_MINIMUM_VERSION("KEY_MINIMUM_VERSION")
     }
 
     @SuppressLint("ApplySharedPref")
@@ -119,6 +122,9 @@ class AppPreference(context: Application) {
 
     var popUpDate: String
         get() = get(KEY.KEY_POP_UP_DATE) ?: "2020-01-01"
-        set(value) = set(KEY.KEY_POP_UP_DATE, value )
+        set(value) = set(KEY.KEY_POP_UP_DATE, value)
+
+    val info = context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_ACTIVITIES)
+
 
 }

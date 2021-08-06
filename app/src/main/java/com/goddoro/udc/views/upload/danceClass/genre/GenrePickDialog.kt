@@ -63,7 +63,6 @@ class GenrePickDialog  : DialogFragment(){
         observeViewModel()
         setupBroadcast()
 
-        viewModel.listGenres()
 
     }
 
