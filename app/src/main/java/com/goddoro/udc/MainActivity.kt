@@ -28,6 +28,7 @@ import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.text.SimpleDateFormat
 import java.util.*
 
 
@@ -252,8 +253,13 @@ class MainActivity : AppCompatActivity() {
 
     private fun showPopup() {
 
-        val dialog = PopupDialog()
-        dialog.show(supportFragmentManager,null)
+        val dt = Date()
+        val dateFormat = SimpleDateFormat("yyyy-MM-dd")
+        val date = dateFormat.format(dt).toString()
+        if ( date != appPreference.popUpDate) {
+            val dialog = PopupDialog()
+            dialog.show(supportFragmentManager, null)
+        }
     }
 
     override fun onDestroy() {

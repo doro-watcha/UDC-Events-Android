@@ -13,7 +13,8 @@ import com.goddoro.common.di.ServerType
 
 class AppPreference(context: Application) {
 
-    private val preference: SharedPreferences = PreferenceManager.getDefaultSharedPreferences(context)
+    private val preference: SharedPreferences =
+        PreferenceManager.getDefaultSharedPreferences(context)
 
     enum class KEY(val key: String) {
         // FCM token
@@ -42,7 +43,7 @@ class AppPreference(context: Application) {
 
         KEY_USER("KEY_USER"),
 
-        KEY_FEED_ORDER_BY("KEY_FEED_ORDER_BY")
+        KEY_POP_UP_DATE("KEY_POP_UP_DATE")
     }
 
     @SuppressLint("ApplySharedPref")
@@ -65,7 +66,10 @@ class AppPreference(context: Application) {
         return when (T::class) {
             String::class -> preference.getString(key.key, defaultValue as? String) as T?
             Int::class -> preference.getInt(key.key, defaultValue as? Int ?: -1) as T?
-            Boolean::class -> preference.getBoolean(key.key, defaultValue as? Boolean ?: false) as T?
+            Boolean::class -> preference.getBoolean(
+                key.key,
+                defaultValue as? Boolean ?: false
+            ) as T?
             Float::class -> preference.getFloat(key.key, defaultValue as? Float ?: -1f) as T?
             Long::class -> preference.getLong(key.key, defaultValue as? Long ?: -1) as T?
             else -> throw UnsupportedOperationException("Not yet implemented")
@@ -112,4 +116,9 @@ class AppPreference(context: Application) {
     var curServer: Int
         get() = get(KEY.KEY_SERVER) ?: ServerType.defaultServerType.value
         set(value) = set(KEY.KEY_SERVER, value)
+
+    var popUpDate: String
+        get() = get(KEY.KEY_POP_UP_DATE) ?: "2020-01-01"
+        set(value) = set(KEY.KEY_POP_UP_DATE, value )
+
 }

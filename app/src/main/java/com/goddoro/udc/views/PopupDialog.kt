@@ -14,6 +14,7 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.R
 import com.goddoro.udc.databinding.DialogGenrePickBinding
@@ -121,6 +122,8 @@ class PopupDialog  : DialogFragment(){
         super.onDestroy()
 
         compositeDisposable.clear()
+
+        viewModel.checkPopup()
     }
 
 }

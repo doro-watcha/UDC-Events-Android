@@ -80,5 +80,5 @@ val viewModelModule  = module {
     viewModel { SchedulePickViewModel()}
 
     viewModel { FilterViewModel()}
-    viewModel { PopupDialogViewModel(get()) }
+    viewModel { PopupDialogViewModel(get(),get()) }
 }
