@@ -31,7 +31,7 @@
                 android:textColor="@color/white"
                 android:fontFamily="@font/title"
                 android:textStyle="bold"
-                android:textSize="20dp"
+                android:textSize="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
@@ -85,7 +85,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/title"
-                android:text="@string/txt_this_week_classes"
+                android:text="HOT CLASS"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:textColor="@color/white"
@@ -102,10 +102,24 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_this_week_classes"
                 app:recycler_view_date_list="@{vm.dateList}" />
 
+            <TextView
+                android:id="@+id/txt_no_item"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="진행되는 수업이 없습니다"
+                android:textSize="18dp"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:visibility="@{vm.dayOfClasses.size() == 0}"
+                android:textStyle="bold"
+                app:layout_constraintTop_toBottomOf="@+id/date_recycler_view"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/day_of_class_recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility_invisible="@{vm.dayOfClasses.size() > 0}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/date_recycler_view"
                 app:recyclerview_day_of_classes="@{vm.dayOfClasses}"
@@ -116,11 +130,11 @@
                 android:id="@+id/txt_genre_classes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/txt_genre_classes"
+                android:text="VARIOUS CLASSES"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 android:fontFamily="@font/title"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="50dp"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="@+id/txt_this_week_classes"
                 app:layout_constraintTop_toBottomOf="@+id/day_of_class_recycler_view"/>

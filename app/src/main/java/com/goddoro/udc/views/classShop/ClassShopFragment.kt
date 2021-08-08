@@ -91,7 +91,7 @@ class ClassShopFragment : Fragment() {
 
                 clickEvent.subscribe {
 
-                    navigator.startClassDetailActivity(requireActivity(), it.first, it.second)
+                    //navigator.startClassDetailActivity(requireActivity(), it.first, it.second)
                 }.disposedBy(compositeDisposable)
 
 
@@ -103,12 +103,7 @@ class ClassShopFragment : Fragment() {
 
             centerValue -= findFirstPosition
 
-
-            debugE(TAG, centerValue.toString())
-            debugE(TAG, findFirstPosition.toString())
-
             setCurrentItem(centerValue, false)
-            debugE(TAG, "CURRENT ITEM IN SET UP $currentItem")
 
             this.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
 
@@ -130,6 +125,8 @@ class ClassShopFragment : Fragment() {
                     }
                 }
             })
+
+            debugE(TAG, "MAIN VIEW PAGER ADAPTER SETTING COMPLETED")
 
         }
     }
@@ -193,7 +190,7 @@ class ClassShopFragment : Fragment() {
             }.attach()
 
             CommonUtils.reduceMarginsInTabs(genreTabLayout, 30)
-            genreViewPager.offscreenPageLimit = 3
+            genreViewPager.offscreenPageLimit = 10
 
 
         }
@@ -210,11 +207,11 @@ class ClassShopFragment : Fragment() {
                 }
             })
 
-            mainClasses.observe(viewLifecycleOwner) {
-                if ( it?.size != 0) {
+            mainClasses.observe(viewLifecycleOwner, Observer {
+                if ( it?.size ?: 0 > 0) {
                     setupViewPager()
                 }
-            }
+            })
 
             clickSearchClass.observeOnce(viewLifecycleOwner){
                 startActivity(SearchActivity::class)

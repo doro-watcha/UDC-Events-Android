@@ -57,8 +57,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="B-BOY PANIC의 Master Class"
-                android:textSize="18dp"
+                android:textSize="20dp"
                 android:textStyle="bold"
+                android:fontFamily="@font/title"
                 android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="@+id/img_main"
                 android:layout_marginBottom="10dp"
@@ -156,10 +157,11 @@
                 android:id="@+id/txt_artist"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="강사님"
+                android:text="ARTIST"
                 android:textSize="18dp"
                 android:layout_marginTop="30dp"
-                android:textColor="@color/white"
+                android:fontFamily="@font/general"
+                android:textColor="@color/gold"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/txt_description"
                 app:layout_constraintTop_toBottomOf="@+id/txt_description"/>
@@ -228,7 +230,7 @@
                 app:layout_constraintStart_toStartOf="@id/txt_artist_name"
                 app:layout_constraintEnd_toEndOf="@id/txt_artist_name"
                 app:layout_constraintTop_toBottomOf="@+id/txt_level"
-                android:text="매주 월 수 PM 7:00 ~ 8:30"/>
+                android:text="매주 월 수 PM 7:00"/>
 
             <ImageView
                 android:id="@+id/img_instagram"
@@ -237,6 +239,7 @@
                 android:src="@drawable/ic_instagram"
                 app:layout_constraintStart_toStartOf="@+id/txt_academy_name"
                 android:layout_marginTop="20dp"
+                android:onDebounceClick="@{() ->vm.onClickInstagram()}"
                 app:layout_constraintEnd_toEndOf="@+id/txt_academy_name"
                 app:layout_constraintTop_toBottomOf="@+id/txt_date"/>
 
@@ -256,9 +259,10 @@
                 android:id="@+id/txt_youtube_view"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="소개 영상"
-                android:textColor="@color/white"
+                android:text="INTRODUCTION"
+                android:textColor="@color/gold"
                 android:textSize="18dp"
+                android:fontFamily="@font/general"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/txt_artist_description"
                 app:layout_constraintTop_toBottomOf="@+id/txt_artist_description"
