@@ -162,7 +162,7 @@ class ClassShopFragment : Fragment() {
             adapter = DayOfClassAdapter().apply {
 
                 clickEvent.subscribe{
-
+                    navigator.startClassDetailActivity(requireActivity(), it.first, it.second)
                 }.disposedBy(compositeDisposable)
             }
         }

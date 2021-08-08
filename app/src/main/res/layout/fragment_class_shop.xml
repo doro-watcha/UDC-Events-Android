@@ -34,6 +34,7 @@
                 android:textSize="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
+                android:visibility="gone"
                 app:layout_constraintTop_toTopOf="parent"
                 android:text="UDC EVENTS"
                 android:layout_marginTop="10dp" />
@@ -47,6 +48,7 @@
                 app:layout_constraintTop_toTopOf="@+id/txt_class_main"
                 app:layout_constraintBottom_toBottomOf="@+id/txt_class_main"
                 app:layout_constraintEnd_toEndOf="parent"
+                android:visibility="gone"
                 android:layout_marginEnd="10dp"/>
 
 
@@ -85,7 +87,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/title"
-                android:text="HOT CLASS"
+                android:text="TODAY CLASSES"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:textColor="@color/white"

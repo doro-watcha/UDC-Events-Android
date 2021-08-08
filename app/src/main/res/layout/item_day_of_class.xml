@@ -40,6 +40,7 @@
             android:layout_height="wrap_content"
             android:text="B-BOY PANIC ( B-BOYING)"
             android:textStyle="bold"
+            android:textColor="@color/white"
             app:layout_constraintStart_toStartOf="@+id/txt_time"
             app:layout_constraintTop_toBottomOf="@+id/txt_time"
             android:layout_marginTop="5dp"/>
