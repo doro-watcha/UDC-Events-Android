@@ -29,7 +29,9 @@ import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentClassShopBinding
 import com.goddoro.udc.util.setCurrentItem
+import com.goddoro.udc.util.startActivity
 import com.goddoro.udc.views.classShop.detail.ClassDetailActivity
+import com.goddoro.udc.views.search.SearchActivity
 import com.goddoro.udc.views.udc.UdcViewModel_Factory.create
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
@@ -212,6 +214,10 @@ class ClassShopFragment : Fragment() {
                 if ( it?.size != 0) {
                     setupViewPager()
                 }
+            }
+
+            clickSearchClass.observeOnce(viewLifecycleOwner){
+                startActivity(SearchActivity::class)
             }
 
             errorInvoked.observeOnce(viewLifecycleOwner) {

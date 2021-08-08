@@ -10,6 +10,8 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentManager
 import com.goddoro.common.common.AutoClearedValue
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.common.widget.setOnDebounceClickListener
+import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.R
 import com.goddoro.udc.databinding.DialogPopUpBinding
@@ -20,7 +22,7 @@ import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
-class RatingClassDialog  : DialogFragment(){
+class RatingClassDialog ( val danceClass : DanceClass)  : DialogFragment(){
 
     private val TAG = RatingClassDialog::class.java.simpleName
 
@@ -66,10 +68,12 @@ class RatingClassDialog  : DialogFragment(){
 
     private fun initView() {
 
-//        mBinding.btnConfirm.setOnDebounceClickListener {
-//            Broadcast.pickGenreBroadcast.onNext(viewModel.selectedGenre.value!!)
-//            dismiss()
-//        }
+        mBinding.btnConfirm.setOnDebounceClickListener {
+            //Broadcast.pickGenreBroadcast.onNext(viewModel.selectedGenre.value!!)
+            dismiss()
+        }
+
+        mBinding.txtClassName.text = danceClass.artistName + " | " + danceClass.title
 
     }
 
@@ -102,8 +106,8 @@ class RatingClassDialog  : DialogFragment(){
 
     }
     companion object {
-        fun show(fm: FragmentManager) {
-            val dialog = RatingClassDialog()
+        fun show(fm: FragmentManager, danceClass: DanceClass) {
+            val dialog = RatingClassDialog(danceClass)
             dialog.show(fm, dialog.tag)
         }
     }

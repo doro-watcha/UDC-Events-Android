@@ -53,35 +53,6 @@
 
 
             <TextView
-                android:id="@+id/txt_genre"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="비보잉 | "
-                android:textColor="@color/white"
-                app:layout_constraintStart_toStartOf="@+id/img_back_arrow"
-                app:layout_constraintBottom_toBottomOf="@+id/img_main"
-                android:layout_marginBottom="5dp"/>
-
-            <TextView
-                android:id="@+id/txt_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Basic Class | "
-                android:textColor="@color/white"
-                app:layout_constraintTop_toTopOf="@+id/txt_genre"
-                app:layout_constraintStart_toEndOf="@+id/txt_genre"/>
-
-            <TextView
-                android:id="@+id/txt_date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_marginStart="2dp"
-                app:layout_constraintStart_toEndOf="@+id/txt_level"
-                app:layout_constraintTop_toTopOf="@+id/txt_level"
-                android:text="매주 월 수 PM 7:00 ~ 8:30"/>
-
-            <TextView
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,11 +60,12 @@
                 android:textSize="18dp"
                 android:textStyle="bold"
                 android:textColor="@color/white"
-                app:layout_constraintBottom_toTopOf="@+id/txt_genre"
+                app:layout_constraintBottom_toBottomOf="@+id/img_main"
                 android:layout_marginBottom="10dp"
                 app:layout_constraintStart_toStartOf="@+id/img_back_arrow"/>
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/layout_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="@drawable/border_gold_background"
@@ -138,6 +110,21 @@
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/txt_genre"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:text="비보잉"
+                android:gravity="center"
+                android:padding="8dp"
+                android:textSize="12dp"
+                android:layout_marginStart="5dp"
+                android:background="@drawable/background_transparent"
+                android:textColor="@color/white"
+                app:layout_constraintStart_toEndOf="@+id/layout_star"
+                app:layout_constraintTop_toTopOf="@+id/layout_star"
+                app:layout_constraintBottom_toBottomOf="@+id/layout_star" />
 
             <TextView
                 android:id="@+id/txt_rating"
@@ -220,6 +207,29 @@
                 app:layout_constraintTop_toBottomOf="@+id/txt_artist_name"
                 android:layout_marginTop="20dp"/>
 
+
+            <TextView
+                android:id="@+id/txt_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Basic Class"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="@id/txt_artist_name"
+                android:textColor="@color/white"
+                app:layout_constraintTop_toBottomOf="@+id/txt_academy_name"
+                app:layout_constraintStart_toStartOf="@+id/txt_artist_name"/>
+
+            <TextView
+                android:id="@+id/txt_date"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                app:layout_constraintStart_toStartOf="@id/txt_artist_name"
+                app:layout_constraintEnd_toEndOf="@id/txt_artist_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_level"
+                android:text="매주 월 수 PM 7:00 ~ 8:30"/>
+
             <ImageView
                 android:id="@+id/img_instagram"
                 android:layout_width="40dp"
@@ -228,7 +238,9 @@
                 app:layout_constraintStart_toStartOf="@+id/txt_academy_name"
                 android:layout_marginTop="20dp"
                 app:layout_constraintEnd_toEndOf="@+id/txt_academy_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_academy_name"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_date"/>
+
+
 
             <TextView
                 android:id="@+id/txt_artist_description"

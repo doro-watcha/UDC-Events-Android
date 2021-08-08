@@ -38,6 +38,7 @@ class ClassShopViewModel(
 
     val genres: MutableLiveData<List<Genre>> = MutableLiveData()
 
+    val clickSearchClass : MutableLiveData<Once<Unit>> = MutableLiveData()
     val errorInvoked: MutableLiveData<Once<Throwable>> = MutableLiveData()
 
     init {
@@ -117,6 +118,10 @@ class ClassShopViewModel(
                 errorInvoked.value = Once(it)
             }
         }
+    }
+
+    fun onClickSearchClass() {
+        clickSearchClass.value = Once(Unit)
     }
 
 

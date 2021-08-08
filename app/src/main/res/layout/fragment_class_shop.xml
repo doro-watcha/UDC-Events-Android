@@ -29,14 +29,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:textSize="26dp"
-                android:fontFamily="@font/star"
+                android:fontFamily="@font/title"
                 android:textStyle="bold"
+                android:textSize="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:text="KOREA TOP CLASS 힙합 모범 노블레스 "
-                android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"/>
+                android:text="UDC EVENTS"
+                android:layout_marginTop="10dp" />
+
+            <ImageView
+                android:id="@+id/img_search"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onDebounceClick="@{ () -> vm.onClickSearchClass()}"
+                android:src="@drawable/ic_search_white"
+                app:layout_constraintTop_toTopOf="@+id/txt_class_main"
+                app:layout_constraintBottom_toBottomOf="@+id/txt_class_main"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="10dp"/>
 
 
             <androidx.viewpager2.widget.ViewPager2
@@ -71,11 +82,12 @@
                 android:id="@+id/txt_this_week_classes"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
+                android:fontFamily="@font/title"
                 android:text="@string/txt_this_week_classes"
-                android:textSize="20dp"
                 android:textStyle="bold"
+                android:textSize="20dp"
                 android:textColor="@color/white"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/mainViewPager" />
@@ -107,8 +119,8 @@
                 android:text="@string/txt_genre_classes"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:fontFamily="@font/title"
                 android:layout_marginTop="10dp"
-                android:layout_marginStart="10dp"
                 android:textSize="20dp"
                 app:layout_constraintStart_toStartOf="@+id/txt_this_week_classes"
                 app:layout_constraintTop_toBottomOf="@+id/day_of_class_recycler_view"/>

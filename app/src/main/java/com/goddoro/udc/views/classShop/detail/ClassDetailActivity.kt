@@ -137,7 +137,7 @@ class ClassDetailActivity : AppCompatActivity() {
                 finish()
             }
             clickRatingButton.observeOnce(this@ClassDetailActivity){
-                val dialog = RatingClassDialog()
+                val dialog = RatingClassDialog(danceClass)
                 dialog.show(supportFragmentManager, dialog.tag)
             }
         }
