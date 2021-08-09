@@ -5,35 +5,29 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.lifecycle.ViewModelProvider
-import com.goddoro.common.common.debugE
-import com.goddoro.common.common.observeOnce
-import com.goddoro.common.data.model.NaverItem
-import com.goddoro.map.databinding.FragmentEventMapBinding
-import com.goddoro.map.dialog.MapDetailDialog
-import com.naver.maps.map.*
-import dagger.android.support.DaggerFragment
-import ted.gun0912.clustering.naver.TedNaverClustering
+import android.widget.LinearLayout
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.observe
+import com.goddoro.common.common.debugE
+import com.goddoro.common.common.loadUrlAsync
 import com.goddoro.common.data.model.Event
+import com.goddoro.common.data.model.NaverItem
 import com.goddoro.common.extension.addSchedulers
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.ToastUtil
-import com.goddoro.map.search.EventSearchAdapter
+import com.goddoro.map.databinding.FragmentEventMapBinding
 import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.overlay.OverlayImage
 import com.naver.maps.map.util.FusedLocationSource
-import com.naver.maps.map.util.MarkerIcons
 import com.tedpark.tedpermission.rx1.TedRxPermission
 import de.hdodenhof.circleimageview.CircleImageView
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.subjects.BehaviorSubject
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import ted.gun0912.clustering.clustering.Cluster
+import ted.gun0912.clustering.naver.TedNaverClustering
 import java.util.concurrent.TimeUnit
 
 
@@ -174,7 +168,26 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
                         }
                         .customMarker { clusterItem ->
                             Marker(clusterItem.position).apply {
-                                icon = OverlayImage.fromResource(R.drawable.ic_udc)
+
+                                if ( clusterItem.academy?.logoImgUrl == null) {
+                                    icon = OverlayImage.fromResource(R.drawable.ic_udc)
+                                }
+                                else {
+                                    debugE(TAG, "BB")
+                                    val circleImageView = CircleImageView(context)
+
+                                    val vp: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
+                                        100,
+                                      100
+                                    )
+                                    circleImageView.layoutParams = vp
+                                    circleImageView.loadUrlAsync(
+                                        clusterItem.academy?.logoImgUrl ?: ""
+                                    )
+                                    debugE(TAG, clusterItem.academy?.logoImgUrl)
+                                    //circleImageView.setImageResource(R.drawable.class_sample_1)
+                                    icon = OverlayImage.fromView(circleImageView)
+                                }
                             }
                         }
                         .clusterClickListener {

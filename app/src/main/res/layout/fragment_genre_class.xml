@@ -21,7 +21,20 @@
             app:layout_constraintTop_toTopOf="parent"
             app:recyclerview_normal_class="@{vm.genreClasses}"
             android:paddingBottom="20dp"
+            android:visibility="@{vm.onLoadCompleted == true}"
             android:layout_height="wrap_content"/>
+
+        <ProgressBar
+            android:layout_width="200dp"
+            style="@style/Widget.AppCompat.ProgressBar"
+            android:layout_height="200dp"
+            android:visibility="@{vm.onLoadCompleted == false}"
+            android:progressTint="@color/gold"
+            android:indeterminateTint="@color/gold"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
