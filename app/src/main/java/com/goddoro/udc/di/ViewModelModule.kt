@@ -21,6 +21,7 @@ import com.goddoro.udc.views.profile.collection.EventCollectionViewModel
 import com.goddoro.udc.views.profile.join.JoinEventViewModel
 import com.goddoro.udc.views.profile.ProfileViewModel
 import com.goddoro.udc.views.profile.pending.PendingEventViewModel
+import com.goddoro.udc.views.profile.star.MyStarViewModel
 import com.goddoro.udc.views.search.SearchViewModel
 import com.goddoro.udc.views.search.detail.SearchDetailViewModel
 import com.goddoro.udc.views.search.filter.FilterViewModel
@@ -84,4 +85,5 @@ val viewModelModule  = module {
     viewModel { PopupDialogViewModel(get(),get()) }
 
     viewModel { RatingViewModel()}
+    viewModel { MyStarViewModel(get())}
 }
