@@ -190,7 +190,7 @@ class ClassShopFragment : Fragment() {
             }.attach()
 
             CommonUtils.reduceMarginsInTabs(genreTabLayout, 30)
-            genreViewPager.offscreenPageLimit = 10
+            genreViewPager.offscreenPageLimit = 1
 
 
         }

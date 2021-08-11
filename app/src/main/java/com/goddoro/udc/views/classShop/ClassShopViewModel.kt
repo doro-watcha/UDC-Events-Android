@@ -36,6 +36,7 @@ class ClassShopViewModel(
 
     val genres: MutableLiveData<List<Genre>> = MutableLiveData()
 
+    val onGenreLoadCompleted : MutableLiveData<Boolean> = MutableLiveData()
     val clickSearchClass : MutableLiveData<Once<Unit>> = MutableLiveData()
     val errorInvoked: MutableLiveData<Once<Throwable>> = MutableLiveData()
 

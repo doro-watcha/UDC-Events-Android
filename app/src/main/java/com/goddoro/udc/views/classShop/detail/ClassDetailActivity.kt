@@ -57,7 +57,7 @@ class ClassDetailActivity : AppCompatActivity() {
 
     private fun initView() {
 
-//        mBinding.youtubePlayer.play("mrP30UnUQjY")
+        mBinding.youtubeView.play(mViewModel.danceClass.youtubeUrl ?: "")
     }
 
     private fun setupRecyclerView() {

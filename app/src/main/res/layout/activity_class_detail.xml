@@ -29,16 +29,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 app:layout_constraintDimensionRatio="16:9"
-                android:src="@drawable/sample_image_05"
+                srcUrl="@{vm.danceClass.mainImgUrl}"
                 app:layout_constraintTop_toTopOf="parent"
                 android:scaleType="centerCrop"/>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                app:layout_constraintDimensionRatio="32:9"
                 android:background="@drawable/gradation_deem"
-                app:layout_constraintBottom_toBottomOf="@+id/img_main"/>
+                app:layout_constraintBottom_toBottomOf="@+id/img_main"
+                app:layout_constraintDimensionRatio="32:9"
+                tools:layout_editor_absoluteX="0dp" />
 
             <ImageView
                 android:id="@+id/img_back_arrow"
@@ -56,7 +57,7 @@
                 android:id="@+id/txt_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="B-BOY PANIC의 Master Class"
+                android:text="@{vm.danceClass.genre.name}"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:fontFamily="@font/title"
@@ -116,7 +117,7 @@
                 android:id="@+id/txt_genre"
                 android:layout_width="wrap_content"
                 android:layout_height="0dp"
-                android:text="비보잉"
+                android:text="@{vm.danceClass.genre.name}"
                 android:gravity="center"
                 android:padding="8dp"
                 android:textSize="12dp"
@@ -150,7 +151,7 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginEnd="12dp"
                 android:layout_marginTop="10dp"
-                android:text="글쎼요 여기다가 뭐라고 적어야 좋을지는 모르겠는데 일단 여기에는 클래스의 설명을 적는곳이긴 하거든요. 일단 평균적으로 3줄정도 적을 것 같으니깐 이정도로 찌끄려 보겠습니다."
+                android:text="@{vm.danceClass.description}"
                 app:layout_constraintTop_toBottomOf="@+id/txt_rating"/>
 
             <TextView
@@ -183,14 +184,15 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:transitionName="@string/shared_element_transition"
-                    android:src="@drawable/sample_image_03" />
+                    srcUrl="@{vm.danceClass.artistProfileImgUrl}" />
             </androidx.cardview.widget.CardView>
 
             <TextView
                 android:id="@+id/txt_artist_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="PANIC"
+                tools:text="PANIC"
+                android:text="@{vm.danceClass.artistName}"
                 android:layout_marginTop="10dp"
                 android:textSize="18dp"
                 android:textColor="@color/white"
@@ -214,7 +216,8 @@
                 android:id="@+id/txt_level"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Basic Class"
+                tools:text="Basic Class"
+                android:text="@{vm.danceClass.target}"
                 android:layout_marginTop="10dp"
                 app:layout_constraintEnd_toEndOf="@id/txt_artist_name"
                 android:textColor="@color/white"
@@ -230,7 +233,8 @@
                 app:layout_constraintStart_toStartOf="@id/txt_artist_name"
                 app:layout_constraintEnd_toEndOf="@id/txt_artist_name"
                 app:layout_constraintTop_toBottomOf="@+id/txt_level"
-                android:text="매주 월 수 PM 7:00"/>
+                tools:text="매주 월 수 PM 7:00"
+                android:text="@{`매주 ` + vm.danceClass.date + ` ` + vm.danceClass.startTime}"/>
 
             <ImageView
                 android:id="@+id/img_instagram"
@@ -252,6 +256,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_profile"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
+                android:visibility="gone"
                 android:text="여기에는 강사님의 한 마디를 적으려고 하거든요. 대충 뭐 한 두줄 정도 되지 않겠습네까"
                 app:layout_constraintTop_toBottomOf="@+id/card_profile"/>
 
@@ -275,7 +280,6 @@
                 android:layout_marginStart="12dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="12dp"
-                app:videoId="w__SnKoIZPo"
                 app:layout_constraintTop_toBottomOf="@+id/txt_youtube_view"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 

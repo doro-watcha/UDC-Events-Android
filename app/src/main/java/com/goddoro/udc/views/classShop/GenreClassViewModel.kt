@@ -16,6 +16,7 @@ class GenreClassViewModel(
 
     val genreClasses: MutableLiveData<List<DanceClass>> = MutableLiveData()
 
+    val onLoadCompleted : MutableLiveData<Boolean> = MutableLiveData()
     val errorInvoked : MutableLiveData<Throwable> = MutableLiveData()
 
     init {
@@ -30,6 +31,7 @@ class GenreClassViewModel(
                 classRepository.listClasses(genreId = genre.id)
             }.onSuccess {
                 genreClasses.value = it
+                onLoadCompleted.value = true
             }.onFailure {
                 errorInvoked.value = it
             }
