@@ -11,6 +11,8 @@ import com.goddoro.common.di.utilModule
 import com.goddoro.common.util.AppPreference
 import com.goddoro.udc.di.navigationModule
 import com.goddoro.udc.di.viewModelModule
+import com.goddoro.udc.views.auth.KakaoSDKAdapter
+import com.kakao.auth.KakaoSDK
 import com.naver.maps.map.NaverMapSdk
 import org.koin.android.ext.android.get
 import org.koin.android.ext.koin.androidContext
@@ -39,6 +41,8 @@ class MainApplication : Application() {
 
         NaverMapSdk.getInstance(this).client =
             NaverMapSdk.NaverCloudPlatformClient(NAVER_MAP_CLIENT_ID)
+
+        KakaoSDK.init(KakaoSDKAdapter(this))
 
         inject()
 

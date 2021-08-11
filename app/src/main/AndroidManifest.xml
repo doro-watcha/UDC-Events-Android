@@ -67,6 +67,21 @@
             android:name=".MainActivity"
             android:configChanges="locale|layoutDirection|screenLayout|screenSize|orientation"
             android:screenOrientation="portrait" />
+        <!-- ============ Kakao ================== -->
+        <meta-data
+            android:name="com.kakao.sdk.AppKey"
+            android:value="38a8f205524030e27fbc47c0a20f7866" />
+
+        <activity
+            android:name="com.kakao.auth.authorization.authcode.KakaoWebViewActivity"
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity> <!-- ============ Kakao End ================== -->
 
         <meta-data
             android:name="com.naver.maps.map.86uizs8uuf"

@@ -19,9 +19,19 @@ class LoginViewModel(
 
     val snsLoginCompleted : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickNaverLogin : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickKakaoLogin : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickGoogleLogin : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     fun onClickNaverLogin () {
         clickNaverLogin.value = Once(Unit)
+    }
+
+    fun onClickKakaoLogin () {
+        clickKakaoLogin.value = Once(Unit)
+    }
+
+    fun onClickGoogleLogin () {
+        clickGoogleLogin.value = Once(Unit)
     }
 
     fun fetchNaverData(accessToken: String) {
@@ -46,6 +56,27 @@ class LoginViewModel(
                 snsLoginCompleted.value = Once(Unit)
             }.onFailure {
 
+            }
+        }
+    }
+
+    fun socialLogin (loginType : String , username : String , profileImgUrl : String ) {
+
+        viewModelScope.launch {
+
+
+            kotlin.runCatching {
+
+                authRepository.snsSignUp(
+                    loginId ="test sample",
+                    loginType = loginType,
+                    username = username,
+                    profileImgUrl = profileImgUrl
+                )
+            }.onSuccess {
+                authRepository.setCurrentUser(it.user)
+            }.onFailure {
+                snsLoginCompleted.value = Once(Unit)
             }
         }
     }

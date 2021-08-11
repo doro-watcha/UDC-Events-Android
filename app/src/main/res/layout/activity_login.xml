@@ -52,19 +52,53 @@
             android:elevation="24dp"
             android:gravity="center"
             android:letterSpacing="0.0"
-            android:paddingLeft="7dp"
+
+            android:paddingEnd="30dp"
             android:visibility="visible"
             android:text="@string/txt_login_naver"
             android:textColor="@color/font3"
-            android:textSize="14dp"
-            android:drawableStart="@drawable/naver_login"
+            android:textSize="16dp"
+            android:textStyle="bold"
+            android:drawableLeft="@drawable/ic_naver_logo"
             android:onDebounceClick="@{() -> vm.onClickNaverLogin()}"
             app:cornerRadius="6dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_logo"
-            app:rippleColor="@color/white"
-            tools:rippleColor="@color/blue" />
+            app:layout_constraintTop_toBottomOf="@+id/txt_logo" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_kakao"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:backgroundTint="@color/primaryYellow"
+            android:onDebounceClick="@{() -> vm.onClickKakaoLogin()}"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:paddingEnd="30dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login_naver"
+            app:layout_constraintStart_toStartOf="@+id/btn_login_naver"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login_naver"
+            android:drawableLeft="@drawable/ic_kakaotalk"
+            android:text="@string/txt_login_kakao"
+            app:cornerRadius="6dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_login_google"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:backgroundTint="@color/white"
+            android:onDebounceClick="@{() -> vm.onClickGoogleLogin()}"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:paddingEnd="30dp"
+            android:textColor="@color/black"
+            app:layout_constraintTop_toBottomOf="@+id/btn_login_kakao"
+            app:layout_constraintStart_toStartOf="@+id/btn_login_naver"
+            app:layout_constraintEnd_toEndOf="@+id/btn_login_naver"
+            android:drawableLeft="@drawable/ic_google_logo"
+            android:text="@string/txt_login_google"
+            app:cornerRadius="6dp" />
 
 
 

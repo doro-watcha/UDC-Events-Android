@@ -6,6 +6,8 @@
     <string name="common_username">유저명</string>
     <string name="txt_login">로그인</string>
     <string name="txt_login_naver">네이버로 로그인</string>
+    <string name="txt_login_kakao">카카오로 로그인</string>
+    <string name="txt_login_google">구글로 로그인</string>
     <string name="txt_find_email">이메일 찾기</string>
     <string name="txt_find_password">비밀번호 찾기</string>
     <string name="txt_sign_up_message">아직 가입하지 않으셨나요? 이메일로 가입</string>

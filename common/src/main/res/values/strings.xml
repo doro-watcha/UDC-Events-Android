@@ -6,7 +6,9 @@
     <string name="common_password">Password</string>
     <string name="common_username">Username</string>
     <string name="txt_login">Login</string>
-    <string name="txt_login_naver">Naver Login</string>
+    <string name="txt_login_naver">Log In with Naver</string>
+    <string name="txt_login_kakao">Log In with Kakao</string>
+    <string name="txt_login_google">Log In with Google</string>
     <string name="txt_find_email">Find Eamil Address</string>
     <string name="txt_find_password">Find Password</string>
     <string name="txt_sign_up_message">Did you not Sign up yet? Go to Sign up</string>
