@@ -19,7 +19,9 @@ import com.goddoro.udc.databinding.DialogRatingClassBinding
 import com.goddoro.udc.views.PopupDialogViewModel
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import kotlin.math.roundToInt
 
 class RatingClassDialog ( val danceClass : DanceClass)  : DialogFragment(){
@@ -29,8 +31,9 @@ class RatingClassDialog ( val danceClass : DanceClass)  : DialogFragment(){
     private val compositeDisposable = CompositeDisposable()
 
 
+
     private var mBinding : DialogRatingClassBinding by AutoClearedValue()
-    private val viewModel : RatingViewModel by viewModel()
+    private lateinit var viewModel : RatingViewModel
 
     private val toastUtil : ToastUtil by inject()
 
@@ -55,10 +58,10 @@ class RatingClassDialog ( val danceClass : DanceClass)  : DialogFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        viewModel = getViewModel { parametersOf(danceClass) }
 
         mBinding.lifecycleOwner = viewLifecycleOwner
         mBinding.vm = viewModel
-
         initView()
         observeViewModel()
         setupBroadcast()
@@ -73,13 +76,17 @@ class RatingClassDialog ( val danceClass : DanceClass)  : DialogFragment(){
             dismiss()
         }
 
-        mBinding.txtClassName.text = danceClass.artistName + " | " + danceClass.title
+        mBinding.txtClassName.text = danceClass.artist.name + " | " + danceClass.title
 
     }
 
     private fun observeViewModel() {
 
         viewModel.apply {
+
+            onLoadCompleted.observeOnce(viewLifecycleOwner){
+                dismiss()
+            }
 
 
 //            errorInvoked.observe(this@GenrePickDialog){

@@ -84,6 +84,6 @@ val viewModelModule  = module {
     viewModel { FilterViewModel()}
     viewModel { PopupDialogViewModel(get(),get()) }
 
-    viewModel { RatingViewModel()}
+    viewModel { ( danceClass : DanceClass)  -> RatingViewModel(danceClass, get())}
     viewModel { MyStarViewModel(get())}
 }

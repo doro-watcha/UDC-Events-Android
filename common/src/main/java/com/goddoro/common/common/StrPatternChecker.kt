@@ -23,11 +23,6 @@ object StrPatternChecker {
         return urlPatternMatcher.matcher(url).matches()
     }
 
-    fun getYoutubeIdFromUrl ( url : String) : String? {
-        debugE("UploadClassBasicFragment", urlPatternMatcher.matcher(url))
-        return if (urlPatternMatcher.matcher(url).find()) urlPatternMatcher.matcher(url).group(1)
-        else ""
-    }
 
     const val youTubeUrlRegEx = "^(https?)?(://)?(www.)?(m.)?((youtube.com)|(youtu.be))/"
     val videoIdRegex = arrayOf(

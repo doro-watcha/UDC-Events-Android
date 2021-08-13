@@ -102,7 +102,7 @@
                     android:id="@+id/txt_rating_value"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="4.8"
+                    android:text="@{String.valueOf(vm.danceClass.ratingPoint)}"
                     app:layout_constraintStart_toEndOf="@+id/img_star"
                     app:layout_constraintTop_toTopOf="@+id/txt_average"
                     android:textStyle="bold"
@@ -132,9 +132,10 @@
                 android:id="@+id/txt_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="별점주기"
+                android:text="@{vm.star == null ? `별점주기` : String.valueOf(vm.star)}"
                 android:drawableTop="@drawable/ic_star"
                 android:textColor="@color/gold"
+                tools:text="별점주기"
                 android:textStyle="bold"
                 android:onDebounceClick="@{() -> vm.onClickRatingButton()}"
                 android:drawablePadding="7dp"
@@ -184,7 +185,7 @@
                     android:layout_height="match_parent"
                     android:scaleType="centerCrop"
                     android:transitionName="@string/shared_element_transition"
-                    srcUrl="@{vm.danceClass.artistProfileImgUrl}" />
+                    srcUrl="@{vm.danceClass.artist.profileImgUrl}" />
             </androidx.cardview.widget.CardView>
 
             <TextView
@@ -192,7 +193,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="PANIC"
-                android:text="@{vm.danceClass.artistName}"
+                android:text="@{vm.danceClass.artist.name}"
                 android:layout_marginTop="10dp"
                 android:textSize="18dp"
                 android:textColor="@color/white"
@@ -212,17 +213,6 @@
                 android:layout_marginTop="20dp"/>
 
 
-            <TextView
-                android:id="@+id/txt_level"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                tools:text="Basic Class"
-                android:text="@{vm.danceClass.target}"
-                android:layout_marginTop="10dp"
-                app:layout_constraintEnd_toEndOf="@id/txt_artist_name"
-                android:textColor="@color/white"
-                app:layout_constraintTop_toBottomOf="@+id/txt_academy_name"
-                app:layout_constraintStart_toStartOf="@+id/txt_artist_name"/>
 
             <TextView
                 android:id="@+id/txt_date"
@@ -232,7 +222,7 @@
                 android:layout_marginTop="10dp"
                 app:layout_constraintStart_toStartOf="@id/txt_artist_name"
                 app:layout_constraintEnd_toEndOf="@id/txt_artist_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_level"
+                app:layout_constraintTop_toBottomOf="@+id/txt_academy_name"
                 tools:text="매주 월 수 PM 7:00"
                 android:text="@{`매주 ` + vm.danceClass.date + ` ` + vm.danceClass.startTime}"/>
 

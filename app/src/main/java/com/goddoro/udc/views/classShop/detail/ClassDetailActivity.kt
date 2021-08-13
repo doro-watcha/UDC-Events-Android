@@ -10,10 +10,17 @@ import android.transition.*
 import android.view.LayoutInflater
 import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import com.goddoro.common.Broadcast
+import com.goddoro.common.common.StrPatternChecker
+import com.goddoro.common.common.StrPatternChecker.YoutubeUrlTypeOk
+import com.goddoro.common.common.StrPatternChecker.extractVideoIdFromUrl
+import com.goddoro.common.common.StrPatternChecker.getYoutubeIdFromUrl
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.data.model.DanceClass
+import com.goddoro.common.extension.disposedBy
 import com.goddoro.udc.databinding.ActivityClassDetailBinding
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -24,6 +31,8 @@ class ClassDetailActivity : AppCompatActivity() {
     private lateinit var mBinding : ActivityClassDetailBinding
 
     private lateinit var mViewModel : ClassDetailViewModel
+
+    private val ratingDisposable = CompositeDisposable()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,6 +51,7 @@ class ClassDetailActivity : AppCompatActivity() {
         initView()
         setupRecyclerView()
         observeViewModel()
+        setupBroadcast()
 
         window.sharedElementEnterTransition = TransitionSet().apply {
             interpolator = OvershootInterpolator(0.7f)
@@ -56,8 +66,12 @@ class ClassDetailActivity : AppCompatActivity() {
     }
 
     private fun initView() {
-
-        mBinding.youtubeView.play(mViewModel.danceClass.youtubeUrl ?: "")
+        debugE(TAG, mViewModel.danceClass.youtubeUrl)
+        if ( YoutubeUrlTypeOk(mViewModel.danceClass.youtubeUrl ?: "")) {
+            mBinding.youtubeView.play(
+                extractVideoIdFromUrl(mViewModel.danceClass.youtubeUrl ?: "") ?: ""
+            )
+        }
     }
 
     private fun setupRecyclerView() {
@@ -78,7 +92,7 @@ class ClassDetailActivity : AppCompatActivity() {
                 val instagram_intent = packageManager.getLaunchIntentForPackage("com.instagram.android")
 
                 if ( instagram_intent != null) {
-                    instagram_intent.data = Uri.parse(danceClass.artistInstagram)
+                    instagram_intent.data = Uri.parse(danceClass.artist.instagramUrl)
                     startActivity(instagram_intent)
                 } else {
                     try {
@@ -143,6 +157,16 @@ class ClassDetailActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupBroadcast () {
+
+        Broadcast.apply {
+
+            starClassBroadcast.subscribe{
+                mViewModel.star.value = it
+            }.disposedBy(ratingDisposable)
+        }
+    }
+
     override fun onEnterAnimationComplete() {
         super.onEnterAnimationComplete()
 
@@ -155,6 +179,11 @@ class ClassDetailActivity : AppCompatActivity() {
         supportFinishAfterTransition()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        ratingDisposable.dispose()
+    }
     companion object {
 
         private const val ARG_CLASS = "ARG_CLASS"

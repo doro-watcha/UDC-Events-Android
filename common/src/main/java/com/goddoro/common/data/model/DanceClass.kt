@@ -41,22 +41,7 @@ data class DanceClass (
     val startTime : String,
 
     @SerializedName("level")
-    val level : String,
-
-    @SerializedName("target")
-    val target : String,
-
-    @SerializedName("artistName")
-    val artistName : String,
-
-    @SerializedName("artistProfileImgUrl")
-    val artistProfileImgUrl : String,
-
-    @SerializedName("artistDescription")
-    val artistDescription : String? = null,
-
-    @SerializedName("artistInstagram")
-    val artistInstagram : String? = null,
+    val level : Level,
 
     @SerializedName("academy")
     val academy: Academy,
@@ -64,11 +49,22 @@ data class DanceClass (
     @SerializedName("genre")
     val genre : Genre,
 
+    @SerializedName("artist")
+    val artist : Artist,
+
     @SerializedName("subImgs")
     val subImgs : List<SubImage>,
 
     @SerializedName("star")
     val star : Star? = null,
+
+    @SerializedName("ratingCount")
+    val ratingCount : Int,
+
+    @SerializedName("ratingPoint")
+    val ratingPoint : Double,
+
+
 
 
     val temporaryImage : Int ? = 0

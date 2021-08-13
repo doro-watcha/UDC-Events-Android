@@ -32,8 +32,8 @@ data class Artist (
     @SerializedName("genre")
     val genre : String? = null,
 
-    @SerializedName("avatarUrl")
-    val avatarUrl : String? = null
+    @SerializedName("profileImgUrl")
+    val profileImgUrl : String? = null
 
 
 ) : Parcelable
