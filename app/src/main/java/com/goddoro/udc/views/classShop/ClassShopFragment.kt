@@ -126,6 +126,8 @@ class ClassShopFragment : Fragment() {
                 }
             })
 
+            scrollToNext()
+
             debugE(TAG, "MAIN VIEW PAGER ADAPTER SETTING COMPLETED")
 
         }
@@ -162,7 +164,7 @@ class ClassShopFragment : Fragment() {
             adapter = DayOfClassAdapter().apply {
 
                 clickEvent.subscribe{
-                    navigator.startClassDetailActivity(requireActivity(), it.first, it.second)
+                    navigator.startClassDetailActivity(requireActivity(), it.first.id, it.second)
                 }.disposedBy(compositeDisposable)
             }
         }
@@ -251,14 +253,19 @@ class ClassShopFragment : Fragment() {
             return GenreClassFragment.newInstance(mViewModel.genres.value?.get(position))
         }
     }
-    override fun onResume() {
-        super.onResume()
+    override fun onHiddenChanged(hidden: Boolean) {
+        super.onHiddenChanged(hidden)
 
-        Log.d(TAG, "onResume")
+        debugE(TAG, hidden)
 
-        scrollToNext()
-
+        if (hidden) {
+            autoScrollDisposable.clear()
+        }
+        else {
+            scrollToNext()
+        }
     }
+
     override fun onPause() {
         super.onPause()
 

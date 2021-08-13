@@ -42,7 +42,7 @@ class ClassShopViewModel(
 
     init {
 
-      //  listMainClasses()
+        listMainClasses()
         setupDateList()
         listGenres()
 
@@ -70,7 +70,7 @@ class ClassShopViewModel(
                 classRepository.listClasses(sort = "main")
             }.onSuccess {
                 debugE(TAG, it)
-               // mainClasses.value = it
+                mainClasses.value = it
             }.onFailure {
                 debugE(TAG, "1")
                 errorInvoked.value = Once(it)
