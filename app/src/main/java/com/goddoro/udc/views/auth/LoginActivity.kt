@@ -18,6 +18,7 @@ import com.kakao.auth.ISessionCallback
 import com.kakao.auth.Session
 import com.kakao.network.ErrorResult
 import com.kakao.usermgmt.UserManagement
+import com.kakao.usermgmt.callback.LogoutResponseCallback
 import com.kakao.usermgmt.callback.MeV2ResponseCallback
 import com.kakao.usermgmt.response.MeV2Response
 import com.kakao.util.exception.KakaoException
@@ -77,6 +78,9 @@ class LoginActivity : AppCompatActivity() {
 
         initOAuthSetting()
         observeViewModel()
+
+        callback = SessionCallback()
+        Session.getCurrentSession().addCallback(callback)
     }
 
     private fun observeViewModel() {
@@ -89,6 +93,13 @@ class LoginActivity : AppCompatActivity() {
 
             clickKakaoLogin.observeOnce(this@LoginActivity){
                 Session.getCurrentSession().open(AuthType.KAKAO_TALK, this@LoginActivity)
+            }
+
+            clickGoogleLogin.observeOnce(this@LoginActivity){
+                UserManagement.getInstance().requestLogout(object : LogoutResponseCallback() {
+                    override fun onCompleteLogout() {
+                    }
+                })
             }
 
             snsLoginCompleted.observeOnce(this@LoginActivity){
@@ -113,6 +124,7 @@ class LoginActivity : AppCompatActivity() {
         override fun onSessionOpened() {
             // 성공
             val keys = ArrayList<String>()
+            keys.add("id")
             keys.add("properties.nickname")
             keys.add("properties.profile_image")
 
@@ -130,12 +142,17 @@ class LoginActivity : AppCompatActivity() {
 
                 override fun onSuccess(response: MeV2Response) {
 
+                    debugE(TAG, response)
+
                     val nickName = response.properties["nickname"] ?: ""
                     val socialImage = response.properties["profile_image"]
+                    val id = response.id
 
-                    debugE(TAG, "kakao Login Try")
 
-                    viewModel.socialLogin("kakao",nickName,socialImage ?: "")
+                    debugE(TAG, nickName)
+                    debugE(TAG, socialImage)
+
+                    viewModel.socialLogin("kakao",nickName,socialImage ?: "", id.toString() )
                 }
             })
         }
@@ -143,6 +160,8 @@ class LoginActivity : AppCompatActivity() {
         override fun onSessionOpenFailed(exception: KakaoException) {
             //authRepository.signOut()
             // 카카오 로그인화면 진입했다가 back으로 돌아왔을경우.
+
+            debugE(TAG, exception.message)
             debugE(
                 TAG,
                 object {}::class.java.enclosingMethod?.name ?: "$TAG : Method Name Not Found"

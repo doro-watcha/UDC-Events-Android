@@ -5,14 +5,17 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.goddoro.common.common.Once
 import com.goddoro.common.common.debugE
+import com.goddoro.common.data.api.AuthSignUpResponse
 import com.goddoro.common.data.api.NaverUser
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.data.repository.NaverRepository
+import com.goddoro.common.util.TokenUtil
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
     private val authRepository: AuthRepository,
-    private val naverRepository: NaverRepository
+    private val naverRepository: NaverRepository,
+    private val tokenUtil: TokenUtil
 ) : ViewModel() {
 
     private val TAG = LoginViewModel::class.java.simpleName
@@ -44,23 +47,28 @@ class LoginViewModel(
 
             kotlin.runCatching {
 
+                debugE(TAG, user)
+
+                debugE(TAG, user.email)
+                debugE(TAG, user.name)
+                debugE(TAG, user.profileImgUrl)
+
                 authRepository.snsSignUp(
-                    loginId = user.email ?: "",
+                    loginId = user.id,
                     loginType = "naver",
                     username = user.name ?: "",
                     profileImgUrl = user.profileImgUrl ?: ""
                 )
 
             }.onSuccess {
-                authRepository.setCurrentUser(it.user)
-                snsLoginCompleted.value = Once(Unit)
+                loginCompleted(it)
             }.onFailure {
 
             }
         }
     }
 
-    fun socialLogin (loginType : String , username : String , profileImgUrl : String ) {
+    fun socialLogin (loginType : String , username : String , profileImgUrl : String, loginId : String ) {
 
         viewModelScope.launch {
 
@@ -68,16 +76,25 @@ class LoginViewModel(
             kotlin.runCatching {
 
                 authRepository.snsSignUp(
-                    loginId ="test sample",
+                    loginId = loginId,
                     loginType = loginType,
                     username = username,
                     profileImgUrl = profileImgUrl
                 )
             }.onSuccess {
-                authRepository.setCurrentUser(it.user)
+                loginCompleted(it)
             }.onFailure {
                 snsLoginCompleted.value = Once(Unit)
             }
         }
+    }
+
+
+    private fun loginCompleted ( response : AuthSignUpResponse) {
+        authRepository.setCurrentUser(response.user)
+        tokenUtil.clearToken()
+        tokenUtil.saveToken(response.token)
+        snsLoginCompleted.value = Once(Unit)
+
     }
 }

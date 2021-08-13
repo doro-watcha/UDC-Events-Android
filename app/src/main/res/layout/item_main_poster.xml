@@ -21,18 +21,17 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="50dp"
         android:background="@android:color/transparent"
         tools:background="#000">
 
         <androidx.cardview.widget.CardView
             android:id="@+id/poster_card"
-            android:layout_width="250dp"
+            android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="35dp"
-            android:layout_marginEnd="35dp"
-            app:layout_constraintDimensionRatio="1:1.1"
+            app:layout_constraintWidth_percent="0.8"
+            app:layout_constraintDimensionRatio="1:1.3"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -43,7 +42,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                srcUrl="@{item.posterUrl}"
+                android:src="@drawable/sample_image_01"
                 tools:src="@drawable/sample_image_01" />
 
 

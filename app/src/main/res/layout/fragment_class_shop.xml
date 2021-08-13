@@ -87,7 +87,7 @@
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:fontFamily="@font/title"
-                android:text="TODAY CLASSES"
+                android:text="TODAY HOT CLASSES"
                 android:textStyle="bold"
                 android:textSize="20dp"
                 android:textColor="@color/white"

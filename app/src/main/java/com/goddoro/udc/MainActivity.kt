@@ -1,9 +1,16 @@
 package com.goddoro.udc
 
+import android.content.pm.PackageInfo
+import android.content.pm.PackageManager
 import android.graphics.Color
+import android.media.tv.TvContract.Programs.Genres.encode
+import android.os.Build
 import android.os.Bundle
+import android.util.Base64.encode
+import android.util.Base64.encodeToString
 import android.util.Log
 import android.view.LayoutInflater
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.*
@@ -28,6 +35,8 @@ import com.google.firebase.iid.FirebaseInstanceId
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.security.MessageDigest
+import java.security.NoSuchAlgorithmException
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -56,6 +65,7 @@ class MainActivity : AppCompatActivity() {
     private var curFragment: Fragment = fragment1
 
 
+    @RequiresApi(Build.VERSION_CODES.P)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -68,6 +78,9 @@ class MainActivity : AppCompatActivity() {
 
         showPopup()
         setContentView(mBinding.root)
+
+
+        debugE(TAG,authRepository.curUser.value)
 
 
 
@@ -278,8 +291,8 @@ class MainActivity : AppCompatActivity() {
     companion object {
 
 
-        private val _menu : MutableLiveData<MainMenu> = MutableLiveData(MainMenu.HOME)
-        val menu : LiveData<MainMenu> = _menu
+        private val _menu: MutableLiveData<MainMenu> = MutableLiveData(MainMenu.HOME)
+        val menu: LiveData<MainMenu> = _menu
     }
 
 }
