@@ -42,23 +42,23 @@ class ClassShopViewModel(
 
     init {
 
-      //  listMainClasses()
+        listMainClasses()
         setupDateList()
         listGenres()
 
-        mainClasses.value = listOf(
-            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
-                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_1),
-            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
-                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_2),
-            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
-                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_3),
-            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
-                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_4),
-            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
-                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_4)
-            )
-
+//        mainClasses.value = listOf(
+//            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv",0,"zxcv","zxcv","zxcv","zxcv","zxcv",
+//                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_1),
+//            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
+//                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_2),
+//            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
+//                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_3),
+//            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
+//                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_4),
+//            DanceClass(0,"zxcv",null,null,true,"zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv","zxcv",
+//                Academy(0,"zxcv","zxcv","zxcv",0.0,0.0),Genre(1,"zxcv"),listOf(SubImage(0,"zxcv")),null,temporaryImage = R.drawable.class_sample_4)
+//            )
+//
 
 
     }
@@ -70,7 +70,7 @@ class ClassShopViewModel(
                 classRepository.listClasses(sort = "main")
             }.onSuccess {
                 debugE(TAG, it)
-               // mainClasses.value = it
+                mainClasses.value = it
             }.onFailure {
                 debugE(TAG, "1")
                 errorInvoked.value = Once(it)

@@ -29,7 +29,7 @@ interface Navigator {
 
     fun startNotificationListActivity ( activity : Activity )
 
-    fun startClassDetailActivity ( activity : Activity, danceClass : DanceClass, imageView :ImageView)
+    fun startClassDetailActivity ( activity : Activity, classId : Int, imageView :ImageView)
 
     fun startSearchActivity ( activity : Activity )
 

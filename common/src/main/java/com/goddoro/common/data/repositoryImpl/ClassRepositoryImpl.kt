@@ -42,14 +42,11 @@ class ClassRepositoryImpl ( val api : ClassAPI, private val multiPartUtil: Multi
         date: String,
         classDescription: String?,
         classYoutubeUrl: String,
-        level: String,
+        levelId : Int,
         target: String,
         mainImage: Uri,
         subImages: List<Uri>?,
-        artistProfileImg: Uri,
-        artistName: String,
-        artistDescription: String?,
-        artistInstagram: String?
+        artistId : Int
     ): Any {
         val params : HashMap<String, RequestBody> = hashMapOf()
 
@@ -60,14 +57,10 @@ class ClassRepositoryImpl ( val api : ClassAPI, private val multiPartUtil: Multi
         params["academyId"] = multiPartUtil.stringToPart(academyId.toString())
         params["date"] = multiPartUtil.stringToPart(date)
         params["classDescription"] = multiPartUtil.stringToPart(classDescription ?: "")
-        params["level"] = multiPartUtil.stringToPart(level)
+        params["level"] = multiPartUtil.stringToPart(levelId.toString())
         params["target"] = multiPartUtil.stringToPart(target)
-        params["artistName"] = multiPartUtil.stringToPart(artistName)
-        params["artistDescription"] = multiPartUtil.stringToPart(artistDescription ?: "")
-        params["artistInstagram"] = multiPartUtil.stringToPart(artistInstagram ?: "")
 
         mainImage.let { files.add(multiPartUtil.uriToPart("maingImage", it)) }
-        artistProfileImg.let { files.add(multiPartUtil.uriToPart("artistProfileImg",it))}
 
         subImages?.forEach {
             files.add(multiPartUtil.uriToPart("sketchImgs",it))

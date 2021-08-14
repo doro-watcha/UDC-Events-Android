@@ -65,7 +65,7 @@ val viewModelModule  = module {
     viewModel { SearchViewModel(get()) }
     viewModel { ( query : String) -> SearchDetailViewModel(query,get()) }
 
-    viewModel { (danceClass : DanceClass ) -> ClassDetailViewModel(danceClass,get()) }
+    viewModel { (classId : Int ) -> ClassDetailViewModel(classId,get(),get()) }
     viewModel { SearchAddressViewModel(get()) }
 
     viewModel { AdminViewModel(get()) }
@@ -84,6 +84,6 @@ val viewModelModule  = module {
     viewModel { FilterViewModel()}
     viewModel { PopupDialogViewModel(get(),get()) }
 
-    viewModel { RatingViewModel()}
+    viewModel { ( danceClass : DanceClass)  -> RatingViewModel(danceClass, get())}
     viewModel { MyStarViewModel(get())}
 }

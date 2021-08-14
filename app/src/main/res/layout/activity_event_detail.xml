@@ -156,6 +156,7 @@
                 android:drawablePadding="10dp"
                 android:gravity="center"
                 android:padding="10dp"
+                android:visibility="gone"
                 app:drawableStartCompat="@drawable/ic_check"
                 android:layout_marginTop="10dp"
                 android:layout_marginStart="12dp"

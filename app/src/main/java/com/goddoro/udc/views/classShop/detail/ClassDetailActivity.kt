@@ -10,10 +10,18 @@ import android.transition.*
 import android.view.LayoutInflater
 import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
+import com.goddoro.common.Broadcast
+import com.goddoro.common.common.StrPatternChecker
+import com.goddoro.common.common.StrPatternChecker.YoutubeUrlTypeOk
+import com.goddoro.common.common.StrPatternChecker.extractVideoIdFromUrl
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.data.model.DanceClass
+import com.goddoro.common.extension.disposedBy
 import com.goddoro.udc.databinding.ActivityClassDetailBinding
+import com.goddoro.udc.util.startActivity
+import com.goddoro.udc.views.auth.LoginActivity
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -25,13 +33,15 @@ class ClassDetailActivity : AppCompatActivity() {
 
     private lateinit var mViewModel : ClassDetailViewModel
 
+    private val ratingDisposable = CompositeDisposable()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         mBinding = ActivityClassDetailBinding.inflate(LayoutInflater.from(this))
 
         mViewModel = getViewModel{
-            parametersOf(intent?.getParcelableExtra(ARG_CLASS))
+            parametersOf(intent?.getIntExtra(ARG_CLASS_ID,0))
         }
 
         mBinding.lifecycleOwner = this
@@ -42,6 +52,7 @@ class ClassDetailActivity : AppCompatActivity() {
         initView()
         setupRecyclerView()
         observeViewModel()
+        setupBroadcast()
 
         window.sharedElementEnterTransition = TransitionSet().apply {
             interpolator = OvershootInterpolator(0.7f)
@@ -57,7 +68,6 @@ class ClassDetailActivity : AppCompatActivity() {
 
     private fun initView() {
 
-        mBinding.youtubeView.play(mViewModel.danceClass.youtubeUrl ?: "")
     }
 
     private fun setupRecyclerView() {
@@ -73,12 +83,22 @@ class ClassDetailActivity : AppCompatActivity() {
 
         mViewModel.apply {
 
+            onLoadCompleted.observe(this@ClassDetailActivity){
+                if ( it == true) {
+                    val url = mViewModel.danceClass.value?.youtubeUrl ?: ""
+                    if ( YoutubeUrlTypeOk(url)) {
+                        mBinding.youtubeView.play(
+                            extractVideoIdFromUrl(url) ?: ""
+                        )
+                    }
+                }
+            }
 
             clickInstagram.observeOnce(this@ClassDetailActivity){
                 val instagram_intent = packageManager.getLaunchIntentForPackage("com.instagram.android")
 
                 if ( instagram_intent != null) {
-                    instagram_intent.data = Uri.parse(danceClass.artistInstagram)
+                    instagram_intent.data = Uri.parse(danceClass.value?.artist?.instagramUrl)
                     startActivity(instagram_intent)
                 } else {
                     try {
@@ -104,7 +124,7 @@ class ClassDetailActivity : AppCompatActivity() {
 
                 if ( youtube_intent != null ) {
 
-                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(danceClass.youtubeUrl));
+                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(danceClass.value?.youtubeUrl));
                     startActivity(browserIntent);
                 }
                 else {
@@ -137,9 +157,27 @@ class ClassDetailActivity : AppCompatActivity() {
                 finish()
             }
             clickRatingButton.observeOnce(this@ClassDetailActivity){
-                val dialog = RatingClassDialog(danceClass)
+                val dialog = RatingClassDialog(danceClass.value!!)
                 dialog.show(supportFragmentManager, dialog.tag)
             }
+
+            needLogin.observeOnce(this@ClassDetailActivity){
+                startActivity(LoginActivity::class)
+            }
+        }
+    }
+
+    private fun setupBroadcast () {
+
+        Broadcast.apply {
+
+            starClassBroadcast.subscribe{
+                mViewModel.star.value = it
+            }.disposedBy(ratingDisposable)
+
+            starDeleteBroadcast.subscribe{
+                mViewModel.star.value = null
+            }.disposedBy(ratingDisposable)
         }
     }
 
@@ -155,14 +193,19 @@ class ClassDetailActivity : AppCompatActivity() {
         supportFinishAfterTransition()
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+
+        ratingDisposable.dispose()
+    }
     companion object {
 
-        private const val ARG_CLASS = "ARG_CLASS"
+        private const val ARG_CLASS_ID = "ARG_CLASS_ID"
 
-        fun newIntent(activity: Activity, danceClass: DanceClass ) : Intent  {
+        fun newIntent(activity: Activity, classId : Int ) : Intent  {
 
             val intent = Intent(activity, ClassDetailActivity::class.java)
-            intent.putExtra(ARG_CLASS, danceClass)
+            intent.putExtra(ARG_CLASS_ID, classId)
             return intent
         }
     }

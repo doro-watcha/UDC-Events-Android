@@ -71,7 +71,7 @@ class GenreClassFragment : Fragment() {
             adapter = NormalClassAdapter().apply {
 
                 clickEvent.subscribe{
-                    navigator.startClassDetailActivity(requireActivity(),it.first,it.second)
+                    navigator.startClassDetailActivity(requireActivity(),it.first.id,it.second)
                 }.disposedBy(compositeDisposable)
             }
 

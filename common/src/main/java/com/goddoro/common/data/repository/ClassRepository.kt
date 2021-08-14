@@ -29,15 +29,11 @@ interface ClassRepository {
         date : String,
         classDescription : String?= null,
         classYoutubeUrl: String,
-        level : String,
+        levelId : Int,
         target : String,
         mainImage : Uri,
         subImages : List<Uri>?= null ,
-        artistProfileImg : Uri,
-        artistName : String,
-        artistDescription : String ?= null ,
-        artistInstagram : String ?= null
-
+        artistId : Int
 
 
 

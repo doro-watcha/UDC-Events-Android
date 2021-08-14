@@ -28,5 +28,7 @@ object Broadcast {
 
     val registerAcademyCompleteBroadcast : PublishSubject<String> = PublishSubject.create()
 
-    val starClassBroadcast : PublishSubject<Unit> = PublishSubject.create()
+    val starClassBroadcast : PublishSubject<Float> = PublishSubject.create()
+
+    val starDeleteBroadcast : PublishSubject<Unit> = PublishSubject.create()
 }
