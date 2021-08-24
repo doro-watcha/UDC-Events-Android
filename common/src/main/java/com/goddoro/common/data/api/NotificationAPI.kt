@@ -17,7 +17,7 @@ import com.goddoro.common.data.api.response.ApiResponse
 interface NotificationAPI {
 
 
-    @GET("notification")
+    @GET("v1/notification")
     suspend fun listNotifications(
 
     ) : ApiResponse<NotificationListResponse>

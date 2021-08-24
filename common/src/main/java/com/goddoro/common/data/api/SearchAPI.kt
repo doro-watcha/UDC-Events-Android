@@ -11,12 +11,12 @@ import com.goddoro.common.data.api.response.ApiResponse
 interface SearchAPI {
 
 
-    @GET("search")
+    @GET("v1/search")
     suspend fun listRecommendations(
         @QueryMap parameters: HashMap<String, Any>
     ) : ApiResponse<RecommendationListResponse>
 
-    @GET("event/{id}")
+    @GET("v1/event/{id}")
     suspend fun listSearchEvent(
         @QueryMap parameters: HashMap<String, Any>
     ) : ApiResponse<SearchEventListResponse>

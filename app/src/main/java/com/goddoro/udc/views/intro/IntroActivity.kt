@@ -39,11 +39,8 @@ class IntroActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this
         setContentView(mBinding.root)
 
-        //observeViewModel()
+        observeViewModel()
 
-
-        startActivity(MainActivity::class)
-        finish()
     }
 
     private fun observeViewModel() {

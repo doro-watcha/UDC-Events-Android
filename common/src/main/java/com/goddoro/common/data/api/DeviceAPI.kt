@@ -13,7 +13,7 @@ import com.goddoro.common.data.api.response.ApiResponse
 interface DeviceAPI {
 
 
-    @POST("device")
+    @POST("v1/device")
     suspend fun registerDevice(
         @Body parameters: HashMap<String, Any>
     ) : ApiResponse<Any>

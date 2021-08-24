@@ -20,7 +20,7 @@ class IntroViewModel(
 
     init {
 
-        //onVersionCheck()
+        onVersionCheck()
     }
 
     private fun onVersionCheck() {
