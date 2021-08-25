@@ -122,7 +122,7 @@ class RatingClassDialog ( val danceClass : DanceClass)  : DialogFragment(){
     override fun onDestroy() {
         super.onDestroy()
 
-        compositeDisposable.clear()
+        compositeDisposable.dispose()
     }
 
 }

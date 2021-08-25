@@ -15,6 +15,6 @@ interface VersionAPI {
 @Parcelize
 data class MinimumVersion(
 
-    @SerializedName("version")
+    @SerializedName("minVersion")
     val version : Int
 ) : Parcelable

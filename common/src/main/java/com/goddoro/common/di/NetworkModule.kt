@@ -32,7 +32,7 @@ private const val READ_TIMEOUT = 15L
 enum class ServerType(val apiUrl: String, val homepageUrl: String, val value: Int) {
 
     DEVELOPMENT("http://ec2-3-35-4-201.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 0),
-    PRODUCTION("http://ec2-13-209-64-88.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 1),
+    PRODUCTION("http://ec2-3-36-131-58.ap-northeast-2.compute.amazonaws.com:3000", "https://www.beatflo.co/", 1),
     NAVER("https://naveropenapi.apigw.ntruss.com/","https://naver.com",2),
     NAVEROPENAPI("https://openapi.naver.com","https://naver.com",3)
 
@@ -44,7 +44,7 @@ enum class ServerType(val apiUrl: String, val homepageUrl: String, val value: In
         fun parse(value: Int) = values().firstOrNull { it.value == value } ?: DEVELOPMENT
 
         val defaultServerType: ServerType
-            get() = DEVELOPMENT
+            get() = PRODUCTION
 
         fun getCurrentServer(appPreference: AppPreference): ServerType {
             return parse(appPreference.curServer)

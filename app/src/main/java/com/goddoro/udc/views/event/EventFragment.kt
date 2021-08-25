@@ -50,7 +50,7 @@ class EventFragment : Fragment() {
 
     private var adminClickCount = 5
 
-    private val navigator : Navigator by inject()
+    private val navigator: Navigator by inject()
 
     private val compositeDisposable = CompositeDisposable()
     private val autoScrollDisposable = CompositeDisposable()
@@ -111,16 +111,23 @@ class EventFragment : Fragment() {
 
             debugE(TAG, "setupViewPager In EventFragment")
 
-            adapter = MainPosterAdapter()
+            adapter = MainPosterAdapter().apply {
 
-            var centerValue =  Integer.MAX_VALUE / 100
+                clickEvent.subscribe({
+                    navigator.startEventDetailActivity(requireActivity(),it.first, it.second)
+                },{
+                    debugE(TAG,it)
+                }).disposedBy(compositeDisposable)
+            }
 
-            val findFirstPosition = centerValue % ( mViewModel.mainEvents.value?.size ?: 1 )
+            var centerValue = Integer.MAX_VALUE / 100
+
+            val findFirstPosition = centerValue % (mViewModel.mainEvents.value?.size ?: 1)
 
             centerValue -= findFirstPosition
 
             debugE(TAG, "$centerValue in setupViewPager")
-            setCurrentItem( centerValue , false )
+            setCurrentItem(centerValue, false)
 
             val pageMarginPx = resources.getDimensionPixelOffset(R.dimen.pageMargin)
             val offsetPx = resources.getDimensionPixelOffset(R.dimen.offset)
@@ -145,19 +152,23 @@ class EventFragment : Fragment() {
                 override fun onPageScrollStateChanged(state: Int) {
                     super.onPageScrollStateChanged(state)
 
-                    when ( state ) {
+                    when (state) {
                         ViewPager2.SCROLL_STATE_IDLE -> {
 
                             scrollToNext()
 
                             val position = mBinding.mViewPager2.currentItem
-                            if (position % ( mViewModel.mainEvents.value?.size ?: 1 ) != (mBinding.mViewPagerBlurred.currentItem ) ) {
+                            if (position % (mViewModel.mainEvents.value?.size
+                                    ?: 1) != (mBinding.mViewPagerBlurred.currentItem)
+                            ) {
 
                                 mBinding.mViewPagerBlurred.setCurrentItem(
-                                    position % ( mViewModel.mainEvents.value?.size ?: 1 ) ,
+                                    position % (mViewModel.mainEvents.value?.size ?: 1),
                                     false
                                 )
-                                mBinding.pageIndicator.refresh(position % ( mViewModel.mainEvents.value?.size ?: 1 ) )
+                                mBinding.pageIndicator.refresh(
+                                    position % (mViewModel.mainEvents.value?.size ?: 1)
+                                )
                             }
 
                         }
@@ -175,7 +186,11 @@ class EventFragment : Fragment() {
 
     }
 
-    private fun scrollToNext () {
+    private fun scrollToNext() {
+
+        debugE(TAG, mViewModel.mainEvents.value?.size )
+
+        if ( mViewModel.mainEvents.value?.size ?: -1 <= 0) return
 
         autoScrollDisposable.clear()
         rxSingleTimer(4000) {
@@ -184,8 +199,10 @@ class EventFragment : Fragment() {
 
             debugE(TAG, "$position in scroll To Next ")
 
-            mBinding.pageIndicator.refresh( position % ( mViewModel.mainEvents.value?.size ?: 1 )  )
-            mBinding.mViewPagerBlurred.setCurrentItem(position % ( mViewModel.mainEvents.value?.size ?: 1 ) , false)
+            mBinding.pageIndicator.refresh(position % (mViewModel.mainEvents.value?.size ?: 1))
+            mBinding.mViewPagerBlurred.setCurrentItem(
+                position % (mViewModel.mainEvents.value?.size ?: 1), false
+            )
             mBinding.mViewPager2.setCurrentItem(position, 600)
 
         }.disposedBy(autoScrollDisposable)
@@ -201,12 +218,22 @@ class EventFragment : Fragment() {
 
         if (hidden) {
             autoScrollDisposable.clear()
-        }
-        else {
+        } else {
             scrollToNext()
         }
     }
 
+    override fun onStop() {
+        super.onStop()
+
+        autoScrollDisposable.clear()
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        scrollToNext()
+    }
 
 
     override fun onDestroy() {
@@ -216,31 +243,34 @@ class EventFragment : Fragment() {
         autoScrollDisposable.dispose()
 
     }
+
     private fun setupList() {
 
         mBinding.apply {
 
 
-
             listNewEvent.apply {
 
-                adapter = PosterAdapter().apply{
+                adapter = PosterAdapter().apply {
 
-                    clickEvent.subscribe{
-                        debugE(TAG, it )
-                        navigator.startEventDetailActivity(requireActivity(),it.first ,it.second)
-                    }.disposedBy(compositeDisposable)
+                    clickEvent.subscribe({
+                        debugE(TAG, it)
+                        navigator.startEventDetailActivity(requireActivity(), it.first, it.second)
+                    }, {
+                        debugE(TAG, it)
+                    }).disposedBy(compositeDisposable)
+
 
                 }
             }
 
             listHotEvent.apply {
-                adapter = PosterAdapter().apply{
+                adapter = PosterAdapter().apply {
 
                     clickEvent.subscribe({
                         navigator.startEventDetailActivity(requireActivity(), it.first, it.second)
-                    },{
-                        debugE(TAG,it)
+                    }, {
+                        debugE(TAG, it)
                     }).disposedBy(compositeDisposable)
                 }
             }
@@ -263,9 +293,11 @@ class EventFragment : Fragment() {
                 //isNestedScrollingEnabled = false
                 adapter = GridPosterAdapter().apply {
 
-                    clickEvent.subscribe {
-                        navigator.startEventDetailActivity(requireActivity(), it.first,it.second)
-                    }.disposedBy(compositeDisposable)
+                    clickEvent.subscribe({
+                        navigator.startEventDetailActivity(requireActivity(), it.first, it.second)
+                    }, {
+                        debugE(TAG, it)
+                    }).disposedBy(compositeDisposable)
                 }
             }
         }
@@ -278,7 +310,7 @@ class EventFragment : Fragment() {
 
             mainEvents.observe(viewLifecycleOwner, {
 
-                if ( it.isNotEmpty()) {
+                if (it.isNotEmpty()) {
                     debugE(TAG, it.map { it.id })
 
                     setupViewPager()
@@ -286,15 +318,15 @@ class EventFragment : Fragment() {
                 }
             })
 
-            clickSearch.observeOnce(viewLifecycleOwner){
+            clickSearch.observeOnce(viewLifecycleOwner) {
                 navigator.startSearchActivity(requireActivity())
             }
 
-            clickUpload.observeOnce(viewLifecycleOwner){
+            clickUpload.observeOnce(viewLifecycleOwner) {
                 navigator.startUploadEventActivity(requireActivity())
             }
 
-            errorInvoked.observeOnce(viewLifecycleOwner){
+            errorInvoked.observeOnce(viewLifecycleOwner) {
                 debugE(TAG, it.message)
             }
         }

@@ -29,9 +29,9 @@ class ClassDetailActivity : AppCompatActivity() {
 
     private val TAG = ClassDetailActivity::class.java.simpleName
 
-    private lateinit var mBinding : ActivityClassDetailBinding
+    private lateinit var mBinding: ActivityClassDetailBinding
 
-    private lateinit var mViewModel : ClassDetailViewModel
+    private lateinit var mViewModel: ClassDetailViewModel
 
     private val ratingDisposable = CompositeDisposable()
 
@@ -40,8 +40,8 @@ class ClassDetailActivity : AppCompatActivity() {
 
         mBinding = ActivityClassDetailBinding.inflate(LayoutInflater.from(this))
 
-        mViewModel = getViewModel{
-            parametersOf(intent?.getIntExtra(ARG_CLASS_ID,0))
+        mViewModel = getViewModel {
+            parametersOf(intent?.getIntExtra(ARG_CLASS_ID, 0))
         }
 
         mBinding.lifecycleOwner = this
@@ -57,7 +57,7 @@ class ClassDetailActivity : AppCompatActivity() {
         window.sharedElementEnterTransition = TransitionSet().apply {
             interpolator = OvershootInterpolator(0.7f)
             ordering = TransitionSet.ORDERING_TOGETHER
-            addTransition(ChangeBounds().apply{
+            addTransition(ChangeBounds().apply {
                 pathMotion = ArcMotion()
             })
             addTransition(ChangeTransform())
@@ -78,15 +78,16 @@ class ClassDetailActivity : AppCompatActivity() {
 //            adapter = ArtistProfileAdapter()
 //        }
     }
+
     private fun observeViewModel() {
 
 
         mViewModel.apply {
 
-            onLoadCompleted.observe(this@ClassDetailActivity){
-                if ( it == true) {
+            onLoadCompleted.observe(this@ClassDetailActivity) {
+                if (it == true) {
                     val url = mViewModel.danceClass.value?.youtubeUrl ?: ""
-                    if ( YoutubeUrlTypeOk(url)) {
+                    if (YoutubeUrlTypeOk(url)) {
                         mBinding.youtubeView.play(
                             extractVideoIdFromUrl(url) ?: ""
                         )
@@ -94,10 +95,11 @@ class ClassDetailActivity : AppCompatActivity() {
                 }
             }
 
-            clickInstagram.observeOnce(this@ClassDetailActivity){
-                val instagram_intent = packageManager.getLaunchIntentForPackage("com.instagram.android")
+            clickInstagram.observeOnce(this@ClassDetailActivity) {
+                val instagram_intent =
+                    packageManager.getLaunchIntentForPackage("com.instagram.android")
 
-                if ( instagram_intent != null) {
+                if (instagram_intent != null) {
                     instagram_intent.data = Uri.parse(danceClass.value?.artist?.instagramUrl)
                     startActivity(instagram_intent)
                 } else {
@@ -119,15 +121,16 @@ class ClassDetailActivity : AppCompatActivity() {
                 }
             }
 
-            clickYoutube.observeOnce(this@ClassDetailActivity){
-                val youtube_intent = packageManager.getLaunchIntentForPackage("com.google.android.youtube")
+            clickYoutube.observeOnce(this@ClassDetailActivity) {
+                val youtube_intent =
+                    packageManager.getLaunchIntentForPackage("com.google.android.youtube")
 
-                if ( youtube_intent != null ) {
+                if (youtube_intent != null) {
 
-                    val browserIntent =  Intent(Intent.ACTION_VIEW, Uri.parse(danceClass.value?.youtubeUrl));
+                    val browserIntent =
+                        Intent(Intent.ACTION_VIEW, Uri.parse(danceClass.value?.youtubeUrl));
                     startActivity(browserIntent);
-                }
-                else {
+                } else {
                     try {
                         startActivity(
                             Intent(
@@ -148,36 +151,40 @@ class ClassDetailActivity : AppCompatActivity() {
                 }
             }
 
-            clickAskButton.observeOnce(this@ClassDetailActivity){
+            clickAskButton.observeOnce(this@ClassDetailActivity) {
                 val dialog = ClassAskBottomSheet()
-                dialog.show(supportFragmentManager,dialog.tag)
+                dialog.show(supportFragmentManager, dialog.tag)
             }
 
-            clickBackArrow.observeOnce(this@ClassDetailActivity){
+            clickBackArrow.observeOnce(this@ClassDetailActivity) {
                 finish()
             }
-            clickRatingButton.observeOnce(this@ClassDetailActivity){
+            clickRatingButton.observeOnce(this@ClassDetailActivity) {
                 val dialog = RatingClassDialog(danceClass.value!!)
                 dialog.show(supportFragmentManager, dialog.tag)
             }
 
-            needLogin.observeOnce(this@ClassDetailActivity){
+            needLogin.observeOnce(this@ClassDetailActivity) {
                 startActivity(LoginActivity::class)
             }
         }
     }
 
-    private fun setupBroadcast () {
+    private fun setupBroadcast() {
 
         Broadcast.apply {
 
-            starClassBroadcast.subscribe{
+            starClassBroadcast.subscribe({
                 mViewModel.star.value = it
-            }.disposedBy(ratingDisposable)
+            }, {
 
-            starDeleteBroadcast.subscribe{
+            }).disposedBy(ratingDisposable)
+
+            starDeleteBroadcast.subscribe({
                 mViewModel.star.value = null
-            }.disposedBy(ratingDisposable)
+            }, {
+            }).disposedBy(ratingDisposable)
+
         }
     }
 
@@ -198,11 +205,12 @@ class ClassDetailActivity : AppCompatActivity() {
 
         ratingDisposable.dispose()
     }
+
     companion object {
 
         private const val ARG_CLASS_ID = "ARG_CLASS_ID"
 
-        fun newIntent(activity: Activity, classId : Int ) : Intent  {
+        fun newIntent(activity: Activity, classId: Int): Intent {
 
             val intent = Intent(activity, ClassDetailActivity::class.java)
             intent.putExtra(ARG_CLASS_ID, classId)
