@@ -17,24 +17,24 @@ import okhttp3.RequestBody
 
 interface EventAPI {
 
-    @GET("event")
+    @GET("v1/event")
     suspend fun listEventsBySOrt(
         @QueryMap parameters: HashMap<String, Any>
     ) : ApiResponse<EventListResponse>
 
-    @GET("event/{id}")
+    @GET("v1/event/{id}")
     suspend fun getEvent(
         @Path("id") eventId : Int
     ) : ApiResponse<EventResponse>
 
-    @POST("event")
+    @POST("v1/event")
     @Multipart
     suspend fun uploadEvent(
         @PartMap parameters : HashMap<String,RequestBody>,
         @Part files : List<MultipartBody.Part>?
     ) : ApiResponse<Any>
 
-    @PATCH("event/{id}")
+    @PATCH("v1/event/{id}")
     @FormUrlEncoded
     suspend fun updateEvent(
         @Path("id") eventId : Int,

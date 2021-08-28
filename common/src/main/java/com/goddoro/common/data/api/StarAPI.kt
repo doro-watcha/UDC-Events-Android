@@ -10,13 +10,13 @@ import retrofit2.http.*
 
 interface StarAPI {
 
-    @POST("rating")
+    @POST("v1/rating")
     @FormUrlEncoded
     suspend fun createStar (
         @FieldMap parameters : HashMap<String, Any>,
     ) : ApiResponse<Any>
 
-    @DELETE("rating/{id}")
+    @DELETE("v1/rating/{id}")
     suspend fun deleteStar(
         @Path("id") id : Int
     ) : ApiResponse<Any>

@@ -60,7 +60,6 @@ class ClassShopFragment : Fragment() {
 
     private val autoScrollDisposable = CompositeDisposable()
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

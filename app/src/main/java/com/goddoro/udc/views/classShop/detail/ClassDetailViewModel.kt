@@ -100,7 +100,7 @@ class ClassDetailViewModel(
     }
 
     fun onClickRatingButton() {
-        if ( authRepository.isSignedIn() ) needLogin.value = Once(Unit)
+        if ( !authRepository.isSignedIn() ) needLogin.value = Once(Unit)
         else clickRatingButton.value = Once(Unit)
     }
 

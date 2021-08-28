@@ -14,12 +14,12 @@ import retrofit2.http.*
 interface AcademyAPI {
 
 
-    @GET("academy")
+    @GET("v1/academy")
     suspend fun listAcademies(
 
     ) : ApiResponse<AcademyListResponse>
 
-    @POST("academy")
+    @POST("v1/academy")
     @Multipart
     suspend fun registerAcademy(
         @PartMap parameters : HashMap<String, RequestBody>,

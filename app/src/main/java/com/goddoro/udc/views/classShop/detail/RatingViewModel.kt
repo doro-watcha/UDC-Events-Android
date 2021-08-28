@@ -50,7 +50,7 @@ class RatingViewModel (  val danceClass: DanceClass, private val starRepository:
 
     fun onClickConfirm() {
 
-        if ( ratingPoint.value == 0.0f) {
+        if ( ratingPoint.value == 0.0f || ratingPoint.value == null ) {
             deleteStar()
         }
         else {

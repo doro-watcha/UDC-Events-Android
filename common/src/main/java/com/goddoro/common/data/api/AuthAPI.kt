@@ -21,7 +21,7 @@ interface AuthAPI {
     /**
      * Email Sign Up
      */
-    @POST("auth/signup")
+    @POST("v1/auth/signup")
     @FormUrlEncoded
     suspend fun signUp(
         @Field("loginId") loginId: String,
@@ -32,14 +32,14 @@ interface AuthAPI {
     /**
      * Email Login
      */
-    @POST("auth/signin")
+    @POST("v1/auth/signin")
     @FormUrlEncoded
     suspend fun signIn(
         @Field("loginId") loginId : String,
         @Field("password") password : String
     ) : ApiResponse<AuthSignInResponse>
 
-    @POST("auth/social-signin")
+    @POST("v1/auth/social-signin")
     @FormUrlEncoded
     suspend fun snsSignUp(
         @FieldMap parameters : HashMap<String,Any>

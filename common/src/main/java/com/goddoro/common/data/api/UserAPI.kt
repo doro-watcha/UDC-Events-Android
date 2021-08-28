@@ -19,19 +19,19 @@ interface UserAPI {
     /**
      * Get User
      */
-    @GET("user/{id}")
+    @GET("v1/user/{id}")
     suspend fun getUser(@Path("id") userId: Int): ApiResponse<UserGetResponse>
 
     /**
      * Update User
      */
-    @PATCH("user")
+    @PATCH("v1/user")
     @FormUrlEncoded
     suspend fun updateUser(
         @FieldMap parameters : HashMap<String,Any>
     ) : ApiResponse<Any>
 
-    @PATCH("user/profile")
+    @PATCH("v1/user/profile")
     @Multipart
     suspend fun updateProfile(
         @Part files : List<MultipartBody.Part>?

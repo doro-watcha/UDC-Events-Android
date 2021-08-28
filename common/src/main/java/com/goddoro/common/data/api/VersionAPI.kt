@@ -7,7 +7,7 @@ import kotlinx.parcelize.Parcelize
 import retrofit2.http.GET
 
 interface VersionAPI {
-    @GET("version/min")
+    @GET("v1/version/min")
     suspend fun getMinimumVersion() : ApiResponse<MinimumVersion>
 }
 

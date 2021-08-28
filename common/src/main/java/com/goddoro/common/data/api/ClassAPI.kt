@@ -17,17 +17,17 @@ import retrofit2.http.*
 interface ClassAPI {
 
 
-    @GET("class")
+    @GET("v1/class")
     suspend fun listClasses(
         @QueryMap parameters: HashMap<String, Any>
     ) : ApiResponse<ClassListResponse>
 
-    @GET("class/{id}")
+    @GET("v1/class/{id}")
     suspend fun getClass(
         @Path("id") id : Int
     ) : ApiResponse<ClassResponse>
 
-    @POST("class")
+    @POST("v1/class")
     @Multipart
     suspend fun registerClass(
         @PartMap parameters : HashMap<String, RequestBody>,

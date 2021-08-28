@@ -11,7 +11,7 @@ import retrofit2.http.QueryMap
 
 interface GenreAPI {
 
-    @GET("genre")
+    @GET("v1/genre")
     suspend fun listGenres() : ApiResponse<GenreListResponse>
 
 }
