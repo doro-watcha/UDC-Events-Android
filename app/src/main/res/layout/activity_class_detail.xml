@@ -60,6 +60,7 @@
                 android:text="@{vm.danceClass.title}"
                 android:textSize="20dp"
                 android:textStyle="bold"
+                android:visibility="@{vm.danceClass != null}"
                 tools:text="피코의 waacking class"
                 android:fontFamily="@font/title"
                 android:textColor="@color/white"
@@ -71,6 +72,7 @@
                 android:id="@+id/layout_star"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:visibility="@{vm.danceClass != null}"
                 android:background="@drawable/border_gold_background"
                 app:layout_constraintBottom_toTopOf="@+id/txt_name"
                 android:padding="8dp"
@@ -83,12 +85,12 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="평균"
-                    android:textSize="12dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:textColor="@color/gold"
-                    android:textStyle="bold"/>
+                    android:textSize="12dp"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <ImageView
                     android:id="@+id/img_star"
@@ -122,6 +124,7 @@
                 android:text="@{vm.danceClass.genre.name}"
                 android:gravity="center"
                 android:padding="8dp"
+                android:visibility="@{vm.danceClass != null}"
                 android:textSize="12dp"
                 tools:text="비보잉"
                 android:layout_marginStart="5dp"
@@ -140,6 +143,7 @@
                 android:gravity="center"
                 android:padding="8dp"
                 android:textSize="12dp"
+                android:visibility="@{vm.danceClass != null}"
                 tools:text="Advanced"
                 android:layout_marginStart="5dp"
                 android:background="@drawable/background_transparent_with_blue_border"
@@ -217,6 +221,7 @@
                 android:text="@{vm.danceClass.artist.name}"
                 android:layout_marginTop="10dp"
                 android:textSize="18dp"
+                android:visibility="@{vm.danceClass != null}"
                 android:textColor="@color/white"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/card_profile"
@@ -231,6 +236,7 @@
                 app:layout_constraintStart_toStartOf="@+id/txt_artist_name"
                 app:layout_constraintEnd_toEndOf="@+id/txt_artist_name"
                 android:textColor="@color/white"
+                android:visibility="@{vm.danceClass != null}"
                 app:layout_constraintTop_toBottomOf="@+id/txt_artist_name"
                 android:layout_marginTop="20dp"/>
 
@@ -246,6 +252,7 @@
                 app:layout_constraintEnd_toEndOf="@id/txt_artist_name"
                 app:layout_constraintTop_toBottomOf="@+id/txt_academy_name"
                 tools:text="매주 월 수 PM 7:00"
+                android:visibility="@{vm.danceClass != null}"
                 android:text="@{`매주 ` + vm.danceClass.date + ` ` + vm.danceClass.startTime}"/>
 
             <TextView
@@ -258,6 +265,7 @@
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
                 tools:text="Advanced"
+                android:visibility="@{vm.danceClass != null}"
                 android:text="@{vm.danceClass.level.name + ` class`}"
                 />
 
@@ -281,6 +289,7 @@
                 app:layout_constraintStart_toStartOf="@+id/card_profile"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
+                android:visibility="@{vm.danceClass != null}"
                 android:visibility="gone"
                 android:text="여기에는 강사님의 한 마디를 적으려고 하거든요. 대충 뭐 한 두줄 정도 되지 않겠습네까"
                 app:layout_constraintTop_toBottomOf="@+id/card_profile"/>
