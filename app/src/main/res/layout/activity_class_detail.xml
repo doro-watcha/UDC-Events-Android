@@ -289,7 +289,6 @@
                 app:layout_constraintStart_toStartOf="@+id/card_profile"
                 android:textColor="@color/white"
                 android:layout_marginTop="10dp"
-                android:visibility="@{vm.danceClass != null}"
                 android:visibility="gone"
                 android:text="여기에는 강사님의 한 마디를 적으려고 하거든요. 대충 뭐 한 두줄 정도 되지 않겠습네까"
                 app:layout_constraintTop_toBottomOf="@+id/card_profile"/>
