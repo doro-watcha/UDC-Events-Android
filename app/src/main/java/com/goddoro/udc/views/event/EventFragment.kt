@@ -11,11 +11,14 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.widget.ViewPager2
+import com.goddoro.common.CommonConst.AUTO_SCROLL_SPEED
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
+import com.goddoro.common.di.ServerType
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.extension.rxSingleTimer
+import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.Navigator
 import com.goddoro.udc.R
 import com.goddoro.udc.databinding.FragmentEventBinding
@@ -29,6 +32,7 @@ import com.goddoro.udc.views.event.adapter.PosterAdapter
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import kotlin.system.exitProcess
 
 /**
  * created By DORO 2020/08/16
@@ -54,6 +58,8 @@ class EventFragment : Fragment() {
 
     private val compositeDisposable = CompositeDisposable()
     private val autoScrollDisposable = CompositeDisposable()
+
+    private val appPreference : AppPreference by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -84,7 +90,13 @@ class EventFragment : Fragment() {
 
                 adminClickCount--
                 if (adminClickCount == 0) {
-                    startActivity(AdminActivity::class)
+                    // Development 일 때
+                    if ( appPreference.curServer == 0) {
+                        appPreference.curServer = ServerType.PRODUCTION.value
+                    } else {
+                        appPreference.curServer = ServerType.DEVELOPMENT.value
+                    }
+                    exitProcess(0)
                 }
             }
 
@@ -193,7 +205,7 @@ class EventFragment : Fragment() {
         if ( mViewModel.mainEvents.value?.size ?: -1 <= 0) return
 
         autoScrollDisposable.clear()
-        rxSingleTimer(1000) {
+        rxSingleTimer(AUTO_SCROLL_SPEED) {
 
             val position = mBinding.mViewPager2.currentItem + 1
 

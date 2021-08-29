@@ -72,10 +72,10 @@ class ClassDetailActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
 
-//        mBinding.mRecyclerView.apply {
+//        mBinding.recyclerViewSketchImages.apply {
 //
 //
-//            adapter = ArtistProfileAdapter()
+//            adapter =()
 //        }
     }
 
@@ -88,6 +88,8 @@ class ClassDetailActivity : AppCompatActivity() {
                 if (it == true) {
                     val url = mViewModel.danceClass.value?.youtubeUrl ?: ""
                     if (YoutubeUrlTypeOk(url)) {
+                        debugE(TAG, url)
+                        debugE(TAG, extractVideoIdFromUrl(url))
                         mBinding.youtubeView.play(
                             extractVideoIdFromUrl(url) ?: ""
                         )

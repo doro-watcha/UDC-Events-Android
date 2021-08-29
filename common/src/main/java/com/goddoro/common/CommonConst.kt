@@ -15,4 +15,6 @@ object CommonConst {
     const val PUSH_NOTI_TARGET_PART = "push_target_part"
 
     enum class NotiType { WOW, COMMENT, CREATE_VIDEO, CREATED_VERSUS, NOTICE, CREATED_TEAM_UP }
+
+    const val AUTO_SCROLL_SPEED : Long  = 3000
 }

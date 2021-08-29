@@ -32,7 +32,7 @@ object StrPatternChecker {
         "^([A-Za-z0-9\\-]*)"
     )
 
-    fun extractVideoIdFromUrl(url: String): String? {
+    fun extractVideoIdFromUrl2(url: String): String? {
         val youTubeLinkWithoutProtocolAndDomain = youTubeLinkWithoutProtocolAndDomain(url)
         for (regex in videoIdRegex) {
             val compiledPattern = Pattern.compile(regex)
@@ -42,6 +42,17 @@ object StrPatternChecker {
             }
         }
         return null
+    }
+
+    fun extractVideoIdFromUrl ( url : String) : String? {
+        var vId = ""
+        val pattern = Pattern.compile( "^.*(?:(?:youtu\\.be\\/|v\\/|vi\\/|u\\/\\w\\/|embed\\/)|(?:(?:watch)?\\?v(?:i)?=|\\&v(?:i)?=))([^#\\&\\?]*).*", Pattern.CASE_INSENSITIVE)
+        val matcher = pattern.matcher(url ?: "")
+        if (matcher.matches()) { vId = matcher.group(1) ?: "" }
+
+        if (vId.isEmpty()) return extractVideoIdFromUrl2(url)
+        return vId
+
     }
 
     private fun youTubeLinkWithoutProtocolAndDomain(url: String): String {

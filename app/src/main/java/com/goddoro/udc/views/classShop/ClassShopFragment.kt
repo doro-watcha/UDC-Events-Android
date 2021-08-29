@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.goddoro.common.Broadcast
+import com.goddoro.common.CommonConst.AUTO_SCROLL_SPEED
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
@@ -230,7 +231,7 @@ class ClassShopFragment : Fragment() {
         if ( mViewModel.mainClasses.value?.size ?: 0 > 0 ) {
 
             autoScrollDisposable.clear()
-            rxSingleTimer(1000) {
+            rxSingleTimer(AUTO_SCROLL_SPEED) {
 
 
                 val position = mBinding.mainViewPager.currentItem + 1

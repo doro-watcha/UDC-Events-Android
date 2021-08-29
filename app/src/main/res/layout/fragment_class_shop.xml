@@ -146,9 +146,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:tabSelectedTextColor="@color/white"
+                app:tabMode="scrollable"
                 android:visibility="@{vm.genres.size() > 0 }"
                 android:background="@color/black"
                 app:layout_constraintTop_toBottomOf="@+id/txt_genre_classes"/>
+
+
 
 
             <androidx.viewpager2.widget.ViewPager2
