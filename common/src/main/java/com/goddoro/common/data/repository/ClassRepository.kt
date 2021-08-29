@@ -34,8 +34,8 @@ interface ClassRepository {
         mainImage : Uri,
         subImages : List<Uri>?= null ,
         artistId : Int
-
-
-
         ) : Any
+
+
+    suspend fun getPopupClass() : DanceClass
 }

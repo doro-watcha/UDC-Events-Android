@@ -11,8 +11,10 @@ import androidx.fragment.app.FragmentManager
 import com.goddoro.common.Broadcast
 import com.goddoro.common.common.AutoClearedValue
 import com.goddoro.common.common.debugE
+import com.goddoro.common.common.loadUrlAsync
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.common.widget.setOnDebounceClickListener
+import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.AppPreference
 import com.goddoro.common.util.ToastUtil
@@ -27,7 +29,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
 
-class PopupDialog  : DialogFragment(){
+class PopupDialog (private val danceClass: DanceClass) : DialogFragment(){
 
     private val TAG = PopupDialog::class.java.simpleName
 
@@ -73,10 +75,16 @@ class PopupDialog  : DialogFragment(){
 
     private fun initView() {
 
-//        mBinding.btnConfirm.setOnDebounceClickListener {
-//            Broadcast.pickGenreBroadcast.onNext(viewModel.selectedGenre.value!!)
-//            dismiss()
-//        }
+
+        with ( mBinding) {
+
+            imgProfile.loadUrlAsync(danceClass.mainImgUrl)
+            if ( danceClass.artist.name != null ) txtArtistName.text = danceClass.artist.name
+            txtGenre.text = danceClass.genre.name + " Class"
+            txtClassSchedule.text = "매주 " + danceClass.date + " " + danceClass.startTime
+            txtAcademyName.text = danceClass.academy.name
+
+        }
 
     }
 
@@ -87,10 +95,6 @@ class PopupDialog  : DialogFragment(){
             clickDismissButton.observeOnce(this@PopupDialog){
                 dismiss()
             }
-
-//            errorInvoked.observe(this@GenrePickDialog){
-//                debugE(TAG, it.message)
-//            }
         }
     }
 
@@ -112,8 +116,8 @@ class PopupDialog  : DialogFragment(){
 
     }
     companion object {
-        fun show(fm: FragmentManager) {
-            val dialog = PopupDialog()
+        fun show(fm: FragmentManager, danceClass: DanceClass) {
+            val dialog = PopupDialog(danceClass)
             dialog.show(fm, dialog.tag)
         }
     }

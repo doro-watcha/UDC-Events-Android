@@ -17,6 +17,8 @@ import androidx.lifecycle.*
 import com.goddoro.common.Broadcast
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.navigation.MainMenu
+import com.goddoro.common.common.observeOnce
+import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.repository.AuthRepository
 import com.goddoro.common.dialog.CommonSingleDialog
 import com.goddoro.common.extension.disposedBy
@@ -76,7 +78,7 @@ class MainActivity : AppCompatActivity() {
 
         setupBroadcast()
 
-        showPopup()
+
         setContentView(mBinding.root)
 
 
@@ -245,6 +247,15 @@ class MainActivity : AppCompatActivity() {
             if(mBinding.bottomNavigation.selectedItemId != menu.menuId)
                 mBinding.bottomNavigation.selectedItemId = menu.menuId
         }
+
+        mViewModel.apply {
+
+            popupClassLoadCompleted.observeOnce(this@MainActivity){
+                showPopup(it)
+            }
+        }
+
+
         
 
         Broadcast.eventUploadBroadcast.subscribe{
@@ -264,13 +275,13 @@ class MainActivity : AppCompatActivity() {
         }).disposedBy(eventUploadDisposable)
     }
 
-    private fun showPopup() {
+    private fun showPopup( danceClass : DanceClass) {
 
         val dt = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val date = dateFormat.format(dt).toString()
         if ( date != appPreference.popUpDate) {
-            val dialog = PopupDialog()
+            val dialog = PopupDialog(danceClass)
             dialog.show(supportFragmentManager, null)
         }
     }

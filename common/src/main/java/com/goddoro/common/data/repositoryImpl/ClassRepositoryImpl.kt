@@ -68,4 +68,8 @@ class ClassRepositoryImpl ( val api : ClassAPI, private val multiPartUtil: Multi
 
         return api.registerClass(params,files).unWrapCompletable()
     }
+
+    override suspend fun getPopupClass(): DanceClass {
+        return api.getPopupClass().unWrapData().danceClass
+    }
 }

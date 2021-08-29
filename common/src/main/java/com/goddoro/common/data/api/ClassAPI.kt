@@ -34,6 +34,9 @@ interface ClassAPI {
         @Part files : List<MultipartBody.Part>?
     ) : ApiResponse<Any>
 
+    @GET("v1/popup/main")
+    suspend fun getPopupClass() : ApiResponse<ClassResponse>
+
 
 }
 
