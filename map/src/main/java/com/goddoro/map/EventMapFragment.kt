@@ -148,7 +148,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
                 else queryChanged.onNext(it)
             })
 
-            academies.observe(viewLifecycleOwner,Observer {
+            academies.observe(viewLifecycleOwner, {
 
                 if (it.isNotEmpty()) {
 
@@ -168,26 +168,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
                         }
                         .customMarker { clusterItem ->
                             Marker(clusterItem.position).apply {
-
-                                if ( clusterItem.academy?.logoImgUrl == null) {
-                                    icon = OverlayImage.fromResource(R.drawable.ic_udc)
-                                }
-                                else {
-                                    debugE(TAG, "BB")
-                                    val circleImageView = CircleImageView(context)
-
-                                    val vp: LinearLayout.LayoutParams = LinearLayout.LayoutParams(
-                                        100,
-                                      100
-                                    )
-                                    circleImageView.layoutParams = vp
-                                    circleImageView.loadUrlAsync(
-                                        clusterItem.academy?.logoImgUrl ?: ""
-                                    )
-                                    debugE(TAG, clusterItem.academy?.logoImgUrl)
-                                    //circleImageView.setImageResource(R.drawable.class_sample_1)
-                                    icon = OverlayImage.fromView(circleImageView)
-                                }
+                                icon = OverlayImage.fromResource(R.drawable.ic_udc)
                             }
                         }
                         .clusterClickListener {
@@ -200,7 +181,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
                     //mBinding.progress.visibility = View.GONE
 
-                    toastUtil.createToast("${it.size}개의 행사가 있습니다").show()
+                    toastUtil.createToast("${it.size}개의 학원이 있습니다").show()
 
                 }
             })
@@ -232,7 +213,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
 
 
-        mViewModel.listEvents()
+        mViewModel.listAcademies()
 
     }
 

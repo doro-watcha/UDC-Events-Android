@@ -17,8 +17,7 @@ import javax.inject.Inject
  */
 
 class MainViewModel (
-    private val deviceRepository: DeviceRepository,
-    private val classRepository: ClassRepository
+    private val deviceRepository: DeviceRepository
 ) : ViewModel() {
 
     private val TAG = MainViewModel::class.java.simpleName
@@ -33,7 +32,7 @@ class MainViewModel (
     }
 
     init {
-        getPopupClass()
+
     }
 
 
@@ -51,20 +50,5 @@ class MainViewModel (
         }
     }
 
-    fun getPopupClass() {
-
-        viewModelScope.launch {
-            kotlin.runCatching {
-                classRepository.getPopupClass()
-            }.onSuccess {
-                popupClassLoadCompleted.value = Once(it)
-            }.onFailure {
-
-            }
-
-        }
-
-
-    }
 
 }

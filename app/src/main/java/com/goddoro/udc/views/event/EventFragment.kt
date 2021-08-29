@@ -193,7 +193,7 @@ class EventFragment : Fragment() {
         if ( mViewModel.mainEvents.value?.size ?: -1 <= 0) return
 
         autoScrollDisposable.clear()
-        rxSingleTimer(4000) {
+        rxSingleTimer(1000) {
 
             val position = mBinding.mViewPager2.currentItem + 1
 

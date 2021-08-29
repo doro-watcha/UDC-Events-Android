@@ -29,7 +29,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
 
-class PopupDialog (private val danceClass: DanceClass) : DialogFragment(){
+class PopupDialog : DialogFragment(){
 
     private val TAG = PopupDialog::class.java.simpleName
 
@@ -66,17 +66,19 @@ class PopupDialog (private val danceClass: DanceClass) : DialogFragment(){
         mBinding.lifecycleOwner = viewLifecycleOwner
         mBinding.vm = viewModel
 
-        initView()
+
         observeViewModel()
         setupBroadcast()
 
     }
 
 
-    private fun initView() {
+    private fun initView( danceClass : DanceClass) {
 
 
         with ( mBinding) {
+
+            debugE(TAG, danceClass )
 
             imgProfile.loadUrlAsync(danceClass.mainImgUrl)
             if ( danceClass.artist.name != null ) txtArtistName.text = danceClass.artist.name
@@ -94,6 +96,10 @@ class PopupDialog (private val danceClass: DanceClass) : DialogFragment(){
 
             clickDismissButton.observeOnce(this@PopupDialog){
                 dismiss()
+            }
+
+            popupClassLoadCompleted.observeOnce(this@PopupDialog){
+                initView(it)
             }
         }
     }
@@ -116,8 +122,8 @@ class PopupDialog (private val danceClass: DanceClass) : DialogFragment(){
 
     }
     companion object {
-        fun show(fm: FragmentManager, danceClass: DanceClass) {
-            val dialog = PopupDialog(danceClass)
+        fun show(fm: FragmentManager) {
+            val dialog = PopupDialog()
             dialog.show(fm, dialog.tag)
         }
     }

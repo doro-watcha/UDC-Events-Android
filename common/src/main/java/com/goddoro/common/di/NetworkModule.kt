@@ -41,7 +41,7 @@ enum class ServerType(val apiUrl: String, val homepageUrl: String, val value: In
 
     companion object {
 
-        fun parse(value: Int) = values().firstOrNull { it.value == value } ?: DEVELOPMENT
+        fun parse(value: Int) = values().firstOrNull { it.value == value } ?: PRODUCTION
 
         val defaultServerType: ServerType
             get() = PRODUCTION

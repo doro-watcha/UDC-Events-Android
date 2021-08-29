@@ -10,9 +10,9 @@ import com.goddoro.common.R
 
 enum class MainMenu(@IdRes override val menuId: Int, override val idx: Int) : IMainMenu {
 
-    HOME(R.id.nav_item_home, 0),
-    EVENT(R.id.nav_item_event, 1),
-    CLASS(R.id.nav_item_class, 2),
+    CLASS(R.id.nav_item_class, 0),
+    MAP(R.id.nav_item_map, 1),
+    EVENT(R.id.nav_item_event, 2),
     PROFILE(R.id.nav_item_video, 3)
 
     ;

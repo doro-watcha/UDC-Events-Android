@@ -49,16 +49,16 @@ class MainActivity : AppCompatActivity() {
 
     private val eventUploadDisposable = CompositeDisposable()
 
-    private lateinit var mBinding : ActivityMainBinding
+    private lateinit var mBinding: ActivityMainBinding
 
-    private val appPreference : AppPreference by inject()
+    private val appPreference: AppPreference by inject()
 
-    private val navigator : Navigator by inject()
+    private val navigator: Navigator by inject()
 
-    private val toastUtil : ToastUtil by inject()
+    private val toastUtil: ToastUtil by inject()
 
-    private val authRepository : AuthRepository by inject()
-    private val mViewModel : MainViewModel by viewModel()
+    private val authRepository: AuthRepository by inject()
+    private val mViewModel: MainViewModel by viewModel()
 
     private val fragment1 = ClassShopFragment.newInstance()
     private val fragment2 = EventMapFragment.newInstance()
@@ -76,15 +76,9 @@ class MainActivity : AppCompatActivity() {
         mBinding.lifecycleOwner = this
         mBinding.vm = mViewModel
 
-        setupBroadcast()
 
 
         setContentView(mBinding.root)
-
-
-        debugE(TAG,authRepository.curUser.value)
-
-
 
 
         if (authRepository.isSignedIn()) {
@@ -109,7 +103,7 @@ class MainActivity : AppCompatActivity() {
                             // fcm token이 변경되었으면 preference update하고 서버도 update한다.
                             appPreference.curFCMToken = newFCMToken
                             debugE(TAG, "Main IN devide")
-                            mViewModel.registerDevice( newFCMToken)
+                            mViewModel.registerDevice(newFCMToken)
                         } else {
                             appPreference.curFCMToken = newFCMToken
                             debugE(TAG, "Main IN device2")
@@ -121,21 +115,10 @@ class MainActivity : AppCompatActivity() {
                 })
         }
 
-
-
-        initView()
-
         initFragments(savedInstanceState == null)
-        observeViewModel()
         setupBottomNavigationView()
-    }
-
-    private fun initView() {
-
-        mBinding.bottomNavigation.setOnNavigationItemSelectedListener {
-            _menu.value = MainMenu.parseIdToMainMenu(it.itemId)
-            true
-        }
+        setupBroadcast()
+        showPopup()
     }
 
     private fun setupBottomNavigationView() {
@@ -144,144 +127,90 @@ class MainActivity : AppCompatActivity() {
 
             val selectedMenu = MainMenu.parseIdToMainMenu(it.itemId)
 
-//            if (selectedMenu != MainMenu.UPLOAD)
-//                changeBottomIcon(it.itemId)
-
             when (selectedMenu) {
-                MainMenu.HOME -> {
-                    debugE(TAG, "Home Tab Selected")
+                MainMenu.CLASS -> {
+                    changeFragment(selectedMenu)
+                }
+                MainMenu.MAP -> {
                     changeFragment(selectedMenu)
                 }
                 MainMenu.EVENT -> {
-
-                    changeFragment(selectedMenu)
-                }
-                MainMenu.CLASS -> {
                     changeFragment(selectedMenu)
                 }
                 MainMenu.PROFILE -> {
                     if (authRepository.isSignedIn()) {
                         changeFragment(selectedMenu)
-                    }
-                    else {
+                    } else {
                         navigator.startLoginActivity(this)
                         return@setOnNavigationItemSelectedListener false
                     }
                 }
 
             }
-//
-//            navigator.curMainMenu.value = selectedMenu
-
             true
         }
-
-        mBinding.bottomNavigation.setOnNavigationItemReselectedListener {
-
-            // 이미 선택되어있는 탭을 다시 선택하면 목록 제일 위로 이동시킨다.
-            // Broadcast 날림
-            when (MainMenu.parseIdToMainMenu(it.itemId)) {
-
-//                MainMenu.FEED -> {
-//                    debugE(TAG, "Video Tab ReSelected")
-//                    Broadcast.videoListGoTop.onNext(Unit)
-//                }
-//                MainMenu.EXPLORE -> {
-//                    debugE(TAG, "Explore Tab Reselected")
-//                    Broadcast.exploreListGoTop.onNext(Unit)
-//                }
-//                MainMenu.UPLOAD -> {
-//
-//                }
-//                MainMenu.NOTIFICATION -> {
-//                    clearBadge()
-//                    Broadcast.notificationGoTopBroadcast.onNext(Unit)
-//                }
-                MainMenu.PROFILE -> {
-                    Broadcast.profileGoTopBroadcast.onNext(Unit)
-
-
-                }
-            }
-
-            true
-
-
-        }
-
     }
 
-    private fun initFragments(isFirstCreation : Boolean) {
+    private fun initFragments(isFirstCreation: Boolean) {
 
-        if(isFirstCreation) {
-            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment4, "0").hide(fragment4).commit()
-            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment3, "1").hide(fragment3).commit()
-            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment2, "2").hide(fragment2).commit()
-            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment1, "3").commit()
+        if (isFirstCreation) {
+            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment4, "4")
+                .hide(fragment4).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment3, "3")
+                .hide(fragment3).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment2, "2")
+                .hide(fragment2).commit()
+            supportFragmentManager.beginTransaction().add(R.id.fragmentContainer, fragment1, "1").show(fragment1)
+                .commit()
         }
     }
 
 
-    private fun changeFragment(menu : MainMenu) {
+    private fun changeFragment(menu: MainMenu) {
 
         val willShow = when (menu) {
-            MainMenu.HOME -> fragment1
-            MainMenu.EVENT -> fragment2
-            MainMenu.CLASS -> fragment3
+            MainMenu.CLASS -> fragment1
+            MainMenu.MAP -> fragment2
+            MainMenu.EVENT -> fragment3
             MainMenu.PROFILE -> fragment4
         }
 
         Broadcast.bottomIndexChangeBroadcast.onNext(menu.idx)
 
-
-        supportFragmentManager.beginTransaction().hide(curFragment).show(willShow).commit()
+        supportFragmentManager.beginTransaction()
+            .hide(fragment1)
+            .hide(fragment2)
+            .hide(fragment3)
+            .hide(fragment4)
+            .show(willShow)
+            .commit()
         curFragment = willShow
     }
 
 
-    private fun observeViewModel() {
+    private fun setupBroadcast() {
 
-        menu.observe(this@MainActivity) { menu->
-            changeFragment(menu)
+        Broadcast.eventUploadBroadcast.subscribe({
+            val dialog =
+                UploadCompleteDialog.newInstance(authRepository.curUser.value?.username ?: "", it)
+            val fragmentTransaction = supportFragmentManager.beginTransaction()
+            fragmentTransaction.add(dialog, dialog.tag).commitAllowingStateLoss()
+        }, {
+            debugE(TAG, it)
+        }).disposedBy(eventUploadDisposable)
 
-            if(mBinding.bottomNavigation.selectedItemId != menu.menuId)
-                mBinding.bottomNavigation.selectedItemId = menu.menuId
-        }
-
-        mViewModel.apply {
-
-            popupClassLoadCompleted.observeOnce(this@MainActivity){
-                showPopup(it)
-            }
-        }
-
-
-        
-
-        Broadcast.eventUploadBroadcast.subscribe{
+        Broadcast.eventUploadBroadcast.subscribe {
             CommonSingleDialog(R.drawable.ic_camera, R.string.dialog_upload_completed)
         }.disposedBy(eventUploadDisposable)
     }
 
-    private fun setupBroadcast() {
-
-        Broadcast.eventUploadBroadcast.subscribe({
-            debugE(TAG, "Upload Complete!")
-            val dialog = UploadCompleteDialog.newInstance(authRepository.curUser.value?.username ?: "", it)
-            val fragmentTransaction = supportFragmentManager.beginTransaction()
-            fragmentTransaction.add(dialog,dialog.tag).commitAllowingStateLoss()
-        },{
-            debugE(TAG,it)
-        }).disposedBy(eventUploadDisposable)
-    }
-
-    private fun showPopup( danceClass : DanceClass) {
+    private fun showPopup() {
 
         val dt = Date()
         val dateFormat = SimpleDateFormat("yyyy-MM-dd")
         val date = dateFormat.format(dt).toString()
-        if ( date != appPreference.popUpDate) {
-            val dialog = PopupDialog(danceClass)
+        if (date != appPreference.popUpDate) {
+            val dialog = PopupDialog()
             dialog.show(supportFragmentManager, null)
         }
     }
@@ -289,7 +218,7 @@ class MainActivity : AppCompatActivity() {
     override fun onDestroy() {
         super.onDestroy()
 
-        eventUploadDisposable.clear()
+        eventUploadDisposable.dispose()
     }
 
 
@@ -299,11 +228,6 @@ class MainActivity : AppCompatActivity() {
         window.navigationBarColor = Color.parseColor("#000000")
     }
 
-    companion object {
 
-
-        private val _menu: MutableLiveData<MainMenu> = MutableLiveData(MainMenu.HOME)
-        val menu: LiveData<MainMenu> = _menu
-    }
 
 }

@@ -39,7 +39,7 @@ class EventMapViewModel (
 
     }
 
-    fun listEvents() {
+    fun listAcademies() {
         viewModelScope.launch {
 
             kotlin.runCatching {

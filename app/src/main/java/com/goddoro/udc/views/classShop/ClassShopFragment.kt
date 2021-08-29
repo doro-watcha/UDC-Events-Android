@@ -90,7 +90,7 @@ class ClassShopFragment : Fragment() {
 
                 clickEvent.subscribe {
 
-                    //navigator.startClassDetailActivity(requireActivity(), it.first, it.second)
+                    navigator.startClassDetailActivity(requireActivity(), it.first.id, it.second)
                 }.disposedBy(compositeDisposable)
 
 
@@ -230,9 +230,12 @@ class ClassShopFragment : Fragment() {
         if ( mViewModel.mainClasses.value?.size ?: 0 > 0 ) {
 
             autoScrollDisposable.clear()
-            rxSingleTimer(4000) {
+            rxSingleTimer(1000) {
+
 
                 val position = mBinding.mainViewPager.currentItem + 1
+
+                debugE(TAG, position.toString())
 
                 mBinding.indicator.refresh(position % (mViewModel.mainClasses.value?.size ?: 1))
                 mBinding.mainViewPager.setCurrentItem(position, 600)
@@ -255,7 +258,7 @@ class ClassShopFragment : Fragment() {
     override fun onHiddenChanged(hidden: Boolean) {
         super.onHiddenChanged(hidden)
 
-        debugE(TAG, hidden)
+        debugE(TAG, "hidden " + hidden )
 
         if (hidden) {
             autoScrollDisposable.clear()
@@ -265,8 +268,18 @@ class ClassShopFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        debugE(TAG, "onResume")
+
+        scrollToNext()
+    }
+
     override fun onPause() {
         super.onPause()
+
+        debugE(TAG, "onPause")
 
 
         autoScrollDisposable.clear()
@@ -274,6 +287,8 @@ class ClassShopFragment : Fragment() {
 
     override fun onDestroy() {
         super.onDestroy()
+
+        debugE(TAG, "onDestroy")
 
         autoScrollDisposable.dispose()
 
