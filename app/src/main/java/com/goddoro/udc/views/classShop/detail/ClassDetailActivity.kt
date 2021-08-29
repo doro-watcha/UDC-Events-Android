@@ -2,7 +2,6 @@ package com.goddoro.udc.views.classShop.detail
 
 import android.app.Activity
 import android.content.ActivityNotFoundException
-import android.content.ComponentName
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -12,12 +11,10 @@ import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.goddoro.common.Broadcast
-import com.goddoro.common.common.StrPatternChecker
 import com.goddoro.common.common.StrPatternChecker.YoutubeUrlTypeOk
 import com.goddoro.common.common.StrPatternChecker.extractVideoIdFromUrl
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
-import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.databinding.ActivityClassDetailBinding
@@ -111,8 +108,13 @@ class ClassDetailActivity : AppCompatActivity() {
                     packageManager.getLaunchIntentForPackage("com.instagram.android")
 
                 if (instagram_intent != null) {
-                    instagram_intent.data = Uri.parse(danceClass.value?.artist?.instagramUrl)
-                    startActivity(instagram_intent)
+
+                    val uri = Uri.parse("https://instagram.com/_u/" + danceClass.value?.artist?.instagramUrl)
+                    val likeIng = Intent(Intent.ACTION_VIEW, uri)
+
+                    likeIng.setPackage("com.instagram.android")
+                    //instagram_intent.data = Uri.parse(danceClass.value?.artist?.instagramUrl)
+                    startActivity(likeIng)
                 } else {
                     try {
                         startActivity(
