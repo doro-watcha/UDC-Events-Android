@@ -71,8 +71,8 @@ class SketchImageAdapter: RecyclerView.Adapter<SketchImageAdapter.EventImageView
 
 }
 
-@BindingAdapter("app:recyclerview_event_images")
-fun RecyclerView.setEventImages(items: List<SketchImage>?) {
+@BindingAdapter("app:recyclerview_sketch_images")
+fun RecyclerView.setSketchImages(items: List<SketchImage>?) {
     (adapter as? SketchImageAdapter)?.run {
         this.submitItems(items)
     }

@@ -52,6 +52,7 @@ class ClassDetailViewModel(
     val clickBackArrow : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickAskButton : MutableLiveData<Once<Unit>> = MutableLiveData()
     val clickRatingButton : MutableLiveData<Once<Unit>> = MutableLiveData()
+    val clickAverageButton : MutableLiveData<Once<Unit>> = MutableLiveData()
     val needLogin : MutableLiveData<Once<Unit>> = MutableLiveData()
 
     val errorInvoked : MutableLiveData<Once<Throwable>> = MutableLiveData()
@@ -97,6 +98,10 @@ class ClassDetailViewModel(
 
     fun onClickAskButton() {
         clickAskButton.value = Once(Unit)
+    }
+
+    fun onClickAverageButton() {
+        clickAverageButton.value = Once(Unit)
     }
 
     fun onClickRatingButton() {

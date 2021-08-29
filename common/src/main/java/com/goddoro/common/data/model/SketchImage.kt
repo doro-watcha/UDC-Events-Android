@@ -9,6 +9,6 @@ data class SketchImage(
     @SerializedName("id")
     val id: Int,
 
-    @SerializedName("sketchImgUrl")
+    @SerializedName("subImgUrl")
     val sketchImage: String
 ) : Parcelable

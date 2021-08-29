@@ -74,6 +74,7 @@
                 android:background="@drawable/border_gold_background"
                 app:layout_constraintBottom_toTopOf="@+id/txt_name"
                 android:padding="8dp"
+                android:onDebounceClick="@{() -> vm.onClickAverageButton()}"
                 android:layout_marginBottom="5dp"
                 app:layout_constraintStart_toStartOf="@+id/txt_name">
 
@@ -247,16 +248,29 @@
                 tools:text="매주 월 수 PM 7:00"
                 android:text="@{`매주 ` + vm.danceClass.date + ` ` + vm.danceClass.startTime}"/>
 
+            <TextView
+                android:id="@+id/txt_genre_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/txt_academy_name"
+                app:layout_constraintEnd_toEndOf="@+id/txt_academy_name"
+                app:layout_constraintTop_toBottomOf="@+id/txt_date"
+                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
+                tools:text="Advanced"
+                android:text="@{vm.danceClass.level.name + ` class`}"
+                />
+
             <ImageView
                 android:id="@+id/img_instagram"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:src="@drawable/ic_instagram"
                 app:layout_constraintStart_toStartOf="@+id/txt_academy_name"
-                android:layout_marginTop="20dp"
-                android:onDebounceClick="@{() ->vm.onClickInstagram()}"
                 app:layout_constraintEnd_toEndOf="@+id/txt_academy_name"
-                app:layout_constraintTop_toBottomOf="@+id/txt_date"/>
+                app:layout_constraintTop_toBottomOf="@+id/txt_genre_detail"
+                android:layout_marginTop="20dp"
+                android:onDebounceClick="@{() ->vm.onClickInstagram()}" />
 
 
 
@@ -282,7 +296,7 @@
                 android:fontFamily="@font/general"
                 app:layout_constraintStart_toStartOf="@+id/card_profile"
                 tools:visibility="visible"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 app:layout_constraintTop_toBottomOf="@+id/card_profile"
                 android:visibility="@{vm.danceClass.subImgs.size() > 0}" />
 
@@ -290,6 +304,7 @@
                 android:id="@+id/recycler_view_sketch_images"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:recyclerview_sketch_images="@{vm.danceClass.subImgs}"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                 app:layout_constraintTop_toBottomOf="@+id/txt_more_photo"/>
 
@@ -303,9 +318,9 @@
                 android:fontFamily="@font/general"
                 android:visibility="@{vm.danceClass.youtubeUrl != null}"
                 android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="@+id/txt_artist_description"
-                app:layout_constraintTop_toBottomOf="@+id/txt_artist_description"
-                android:layout_marginTop="30dp"/>
+                app:layout_constraintStart_toStartOf="@+id/txt_artist"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_sketch_images"
+                android:layout_marginTop="20dp"/>
 
             <kr.co.prnd.YouTubePlayerView
                 android:id="@+id/youtube_view"

@@ -8,6 +8,7 @@ import android.net.Uri
 import android.os.Bundle
 import android.transition.*
 import android.view.LayoutInflater
+import android.view.View
 import android.view.animation.OvershootInterpolator
 import androidx.appcompat.app.AppCompatActivity
 import com.goddoro.common.Broadcast
@@ -18,10 +19,13 @@ import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.extension.disposedBy
+import com.goddoro.common.util.ToastUtil
 import com.goddoro.udc.databinding.ActivityClassDetailBinding
 import com.goddoro.udc.util.startActivity
 import com.goddoro.udc.views.auth.LoginActivity
+import com.goddoro.udc.views.event.detail.SketchImageAdapter
 import io.reactivex.disposables.CompositeDisposable
+import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 
@@ -34,6 +38,8 @@ class ClassDetailActivity : AppCompatActivity() {
     private lateinit var mViewModel: ClassDetailViewModel
 
     private val ratingDisposable = CompositeDisposable()
+
+    private val toastUtil : ToastUtil by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,11 +78,11 @@ class ClassDetailActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
 
-//        mBinding.recyclerViewSketchImages.apply {
-//
-//
-//            adapter =()
-//        }
+        mBinding.recyclerViewSketchImages.apply {
+
+
+            adapter = SketchImageAdapter()
+        }
     }
 
     private fun observeViewModel() {
@@ -93,6 +99,9 @@ class ClassDetailActivity : AppCompatActivity() {
                         mBinding.youtubeView.play(
                             extractVideoIdFromUrl(url) ?: ""
                         )
+                    } else {
+                        mBinding.txtYoutubeView.visibility = View.GONE
+                        mBinding.youtubeView.visibility = View.GONE
                     }
                 }
             }
@@ -151,6 +160,11 @@ class ClassDetailActivity : AppCompatActivity() {
 
 
                 }
+            }
+
+            clickAverageButton.observeOnce(this@ClassDetailActivity){
+                val number = danceClass.value?.ratingCount
+                toastUtil.createToast("총 ${number}명의 수강생들의 별점입니다").show()
             }
 
             clickAskButton.observeOnce(this@ClassDetailActivity) {
