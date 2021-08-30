@@ -27,6 +27,7 @@ import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
+import com.naver.maps.map.util.MarkerIcons
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
@@ -269,6 +270,7 @@ class ClassDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
         val marker = Marker()
         marker.position = LatLng(academy.latitude, academy.longitude)
+        marker.icon = MarkerIcons.BLACK
         marker.map = naverMap
 
 
