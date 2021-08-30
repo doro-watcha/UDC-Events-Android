@@ -15,18 +15,24 @@ import com.goddoro.common.common.StrPatternChecker.YoutubeUrlTypeOk
 import com.goddoro.common.common.StrPatternChecker.extractVideoIdFromUrl
 import com.goddoro.common.common.debugE
 import com.goddoro.common.common.observeOnce
+import com.goddoro.common.data.model.Academy
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.ToastUtil
+import com.goddoro.map.EventMapFragment
 import com.goddoro.udc.databinding.ActivityClassDetailBinding
 import com.goddoro.udc.util.startActivity
 import com.goddoro.udc.views.auth.LoginActivity
 import com.goddoro.udc.views.event.detail.SketchImageAdapter
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.*
+import com.naver.maps.map.overlay.Marker
+import com.naver.maps.map.util.FusedLocationSource
 import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 import org.koin.core.parameter.parametersOf
 
-class ClassDetailActivity : AppCompatActivity() {
+class ClassDetailActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private val TAG = ClassDetailActivity::class.java.simpleName
 
@@ -37,6 +43,8 @@ class ClassDetailActivity : AppCompatActivity() {
     private val ratingDisposable = CompositeDisposable()
 
     private val toastUtil : ToastUtil by inject()
+
+    lateinit var naverMap: NaverMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -87,6 +95,10 @@ class ClassDetailActivity : AppCompatActivity() {
 
         mViewModel.apply {
 
+            danceClass.observe(this@ClassDetailActivity){
+                mBinding.mapView.getMapAsync(this@ClassDetailActivity)
+            }
+
             onLoadCompleted.observe(this@ClassDetailActivity) {
                 if (it == true) {
                     val url = mViewModel.danceClass.value?.youtubeUrl ?: ""
@@ -100,6 +112,9 @@ class ClassDetailActivity : AppCompatActivity() {
                         mBinding.txtYoutubeView.visibility = View.GONE
                         mBinding.youtubeView.visibility = View.GONE
                     }
+
+                    //changeCamera(danceClass.value?.academy!!)
+
                 }
             }
 
@@ -222,6 +237,41 @@ class ClassDetailActivity : AppCompatActivity() {
         super.onDestroy()
 
         ratingDisposable.dispose()
+    }
+
+    override fun onMapReady(p0: NaverMap) {
+
+        this.naverMap = p0
+        naverMap.moveCamera(
+            CameraUpdate.toCameraPosition(
+                CameraPosition(
+                    NaverMap.DEFAULT_CAMERA_POSITION.target,
+                    NaverMap.DEFAULT_CAMERA_POSITION.zoom
+                )
+            )
+        )
+
+        this.naverMap.uiSettings.isLocationButtonEnabled = true
+
+        debugE(TAG, "onMapReady completed")
+
+        changeCamera(mViewModel.danceClass.value?.academy!!)
+
+
+    }
+
+    private fun changeCamera( academy : Academy) {
+
+
+        debugE(TAG, "moveCamera")
+        val cameraUpdate = CameraUpdate.scrollTo(LatLng(academy.latitude, academy.longitude))
+        naverMap.moveCamera(cameraUpdate)
+
+        val marker = Marker()
+        marker.position = LatLng(academy.latitude, academy.longitude)
+        marker.map = naverMap
+
+
     }
 
     companion object {
