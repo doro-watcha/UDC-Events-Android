@@ -4,5 +4,7 @@ import com.goddoro.common.data.model.Genre
 
 interface GenreRepository {
 
-    suspend fun listGenre() : List<Genre>
+    suspend fun listGenre(
+        sort : String? = null
+    ) : List<Genre>
 }

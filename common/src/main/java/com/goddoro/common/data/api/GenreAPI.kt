@@ -6,13 +6,16 @@ import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.model.Genre
 import com.google.gson.annotations.SerializedName
 import kotlinx.parcelize.Parcelize
+import retrofit2.http.FieldMap
 import retrofit2.http.GET
 import retrofit2.http.QueryMap
 
 interface GenreAPI {
 
     @GET("v1/genre")
-    suspend fun listGenres() : ApiResponse<GenreListResponse>
+    suspend fun listGenres(
+        @QueryMap parameters : HashMap<String,Any>
+    ) : ApiResponse<GenreListResponse>
 
 }
 

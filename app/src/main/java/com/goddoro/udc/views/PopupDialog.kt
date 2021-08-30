@@ -17,6 +17,7 @@ import com.goddoro.common.common.widget.setOnDebounceClickListener
 import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.AppPreference
+import com.goddoro.common.util.Navigator
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.R
 import com.goddoro.udc.databinding.DialogGenrePickBinding
@@ -42,6 +43,8 @@ class PopupDialog : DialogFragment(){
     private val toastUtil : ToastUtil by inject()
 
     override fun getTheme(): Int = R.style.Theme_UDC_MapDetailDialog
+
+    private val navigator : Navigator by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -85,6 +88,11 @@ class PopupDialog : DialogFragment(){
             txtGenre.text = danceClass.genre.name + " Class"
             txtClassSchedule.text = "매주 " + danceClass.date + " " + danceClass.startTime
             txtAcademyName.text = danceClass.academy.name
+
+            root.setOnDebounceClickListener {
+                navigator.startClassDetailActivity(requireActivity(), danceClass.id , mBinding.imgProfile)
+                dismiss()
+            }
 
         }
 

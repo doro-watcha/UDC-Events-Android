@@ -193,7 +193,7 @@ class ClassDetailActivity : AppCompatActivity() {
         Broadcast.apply {
 
             starClassBroadcast.subscribe({
-                mViewModel.star.value = it
+                mViewModel.getClass()
             }, {
 
             }).disposedBy(ratingDisposable)

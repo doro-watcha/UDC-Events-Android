@@ -10,5 +10,5 @@ data class Star(
     val id: Int,
 
     @SerializedName("point")
-    val point: Float
+    var point: Float
 ) : Parcelable

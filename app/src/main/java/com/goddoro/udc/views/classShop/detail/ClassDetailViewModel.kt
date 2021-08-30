@@ -66,7 +66,7 @@ class ClassDetailViewModel(
 
     }
 
-    private fun getClass() {
+    fun getClass() {
 
         viewModelScope.launch {
 

@@ -152,22 +152,49 @@
                 app:layout_constraintTop_toTopOf="@+id/layout_star"
                 app:layout_constraintBottom_toBottomOf="@+id/layout_star" />
 
-            <TextView
-                android:id="@+id/txt_rating"
-                android:layout_width="wrap_content"
+
+            <androidx.appcompat.widget.LinearLayoutCompat
+                android:id="@+id/layer_rating"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@{vm.star == null ? `별점주기` : String.valueOf(vm.star)}"
-                android:drawableTop="@drawable/ic_star"
-                android:textColor="@color/gold"
-                tools:text="별점주기"
-                android:visibility="@{vm.danceClass != null}"
-                android:textStyle="bold"
+                android:orientation="vertical"
                 android:onDebounceClick="@{() -> vm.onClickRatingButton()}"
-                android:drawablePadding="7dp"
-                app:layout_constraintTop_toBottomOf="@+id/img_main"
-                app:layout_constraintStart_toStartOf="@+id/img_main"
-                app:layout_constraintEnd_toEndOf="@+id/img_main"
-                android:layout_marginTop="10dp"/>
+                app:layout_constraintTop_toBottomOf="@+id/img_main">
+
+                <androidx.appcompat.widget.AppCompatRatingBar
+                    android:id="@+id/rating_bar"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:rating="@{vm.star}"
+                    android:theme="@style/RatingBar"
+                    android:visibility="@{vm.danceClass != null }"
+                    android:layout_marginTop="10dp"
+                    android:isIndicator="true"
+                    android:layout_gravity="center" />
+
+
+                <TextView
+                    android:id="@+id/txt_rating"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@{vm.star == null ? `별점주기` : String.valueOf(vm.star)}"
+                    android:textColor="@color/gold"
+                    tools:text="별점주기"
+                    android:layout_gravity="center"
+                    app:layout_constraintTop_toBottomOf="@+id/rating_bar"
+                    app:layout_constraintStart_toStartOf="@+id/rating_bar"
+                    app:layout_constraintEnd_toEndOf="@+id/rating_bar"
+                    android:visibility="@{vm.danceClass != null}"
+                    android:textStyle="bold"
+
+                    android:drawablePadding="7dp"
+
+                    android:layout_marginTop="10dp"/>
+
+
+            </androidx.appcompat.widget.LinearLayoutCompat>
+
+
 
             <TextView
                 android:id="@+id/txt_description"
@@ -178,7 +205,7 @@
                 android:layout_marginEnd="12dp"
                 android:layout_marginTop="10dp"
                 android:text="@{vm.danceClass.description}"
-                app:layout_constraintTop_toBottomOf="@+id/txt_rating"/>
+                app:layout_constraintTop_toBottomOf="@+id/layer_rating"/>
 
             <TextView
                 android:id="@+id/txt_artist"
