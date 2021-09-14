@@ -35,6 +35,7 @@ class ClassRepositoryImpl ( val api : ClassAPI, private val multiPartUtil: Multi
     }
 
 
+
     override suspend fun registerClass(
         name: String,
         genreId: Int,
