@@ -16,6 +16,7 @@ import com.goddoro.common.extension.addSchedulers
 import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.ToastUtil
 import com.goddoro.map.databinding.FragmentEventMapBinding
+import com.goddoro.map.dialog.MapDetailDialog
 import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.*
 import com.naver.maps.map.overlay.Marker
@@ -175,7 +176,7 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
 
                         }
                         .markerClickListener {
-                            //MapDetailDialog.show(requireActivity().supportFragmentManager, it.academy!!)
+                            MapDetailDialog.show(requireActivity().supportFragmentManager, it.academy!!)
                         }
                         .make()
 
@@ -197,19 +198,19 @@ class EventMapFragment : Fragment(), OnMapReadyCallback {
     override fun onMapReady(naverMap: NaverMap) {
         mBound = true
         this.naverMap = naverMap
-        naverMap.moveCamera(
-            CameraUpdate.toCameraPosition(
-                CameraPosition(
-                    NaverMap.DEFAULT_CAMERA_POSITION.target,
-                    NaverMap.DEFAULT_CAMERA_POSITION.zoom
-                )
-            )
-        )
+//        naverMap.moveCamera(
+//            CameraUpdate.toCameraPosition(
+//                CameraPosition(
+//                    NaverMap.DEFAULT_CAMERA_POSITION.target,
+//                    NaverMap.DEFAULT_CAMERA_POSITION.zoom
+//                )
+//            )
+//        )
 
         this.naverMap.uiSettings.isLocationButtonEnabled = true
 
-        naverMap.locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
-        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+//        naverMap.locationSource = FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE)
+//        naverMap.locationTrackingMode = LocationTrackingMode.Follow
 
 
 

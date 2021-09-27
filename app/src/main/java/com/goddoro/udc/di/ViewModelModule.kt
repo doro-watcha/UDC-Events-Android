@@ -4,6 +4,7 @@ import com.goddoro.common.data.model.DanceClass
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.model.Genre
 import com.goddoro.map.EventMapViewModel
+import com.goddoro.map.dialog.MapDetailViewModel
 import com.goddoro.udc.MainViewModel
 import com.goddoro.udc.views.PopupDialogViewModel
 import com.goddoro.udc.views.admin.AdminViewModel
@@ -57,6 +58,7 @@ val viewModelModule  = module {
     viewModel { SettingViewModel(get(),get()) }
 
     viewModel { EventMapViewModel(get(),get())}
+    viewModel { MapDetailViewModel(get()) }
     viewModel { TagDetailViewModel(get()) }
 
     viewModel { ClassShopViewModel(get(),get()) }

@@ -14,12 +14,16 @@ import com.goddoro.common.common.AutoClearedValue
 import com.goddoro.common.common.loadUrlAsync
 import com.goddoro.common.common.widget.GridSpacingItemDecoration
 import com.goddoro.common.common.widget.setOnDebounceClickListener
+import com.goddoro.common.data.model.Academy
 import com.goddoro.common.data.model.Event
 import com.goddoro.common.data.model.NaverItem
+import com.goddoro.common.extension.disposedBy
 import com.goddoro.common.util.Navigator
 import com.goddoro.map.R
 import com.goddoro.map.databinding.DialogMapDetailBinding
+import io.reactivex.disposables.CompositeDisposable
 import org.koin.android.ext.android.inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import kotlin.math.roundToInt
 
 
@@ -27,10 +31,10 @@ import kotlin.math.roundToInt
  * created By DORO 2020/09/14
  */
 
-class MapDetailDialog ( private val event : Event) : DialogFragment(){
+class MapDetailDialog ( private val academy: Academy ) : DialogFragment(){
 
     companion object {
-        fun show(fm: FragmentManager , item : Event) {
+        fun show(fm: FragmentManager , item : Academy) {
             val dialog = MapDetailDialog(item)
             dialog.show(fm, dialog.tag)
         }
@@ -38,16 +42,18 @@ class MapDetailDialog ( private val event : Event) : DialogFragment(){
 
     private var mBinding : DialogMapDetailBinding by AutoClearedValue()
 
+    private val mViewModel : MapDetailViewModel by viewModel()
+
     override fun getTheme(): Int = R.style.Theme_UDC_MapDetailDialog
 
-
+    private val compositeDisposable = CompositeDisposable()
     private val navigator : Navigator by inject()
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         if (dialog != null && dialog?.window != null) {
             dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             dialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
@@ -64,10 +70,10 @@ class MapDetailDialog ( private val event : Event) : DialogFragment(){
 
 
         mBinding.lifecycleOwner = viewLifecycleOwner
-        mBinding.dialog = this
-        mBinding.item = event
+        mBinding.vm = mViewModel
 
         initView()
+        initSetting()
         setupRecyclerView()
 
     }
@@ -75,27 +81,23 @@ class MapDetailDialog ( private val event : Event) : DialogFragment(){
     private fun setupRecyclerView() {
 
         mBinding.mRecyclerView.apply {
-            val mVideoGridLayoutManager: LinearLayoutManager = GridLayoutManager(context, 2)
-            val spacingTop = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
-            val spacingLeft = resources.getDimension(R.dimen.paddingItemDecoration4).toInt()
 
-            val mVideoGridSpacing =
-                GridSpacingItemDecoration(2, spacingLeft, spacingTop, 0)
+            adapter = AcademyClassListAdapter().apply {
 
-            layoutManager = mVideoGridLayoutManager
-            addItemDecoration(mVideoGridSpacing)
-            setHasFixedSize(true)
-
-            adapter = EventDialogImageAdapter()
+                clickEvent.subscribe{
+                    navigator.startClassDetailActivity(requireActivity(),it.first.id, it.second)
+                }.disposedBy(compositeDisposable)
+            }
 
         }
     }
 
     private fun initView() {
 
-        mBinding.btnDetailEvent.setOnDebounceClickListener {
-            navigator.startEventDetailActivity(requireActivity(),event,mBinding.image)
-        }
+    }
+
+    private fun initSetting() {
+        mViewModel.init(academy)
     }
 
     /**
@@ -110,5 +112,11 @@ class MapDetailDialog ( private val event : Event) : DialogFragment(){
         val width = (point.x * 0.8f).roundToInt()
         val height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog?.window?.setLayout(width, height)
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+
+        compositeDisposable.clear()
     }
 }
