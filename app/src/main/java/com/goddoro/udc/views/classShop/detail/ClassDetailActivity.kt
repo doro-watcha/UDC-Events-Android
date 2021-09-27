@@ -104,18 +104,11 @@ class ClassDetailActivity : AppCompatActivity(), OnMapReadyCallback {
                 if (it == true) {
                     val url = mViewModel.danceClass.value?.youtubeUrl ?: ""
                     if (YoutubeUrlTypeOk(url)) {
-                        debugE(TAG, url)
-                        debugE(TAG, extractVideoIdFromUrl(url))
-                        mBinding.youtubeView.play(
-                            extractVideoIdFromUrl(url) ?: ""
-                        )
+                        mBinding.youtubeView.play(extractVideoIdFromUrl(url) ?: "")
                     } else {
                         mBinding.txtYoutubeView.visibility = View.GONE
                         mBinding.youtubeView.visibility = View.GONE
                     }
-
-                    //changeCamera(danceClass.value?.academy!!)
-
                 }
             }
 

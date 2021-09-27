@@ -351,7 +351,6 @@
                 android:textColor="@color/gold"
                 android:textSize="18dp"
                 android:fontFamily="@font/general"
-                android:visibility="@{vm.danceClass.youtubeUrl != null}"
                 android:textStyle="bold"
                 app:layout_constraintStart_toStartOf="@+id/txt_artist"
                 app:layout_constraintTop_toBottomOf="@+id/recycler_view_sketch_images"
@@ -362,7 +361,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
-                android:visibility="@{vm.danceClass.youtubeUrl != null}"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="12dp"
                 app:layout_constraintTop_toBottomOf="@+id/txt_youtube_view"/>
