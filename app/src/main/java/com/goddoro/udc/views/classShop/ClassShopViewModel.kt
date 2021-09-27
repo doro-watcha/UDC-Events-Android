@@ -47,6 +47,7 @@ class ClassShopViewModel(
         listGenres()
 
 
+
     }
 
     private fun listMainClasses() {
@@ -84,9 +85,11 @@ class ClassShopViewModel(
             dateList.value?.add(Date(date = today_date, day = today_day, dateInt = today.get(Calendar.DAY_OF_WEEK) - 1))
             today.add(Calendar.DATE, 1)
         }
+
+        listDateClasses(dateList.value?.get(0)!!)
     }
 
-    fun listDateClasses( date : Date) {
+    fun listDateClasses(date: Date) {
 
         viewModelScope.launch {
 

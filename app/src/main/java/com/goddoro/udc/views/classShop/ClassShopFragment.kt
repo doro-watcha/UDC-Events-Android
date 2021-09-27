@@ -1,8 +1,6 @@
 package com.goddoro.udc.views.classShop
 
-import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -127,9 +125,6 @@ class ClassShopFragment : Fragment() {
             })
 
             scrollToNext()
-
-            debugE(TAG, "MAIN VIEW PAGER ADAPTER SETTING COMPLETED")
-
         }
     }
 

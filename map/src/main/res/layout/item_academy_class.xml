@@ -13,8 +13,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:foreground="?attr/selectableItemBackground"
-        android:background="@drawable/border_white_background">
+        android:layout_margin="5dp"
+        android:background="@drawable/ripple_effect">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/img_poster"
@@ -30,7 +30,7 @@
             android:id="@+id/txt_time"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{item.startTime}"
+            android:text="@{`매주 ` + item.date + ` ` + item.startTime}"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/img_poster"
             app:layout_constraintTop_toTopOf="@+id/img_poster"
@@ -54,7 +54,7 @@
             android:layout_height="wrap_content"
             tools:text="Beginner"
             android:textColor="@color/black"
-            android:text="@{item.level.name}"
+            android:text="@{item.genre.name}"
             android:layout_marginTop="5dp"
             app:layout_constraintStart_toStartOf="@+id/txt_time"
             app:layout_constraintTop_toBottomOf="@+id/txt_artist"/>

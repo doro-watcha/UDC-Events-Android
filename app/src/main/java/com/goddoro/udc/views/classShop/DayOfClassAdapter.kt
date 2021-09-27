@@ -58,7 +58,7 @@ class DayOfClassAdapter: RecyclerView.Adapter<DayOfClassAdapter.ClassViewHolder>
         KoinComponent {
         init {
 
-            binding.imgPoster.setOnDebounceClickListener {
+            binding.root.setOnDebounceClickListener {
                 if (differ.currentList.size != 0)
                     onClick.onNext(
                         Pair(
